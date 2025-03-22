@@ -1,12 +1,15 @@
 import { Router } from 'express';
 
-import { login, logout, refresh, register } from '../../controllers/userController';
+import UserController from '../../controllers/userController';
+import asyncHandler from '../../middlewares/asyncHandler';
 
 const userRouter = Router();
 
-userRouter.post('/registration', register);
-userRouter.post('/login', login);
-userRouter.post('/logout', logout);
-userRouter.get('/refresh', refresh);
+const { register, login, logout, refresh } = new UserController();
+
+userRouter.post('/registration', asyncHandler(register));
+userRouter.post('/login', asyncHandler(login));
+userRouter.post('/logout', asyncHandler(logout));
+userRouter.get('/refresh', asyncHandler(refresh));
 
 export default userRouter;
