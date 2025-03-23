@@ -18,3 +18,10 @@ model User {
   password      String
   role          Role      @default(USER)
 }
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String    @unique
+  price         Int
+  description   String
+}
