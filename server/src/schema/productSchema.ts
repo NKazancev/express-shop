@@ -8,8 +8,8 @@ const CreateProductSchema = z.object({
 
 const UpdateProductSchema = z.object({
   name: z.string().optional(),
-  desc: z.string().optional(),
   price: z.number().optional(),
+  description: z.string().optional(),
 });
 
 export { CreateProductSchema, UpdateProductSchema };
