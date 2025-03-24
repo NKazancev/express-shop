@@ -9,8 +9,8 @@ import ErrorMessage from '../error/errorMessage';
 
 class UserService {
   static generateTokens(id: string, role: Role) {
-    const accessToken = sign({ userId: id, userRole: role }, ACCESS_TOKEN_KEY, { expiresIn: 30 });
-    const refreshToken = sign({ userId: id }, REFRESH_TOKEN_KEY, { expiresIn: '24h' });
+    const accessToken = sign({ id, role }, ACCESS_TOKEN_KEY, { expiresIn: 30 });
+    const refreshToken = sign({ id }, REFRESH_TOKEN_KEY, { expiresIn: '24h' });
     return { accessToken, refreshToken };
   }
 
@@ -38,11 +38,11 @@ class UserService {
   }
 
   async refresh(refreshToken: string) {
-    const payload = verify(refreshToken, REFRESH_TOKEN_KEY) as { userId: string };
-    const user = await prisma.user.findFirst({ where: { id: payload.userId } });
+    const payload = verify(refreshToken, REFRESH_TOKEN_KEY) as { id: string };
+    const user = await prisma.user.findFirst({ where: { id: payload.id } });
     if (!user) throw new ApiError(403, ErrorMessage.FORBIDDEN);
 
-    const accessToken = sign({ userId: user.id, role: user.role }, ACCESS_TOKEN_KEY, {
+    const accessToken = sign({ id: user.id, role: user.role }, ACCESS_TOKEN_KEY, {
       expiresIn: 30,
     });
     return accessToken;

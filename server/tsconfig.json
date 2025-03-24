@@ -10,6 +10,7 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
+  "files": ["./src/types/express.d.ts"],
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
