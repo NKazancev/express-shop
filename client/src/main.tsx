@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router';
 import store from './config/store';
 import App from './app/App';
 
+import './main.css';
+
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <BrowserRouter>
