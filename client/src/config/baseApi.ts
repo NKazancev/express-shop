@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit/query/react';
 
 import { RootState } from './store';
-import { setCredentials, logOut } from '../shared/slices/userSlice';
+import { setCredentials, logout } from '../shared/slices/userSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:5000/api',
@@ -33,7 +33,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       api.dispatch(setCredentials(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logOut);
+      api.dispatch(logout);
     }
   }
   return result;

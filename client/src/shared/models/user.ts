@@ -8,6 +8,6 @@ export interface IRegistrationUserData extends ILoginUserData {
 }
 
 export interface IAuthUserResponse {
-  token: string;
+  accessToken: string;
   role: string;
 }

@@ -16,6 +16,7 @@ class UserController {
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
+      secure: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(201).json({ accessToken, role: user.role });
@@ -29,6 +30,7 @@ class UserController {
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
+      secure: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ accessToken, role: user.role });
@@ -39,7 +41,7 @@ class UserController {
       res.sendStatus(204);
       return;
     }
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none' });
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ message: 'Cookie cleared' });
   }
 

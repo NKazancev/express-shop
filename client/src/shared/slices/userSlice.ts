@@ -18,12 +18,11 @@ const userSlice = createSlice({
       state.token = action.payload.accessToken;
       state.role = action.payload.role;
     },
-    logOut: (state) => {
-      state.token = null;
-      state.role = null;
+    logout: () => {
+      return { ...initialState };
     },
   },
 });
 
-export const { setCredentials, logOut } = userSlice.actions;
+export const { setCredentials, logout } = userSlice.actions;
 export default userSlice.reducer;
