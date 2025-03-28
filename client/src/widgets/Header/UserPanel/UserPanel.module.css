@@ -1,5 +1,12 @@
-.button {
-  background: transparent;
+.container {
   font-size: 16px;
   font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.button {
+  background: transparent;
 }

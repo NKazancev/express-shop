@@ -13,12 +13,19 @@ class UserController {
     const { email, password, role } = req.body;
     const { accessToken, refreshToken, user } = await userService.register(email, password, role);
 
-    res.cookie('jwt', refreshToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res
+      .cookie('jwt', refreshToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .cookie('authSession', 'ok', {
+        httpOnly: false,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
     res.status(201).json({ accessToken, role: user.role });
   }
 
@@ -27,12 +34,19 @@ class UserController {
     const { email, password } = req.body;
     const { accessToken, refreshToken, user } = await userService.login(email, password);
 
-    res.cookie('jwt', refreshToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res
+      .cookie('jwt', refreshToken, {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      })
+      .cookie('authSession', 'ok', {
+        httpOnly: false,
+        sameSite: 'none',
+        secure: true,
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
     res.status(200).json({ accessToken, role: user.role });
   }
 
@@ -41,15 +55,17 @@ class UserController {
       res.sendStatus(204);
       return;
     }
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
-    res.json({ message: 'Cookie cleared' });
+    res
+      .clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true })
+      .clearCookie('authSession', { httpOnly: false, sameSite: 'none', secure: true });
+    res.status(204).json();
   }
 
   async refresh(req: Request, res: Response) {
     const refreshToken = req.cookies.jwt;
     if (!refreshToken) throw new ApiError(401, ErrorMessage.UNAUTHORIZED);
-    const accessToken = await userService.refresh(refreshToken);
-    res.json({ accessToken });
+    const { accessToken, role } = await userService.refresh(refreshToken);
+    res.status(200).json({ accessToken, role });
   }
 }
 

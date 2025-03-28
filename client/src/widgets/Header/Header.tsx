@@ -6,7 +6,7 @@ import UserPanel from './UserPanel/UserPanel';
 import styles from './Header.module.css';
 
 function Header() {
-  const { token } = useAppSelector((state) => state.user);
+  const { isLogged } = useAppSelector((state) => state.user);
 
   return (
     <header className={styles.header}>
@@ -14,7 +14,7 @@ function Header() {
         Express-shop
       </NavLink>
 
-      {!token ? (
+      {!isLogged ? (
         <div className={styles.actions}>
           <NavLink to={'/login'}>SignIn</NavLink>
           <NavLink to={'/registration'}>SignUp</NavLink>

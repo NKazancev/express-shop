@@ -45,7 +45,7 @@ class UserService {
     const accessToken = sign({ id: user.id, role: user.role }, ACCESS_TOKEN_KEY, {
       expiresIn: 30,
     });
-    return accessToken;
+    return { accessToken, role: user.role };
   }
 }
 

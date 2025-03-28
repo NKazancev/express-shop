@@ -19,7 +19,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
       req.user = { ...tokenData };
       next();
     } catch (error) {
-      next(new ApiError(401, ErrorMessage.UNAUTHORIZED));
+      next(new ApiError(403, ErrorMessage.FORBIDDEN));
     }
   }
 };

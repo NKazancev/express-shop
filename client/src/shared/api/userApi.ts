@@ -1,6 +1,6 @@
 import baseApi from '../../config/baseApi';
 import { IAuthUserResponse, ILoginUserData, IRegistrationUserData } from '../models/user';
-import { logout } from '../slices/userSlice';
+import { logout, setCredentials } from '../slices/userSlice';
 
 const userApi = baseApi.enhanceEndpoints({ addTagTypes: ['User'] }).injectEndpoints({
   endpoints: (builder) => ({
@@ -33,7 +33,23 @@ const userApi = baseApi.enhanceEndpoints({ addTagTypes: ['User'] }).injectEndpoi
         }
       },
     }),
+    refresh: builder.mutation<IAuthUserResponse, void>({
+      query: () => ({
+        url: 'users/refresh',
+        method: 'GET',
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const { accessToken, role } = data;
+          dispatch(setCredentials({ accessToken, role }));
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } = userApi;
+export const { useRegisterMutation, useLoginMutation, useLogoutMutation, useRefreshMutation } =
+  userApi;

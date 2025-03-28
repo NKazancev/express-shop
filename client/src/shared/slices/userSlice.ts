@@ -1,13 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
+
+const authSession = Cookies.get('authSession');
 
 interface IUserState {
   token: string | null;
   role: string | null;
+  isLogged: boolean;
 }
 
 const initialState: IUserState = {
   token: null,
   role: null,
+  isLogged: !!authSession,
 };
 
 const userSlice = createSlice({
@@ -17,9 +22,10 @@ const userSlice = createSlice({
     setCredentials: (state, action) => {
       state.token = action.payload.accessToken;
       state.role = action.payload.role;
+      state.isLogged = true;
     },
     logout: () => {
-      return { ...initialState };
+      return { ...initialState, isLogged: false };
     },
   },
 });
