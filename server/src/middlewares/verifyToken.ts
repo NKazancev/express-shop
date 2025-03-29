@@ -9,7 +9,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   const accessToken = req.headers.authorization?.split(' ')[1];
 
   if (!accessToken) {
-    next(new ApiError(403, ErrorMessage.FORBIDDEN));
+    next(new ApiError(401, ErrorMessage.UNAUTHORIZED));
   } else {
     try {
       const tokenData = verify(accessToken, ACCESS_TOKEN_KEY) as {

@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useLoginMutation } from '../shared/api/userApi';
+import { useLoginMutation } from '../shared/api/authApi';
 import { useAppDispatch, useAppSelector } from '../shared/hooks/reduxHooks';
-import { ILoginUserData } from '../shared/models/user';
+import { ILoginData } from '../shared/models/auth';
 import { setCredentials } from '../shared/slices/userSlice';
 import LoginForm from '../widgets/LoginForm/LoginForm';
 
@@ -17,7 +17,7 @@ function LoginPage() {
     if (isLogged) navigate('/');
   }, [navigate, isLogged]);
 
-  const handleLogin = async (data: ILoginUserData) => {
+  const handleLogin = async (data: ILoginData) => {
     try {
       const { accessToken, role } = await login({ ...data }).unwrap();
       dispatch(setCredentials({ accessToken, role }));

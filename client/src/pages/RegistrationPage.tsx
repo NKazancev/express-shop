@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useRegisterMutation } from '../shared/api/userApi';
+import { useCreateUserMutation } from '../shared/api/userApi';
 import { useAppDispatch, useAppSelector } from '../shared/hooks/reduxHooks';
-import { IRegistrationUserData } from '../shared/models/user';
+import { ICreateUserData } from '../shared/models/user';
 import { setCredentials } from '../shared/slices/userSlice';
 import RegistrationForm from '../widgets/RegistrationForm/RegistrationForm';
 
 function RegistrationPage() {
   const { isLogged } = useAppSelector((state) => state.user);
-  const [register] = useRegisterMutation();
+  const [createUser] = useCreateUserMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -17,9 +17,9 @@ function RegistrationPage() {
     if (isLogged) navigate('/');
   }, [navigate, isLogged]);
 
-  const handleRegistration = async (data: IRegistrationUserData) => {
+  const handleRegistration = async (data: ICreateUserData) => {
     try {
-      const { accessToken, role } = await register({ ...data }).unwrap();
+      const { accessToken, role } = await createUser({ ...data }).unwrap();
       dispatch(setCredentials({ accessToken, role }));
     } catch (error) {
       console.log(error);

@@ -1,13 +1,9 @@
 import { z } from 'zod';
 
-const UserRegistrationSchema = z.object({
+const CreateUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(5),
+  role: z.enum(['USER', 'ADMIN']).optional(),
 });
 
-const UserLoginSchema = z.object({
-  email: z.string().nonempty(),
-  password: z.string().nonempty(),
-});
-
-export { UserRegistrationSchema, UserLoginSchema };
+export { CreateUserSchema };

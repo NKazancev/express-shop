@@ -5,11 +5,8 @@ import asyncHandler from '../../middlewares/asyncHandler';
 
 const userRouter = Router();
 
-const { register, login, logout, refresh } = new UserController();
+const { createUser } = UserController;
 
-userRouter.post('/registration', asyncHandler(register));
-userRouter.post('/login', asyncHandler(login));
-userRouter.post('/logout', asyncHandler(logout));
-userRouter.get('/refresh', asyncHandler(refresh));
+userRouter.post('/registration', asyncHandler(createUser));
 
 export default userRouter;

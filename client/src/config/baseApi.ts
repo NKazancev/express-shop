@@ -21,19 +21,19 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
-  args,
-  api,
-  extraOptions
-) => {
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error?.status == 403) {
-    const refreshResult = await baseQuery('/users/refresh', api, extraOptions);
+    const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
     if (refreshResult.data) {
       api.dispatch(setCredentials(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logout);
+      api.dispatch(logout());
     }
   }
   return result;

@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ILoginUserData } from '../../shared/models/user';
+import { ILoginData } from '../../shared/models/auth';
 
 import styles from './LoginForm.module.css';
 
 type TLoginForm = {
-  onLogin: (data: ILoginUserData) => void;
+  onLogin: (data: ILoginData) => void;
 };
 
 const LoginForm: FC<TLoginForm> = ({ onLogin }) => {
-  const { handleSubmit, register } = useForm<ILoginUserData>();
+  const { handleSubmit, register } = useForm<ILoginData>();
 
   return (
     <form onSubmit={handleSubmit(onLogin)} className={styles.form}>

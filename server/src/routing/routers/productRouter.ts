@@ -8,7 +8,7 @@ import verifyAdmin from '../../middlewares/verifyAdmin';
 const productRouter = Router();
 
 const { createProduct, getProducts, getProductById, updateProduct, deleteProduct } =
-  new ProductController();
+  ProductController;
 
 productRouter.post('/', [verifyToken, verifyAdmin], asyncHandler(createProduct));
 productRouter.get('/', asyncHandler(getProducts));

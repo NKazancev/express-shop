@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Outlet } from 'react-router';
 
 import { useAppSelector } from '../shared/hooks/reduxHooks';
-import { useRefreshMutation } from '../shared/api/userApi';
+import { useRefreshMutation } from '../shared/api/authApi';
 import Header from '../widgets/Header/Header';
 
 function Layout() {
