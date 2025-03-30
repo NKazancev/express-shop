@@ -5,6 +5,10 @@ import ErrorMessage from '../error/errorMessage';
 
 class ProductService {
   static async createProduct(data: Omit<Product, 'id'>) {
+    const foundProduct = await prisma.product.findFirst({
+      where: { name: data.name },
+    });
+    if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
     const product = await prisma.product.create({ data: { ...data } });
     return product;
   }

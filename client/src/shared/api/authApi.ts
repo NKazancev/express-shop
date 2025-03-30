@@ -12,9 +12,10 @@ const authApi = baseApi
           method: 'POST',
           body: { ...data },
         }),
+        invalidatesTags: ['Auth'],
       }),
 
-      logout: builder.mutation({
+      logout: builder.mutation<void, void>({
         query: () => ({
           url: 'auth/logout',
           method: 'POST',
@@ -28,6 +29,7 @@ const authApi = baseApi
             console.log(error);
           }
         },
+        invalidatesTags: ['Auth'],
       }),
 
       refresh: builder.mutation<IAuthResponse, void>({
@@ -44,6 +46,7 @@ const authApi = baseApi
             console.log(error);
           }
         },
+        invalidatesTags: ['Auth'],
       }),
     }),
   });

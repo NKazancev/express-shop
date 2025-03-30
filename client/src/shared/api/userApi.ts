@@ -3,7 +3,7 @@ import { IAuthResponse } from '../models/auth';
 import { ICreateUserData } from '../models/user';
 
 const userApi = baseApi
-  .enhanceEndpoints({ addTagTypes: ['User'] })
+  .enhanceEndpoints({ addTagTypes: ['Users'] })
   .injectEndpoints({
     endpoints: (builder) => ({
       createUser: builder.mutation<IAuthResponse, ICreateUserData>({

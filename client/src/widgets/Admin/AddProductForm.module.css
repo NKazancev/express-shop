@@ -1,0 +1,42 @@
+.form {
+  max-width: 400px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid rgb(155, 147, 141);
+  border-radius: 2px;
+  font-size: 16px;
+}
+
+.input {
+  height: 42px;
+  padding: 0 10px;
+}
+
+.textarea {
+  min-height: 200px;
+  margin-top: 18px;
+  padding: 10px;
+  resize: none;
+}
+
+.input:not(:last-of-type) {
+  margin-bottom: 18px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgb(194, 189, 183);
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 42px;
+  background-color: rgb(255, 196, 130);
+  border-radius: 2px;
+
+  font-size: 14px;
+  letter-spacing: 0.02rem;
+}
