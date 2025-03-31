@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import ProductService from '../services/productService';
 import {
   CreateProductSchema,
@@ -7,8 +8,10 @@ import {
 
 class ProductController {
   static async createProduct(req: Request, res: Response) {
-    CreateProductSchema.parse(req.body);
-    const product = await ProductService.createProduct({ ...req.body });
+    const data = { ...req.body, price: Number(req.body.price) };
+    CreateProductSchema.parse(data);
+    const file = req.file?.filename || '';
+    const product = await ProductService.createProduct({ ...data }, file);
     res.status(201).json(product);
   }
 

@@ -24,4 +24,5 @@ model Product {
   name          String    @unique
   price         Int
   description   String
+  image         String
 }
