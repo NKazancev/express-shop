@@ -13,6 +13,7 @@ const ProductsList = () => {
   const productsList = products?.map((product: IProduct) => {
     return (
       <li key={product.id} className={styles.product}>
+        <img src={`http://localhost:5000/static/${product.image}`} />
         <h3>{product.name}</h3>
         <p>{product.price}</p>
         <p>{product.description}</p>

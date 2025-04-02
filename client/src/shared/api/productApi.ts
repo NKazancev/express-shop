@@ -5,11 +5,11 @@ const productApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Products'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createProduct: builder.mutation<IProduct, Omit<IProduct, 'id'>>({
+      createProduct: builder.mutation<IProduct, FormData>({
         query: (data) => ({
           url: 'products',
           method: 'POST',
-          body: { ...data },
+          body: data,
         }),
         invalidatesTags: [{ type: 'Products', id: 'LIST' }],
       }),

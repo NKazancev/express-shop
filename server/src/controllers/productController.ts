@@ -8,7 +8,8 @@ import {
 
 class ProductController {
   static async createProduct(req: Request, res: Response) {
-    const data = { ...req.body, price: Number(req.body.price) };
+    const parsedData = JSON.parse(req.body.data);
+    const data = { ...parsedData, price: Number(parsedData.price) };
     CreateProductSchema.parse(data);
     const file = req.file?.filename || '';
     const product = await ProductService.createProduct({ ...data }, file);

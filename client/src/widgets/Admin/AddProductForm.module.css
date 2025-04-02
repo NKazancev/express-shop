@@ -17,8 +17,8 @@
 
 .textarea {
   min-height: 200px;
-  margin-top: 18px;
   padding: 10px;
+  margin-bottom: 18px;
   resize: none;
 }
 
@@ -29,6 +29,19 @@
 .input::placeholder,
 .textarea::placeholder {
   color: rgb(194, 189, 183);
+}
+
+.file::file-selector-button {
+  padding: 3px 10px;
+  margin-right: 5px;
+  background: transparent;
+  border: 1px solid rgb(155, 147, 141);
+  border-radius: 2px;
+
+  color: rgb(92, 86, 80);
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .button {

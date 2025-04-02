@@ -7,8 +7,10 @@ function AdminPage() {
 
   const handleProductAddition = async (data: Omit<IProduct, 'id'>) => {
     try {
-      const body = { ...data, price: Number(data.price) };
-      await createProduct({ ...body }).unwrap();
+      const formData = new FormData();
+      formData.append('image', data.image[0]);
+      formData.append('data', JSON.stringify(data));
+      await createProduct(formData).unwrap();
     } catch (error) {
       console.log(error);
     }

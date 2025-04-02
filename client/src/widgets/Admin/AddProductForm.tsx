@@ -36,6 +36,8 @@ const AddProductForm: FC<TAddProductForm> = ({ onProductAddition }) => {
         {...register('description', { required: true })}
       />
 
+      <input type="file" className={styles.file} {...register('image')} />
+
       <button type="submit" className={styles.button}>
         Add product
       </button>
