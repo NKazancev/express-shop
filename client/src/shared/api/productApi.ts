@@ -14,11 +14,15 @@ const productApi = baseApi
         invalidatesTags: [{ type: 'Products', id: 'LIST' }],
       }),
 
-      getProducts: builder.query<IProduct[], void>({
-        query: () => ({
-          url: 'products',
-          method: 'GET',
-        }),
+      getProducts: builder.query<IProduct[], { searchQuery: string }>({
+        query: (args) => {
+          const { searchQuery } = args;
+          return {
+            url: 'products',
+            method: 'GET',
+            params: { searchQuery },
+          };
+        },
         providesTags: (result) =>
           result
             ? [

@@ -1,7 +1,7 @@
-import ProductsList from '../widgets/ProductsList/ProductsList';
+import Products from '../widgets/Products/Products';
 
 function HomePage() {
-  return <ProductsList />;
+  return <Products />;
 }
 
 export default HomePage;

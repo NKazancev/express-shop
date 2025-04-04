@@ -1,12 +1,15 @@
-import { useGetProductsQuery } from '../../shared/api/productApi';
-import { IProduct } from '../../shared/models/product';
+import { FC } from 'react';
+
+import { IProduct } from '../../../shared/models/product';
 import ProductCard from '../ProductCard/ProductCard';
 
 import styles from './ProductsList.module.css';
 
-const ProductsList = () => {
-  const { data: products } = useGetProductsQuery();
+type TProductsList = {
+  products: Array<IProduct> | undefined;
+};
 
+const ProductsList: FC<TProductsList> = ({ products }) => {
   const productsList = products?.map((product: IProduct) => {
     return (
       <ProductCard

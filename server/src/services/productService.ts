@@ -12,12 +12,20 @@ class ProductService {
     const product = await prisma.product.create({
       data: { ...data, image: file },
     });
-
     return product;
   }
 
-  static async getProducts(skip: number, take: number) {
-    const products = await prisma.product.findMany({ skip, take });
+  static async getProducts(searchQuery: string, skip: number, take: number) {
+    let products;
+    if (!searchQuery) {
+      products = await prisma.product.findMany({ skip, take });
+    } else {
+      products = await prisma.product.findMany({
+        where: { name: { contains: searchQuery, mode: 'insensitive' } },
+        skip,
+        take,
+      });
+    }
     return products;
   }
 

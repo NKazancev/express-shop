@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { IProduct } from '../../shared/models/product';
-import { useAppSelector } from '../../shared/hooks/reduxHooks';
-import { useDeleteProductMutation } from '../../shared/api/productApi';
-import { STATIC_URL } from '../../shared/lib/consts';
+import { IProduct } from '../../../shared/models/product';
+import { useAppSelector } from '../../../shared/hooks/reduxHooks';
+import { useDeleteProductMutation } from '../../../shared/api/productApi';
+import { STATIC_URL } from '../../../config/consts';
 
-import noPhoto from '../../shared/assets/no-photo.jpg';
+import noPhoto from '../../../shared/assets/no-photo.jpg';
 import styles from './ProductCard.module.css';
 
 const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {

@@ -6,7 +6,7 @@ import {
   createApi,
 } from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL } from '../shared/lib/consts';
+import { BASE_URL } from './consts';
 import { RootState } from './store';
 import { setCredentials, logout } from '../shared/slices/userSlice';
 

@@ -17,9 +17,10 @@ class ProductController {
   }
 
   static async getProducts(req: Request, res: Response) {
+    const searchQuery = String(req.query.searchQuery) || '';
     const skip = Number(req.query.skip) || 0;
     const take = 10;
-    const products = await ProductService.getProducts(skip, take);
+    const products = await ProductService.getProducts(searchQuery, skip, take);
     res.status(200).json(products);
   }
 
