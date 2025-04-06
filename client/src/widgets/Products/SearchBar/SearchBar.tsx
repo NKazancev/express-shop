@@ -1,15 +1,16 @@
 import { FC, useState } from 'react';
-import styles from './ProductsFilters.module.css';
 
-type TProductsFilters = {
+import styles from './SearchBar.module.css';
+
+type TSearchBar = {
   setSearchQuery: (searchValue: string) => void;
 };
 
-const ProductsFilters: FC<TProductsFilters> = ({ setSearchQuery }) => {
+const SearchBar: FC<TSearchBar> = ({ setSearchQuery }) => {
   const [searchValue, setSearchValue] = useState<string>('');
 
   return (
-    <div>
+    <>
       <input
         type="text"
         value={searchValue}
@@ -25,8 +26,8 @@ const ProductsFilters: FC<TProductsFilters> = ({ setSearchQuery }) => {
       >
         Search
       </button>
-    </div>
+    </>
   );
 };
 
-export default ProductsFilters;
+export default SearchBar;

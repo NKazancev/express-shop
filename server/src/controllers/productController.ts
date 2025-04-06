@@ -18,9 +18,17 @@ class ProductController {
 
   static async getProducts(req: Request, res: Response) {
     const searchQuery = String(req.query.searchQuery) || '';
+    const minPrice = Number(req.query.minPrice);
+    const maxPrice = Number(req.query.maxPrice);
     const skip = Number(req.query.skip) || 0;
     const take = 10;
-    const products = await ProductService.getProducts(searchQuery, skip, take);
+    const products = await ProductService.getProducts(
+      searchQuery,
+      minPrice,
+      maxPrice,
+      skip,
+      take
+    );
     res.status(200).json(products);
   }
 

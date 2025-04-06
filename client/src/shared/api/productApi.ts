@@ -1,5 +1,5 @@
 import baseApi from '../../config/baseApi';
-import { IProduct } from '../models/product';
+import { IProduct, IProductsRequest } from '../models/product';
 
 const productApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Products'] })
@@ -14,13 +14,13 @@ const productApi = baseApi
         invalidatesTags: [{ type: 'Products', id: 'LIST' }],
       }),
 
-      getProducts: builder.query<IProduct[], { searchQuery: string }>({
+      getProducts: builder.query<IProduct[], IProductsRequest>({
         query: (args) => {
-          const { searchQuery } = args;
+          const { searchQuery, minPrice, maxPrice } = args;
           return {
             url: 'products',
             method: 'GET',
-            params: { searchQuery },
+            params: { searchQuery, minPrice, maxPrice },
           };
         },
         providesTags: (result) =>
@@ -68,4 +68,5 @@ export const {
   useGetProductByIdQuery,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useLazyGetProductsQuery,
 } = productApi;

@@ -15,13 +15,28 @@ class ProductService {
     return product;
   }
 
-  static async getProducts(searchQuery: string, skip: number, take: number) {
+  static async getProducts(
+    searchQuery: string,
+    minPrice: number,
+    maxPrice: number,
+    skip: number,
+    take: number
+  ) {
     let products;
     if (!searchQuery) {
-      products = await prisma.product.findMany({ skip, take });
+      products = await prisma.product.findMany({
+        where: {
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+        },
+        skip,
+        take,
+      });
     } else {
       products = await prisma.product.findMany({
-        where: { name: { contains: searchQuery, mode: 'insensitive' } },
+        where: {
+          name: { contains: searchQuery, mode: 'insensitive' },
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+        },
         skip,
         take,
       });

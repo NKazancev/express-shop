@@ -1,18 +1,32 @@
-import { useGetProductsQuery } from '../../shared/api/productApi';
+import { useState } from 'react';
 
-import ProductsFilters from './ProductsFilters/ProductsFilters';
+import { useGetProductsQuery } from '../../shared/api/productApi';
+import SearchBar from './SearchBar/SearchBar';
+import PricesSlider from './PricesSlider/PricesSlider';
 import ProductsList from './ProductsList/ProductsList';
 
 import styles from './Products.module.css';
-import { useState } from 'react';
 
 const Products = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const { data: products } = useGetProductsQuery({ searchQuery });
+  const [prices, setPrices] = useState<number[]>([0, 300000]);
+
+  const { data: products } = useGetProductsQuery(
+    {
+      searchQuery,
+      minPrice: prices[0],
+      maxPrice: prices[1],
+    },
+    { refetchOnMountOrArgChange: true }
+  );
 
   return (
     <div className={styles.container}>
-      <ProductsFilters setSearchQuery={(data) => setSearchQuery(data)} />
+      <div>
+        <SearchBar setSearchQuery={(data) => setSearchQuery(data)} />
+        <PricesSlider prices={prices} setPrices={(data) => setPrices(data)} />
+      </div>
+
       <ProductsList products={products} />
     </div>
   );
