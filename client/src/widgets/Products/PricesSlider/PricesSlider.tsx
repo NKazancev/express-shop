@@ -27,6 +27,7 @@ const PricesSlider: FC<TPricesSlider> = ({ prices, setPrices }) => {
         max={300000}
         values={values}
         onChange={(values) => setValues(values)}
+        onFinalChange={() => setPrices(values)}
         renderTrack={({ props, children, isDragged }) => (
           <div
             {...props}
@@ -41,7 +42,6 @@ const PricesSlider: FC<TPricesSlider> = ({ prices, setPrices }) => {
           <div
             {...props}
             key={props.key}
-            onMouseUp={() => setPrices(values)}
             className={styles.thumb}
             style={{
               ...props.style,
