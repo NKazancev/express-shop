@@ -1,15 +1,19 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IProduct } from '../../shared/models/product';
+import { IProduct, IProductType } from '../../shared/models/product';
 
 import styles from './AddProductForm.module.css';
 
 type TAddProductForm = {
   onProductAddition: (data: Omit<IProduct, 'id'>) => void;
+  typeOptions: IProductType[] | undefined;
 };
 
-const AddProductForm: FC<TAddProductForm> = ({ onProductAddition }) => {
+const AddProductForm: FC<TAddProductForm> = ({
+  onProductAddition,
+  typeOptions,
+}) => {
   const { handleSubmit, register } = useForm<Omit<IProduct, 'id'>>();
 
   return (
@@ -35,6 +39,19 @@ const AddProductForm: FC<TAddProductForm> = ({ onProductAddition }) => {
         className={styles.textarea}
         {...register('description', { required: true })}
       />
+
+      <select
+        className={styles.select}
+        {...register('typeId', { required: true })}
+      >
+        {typeOptions?.map((type) => {
+          return (
+            <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+          );
+        })}
+      </select>
 
       <input type="file" className={styles.file} {...register('image')} />
 

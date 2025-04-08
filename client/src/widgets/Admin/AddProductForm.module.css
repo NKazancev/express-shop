@@ -1,13 +1,8 @@
 .form {
   max-width: 400px;
-}
-
-.input,
-.textarea {
-  width: 100%;
-  border: 1px solid rgb(155, 147, 141);
-  border-radius: 2px;
-  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
 }
 
 .input {
@@ -18,17 +13,28 @@
 .textarea {
   min-height: 200px;
   padding: 10px;
-  margin-bottom: 18px;
   resize: none;
 }
 
-.input:not(:last-of-type) {
-  margin-bottom: 18px;
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid rgb(155, 147, 141);
+  border-radius: 2px;
+  font-size: 16px;
 }
 
 .input::placeholder,
 .textarea::placeholder {
   color: rgb(194, 189, 183);
+}
+
+.select {
+  align-self: flex-start;
+  padding: 5px 10px;
+  border: 1px solid rgb(155, 147, 141);
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .file::file-selector-button {
@@ -45,7 +51,9 @@
 }
 
 .button {
-  margin-top: 20px;
+  align-self: flex-start;
+
+  margin-top: 2px;
   padding: 10px 42px;
   background-color: rgb(255, 196, 130);
   border-radius: 2px;

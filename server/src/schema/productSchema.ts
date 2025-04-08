@@ -4,6 +4,7 @@ const CreateProductSchema = z.object({
   name: z.string(),
   price: z.number(),
   description: z.string(),
+  typeId: z.string(),
 });
 
 const UpdateProductSchema = z.object({
@@ -12,4 +13,8 @@ const UpdateProductSchema = z.object({
   description: z.string().optional(),
 });
 
-export { CreateProductSchema, UpdateProductSchema };
+const ProductTypeSchema = z.object({
+  name: z.string(),
+});
+
+export { CreateProductSchema, UpdateProductSchema, ProductTypeSchema };
