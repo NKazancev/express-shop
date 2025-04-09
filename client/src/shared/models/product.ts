@@ -5,6 +5,7 @@ export interface IProduct {
   description: string;
   image: string | FileList;
   typeId?: string;
+  brandId?: string;
 }
 
 export interface IProductsRequest {
@@ -14,6 +15,11 @@ export interface IProductsRequest {
 }
 
 export interface IProductType {
+  id: string;
+  name: string;
+}
+
+export interface IProductBrand {
   id: string;
   name: string;
 }

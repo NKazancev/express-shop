@@ -26,10 +26,18 @@ model Product {
   description   String
   image         String
   typeId        String
+  brandId       String
   type          ProductType     @relation(fields: [typeId], references: [id])
+  brand         ProductBrand    @relation(fields: [brandId], references: [id])
 }
 
 model ProductType {
+  id            String          @id @default(cuid())
+  name          String          @unique
+  products      Product[]
+}
+
+model ProductBrand {
   id            String          @id @default(cuid())
   name          String          @unique
   products      Product[]

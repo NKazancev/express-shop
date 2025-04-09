@@ -8,6 +8,8 @@ enum ErrorMessage {
   PRODUCT_NOT_FOUND = 'Product not found',
   PRODUCT_TYPE_EXISTS = 'Such product type already exists',
   PRODUCT_TYPE_NOT_FOUND = 'Product type not found',
+  PRODUCT_BRAND_EXISTS = 'Such product brand already exists',
+  PRODUCT_BRAND_NOT_FOUND = 'Product brand not found',
   INTERNAL = 'Internal server error',
 }
 

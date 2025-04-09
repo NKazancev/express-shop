@@ -16,3 +16,9 @@ button {
   margin: 0 auto;
   padding: 0 15px;
 }
+
+.admin-page {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 50px;
+}

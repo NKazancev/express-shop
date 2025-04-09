@@ -1,13 +1,26 @@
 import { useCreateProductMutation } from '../shared/api/productApi';
-import { useGetTypesQuery } from '../shared/api/productTypeApi';
-import { IProduct } from '../shared/models/product';
-import AddProductForm from '../widgets/Admin/AddProductForm';
+import { useCreateTypeMutation, useGetTypesQuery } from '../shared/api/typeApi';
+import {
+  useCreateBrandMutation,
+  useGetBrandsQuery,
+} from '../shared/api/brandApi';
+import {
+  IProduct,
+  IProductBrand,
+  IProductType,
+} from '../shared/models/product';
+import ProductForm from '../widgets/Admin/ProductForm/ProductForm';
+import TypeForm from '../widgets/Admin/TypeForm/TypeForm';
+import BrandForm from '../widgets/Admin/BrandForm/BrandForm';
 
 function AdminPage() {
   const [createProduct] = useCreateProductMutation();
+  const [createType] = useCreateTypeMutation();
+  const [createBrand] = useCreateBrandMutation();
   const { data: productTypes } = useGetTypesQuery();
+  const { data: productBrands } = useGetBrandsQuery();
 
-  const handleProductAddition = async (data: Omit<IProduct, 'id'>) => {
+  const handleProductCreation = async (data: Omit<IProduct, 'id'>) => {
     try {
       const formData = new FormData();
       formData.append('image', data.image[0]);
@@ -18,11 +31,32 @@ function AdminPage() {
     }
   };
 
+  const handleTypeCreation = async (data: Omit<IProductType, 'id'>) => {
+    try {
+      await createType(data.name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBrandCreation = async (data: Omit<IProductBrand, 'id'>) => {
+    try {
+      await createBrand(data.name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <AddProductForm
-      onProductAddition={handleProductAddition}
-      typeOptions={productTypes}
-    />
+    <div className="admin-page">
+      <ProductForm
+        onProductCreation={handleProductCreation}
+        typeOptions={productTypes}
+        brandOptions={productBrands}
+      />
+      <TypeForm onTypeCreation={handleTypeCreation} />
+      <BrandForm onBrandCreation={handleBrandCreation} />
+    </div>
   );
 }
 
