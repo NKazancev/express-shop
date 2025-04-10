@@ -16,11 +16,11 @@ const productApi = baseApi
 
       getProducts: builder.query<IProduct[], IProductsRequest>({
         query: (args) => {
-          const { searchQuery, minPrice, maxPrice } = args;
+          const { searchQuery, productType, minPrice, maxPrice } = args;
           return {
             url: 'products',
             method: 'GET',
-            params: { searchQuery, minPrice, maxPrice },
+            params: { searchQuery, productType, minPrice, maxPrice },
           };
         },
         providesTags: (result) =>

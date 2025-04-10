@@ -10,7 +10,7 @@ const SearchBar: FC<TSearchBar> = ({ setSearchQuery }) => {
   const [searchValue, setSearchValue] = useState<string>('');
 
   return (
-    <>
+    <div>
       <input
         type="text"
         value={searchValue}
@@ -26,7 +26,7 @@ const SearchBar: FC<TSearchBar> = ({ setSearchQuery }) => {
       >
         Search
       </button>
-    </>
+    </div>
   );
 };
 
