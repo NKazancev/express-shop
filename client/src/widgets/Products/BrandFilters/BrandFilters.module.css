@@ -1,0 +1,20 @@
+.title {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.checkbox {
+  display: flex;
+  column-gap: 10px;
+  user-select: none;
+}
+
+.label {
+  font-size: 14px;
+}

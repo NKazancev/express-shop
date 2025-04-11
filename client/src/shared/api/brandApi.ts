@@ -41,5 +41,6 @@ const brandApi = baseApi
 export const {
   useCreateBrandMutation,
   useGetBrandsQuery,
+  useLazyGetBrandsQuery,
   useDeleteBrandMutation,
 } = brandApi;
