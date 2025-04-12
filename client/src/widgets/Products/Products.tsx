@@ -12,15 +12,14 @@ import styles from './Products.module.css';
 const Products = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [productType, setProductType] = useState<string>('All');
-  const [brandFilters, setBrandFilters] = useState<string | undefined>('');
+  const [brandFilters, setBrandFilters] = useState<string>('');
   const [prices, setPrices] = useState<number[]>([0, 300000]);
-
-  console.log(brandFilters);
 
   const { data: products } = useGetProductsQuery(
     {
       searchQuery,
       productType,
+      brandFilters,
       minPrice: prices[0],
       maxPrice: prices[1],
     },

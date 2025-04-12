@@ -18,6 +18,7 @@ class ProductService {
   static async getProducts(
     searchQuery: string,
     productType: string,
+    brandFilters: string,
     minPrice: number,
     maxPrice: number,
     skip: number,
@@ -31,7 +32,7 @@ class ProductService {
         take,
       });
     }
-    if (!searchQuery && productType === 'All') {
+    if (!searchQuery && productType === 'All' && !brandFilters) {
       products = await prisma.product.findMany({
         where: {
           AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
@@ -40,11 +41,32 @@ class ProductService {
         take,
       });
     }
-    if (!searchQuery && productType !== 'All') {
+    if (!searchQuery && productType !== 'All' && brandFilters) {
       products = await prisma.product.findMany({
         where: {
           AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
           typeId: productType,
+          brandId: { in: brandFilters.split(',') },
+        },
+        skip,
+        take,
+      });
+    }
+    if (!searchQuery && productType !== 'All' && !brandFilters) {
+      products = await prisma.product.findMany({
+        where: {
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+          typeId: productType,
+        },
+        skip,
+        take,
+      });
+    }
+    if (!searchQuery && productType === 'All' && brandFilters) {
+      products = await prisma.product.findMany({
+        where: {
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+          brandId: { in: brandFilters.split(',') },
         },
         skip,
         take,

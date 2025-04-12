@@ -19,6 +19,7 @@ class ProductController {
   static async getProducts(req: Request, res: Response) {
     const searchQuery = String(req.query.searchQuery) || '';
     const productType = String(req.query.productType);
+    const brandFilters = String(req.query.brandFilters);
     const minPrice = Number(req.query.minPrice);
     const maxPrice = Number(req.query.maxPrice);
     const skip = Number(req.query.skip) || 0;
@@ -26,6 +27,7 @@ class ProductController {
     const products = await ProductService.getProducts(
       searchQuery,
       productType,
+      brandFilters,
       minPrice,
       maxPrice,
       skip,

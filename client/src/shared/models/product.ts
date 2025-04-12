@@ -11,6 +11,7 @@ export interface IProduct {
 export interface IProductsRequest {
   searchQuery: string;
   productType: string;
+  brandFilters: string;
   minPrice: number;
   maxPrice: number;
 }

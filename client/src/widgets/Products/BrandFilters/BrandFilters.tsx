@@ -6,7 +6,7 @@ import { IBrandCheckbox } from '../../../shared/models/product';
 import styles from './BrandFilters.module.css';
 
 type TBrandFilters = {
-  setBrandFilters: (brands: string | undefined) => void;
+  setBrandFilters: (brands: string) => void;
 };
 
 const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
@@ -24,14 +24,15 @@ const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
   }, []);
 
   useEffect(() => {
-    setBrandFilters(
-      checkboxes
-        ?.reduce((acc, el) => {
-          if (el.checked) acc.push(el.name);
-          return acc;
-        }, [] as string[])
-        .join(',')
-    );
+    if (checkboxes)
+      setBrandFilters(
+        checkboxes
+          .reduce((acc, el) => {
+            if (el.checked) acc.push(el.id);
+            return acc;
+          }, [] as string[])
+          .join(',')
+      );
   }, [checkboxes]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
