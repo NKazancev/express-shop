@@ -46,7 +46,7 @@ const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
   };
 
   return (
-    <div className={styles.brands}>
+    <div>
       <div className={styles.title}>Choose brands</div>
 
       <ul className={styles.list}>

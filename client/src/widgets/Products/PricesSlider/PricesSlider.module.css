@@ -1,10 +1,13 @@
+.container {
+  min-height: 57px;
+}
+
 .label {
-  margin-bottom: 10px;
   font-weight: 500;
 }
 
 .tags {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-size: 13px;
   font-weight: 300;
 
@@ -15,10 +18,8 @@
 .track {
   width: 92%;
   height: 4px;
-  margin-left: 5px;
   background-color: rgb(255, 196, 130);
-  position: relative;
-  left: 4px;
+  transform: translate(9px);
 }
 
 .track_body {

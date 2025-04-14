@@ -1,5 +1,5 @@
 .title {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
   font-weight: 500;
 }
 
@@ -11,7 +11,7 @@
 
 .checkbox {
   display: flex;
-  column-gap: 10px;
+  column-gap: 11px;
   user-select: none;
 }
 
