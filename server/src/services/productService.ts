@@ -27,46 +27,30 @@ class ProductService {
     let products;
     if (searchQuery) {
       products = await prisma.product.findMany({
-        where: { name: { contains: searchQuery, mode: 'insensitive' } },
-        skip,
-        take,
-      });
-    }
-    if (!searchQuery && productType === 'All' && !brandFilters) {
-      products = await prisma.product.findMany({
         where: {
-          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-        },
-        skip,
-        take,
-      });
-    }
-    if (!searchQuery && productType !== 'All' && brandFilters) {
-      products = await prisma.product.findMany({
-        where: {
-          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-          typeId: productType,
-          brandId: { in: brandFilters.split(',') },
-        },
-        skip,
-        take,
-      });
-    }
-    if (!searchQuery && productType !== 'All' && !brandFilters) {
-      products = await prisma.product.findMany({
-        where: {
-          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+          name: { contains: searchQuery, mode: 'insensitive' },
           typeId: productType,
         },
         skip,
         take,
       });
     }
-    if (!searchQuery && productType === 'All' && brandFilters) {
+    if (!searchQuery && brandFilters) {
       products = await prisma.product.findMany({
         where: {
+          typeId: productType,
           AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
           brandId: { in: brandFilters.split(',') },
+        },
+        skip,
+        take,
+      });
+    }
+    if (!searchQuery && !brandFilters) {
+      products = await prisma.product.findMany({
+        where: {
+          typeId: productType,
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
         },
         skip,
         take,

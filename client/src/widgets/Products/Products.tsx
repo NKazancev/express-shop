@@ -11,7 +11,7 @@ import styles from './Products.module.css';
 
 const Products = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [productType, setProductType] = useState<string>('All');
+  const [productType, setProductType] = useState<string>('');
   const [brandFilters, setBrandFilters] = useState<string>('');
   const [prices, setPrices] = useState<number[]>([0, 300000]);
 

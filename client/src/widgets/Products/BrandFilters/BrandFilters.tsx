@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useLazyGetBrandsQuery } from '../../../shared/api/brandApi';
-import { IBrandCheckbox } from '../../../shared/models/product';
+import { IBrandCheckbox, IProductBrand } from '../../../shared/models/product';
 
 import styles from './BrandFilters.module.css';
 
@@ -10,15 +10,17 @@ type TBrandFilters = {
 };
 
 const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
-  const [trigger] = useLazyGetBrandsQuery();
+  const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
   const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[]>();
 
   useEffect(() => {
     trigger().then((res) => {
-      const data = res.data?.reduce((acc, el) => {
-        acc.push({ ...el, checked: false });
-        return acc;
-      }, [] as IBrandCheckbox[]);
+      const data = res.data
+        ?.reduce((acc, el) => {
+          acc.push({ ...el, checked: false });
+          return acc;
+        }, [] as IBrandCheckbox[])
+        .sort((a, b) => a.name.localeCompare(b.name));
       setCheckboxes(data);
     });
   }, []);

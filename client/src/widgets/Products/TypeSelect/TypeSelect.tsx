@@ -1,5 +1,7 @@
-import { FC } from 'react';
-import { useGetTypesQuery } from '../../../shared/api/typeApi';
+import { FC, useEffect, useState } from 'react';
+
+import { useLazyGetTypesQuery } from '../../../shared/api/typeApi';
+import { IProductType } from '../../../shared/models/product';
 
 import styles from './TypeSelect.module.css';
 
@@ -8,7 +10,17 @@ type TTypeSelect = {
 };
 
 const TypeSelect: FC<TTypeSelect> = ({ setProductType }) => {
-  const { data: productTypes } = useGetTypesQuery();
+  const [trigger] = useLazyGetTypesQuery();
+  const [productTypes, setProductTypes] = useState<IProductType[]>();
+
+  useEffect(() => {
+    trigger().then((res) => {
+      if (res.data) {
+        setProductTypes(res.data);
+        setProductType(res.data[0].id);
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -17,7 +29,6 @@ const TypeSelect: FC<TTypeSelect> = ({ setProductType }) => {
         onChange={(e) => setProductType(e.target.value)}
         className={styles.select}
       >
-        <option value="All">All</option>
         {productTypes?.map((type) => {
           return (
             <option key={type.id} value={type.id}>

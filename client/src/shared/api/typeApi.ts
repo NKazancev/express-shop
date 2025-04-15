@@ -41,5 +41,6 @@ const typeApi = baseApi
 export const {
   useCreateTypeMutation,
   useGetTypesQuery,
+  useLazyGetTypesQuery,
   useDeleteTypeMutation,
 } = typeApi;
