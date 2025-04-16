@@ -16,7 +16,7 @@ const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
 
   return (
     <li className={styles.product}>
-      <div>
+      <div className={styles.image}>
         <img src={imageUrl} alt="image" />
       </div>
 

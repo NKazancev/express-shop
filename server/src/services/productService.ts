@@ -29,32 +29,32 @@ class ProductService {
       products = await prisma.product.findMany({
         where: {
           name: { contains: searchQuery, mode: 'insensitive' },
-          typeId: productType,
         },
         skip,
         take,
       });
-    }
-    if (!searchQuery && brandFilters) {
-      products = await prisma.product.findMany({
-        where: {
-          typeId: productType,
-          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-          brandId: { in: brandFilters.split(',') },
-        },
-        skip,
-        take,
-      });
-    }
-    if (!searchQuery && !brandFilters) {
-      products = await prisma.product.findMany({
-        where: {
-          typeId: productType,
-          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-        },
-        skip,
-        take,
-      });
+    } else {
+      if (brandFilters) {
+        products = await prisma.product.findMany({
+          where: {
+            typeId: productType,
+            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+            brandId: { in: brandFilters.split(',') },
+          },
+          skip,
+          take,
+        });
+      }
+      if (!brandFilters) {
+        products = await prisma.product.findMany({
+          where: {
+            typeId: productType,
+            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+          },
+          skip,
+          take,
+        });
+      }
     }
     return products;
   }

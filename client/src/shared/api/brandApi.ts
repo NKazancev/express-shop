@@ -19,6 +19,12 @@ const brandApi = baseApi
           url: 'brands',
           method: 'GET',
         }),
+        transformResponse: (response: IProductBrand[]) => {
+          const sortedBrands = response.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+          return sortedBrands;
+        },
         providesTags: (result) =>
           result
             ? [

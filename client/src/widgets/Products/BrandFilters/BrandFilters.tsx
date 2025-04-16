@@ -15,12 +15,10 @@ const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
 
   useEffect(() => {
     trigger().then((res) => {
-      const data = res.data
-        ?.reduce((acc, el) => {
-          acc.push({ ...el, checked: false });
-          return acc;
-        }, [] as IBrandCheckbox[])
-        .sort((a, b) => a.name.localeCompare(b.name));
+      const data = res.data?.reduce((acc, el) => {
+        acc.push({ ...el, checked: false });
+        return acc;
+      }, [] as IBrandCheckbox[]);
       setCheckboxes(data);
     });
   }, []);
