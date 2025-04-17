@@ -23,8 +23,7 @@ const TypeSelect: FC<TTypeSelect> = ({ setProductType }) => {
   }, []);
 
   return (
-    <div>
-      <div className={styles.label}>Choose type</div>
+    <div className={styles.container}>
       <select
         onChange={(e) => setProductType(e.target.value)}
         className={styles.select}

@@ -13,8 +13,6 @@ const PricesSlider: FC<TPricesSlider> = ({ prices, setPrices }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.label}>Choose price</div>
-
       <div className={styles.tags}>
         <span>{values[0]}</span>
         <span>{values[1]}</span>

@@ -24,22 +24,19 @@ const SearchBar: FC<TSearchBar> = ({ setSearchQuery }) => {
   };
 
   return (
-    <div>
-      <div className={styles.label}>Search product</div>
+    <div className={styles.container}>
+      <input
+        type="text"
+        value={searchValue}
+        autoComplete="off"
+        placeholder="Search device..."
+        className={styles.input}
+        onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={handleEnter}
+      />
 
-      <div className={styles.search}>
-        <input
-          type="text"
-          value={searchValue}
-          autoComplete="off"
-          className={styles.input}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onKeyDown={handleEnter}
-        />
-
-        <div>
-          <img src={search} className={styles.icon} />
-        </div>
+      <div className={styles.icon}>
+        <img src={search} />
       </div>
     </div>
   );

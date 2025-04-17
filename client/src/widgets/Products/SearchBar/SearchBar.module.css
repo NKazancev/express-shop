@@ -1,12 +1,9 @@
-.label {
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-.search {
-  height: 38px;
-  border: 1px solid rgb(155, 147, 141);
-  border-radius: 2px;
+.container {
+  width: 300px;
+  height: 40px;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
+  overflow: hidden;
 
   display: flex;
   justify-content: space-between;
@@ -14,12 +11,20 @@
 
 .input {
   width: 90%;
-  padding: 0 10px;
+  padding-left: 12px;
   border: none;
 
-  font-size: 16px;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: rgb(48, 58, 53);
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .icon {
-  transform: translate(-8px, 9px);
+  height: 0;
+  transform: translate(-10px, 10px);
+  pointer-events: none;
 }

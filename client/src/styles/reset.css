@@ -27,15 +27,14 @@ ol {
 
 input,
 textarea,
-select {
-  color: inherit;
-  font-family: inherit;
-}
-
+select,
 button {
-  border: none;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
+}
+
+button {
+  border: none;
 }

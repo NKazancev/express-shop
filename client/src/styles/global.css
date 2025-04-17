@@ -1,10 +1,5 @@
 body {
-  color: rgb(92, 86, 80);
-  font-family: 'Ubuntu', sans-serif;
-}
-
-main {
-  padding: 40px 0;
+  color: rgb(48, 58, 53);
 }
 
 button {
@@ -12,7 +7,7 @@ button {
 }
 
 .layout {
-  max-width: 1290px;
+  max-width: 1190px;
   margin: 0 auto;
   padding: 0 15px;
 }

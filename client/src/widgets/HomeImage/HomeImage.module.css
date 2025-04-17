@@ -1,0 +1,23 @@
+.image {
+  height: 270px;
+  border-radius: 10px;
+
+  background-image: linear-gradient(
+    90deg,
+    rgb(89, 89, 89) 0%,
+    rgb(109, 109, 109) 34%,
+    rgb(129, 129, 129) 67%,
+    rgb(89, 89, 89) 100%
+  );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  color: rgb(255, 255, 255);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+}

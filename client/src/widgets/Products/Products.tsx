@@ -15,6 +15,9 @@ const Products = () => {
   const [brandFilters, setBrandFilters] = useState<string>('');
   const [prices, setPrices] = useState<number[]>([0, 300000]);
 
+  const [brandsVisible, setBrandsVisible] = useState<boolean>(false);
+  const [pricesVisible, setPricesVisible] = useState<boolean>(false);
+
   const { data: products } = useGetProductsQuery(
     {
       searchQuery,
@@ -28,11 +31,41 @@ const Products = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.filters}>
+      <div className={styles.panel}>
+        <div className={styles.filters}>
+          <TypeSelect setProductType={(data) => setProductType(data)} />
+
+          <div className={styles.brands}>
+            <button
+              type="button"
+              onClick={() => setBrandsVisible((prev) => !prev)}
+              className={styles.button}
+            >
+              Brands
+            </button>
+            {brandsVisible && (
+              <BrandFilters setBrandFilters={(data) => setBrandFilters(data)} />
+            )}
+          </div>
+
+          <div className={styles.prices}>
+            <button
+              type="button"
+              onClick={() => setPricesVisible((prev) => !prev)}
+              className={styles.button}
+            >
+              Price
+            </button>
+            {pricesVisible && (
+              <PricesSlider
+                prices={prices}
+                setPrices={(data) => setPrices(data)}
+              />
+            )}
+          </div>
+        </div>
+
         <SearchBar setSearchQuery={(data) => setSearchQuery(data)} />
-        <TypeSelect setProductType={(data) => setProductType(data)} />
-        <PricesSlider prices={prices} setPrices={(data) => setPrices(data)} />
-        <BrandFilters setBrandFilters={(data) => setBrandFilters(data)} />
       </div>
 
       <ProductsList products={products} />

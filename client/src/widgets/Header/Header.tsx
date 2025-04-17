@@ -10,14 +10,16 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <NavLink to={'/'} className={styles.logo}>
-        Express-shop
+      <NavLink to={'/'}>
+        <h1 className={styles.logo}>
+          <span className={styles.span}>Express</span> shop
+        </h1>
       </NavLink>
 
       {!isLogged ? (
         <div className={styles.actions}>
-          <NavLink to={'/login'}>SignIn</NavLink>
-          <NavLink to={'/registration'}>SignUp</NavLink>
+          <NavLink to={'/login'}>Sign in</NavLink>
+          <NavLink to={'/registration'}>Sign up</NavLink>
         </div>
       ) : (
         <UserPanel />

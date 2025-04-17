@@ -3,19 +3,24 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
 
 .logo {
-  border-bottom: 3px solid rgb(255, 196, 130);
-  font-size: 24px;
-  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.span {
+  color: #79827e;
 }
 
 .actions {
+  font-family: 'Barlow', sans-serif;
   font-size: 16px;
   font-weight: 500;
 
   display: flex;
-  column-gap: 30px;
+  column-gap: 25px;
 }

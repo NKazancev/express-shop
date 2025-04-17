@@ -20,9 +20,11 @@ const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
         <img src={imageUrl} alt="image" />
       </div>
 
-      <h3 className={styles.name}>{name}</h3>
-      <p className={styles.description}>{description}</p>
-      <span className={styles.price}>{price} &#8381;</span>
+      <div className={styles.info}>
+        <h3 className={styles.name}>{name}</h3>
+        <p className={styles.description}>{description}</p>
+        <span className={styles.price}>{price} &#8381;</span>
+      </div>
 
       <div className={styles.buttons}>
         <button type="button" className={styles.button}>

@@ -46,9 +46,7 @@ const BrandFilters: FC<TBrandFilters> = ({ setBrandFilters }) => {
   };
 
   return (
-    <div>
-      <div className={styles.title}>Choose brands</div>
-
+    <div className={styles.container}>
       <ul className={styles.list}>
         {checkboxes?.map((brand) => {
           return (

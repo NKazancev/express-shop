@@ -1,12 +1,47 @@
 .container {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  align-items: flex-start;
-  column-gap: 50px;
+  padding: 24px 0;
+}
+
+.panel {
+  margin-bottom: 24px;
+
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+
+  display: flex;
 }
 
 .filters {
+  flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  row-gap: 18px;
+  column-gap: 40px;
+}
+
+.brands,
+.prices {
+  position: relative;
+}
+
+.button {
+  width: 160px;
+  height: 40px;
+  padding-left: 20px;
+
+  background: transparent;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  position: relative;
+}
+
+.button::after {
+  content: url(../../shared/assets/arrow.svg);
+  position: absolute;
+  top: 9px;
+  right: 13px;
 }
