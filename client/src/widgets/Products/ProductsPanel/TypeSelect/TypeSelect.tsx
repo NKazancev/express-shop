@@ -1,23 +1,22 @@
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useLazyGetTypesQuery } from '../../../shared/api/typeApi';
-import { IProductType } from '../../../shared/models/product';
+import { useLazyGetTypesQuery } from '../../../../shared/api/typeApi';
+import { IProductType } from '../../../../shared/models/product';
 
 import styles from './TypeSelect.module.css';
+import { useAppDispatch } from '../../../../shared/hooks/reduxHooks';
+import { setProductType } from '../../../../shared/slices/filtersSlice';
 
-type TTypeSelect = {
-  setProductType: (productType: string) => void;
-};
-
-const TypeSelect: FC<TTypeSelect> = ({ setProductType }) => {
+const TypeSelect = () => {
   const [trigger] = useLazyGetTypesQuery();
   const [productTypes, setProductTypes] = useState<IProductType[]>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     trigger().then((res) => {
       if (res.data) {
         setProductTypes(res.data);
-        setProductType(res.data[0].id);
+        dispatch(setProductType(res.data[0].id));
       }
     });
   }, []);
@@ -25,7 +24,7 @@ const TypeSelect: FC<TTypeSelect> = ({ setProductType }) => {
   return (
     <div className={styles.container}>
       <select
-        onChange={(e) => setProductType(e.target.value)}
+        onChange={(e) => dispatch(setProductType(e.target.value))}
         className={styles.select}
       >
         {productTypes?.map((type) => {

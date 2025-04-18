@@ -1,25 +1,25 @@
-import { FC, KeyboardEvent, useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 
-import search from './../../../shared/assets/search-icon.svg';
+import { useAppDispatch } from '../../../../shared/hooks/reduxHooks';
+import { setSearchQuery } from '../../../../shared/slices/filtersSlice';
+
+import search from './../../../../shared/assets/search-icon.svg';
 import styles from './SearchBar.module.css';
 
-type TSearchBar = {
-  setSearchQuery: (searchValue: string) => void;
-};
-
-const SearchBar: FC<TSearchBar> = ({ setSearchQuery }) => {
+const SearchBar = () => {
   const [searchValue, setSearchValue] = useState<string>('');
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearchQuery(searchValue);
+      dispatch(setSearchQuery(searchValue));
     }, 1000);
     return () => clearTimeout(timer);
   }, [searchValue]);
 
   const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      setSearchQuery(searchValue);
+      dispatch(setSearchQuery(searchValue));
     }
   };
 

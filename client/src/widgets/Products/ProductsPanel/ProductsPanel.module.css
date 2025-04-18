@@ -1,8 +1,4 @@
 .container {
-  padding: 24px 0;
-}
-
-.panel {
   margin-bottom: 24px;
 
   font-family: 'Barlow', sans-serif;
@@ -10,10 +6,10 @@
   font-weight: 500;
 
   display: flex;
+  justify-content: space-between;
 }
 
 .filters {
-  flex-grow: 1;
   display: flex;
   column-gap: 40px;
 }
@@ -40,8 +36,16 @@
 }
 
 .button::after {
-  content: url(../../shared/assets/arrow.svg);
+  content: url(../../../shared/assets/arrow.svg);
   position: absolute;
   top: 9px;
   right: 13px;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }

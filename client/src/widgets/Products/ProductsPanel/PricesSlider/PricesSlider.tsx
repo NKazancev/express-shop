@@ -1,15 +1,18 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Range } from 'react-range';
+
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../shared/hooks/reduxHooks';
+import { setPrices } from '../../../../shared/slices/filtersSlice';
 
 import styles from './PricesSLider.module.css';
 
-type TPricesSlider = {
-  prices: number[];
-  setPrices: (values: number[]) => void;
-};
-
-const PricesSlider: FC<TPricesSlider> = ({ prices, setPrices }) => {
+const PricesSlider = () => {
+  const { prices } = useAppSelector((state) => state.filters);
   const [values, setValues] = useState<number[]>(prices);
+  const dispatch = useAppDispatch();
 
   return (
     <div className={styles.container}>
@@ -25,7 +28,7 @@ const PricesSlider: FC<TPricesSlider> = ({ prices, setPrices }) => {
         max={300000}
         values={values}
         onChange={(values) => setValues(values)}
-        onFinalChange={() => setPrices(values)}
+        onFinalChange={() => dispatch(setPrices(values))}
         renderTrack={({ props, children, isDragged }) => (
           <div
             {...props}
