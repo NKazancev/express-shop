@@ -1,7 +1,7 @@
-import { useAppSelector } from '../../../shared/hooks/reduxHooks';
-import { useGetProductsQuery } from '../../../shared/api/productApi';
-import { IProduct } from '../../../shared/models/product';
-import ProductCard from './../ProductCard/ProductCard';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
+import { useGetProductsQuery } from '@shared/api/productApi';
+import { IProduct } from '@shared/models/product';
+import ProductCard from '@widgets/Products/ProductCard/ProductCard';
 
 import styles from './ProductsList.module.css';
 

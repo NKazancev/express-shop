@@ -1,11 +1,8 @@
 import { useState } from 'react';
 import { Range } from 'react-range';
 
-import {
-  useAppDispatch,
-  useAppSelector,
-} from '../../../../shared/hooks/reduxHooks';
-import { setPrices } from '../../../../shared/slices/filtersSlice';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
+import { setPrices } from '@shared/slices/filtersSlice';
 
 import styles from './PricesSLider.module.css';
 

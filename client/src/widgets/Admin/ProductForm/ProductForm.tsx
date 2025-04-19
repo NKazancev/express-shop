@@ -1,11 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import {
-  IProduct,
-  IProductBrand,
-  IProductType,
-} from '../../../shared/models/product';
+import { IProduct, IProductBrand, IProductType } from '@shared/models/product';
 
 import styles from './ProductForm.module.css';
 

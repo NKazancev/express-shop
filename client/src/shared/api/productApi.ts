@@ -1,5 +1,5 @@
-import baseApi from '../../config/baseApi';
-import { IProduct, IProductsRequest } from '../models/product';
+import baseApi from '@config/baseApi';
+import { IProduct, IProductsRequest } from '@shared/models/product';
 
 const productApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Products'] })

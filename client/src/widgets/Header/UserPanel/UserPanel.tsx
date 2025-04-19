@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 
-import { useLogoutMutation } from '../../../shared/api/authApi';
-import { useAppSelector } from '../../../shared/hooks/reduxHooks';
+import { useLogoutMutation } from '@shared/api/authApi';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
 
 import styles from './UserPanel.module.css';
 

@@ -1,8 +1,8 @@
-import { useCreateProductMutation } from '../shared/api/productApi';
-import { useGetTypesQuery } from '../shared/api/typeApi';
-import { useGetBrandsQuery } from '../shared/api/brandApi';
-import { IProduct } from '../shared/models/product';
-import ProductForm from '../widgets/Admin/ProductForm/ProductForm';
+import { useCreateProductMutation } from '@shared/api/productApi';
+import { useGetTypesQuery } from '@shared/api/typeApi';
+import { useGetBrandsQuery } from '@shared/api/brandApi';
+import { IProduct } from '@shared/models/product';
+import ProductForm from '@widgets/Admin/ProductForm/ProductForm';
 
 function CreateProduct() {
   const [createProduct] = useCreateProductMutation();

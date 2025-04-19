@@ -14,11 +14,6 @@
   column-gap: 40px;
 }
 
-.brands,
-.prices {
-  position: relative;
-}
-
 .button {
   width: 160px;
   height: 40px;
@@ -36,7 +31,7 @@
 }
 
 .button::after {
-  content: url(../../../shared/assets/arrow.svg);
+  content: url(@shared/assets/arrow.svg);
   position: absolute;
   top: 9px;
   right: 13px;

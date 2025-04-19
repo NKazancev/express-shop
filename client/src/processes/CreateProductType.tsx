@@ -1,6 +1,6 @@
-import { useCreateTypeMutation } from '../shared/api/typeApi';
-import { IProductType } from '../shared/models/product';
-import TypeForm from '../widgets/Admin/TypeForm/TypeForm';
+import { useCreateTypeMutation } from '@shared/api/typeApi';
+import { IProductType } from '@shared/models/product';
+import TypeForm from '@widgets/Admin/TypeForm/TypeForm';
 
 function CreateProductType() {
   const [createType] = useCreateTypeMutation();

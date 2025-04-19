@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IBrandCheckbox } from '../models/product';
+import { IBrandCheckbox } from '@shared/models/product';
 
 interface IFiltersState {
   searchQuery: string;

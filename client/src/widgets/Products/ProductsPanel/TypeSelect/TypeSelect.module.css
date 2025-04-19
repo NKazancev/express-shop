@@ -3,8 +3,6 @@
 }
 
 .select {
-  appearance: none;
-
   width: 160px;
   height: 40px;
   padding-left: 20px;
@@ -12,11 +10,12 @@
   border: 1px solid rgb(139, 139, 139);
   border-radius: 5px;
 
+  appearance: none;
   cursor: pointer;
 }
 
 .container::after {
-  content: url(../../../shared/assets/arrow.svg);
+  content: url(@shared/assets/arrow.svg);
   position: absolute;
   top: 10px;
   right: 14px;

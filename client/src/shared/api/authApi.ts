@@ -1,6 +1,6 @@
-import baseApi from '../../config/baseApi';
-import { IAuthResponse, ILoginData } from '../models/auth';
-import { logout, setCredentials } from '../slices/userSlice';
+import baseApi from '@config/baseApi';
+import { IAuthResponse, ILoginData } from '@shared/models/auth';
+import { logout, setCredentials } from '@shared/slices/userSlice';
 
 const authApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Auth'] })

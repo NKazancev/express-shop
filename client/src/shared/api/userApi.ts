@@ -1,6 +1,6 @@
-import baseApi from '../../config/baseApi';
-import { IAuthResponse } from '../models/auth';
-import { ICreateUserData } from '../models/user';
+import baseApi from '@config/baseApi';
+import { IAuthResponse } from '@shared/models/auth';
+import { ICreateUserData } from '@shared/models/user';
 
 const userApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Users'] })

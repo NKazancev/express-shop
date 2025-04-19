@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { useLazyGetTypesQuery } from '../../../../shared/api/typeApi';
-import { IProductType } from '../../../../shared/models/product';
+import { useLazyGetTypesQuery } from '@shared/api/typeApi';
+import { IProductType } from '@shared/models/product';
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { setProductType } from '@shared/slices/filtersSlice';
 
 import styles from './TypeSelect.module.css';
-import { useAppDispatch } from '../../../../shared/hooks/reduxHooks';
-import { setProductType } from '../../../../shared/slices/filtersSlice';
 
 const TypeSelect = () => {
   const [trigger] = useLazyGetTypesQuery();

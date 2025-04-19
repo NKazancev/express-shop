@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router';
 
-import { useAppSelector } from '../../shared/hooks/reduxHooks';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
 import UserPanel from './UserPanel/UserPanel';
 
 import styles from './Header.module.css';

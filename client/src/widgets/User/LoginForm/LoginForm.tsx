@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ILoginData } from '../../shared/models/auth';
+import { ILoginData } from '@shared/models/auth';
 
 import styles from './LoginForm.module.css';
 

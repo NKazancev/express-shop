@@ -1,9 +1,9 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
 
-import { useAppDispatch } from '../../../../shared/hooks/reduxHooks';
-import { setSearchQuery } from '../../../../shared/slices/filtersSlice';
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { setSearchQuery } from '@shared/slices/filtersSlice';
 
-import search from './../../../../shared/assets/search-icon.svg';
+import search from '@shared/assets/search-icon.svg';
 import styles from './SearchBar.module.css';
 
 const SearchBar = () => {

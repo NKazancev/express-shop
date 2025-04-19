@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ICreateUserData } from '../../shared/models/user';
+import { ICreateUserData } from '@shared/models/user';
 
 import styles from './RegistrationForm.module.css';
 
