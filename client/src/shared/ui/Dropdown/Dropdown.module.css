@@ -1,0 +1,13 @@
+.visible {
+  opacity: 1;
+  transform: translateY(0px);
+  pointer-events: all;
+  transition: all 0.2s;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(-5px);
+  pointer-events: none;
+  transition: all 0.2s;
+}

@@ -4,6 +4,7 @@ import TypeSelect from './TypeSelect/TypeSelect';
 import BrandFilters from './BrandFilters/BrandFilters';
 import PricesSlider from './PricesSlider/PricesSlider';
 import SearchBar from './SearchBar/SearchBar';
+import Dropdown from '@shared/ui/Dropdown/Dropdown';
 
 import styles from './ProductsPanel.module.css';
 
@@ -11,35 +12,32 @@ const ProductsPanel = () => {
   const [brandsVisible, setBrandsVisible] = useState<boolean>(false);
   const [pricesVisible, setPricesVisible] = useState<boolean>(false);
 
+  const toggleBrands = () => setBrandsVisible((prev) => !prev);
+  const togglePrices = () => setPricesVisible((prev) => !prev);
+  const closeBrands = () => setBrandsVisible(false);
+  const closePrices = () => setPricesVisible(false);
+
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
         <TypeSelect />
 
-        <div className={styles.brands}>
-          <button
-            type="button"
-            onClick={() => setBrandsVisible((prev) => !prev)}
-            className={styles.button}
-          >
+        <div>
+          <button type="button" onClick={toggleBrands}>
             Brands
           </button>
-          <div className={brandsVisible ? styles.visible : styles.hidden}>
+          <Dropdown isVisible={brandsVisible} onClose={closeBrands}>
             <BrandFilters />
-          </div>
+          </Dropdown>
         </div>
 
-        <div className={styles.prices}>
-          <button
-            type="button"
-            onClick={() => setPricesVisible((prev) => !prev)}
-            className={styles.button}
-          >
+        <div>
+          <button type="button" onClick={togglePrices}>
             Price
           </button>
-          <div className={pricesVisible ? styles.visible : styles.hidden}>
+          <Dropdown isVisible={pricesVisible} onClose={closePrices}>
             <PricesSlider />
-          </div>
+          </Dropdown>
         </div>
       </div>
 
