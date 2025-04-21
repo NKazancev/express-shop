@@ -1,9 +1,9 @@
-import { FC, useEffect, useRef } from 'react';
+import { ReactNode, FC, useEffect, useRef } from 'react';
 
 import styles from './Dropdown.module.css';
 
 type TDropdown = {
-  children: React.ReactNode;
+  children: ReactNode;
   isVisible: boolean;
   onClose: () => void;
 };

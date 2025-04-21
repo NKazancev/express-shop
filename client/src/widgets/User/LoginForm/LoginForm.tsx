@@ -14,21 +14,27 @@ const LoginForm: FC<TLoginForm> = ({ onLogin }) => {
 
   return (
     <form onSubmit={handleSubmit(onLogin)} className={styles.form}>
-      <input
-        type="email"
-        placeholder="Email"
-        autoComplete="off"
-        className={styles.input}
-        {...register('email', { required: true })}
-      />
+      <label htmlFor="email-login-field" className={styles.label}>
+        <span>Email</span>
+        <input
+          type="email"
+          id="email-login-field"
+          autoComplete="off"
+          className={styles.input}
+          {...register('email', { required: true })}
+        />
+      </label>
 
-      <input
-        type="password"
-        placeholder="Password"
-        autoComplete="off"
-        className={styles.input}
-        {...register('password', { required: true })}
-      />
+      <label htmlFor="password-login-field" className={styles.label}>
+        <span>Password</span>
+        <input
+          type="password"
+          id="password-login-field"
+          autoComplete="off"
+          className={styles.input}
+          {...register('password', { required: true })}
+        />
+      </label>
 
       <button type="submit" className={styles.button}>
         Login

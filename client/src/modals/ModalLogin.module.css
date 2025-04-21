@@ -1,0 +1,40 @@
+.content {
+  max-width: 450px;
+  margin: 25vh auto;
+  padding: 36px 44px 45px 44px;
+
+  background-color: white;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+
+  position: relative;
+}
+
+.title {
+  margin-bottom: 14px;
+
+  text-align: center;
+  font-family: 'Barlow', sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.text {
+  margin-top: 15px;
+
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.text a {
+  text-decoration: underline;
+}
+
+.button {
+  height: 0;
+  background: transparent;
+
+  position: absolute;
+  top: 21px;
+  right: 27px;
+}
