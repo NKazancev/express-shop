@@ -27,7 +27,7 @@ const ModalLogin: FC<TModalLogin> = ({ onClose }) => {
         <LoginUser />
 
         <p className={styles.text}>
-          <span>Don’t have an accout?</span>{' '}
+          <span>Don’t have an account?</span>{' '}
           <NavLink to={'/registration'} onClick={onClose}>
             Register here
           </NavLink>

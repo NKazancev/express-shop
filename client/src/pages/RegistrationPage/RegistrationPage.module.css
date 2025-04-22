@@ -1,0 +1,51 @@
+.container {
+  max-width: 1190px;
+  margin: 0 auto;
+  padding: 27px 15px 0px 15px;
+
+  display: flex;
+  column-gap: 89px;
+}
+
+.image {
+  flex: 0 1 auto;
+}
+
+.content {
+  flex: 1 0 auto;
+
+  padding-top: 5px;
+  font-family: 'Roboto', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  align-self: flex-end;
+  margin-bottom: 47px;
+
+  text-decoration: underline;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.form {
+  max-width: 390px;
+}
+
+.title {
+  margin-bottom: 27px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 25px;
+}
+
+.text {
+  margin-top: 21px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.text span {
+  text-decoration: underline;
+}

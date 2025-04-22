@@ -15,39 +15,48 @@ const RegistrationForm: FC<TRegistrationForm> = ({ onRegister }) => {
 
   return (
     <form onSubmit={handleSubmit(onRegister)} className={styles.form}>
-      <input
-        type="email"
-        placeholder="Email"
-        autoComplete="off"
-        className={styles.input}
-        {...register('email', { required: true })}
-      />
+      <label htmlFor="email-reg" className={styles.label}>
+        <span>Email*</span>
+        <input
+          type="email"
+          id="email-reg"
+          autoComplete="off"
+          className={styles.input}
+          {...register('email', { required: true })}
+        />
+      </label>
 
-      <input
-        type="password"
-        placeholder="Password"
-        autoComplete="off"
-        className={styles.input}
-        {...register('password', { required: true })}
-      />
+      <label htmlFor="password-reg" className={styles.label}>
+        <span>Password*</span>
+        <input
+          type="password"
+          id="password-reg"
+          autoComplete="off"
+          className={styles.input}
+          {...register('password', { required: true })}
+        />
+      </label>
 
-      <input
-        type="password"
-        placeholder="Confirm password"
-        autoComplete="off"
-        className={styles.input}
-        {...register('repeatPassword', {
-          required: true,
-          validate: (formField) => {
-            if (password !== formField) {
-              return 'Passwords must match';
-            }
-          },
-        })}
-      />
+      <label htmlFor="confirm-password-reg" className={styles.label}>
+        <span>Confirm password*</span>
+        <input
+          type="password"
+          id="confirm-password-reg"
+          autoComplete="off"
+          className={styles.input}
+          {...register('confirmPassword', {
+            required: true,
+            validate: (formField) => {
+              if (password !== formField) {
+                return 'Passwords must match';
+              }
+            },
+          })}
+        />
+      </label>
 
       <button type="submit" className={styles.button}>
-        Register
+        Create account
       </button>
     </form>
   );

@@ -11,6 +11,9 @@ function Header() {
   const { isLogged } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => setModalVisible(false);
+
   return (
     <header className={styles.header}>
       <NavLink to={'/'}>
@@ -21,11 +24,7 @@ function Header() {
 
       {!isLogged ? (
         <div className={styles.actions}>
-          <button
-            type="button"
-            onClick={() => setModalVisible(true)}
-            className={styles.button}
-          >
+          <button type="button" onClick={showModal} className={styles.button}>
             Sign in
           </button>
 
@@ -35,7 +34,7 @@ function Header() {
         <UserPanel />
       )}
 
-      {modalVisible && <ModalLogin onClose={() => setModalVisible(false)} />}
+      {modalVisible && <ModalLogin onClose={hideModal} />}
     </header>
   );
 }
