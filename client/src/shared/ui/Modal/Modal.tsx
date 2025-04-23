@@ -25,7 +25,7 @@ const Modal: FC<TModal> = ({ children, onClose }) => {
 
     document.addEventListener('mousedown', handleOverlayClick);
     return () => document.removeEventListener('mousedown', handleOverlayClick);
-  }, [onClose]);
+  }, [ref, onClose]);
 
   const content = (
     <div className={styles.overlay}>

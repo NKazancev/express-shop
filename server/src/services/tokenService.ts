@@ -13,7 +13,7 @@ class TokenService {
 
   static createAccessToken(id: string, role: Role) {
     const accessToken = sign({ id, role }, ACCESS_TOKEN_KEY, {
-      expiresIn: 30,
+      expiresIn: 60 * 30,
     });
     return accessToken;
   }

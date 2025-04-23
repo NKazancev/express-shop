@@ -27,7 +27,7 @@ const RegistrationForm: FC<TRegistrationForm> = ({ onRegister }) => {
       </label>
 
       <label htmlFor="password-reg" className={styles.label}>
-        <span>Password*</span>
+        <span>Password* (min 5 characters)</span>
         <input
           type="password"
           id="password-reg"

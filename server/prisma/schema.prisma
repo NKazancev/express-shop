@@ -13,32 +13,43 @@ enum Role {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  email         String          @unique
-  password      String
-  role          Role            @default(USER)
+  id                String          @id @default(cuid())
+  email             String          @unique
+  password          String
+  role              Role            @default(USER)
+  cartProducts      CartProduct[]
 }
 
 model Product {
-  id            String          @id @default(cuid())
-  name          String          @unique
-  price         Int
-  description   String
-  image         String
-  typeId        String
-  brandId       String
-  type          ProductType     @relation(fields: [typeId], references: [id])
-  brand         ProductBrand    @relation(fields: [brandId], references: [id])
+  id                String          @id @default(cuid())
+  name              String          @unique
+  price             Int
+  description       String
+  image             String
+  typeId            String
+  brandId           String
+  type              ProductType     @relation(fields: [typeId], references: [id])
+  brand             ProductBrand    @relation(fields: [brandId], references: [id])
+  cartProducts      CartProduct[]
 }
 
 model ProductType {
-  id            String          @id @default(cuid())
-  name          String          @unique
-  products      Product[]
+  id                String          @id @default(cuid())
+  name              String          @unique
+  products          Product[]
 }
 
 model ProductBrand {
-  id            String          @id @default(cuid())
-  name          String          @unique
-  products      Product[]
+  id                String          @id @default(cuid())
+  name              String          @unique
+  products          Product[]
+}
+
+model CartProduct {
+  id                String          @id @default(cuid())
+  quantity          Int
+  productId         String
+  userId            String
+  product           Product         @relation(fields: [productId], references: [id])
+  user              User            @relation(fields: [userId], references: [id])
 }

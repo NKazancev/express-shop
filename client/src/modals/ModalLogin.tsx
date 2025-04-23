@@ -3,7 +3,7 @@ import { NavLink } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import Modal from '@shared/ui/Modal/Modal';
-import LoginUser from '../processes/LoginUser';
+import LoginUser from '@processes/LoginUser';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalLogin.module.css';
