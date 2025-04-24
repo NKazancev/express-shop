@@ -1,0 +1,9 @@
+.container {
+  padding: 20px 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.title {
+  margin-bottom: 10px;
+  font-family: 'Barlow', sans-serif;
+}

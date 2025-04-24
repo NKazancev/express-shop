@@ -1,0 +1,14 @@
+.item {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.buttons {
+  display: flex;
+  column-gap: 10px;
+}
+
+.buttons button {
+  padding: 5px 10px;
+}

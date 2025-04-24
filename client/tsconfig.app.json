@@ -25,7 +25,8 @@
       "@config/*": ["src/config/*"],
       "@processes/*": ["src/processes/*"],
       "@shared/*": ["src/shared/*"],
-      "@widgets/*": ["src/widgets/*"]
+      "@widgets/*": ["src/widgets/*"],
+      "@modals/*": ["src/modals/*"]
     }
   },
   "include": ["src"]

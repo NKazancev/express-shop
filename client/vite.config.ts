@@ -10,6 +10,7 @@ export default defineConfig({
       '@processes': join(__dirname, './src/processes'),
       '@shared': join(__dirname, './src/shared'),
       '@widgets': join(__dirname, './src/widgets'),
+      '@modals': join(__dirname, './src/modals'),
     },
   },
 });
