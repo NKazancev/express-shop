@@ -23,7 +23,7 @@ const CartProduct: FC<ICartProduct> = ({ id, product, quantity }) => {
   const decreaseQuantity = async () => {
     try {
       await updateCartProduct({ id, quantity: quantity - 1 }).unwrap();
-      if (quantity === 1) deleteCartProduct(id);
+      if (quantity === 1) await deleteCartProduct(id);
     } catch (error) {
       console.log(error);
     }

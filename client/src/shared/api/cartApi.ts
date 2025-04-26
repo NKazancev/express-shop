@@ -7,7 +7,7 @@ const cartApi = baseApi
     endpoints: (builder) => ({
       createCartProduct: builder.mutation<
         ICartProduct,
-        { quantity: number; productId: string }
+        Pick<ICartProduct, 'quantity' | 'productId'>
       >({
         query: (data) => ({
           url: 'cart',
@@ -42,14 +42,14 @@ const cartApi = baseApi
         Pick<ICartProduct, 'id' | 'quantity'>
       >({
         query: (args) => {
-          const { id, ...body } = args;
+          const { id, quantity } = args;
           return {
             url: `cart/${id}`,
             method: 'PUT',
-            body: { ...body },
+            body: { quantity },
           };
         },
-        invalidatesTags: (_, __, { id }) => [{ type: 'Cart', id }],
+        invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
 
       deleteCartProduct: builder.mutation({
@@ -57,7 +57,7 @@ const cartApi = baseApi
           url: `cart/${id}`,
           method: 'DELETE',
         }),
-        invalidatesTags: (_, __, id) => [{ type: 'Cart', id }],
+        invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
     }),
   });
