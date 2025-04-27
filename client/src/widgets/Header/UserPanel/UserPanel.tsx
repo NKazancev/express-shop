@@ -1,32 +1,50 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 
-import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useGetCartProductsQuery } from '@shared/api/cartApi';
-import { useLogoutMutation } from '@shared/api/authApi';
+import Dropdown from '@shared/ui/Dropdown/Dropdown';
+import ProfileMenu from './ProfileMenu/ProfileMenu';
 
+import cart from '@shared/assets/cart-icon.svg';
+import profile from '@shared/assets/profile-icon.svg';
 import styles from './UserPanel.module.css';
 
 const UserPanel = () => {
-  const { role } = useAppSelector((state) => state.user);
   const { data } = useGetCartProductsQuery();
-  const [dataQuantity, setDataQuantity] = useState<number | undefined>(0);
-  const [logout] = useLogoutMutation();
+  const [dataQuantity, setDataQuantity] = useState<number>(0);
+  const [profileMenuVisible, setProfileMenuVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    setDataQuantity(data?.reduce((acc, el) => (acc += el.quantity), 0));
+    if (data)
+      setDataQuantity(
+        data.reduce((acc: number, el) => (acc += el.quantity), 0)
+      );
   }, [data]);
 
-  const handleLogout = () => logout();
+  const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
+  const closeMenu = () => setProfileMenuVisible(false);
 
   return (
     <div className={styles.container}>
-      {role === 'ADMIN' && <NavLink to="/admin">Admin panel</NavLink>}
-      {role === 'USER' && <NavLink to="/cart">Cart({dataQuantity})</NavLink>}
+      <NavLink to="/cart" className={styles.cart}>
+        <img src={cart} alt="cart-icon" />
+        <span>Cart</span>
 
-      <button type="button" onClick={handleLogout} className={styles.button}>
-        Logout
-      </button>
+        {dataQuantity > 0 && (
+          <div className={styles.counter}>{dataQuantity}</div>
+        )}
+      </NavLink>
+
+      <div className={styles.profile}>
+        <button type="button" onClick={toggleMenu}>
+          <img src={profile} alt="profile-icon" />
+          <span>Profile</span>
+        </button>
+
+        <Dropdown isVisible={profileMenuVisible} onClose={closeMenu}>
+          <ProfileMenu />
+        </Dropdown>
+      </div>
     </div>
   );
 };

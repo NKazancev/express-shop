@@ -1,0 +1,9 @@
+.container {
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+}

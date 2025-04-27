@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { NavLink } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
-import ModalLogin from '../../modals/ModalLogin';
 import UserPanel from './UserPanel/UserPanel';
+import AdminPanel from './AdminPanel/AdminPanel';
+import ModalLogin from '../../modals/ModalLogin';
 
 import styles from './Header.module.css';
 
 function Header() {
-  const { isLogged } = useAppSelector((state) => state.user);
+  const { isLogged, role } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const showModal = () => setModalVisible(true);
@@ -22,17 +23,17 @@ function Header() {
         </h1>
       </NavLink>
 
-      {!isLogged ? (
+      {!isLogged && (
         <div className={styles.actions}>
-          <button type="button" onClick={showModal} className={styles.button}>
+          <button type="button" onClick={showModal}>
             Sign in
           </button>
-
           <NavLink to={'/registration'}>Sign up</NavLink>
         </div>
-      ) : (
-        <UserPanel />
       )}
+
+      {isLogged && role === 'USER' && <UserPanel />}
+      {isLogged && role == 'ADMIN' && <AdminPanel />}
 
       {modalVisible && <ModalLogin onClose={hideModal} />}
     </header>
