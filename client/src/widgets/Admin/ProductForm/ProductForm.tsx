@@ -76,6 +76,13 @@ const ProductForm: FC<TProductForm> = ({
 
       <input type="file" className={styles.file} {...register('image')} />
 
+      <input
+        type="file"
+        className={styles.file}
+        {...register('gallery')}
+        multiple
+      />
+
       <button type="submit" className={styles.button}>
         Add product
       </button>

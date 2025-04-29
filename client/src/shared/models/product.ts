@@ -3,7 +3,8 @@ export interface IProduct {
   name: string;
   price: number;
   description: string;
-  image: string | FileList;
+  image: string;
+  gallery: string[];
   typeId?: string;
   brandId?: string;
 }

@@ -4,13 +4,17 @@ import ApiError from '../error/ApiError';
 import ErrorMessage from '../error/errorMessage';
 
 class ProductService {
-  static async createProduct(data: Omit<Product, 'id'>, file: string) {
+  static async createProduct(
+    data: Omit<Product, 'id'>,
+    image: string,
+    images: string[]
+  ) {
     const foundProduct = await prisma.product.findFirst({
       where: { name: data.name },
     });
     if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
     const product = await prisma.product.create({
-      data: { ...data, image: file },
+      data: { ...data, image, gallery: { create: { images } } },
     });
     return product;
   }
@@ -60,9 +64,12 @@ class ProductService {
   }
 
   static async getProductById(id: string) {
-    const product = await prisma.product.findFirst({ where: { id } });
+    const product = await prisma.product.findFirst({
+      where: { id },
+      include: { gallery: true },
+    });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
-    return product;
+    return { ...product, gallery: product.gallery?.images };
   }
 
   static async updateProduct(id: string, data: Omit<Product, 'id'>) {

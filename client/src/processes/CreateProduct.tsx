@@ -12,8 +12,14 @@ function CreateProduct() {
   const handleProductCreation = async (data: Omit<IProduct, 'id'>) => {
     try {
       const formData = new FormData();
-      formData.append('image', data.image[0]);
       formData.append('data', JSON.stringify(data));
+      formData.append('image', data.image[0]);
+
+      if (data.gallery) {
+        for (let i = 0; i < data.gallery.length; i++) {
+          formData.append('gallery', data.gallery[i]);
+        }
+      }
       await createProduct(formData).unwrap();
     } catch (error) {
       console.log(error);

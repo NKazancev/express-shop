@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router';
 
 import { IProduct } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
@@ -11,11 +12,14 @@ import styles from './ProductCard.module.css';
 
 const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
   const { role } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const imageUrl = image ? `${STATIC_URL}/${image}` : noPhoto;
 
+  const showProductPage = () => navigate(`products/${id}`);
+
   return (
-    <li className={styles.product}>
+    <li onClick={showProductPage} className={styles.product}>
       <div className={styles.image}>
         <img src={imageUrl} alt="image" />
       </div>

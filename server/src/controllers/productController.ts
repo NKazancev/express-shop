@@ -11,8 +11,16 @@ class ProductController {
     const parsedData = JSON.parse(req.body.data);
     const data = { ...parsedData, price: Number(parsedData.price) };
     CreateProductSchema.parse(data);
-    const file = req.file?.filename || '';
-    const product = await ProductService.createProduct({ ...data }, file);
+
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const image = files['image'][0].filename;
+    const images = files['gallery'].map((file) => file.filename);
+
+    const product = await ProductService.createProduct(
+      { ...data },
+      image,
+      images
+    );
     res.status(201).json(product);
   }
 

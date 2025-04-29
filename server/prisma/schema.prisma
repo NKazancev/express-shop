@@ -30,6 +30,7 @@ model Product {
   brandId           String
   type              ProductType     @relation(fields: [typeId], references: [id])
   brand             ProductBrand    @relation(fields: [brandId], references: [id])
+  gallery           ProductGallery?
   cartProducts      CartProduct[]
 }
 
@@ -43,6 +44,13 @@ model ProductBrand {
   id                String          @id @default(cuid())
   name              String          @unique
   products          Product[]
+}
+
+model ProductGallery {
+  id                String          @id @default(cuid())
+  images            String[]
+  productId         String          @unique
+  product           Product         @relation(fields: [productId], references: [id])
 }
 
 model CartProduct {
