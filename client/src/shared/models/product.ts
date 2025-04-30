@@ -4,9 +4,12 @@ export interface IProduct {
   price: number;
   description: string;
   image: string;
+}
+
+export interface IProductData extends IProduct {
+  typeId: string;
+  brandId: string;
   gallery: string[];
-  typeId?: string;
-  brandId?: string;
 }
 
 export interface IProductsRequest {

@@ -1,6 +1,6 @@
-import styles from './HomeImage.module.css';
+import styles from './HeaderImage.module.css';
 
-const HomeImage = () => {
+const HeaderImage = () => {
   return (
     <div className={styles.image}>
       <p className={styles.text}>Online store of modern devices.</p>
@@ -8,4 +8,4 @@ const HomeImage = () => {
   );
 };
 
-export default HomeImage;
+export default HeaderImage;

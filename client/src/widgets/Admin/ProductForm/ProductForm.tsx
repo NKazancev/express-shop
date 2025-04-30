@@ -1,12 +1,16 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IProduct, IProductBrand, IProductType } from '@shared/models/product';
+import {
+  IProductBrand,
+  IProductData,
+  IProductType,
+} from '@shared/models/product';
 
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
-  onProductCreation: (data: Omit<IProduct, 'id'>) => void;
+  onProductCreation: (data: Omit<IProductData, 'id'>) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
 };
@@ -16,7 +20,7 @@ const ProductForm: FC<TProductForm> = ({
   typeOptions,
   brandOptions,
 }) => {
-  const { handleSubmit, register } = useForm<Omit<IProduct, 'id'>>();
+  const { handleSubmit, register } = useForm<Omit<IProductData, 'id'>>();
 
   return (
     <form onSubmit={handleSubmit(onProductCreation)} className={styles.form}>

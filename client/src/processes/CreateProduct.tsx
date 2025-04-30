@@ -1,7 +1,7 @@
 import { useCreateProductMutation } from '@shared/api/productApi';
 import { useGetTypesQuery } from '@shared/api/typeApi';
 import { useGetBrandsQuery } from '@shared/api/brandApi';
-import { IProduct } from '@shared/models/product';
+import { IProductData } from '@shared/models/product';
 import ProductForm from '@widgets/Admin/ProductForm/ProductForm';
 
 function CreateProduct() {
@@ -9,7 +9,7 @@ function CreateProduct() {
   const { data: productTypes } = useGetTypesQuery();
   const { data: productBrands } = useGetBrandsQuery();
 
-  const handleProductCreation = async (data: Omit<IProduct, 'id'>) => {
+  const handleProductCreation = async (data: Omit<IProductData, 'id'>) => {
     try {
       const formData = new FormData();
       formData.append('data', JSON.stringify(data));

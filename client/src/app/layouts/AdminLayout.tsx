@@ -5,7 +5,7 @@ import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
 import Header from '@widgets/Header/Header';
 
-function Layout() {
+function AdminLayout() {
   const { isLogged } = useAppSelector((state) => state.user);
   const [refresh] = useRefreshMutation();
 
@@ -23,4 +23,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default AdminLayout;

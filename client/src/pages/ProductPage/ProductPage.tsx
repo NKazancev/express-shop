@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { NavLink, useParams } from 'react-router';
 import { useGetProductByIdQuery } from '@shared/api/productApi';
 import { STATIC_URL } from '@config/consts';
 
@@ -10,16 +10,32 @@ const ProductPage = () => {
 
   return (
     <div className={styles.container}>
-      <div>
-        {product?.gallery?.map((file, index) => {
-          return <img src={`${STATIC_URL}/${file}`} alt="image" key={index} />;
-        })}
-      </div>
+      <NavLink to="/" className={styles.link}>
+        &#8592; back to the catalogue
+      </NavLink>
 
-      <div>
-        <h4>{product?.name}</h4>
-        <p>{product?.description}</p>
-        <span>{product?.price}</span>
+      <div className={styles.content}>
+        <div className={styles.gallery}>
+          <ul className={styles.thumblist}>
+            <li>
+              {product?.gallery?.map((file, index) => {
+                return (
+                  <img src={`${STATIC_URL}/${file}`} alt="image" key={index} />
+                );
+              })}
+            </li>
+          </ul>
+
+          <img src={`${STATIC_URL}/${product?.gallery[0]}`} alt="image" />
+        </div>
+
+        <div className={styles.description}>
+          <h4 className={styles.title}>{product?.name}</h4>
+          <span className={styles.price}>Price: {product?.price}</span>
+          <button type="button" className={styles.button}>
+            Add to cart
+          </button>
+        </div>
       </div>
     </div>
   );
