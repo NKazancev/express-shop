@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 import { IProduct } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { STATIC_URL } from '@config/consts';
-import UserActions from './UserActions/UserActions';
 import AdminActions from './AdminActions/AdminActions';
 
 import styles from './ProductCard.module.css';
@@ -30,7 +29,6 @@ const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
       </div>
 
       <div className={styles.actions}>
-        {role !== 'ADMIN' && <UserActions id={id} />}
         {role == 'ADMIN' && <AdminActions id={id} />}
       </div>
     </li>

@@ -1,6 +1,5 @@
-import HomeImage from '@widgets/Header/HeaderImage/HeaderImage';
-import ProductsPanel from '@widgets/Products/ProductsPanel/ProductsPanel';
-import ProductsList from '@widgets/Products/ProductsList/ProductsList';
+import ProductsPanel from '@widgets/Catalogue/ProductsPanel/ProductsPanel';
+import ProductsList from '@widgets/Catalogue/ProductsList/ProductsList';
 
 import styles from './HomePage.module.css';
 

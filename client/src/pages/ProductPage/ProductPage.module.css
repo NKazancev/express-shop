@@ -5,55 +5,15 @@
 
 .content {
   display: flex;
-  column-gap: 90px;
+  column-gap: 70px;
 }
 
 .link {
-  margin-bottom: 46px;
+  margin-bottom: 55px;
 
   text-decoration: underline;
   font-size: 13px;
   font-weight: 400;
 
   display: block;
-}
-
-.gallery {
-  display: flex;
-}
-
-.thumblist {
-  width: 90px;
-}
-
-.description {
-  padding-top: 43px;
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  margin-bottom: 25px;
-
-  font-family: 'Bralow', sans-serif;
-  font-size: 26px;
-  font-weight: 600;
-}
-
-.price {
-  margin-bottom: 32px;
-
-  font-size: 17px;
-  font-weight: 400;
-}
-
-.button {
-  padding: 12px 90px;
-  background-color: rgb(140, 171, 155);
-  border-radius: 5px;
-
-  color: rgb(255, 255, 255);
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.03rem;
 }
