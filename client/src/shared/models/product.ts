@@ -10,6 +10,7 @@ export interface IProductData extends IProduct {
   typeId: string;
   brandId: string;
   gallery: string[];
+  info: string;
 }
 
 export interface IProductsRequest {

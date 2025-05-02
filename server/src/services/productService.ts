@@ -7,14 +7,20 @@ class ProductService {
   static async createProduct(
     data: Omit<Product, 'id'>,
     image: string,
-    images: string[]
+    images: string[],
+    info: string
   ) {
     const foundProduct = await prisma.product.findFirst({
       where: { name: data.name },
     });
     if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
     const product = await prisma.product.create({
-      data: { ...data, image, gallery: { create: { images } } },
+      data: {
+        ...data,
+        image,
+        gallery: { create: { images } },
+        info: { create: { text: info } },
+      },
     });
     return product;
   }
@@ -66,10 +72,14 @@ class ProductService {
   static async getProductById(id: string) {
     const product = await prisma.product.findFirst({
       where: { id },
-      include: { gallery: true },
+      include: { gallery: true, info: true },
     });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
-    return { ...product, gallery: product.gallery?.images };
+    return {
+      ...product,
+      gallery: product.gallery?.images,
+      info: product.info?.text,
+    };
   }
 
   static async updateProduct(id: string, data: Omit<Product, 'id'>) {

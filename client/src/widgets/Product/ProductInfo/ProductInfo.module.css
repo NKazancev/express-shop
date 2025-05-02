@@ -1,50 +1,22 @@
 .container {
-  padding-top: 43px;
-
-  display: flex;
-  flex-direction: column;
+  max-width: 640px;
 }
 
 .title {
-  margin-bottom: 13px;
+  margin-bottom: 14px;
 
-  font-family: 'Bralow', sans-serif;
-  font-size: 26px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 21px;
   font-weight: 600;
 }
 
-.status {
-  margin-bottom: 20px;
-
-  font-size: 17px;
+.text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   font-weight: 400;
-
-  display: inline-flex;
-  align-items: center;
-  column-gap: 8px;
+  line-height: 1.6;
 }
 
-.circle {
-  width: 10px;
-  height: 10px;
-  background-color: rgb(140, 171, 155);
-  border-radius: 50%;
-}
-
-.price {
-  margin-bottom: 26px;
-
-  font-size: 17px;
-  font-weight: 400;
-}
-
-.button {
-  padding: 12px 90px;
-  background-color: rgb(140, 171, 155);
-  border-radius: 5px;
-  color: rgb(255, 255, 255);
-
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.03rem;
+.text:not(:last-of-type) {
+  margin-bottom: 18px;
 }

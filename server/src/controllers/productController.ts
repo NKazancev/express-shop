@@ -11,6 +11,7 @@ class ProductController {
     const parsedData = JSON.parse(req.body.data);
     const data = { ...parsedData, price: Number(parsedData.price) };
     CreateProductSchema.parse(data);
+    const { info } = data;
 
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
     const image = files['image'][0].filename;
@@ -19,7 +20,8 @@ class ProductController {
     const product = await ProductService.createProduct(
       { ...data },
       image,
-      images
+      images,
+      info
     );
     res.status(201).json(product);
   }

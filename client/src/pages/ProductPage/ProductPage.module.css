@@ -4,6 +4,8 @@
 }
 
 .content {
+  margin-bottom: 40px;
+
   display: flex;
   column-gap: 70px;
 }

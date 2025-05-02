@@ -46,6 +46,12 @@ const ProductForm: FC<TProductForm> = ({
         {...register('description', { required: true })}
       />
 
+      <textarea
+        placeholder="Info"
+        className={styles.textarea}
+        {...register('info', { required: true })}
+      />
+
       <select
         className={styles.select}
         {...register('typeId', { required: true })}
