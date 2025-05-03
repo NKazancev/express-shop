@@ -5,21 +5,22 @@ import ErrorMessage from '../error/errorMessage';
 
 class ProductService {
   static async createProduct(
-    data: Omit<Product, 'id'>,
+    productData: Omit<Product, 'id'>,
     image: string,
     images: string[],
-    info: string
+    text: string
   ) {
     const foundProduct = await prisma.product.findFirst({
-      where: { name: data.name },
+      where: { name: productData.name },
     });
     if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+
     const product = await prisma.product.create({
       data: {
-        ...data,
+        ...productData,
         image,
         gallery: { create: { images } },
-        info: { create: { text: info } },
+        info: { create: { text } },
       },
     });
     return product;
@@ -72,14 +73,13 @@ class ProductService {
   static async getProductById(id: string) {
     const product = await prisma.product.findFirst({
       where: { id },
-      include: { gallery: true, info: true },
+      include: {
+        gallery: { select: { images: true } },
+        info: { select: { text: true } },
+      },
     });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
-    return {
-      ...product,
-      gallery: product.gallery?.images,
-      info: product.info?.text,
-    };
+    return product;
   }
 
   static async updateProduct(id: string, data: Omit<Product, 'id'>) {
@@ -92,6 +92,8 @@ class ProductService {
   }
 
   static async deleteProduct(id: string) {
+    await prisma.productGallery.delete({ where: { productId: id } });
+    await prisma.productInfo.delete({ where: { productId: id } });
     await prisma.product.delete({ where: { id } }).catch(() => {
       throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
     });

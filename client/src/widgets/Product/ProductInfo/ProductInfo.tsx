@@ -1,25 +1,27 @@
 import { FC } from 'react';
 
+import { IProductInfo } from '@shared/models/product';
+
 import styles from './ProductInfo.module.css';
 
-type TProductInfo = {
-  info: string | undefined;
-};
-
-const ProductInfo: FC<TProductInfo> = ({ info }) => {
-  const text = info?.split('\n').filter((item) => item !== '');
+const ProductInfo: FC<IProductInfo> = ({ text }) => {
+  const description = text
+    ?.trim()
+    .split('\n')
+    .map((p, index) => {
+      return p !== '' ? (
+        <p key={index} className={styles.text}>
+          {p}
+        </p>
+      ) : null;
+    });
 
   return (
     <div className={styles.container}>
       <h5 className={styles.title}>Description:</h5>
-      {text?.map((p, index) => {
-        return (
-          <p key={index} className={styles.text}>
-            {p}
-          </p>
-        );
-      })}
+      {description}
     </div>
   );
 };
+
 export default ProductInfo;

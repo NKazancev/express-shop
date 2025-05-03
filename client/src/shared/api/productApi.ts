@@ -9,7 +9,7 @@ const productApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Products'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createProduct: builder.mutation<IProductData, FormData>({
+      createProduct: builder.mutation<IProduct, FormData>({
         query: (data) => ({
           url: 'products',
           method: 'POST',
@@ -51,7 +51,7 @@ const productApi = baseApi
         providesTags: (__, _, id) => [{ type: 'Products', id }],
       }),
 
-      updateProduct: builder.mutation<IProductData, Partial<IProductData>>({
+      updateProduct: builder.mutation<IProduct, Partial<IProduct>>({
         query: (data) => {
           const { id, ...body } = data;
           return {

@@ -22,16 +22,7 @@ const ProductsList = () => {
   );
 
   const productsList = products?.map((product: IProduct) => {
-    return (
-      <ProductCard
-        key={product.id}
-        id={product.id}
-        name={product.name}
-        price={product.price}
-        description={product.description}
-        image={product.image}
-      />
-    );
+    return <ProductCard key={product.id} {...product} />;
   });
 
   return <ul className={styles.list}>{productsList}</ul>;

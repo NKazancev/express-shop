@@ -7,11 +7,7 @@ import ModalLogin from '@modals/ModalLogin';
 
 import styles from './ProductPanel.module.css';
 
-type TProductPanel = {
-  product: IProduct;
-};
-
-const ProductPanel: FC<TProductPanel> = ({ product: { id, name, price } }) => {
+const ProductPanel: FC<Partial<IProduct>> = ({ id, name, price }) => {
   const { isLogged } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [createCartProduct] = useCreateCartProductMutation();
@@ -32,7 +28,7 @@ const ProductPanel: FC<TProductPanel> = ({ product: { id, name, price } }) => {
 
   return (
     <div className={styles.container}>
-      <h4 className={styles.title}>{name}</h4>
+      <h5 className={styles.title}>{name}</h5>
 
       <div className={styles.status}>
         <div className={styles.circle}></div>

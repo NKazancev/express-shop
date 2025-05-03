@@ -1,8 +1,8 @@
 .container {
-  max-width: 550px;
+  max-width: 535px;
 
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 165px 1fr;
   align-items: start;
 }
 
@@ -10,8 +10,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
-}
 
-.container img {
-  image-rendering: crisp-edges;
+  direction: rtl;
 }

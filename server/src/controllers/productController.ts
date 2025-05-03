@@ -11,17 +11,17 @@ class ProductController {
     const parsedData = JSON.parse(req.body.data);
     const data = { ...parsedData, price: Number(parsedData.price) };
     CreateProductSchema.parse(data);
-    const { info } = data;
 
+    const { text, ...productData } = data;
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
     const image = files['image'][0].filename;
-    const images = files['gallery'].map((file) => file.filename);
+    const images = files['images'].map((file) => file.filename);
 
     const product = await ProductService.createProduct(
-      { ...data },
+      productData,
       image,
       images,
-      info
+      text
     );
     res.status(201).json(product);
   }
@@ -34,6 +34,7 @@ class ProductController {
     const maxPrice = Number(req.query.maxPrice);
     const skip = Number(req.query.skip) || 0;
     const take = 10;
+
     const products = await ProductService.getProducts(
       searchQuery,
       productType,

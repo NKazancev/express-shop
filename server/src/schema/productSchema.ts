@@ -6,14 +6,14 @@ const CreateProductSchema = z.object({
   description: z.string(),
   typeId: z.string(),
   brandId: z.string(),
-  info: z.string(),
+  text: z.string(),
 });
 
 const UpdateProductSchema = z.object({
   name: z.string().optional(),
   price: z.number().optional(),
   description: z.string().optional(),
-  info: z.string().optional(),
+  text: z.string().optional(),
 });
 
 const ProductTypeSchema = z.object({

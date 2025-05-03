@@ -3,13 +3,6 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.content {
-  margin-bottom: 40px;
-
-  display: flex;
-  column-gap: 70px;
-}
-
 .link {
   margin-bottom: 55px;
 
@@ -18,4 +11,11 @@
   font-weight: 400;
 
   display: block;
+}
+
+.content {
+  margin-bottom: 30px;
+
+  display: flex;
+  column-gap: 70px;
 }

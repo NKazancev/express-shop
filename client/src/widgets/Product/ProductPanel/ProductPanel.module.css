@@ -8,13 +8,13 @@
 .title {
   margin-bottom: 13px;
 
-  font-family: 'Bralow', sans-serif;
+  font-family: 'Barlow', sans-serif;
   font-size: 26px;
   font-weight: 600;
 }
 
 .status {
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 
   font-size: 17px;
   font-weight: 400;
@@ -32,9 +32,9 @@
 }
 
 .price {
-  margin-bottom: 26px;
+  margin-bottom: 33px;
 
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
 }
 

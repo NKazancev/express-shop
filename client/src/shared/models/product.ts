@@ -3,14 +3,27 @@ export interface IProduct {
   name: string;
   price: number;
   description: string;
-  image: string;
+  image: FileList | string;
+  typeId: string;
+  brandId: string;
+}
+
+export interface ICreateProductData extends IProduct {
+  images: FileList;
+  text: string;
 }
 
 export interface IProductData extends IProduct {
-  typeId: string;
-  brandId: string;
-  gallery: string[];
-  info: string;
+  gallery: IProductGallery;
+  info: IProductInfo;
+}
+
+export interface IProductGallery {
+  images: string[] | undefined;
+}
+
+export interface IProductInfo {
+  text: string | undefined;
 }
 
 export interface IProductsRequest {

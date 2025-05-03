@@ -11,7 +11,7 @@ const productRouter = Router();
 const { createProduct, getProducts, getProductById, updateProduct, deleteProduct } =
   ProductController;
 
-const uploadImages = upload.fields([{name: 'image'}, {name: 'gallery'}])
+const uploadImages = upload.fields([{name: 'image'}, {name: 'images'}])
 
 productRouter.post('/', [verifyToken, verifyAdmin], uploadImages, asyncHandler(createProduct));
 productRouter.get('/', asyncHandler(getProducts));

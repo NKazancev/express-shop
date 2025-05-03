@@ -2,15 +2,15 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import {
+  ICreateProductData,
   IProductBrand,
-  IProductData,
   IProductType,
 } from '@shared/models/product';
 
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
-  onProductCreation: (data: Omit<IProductData, 'id'>) => void;
+  onProductCreation: (data: Omit<ICreateProductData, 'id'>) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
 };
@@ -20,7 +20,7 @@ const ProductForm: FC<TProductForm> = ({
   typeOptions,
   brandOptions,
 }) => {
-  const { handleSubmit, register } = useForm<Omit<IProductData, 'id'>>();
+  const { handleSubmit, register } = useForm<Omit<ICreateProductData, 'id'>>();
 
   return (
     <form onSubmit={handleSubmit(onProductCreation)} className={styles.form}>
@@ -49,7 +49,7 @@ const ProductForm: FC<TProductForm> = ({
       <textarea
         placeholder="Info"
         className={styles.textarea}
-        {...register('info', { required: true })}
+        {...register('text', { required: true })}
       />
 
       <select
@@ -89,7 +89,7 @@ const ProductForm: FC<TProductForm> = ({
       <input
         type="file"
         className={styles.file}
-        {...register('gallery')}
+        {...register('images')}
         multiple
       />
 
