@@ -67,18 +67,11 @@ model ProductReview {
   id              String            @id @default(cuid())
   title           String
   text            String
-  userId          String
+  rate            Decimal            
   productId       String
-  author          User              @relation(fields: [userId], references: [id])
+  userId          String
   product         Product           @relation(fields: [productId], references: [id])
-  rating          ProductRating?
-}
-
-model ProductRating {
-  id              String            @id @default(cuid())
-  value           Decimal
-  reviewId        String            @unique
-  review          ProductReview     @relation(fields: [reviewId], references: [id])
+  user            User              @relation(fields: [userId], references: [id])
 }
 
 model CartProduct {

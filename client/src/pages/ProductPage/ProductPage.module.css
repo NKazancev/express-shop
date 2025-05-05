@@ -19,3 +19,7 @@
   display: flex;
   column-gap: 70px;
 }
+
+.info {
+  margin-bottom: 30px;
+}

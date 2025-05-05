@@ -1,17 +1,27 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { Rating } from 'react-simple-star-rating';
 
-import { IProduct } from '@shared/models/product';
+import { IProductData } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useCreateCartProductMutation } from '@shared/api/cartApi';
 import ModalLogin from '@modals/ModalLogin';
 
 import styles from './ProductPanel.module.css';
 
-const ProductPanel: FC<Partial<IProduct>> = ({ id, name, price }) => {
+const ProductPanel: FC<Partial<IProductData>> = ({
+  id,
+  name,
+  price,
+  reviews,
+}) => {
   const { isLogged } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [createCartProduct] = useCreateCartProductMutation();
+
+  const rating = useMemo(() => {
+    const sum = reviews?.reduce((acc, el) => (acc += parseInt(el.rate)), 0);
+    return reviews && sum && sum / reviews?.length;
+  }, [reviews]);
 
   const addProductToCart = async () => {
     if (!isLogged) {
@@ -42,7 +52,7 @@ const ProductPanel: FC<Partial<IProduct>> = ({ id, name, price }) => {
           <Rating
             iconsCount={10}
             allowFraction={true}
-            initialValue={10}
+            initialValue={rating}
             SVGstyle={{ width: '24px', height: '24px' }}
             fillColor="#ffd76d"
             style={{
@@ -50,7 +60,7 @@ const ProductPanel: FC<Partial<IProduct>> = ({ id, name, price }) => {
               pointerEvents: 'none',
             }}
           />
-          <span className={styles.votes}>(total votes: 2)</span>
+          <span className={styles.votes}>(total votes: {reviews?.length})</span>
         </div>
       </div>
 

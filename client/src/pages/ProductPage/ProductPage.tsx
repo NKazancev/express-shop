@@ -4,6 +4,7 @@ import { useGetProductByIdQuery } from '@shared/api/productApi';
 import ProductGallery from '@widgets/Product/ProductGallery/ProductGallery';
 import ProductPanel from '@widgets/Product/ProductPanel/ProductPanel';
 import ProductInfo from '@widgets/Product/ProductInfo/ProductInfo';
+import ReviewsList from '@widgets/Product/ProductReviews/ReviewsList';
 
 import styles from './ProductPage.module.css';
 
@@ -26,10 +27,15 @@ const ProductPage = () => {
           id={product?.id}
           name={product?.name}
           price={product?.price}
+          reviews={product?.reviews}
         />
       </div>
 
-      <ProductInfo text={product?.info.text} />
+      <div className={styles.info}>
+        <ProductInfo text={product?.info.text} />
+      </div>
+
+      <ReviewsList reviews={product?.reviews} />
     </div>
   );
 };

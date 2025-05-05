@@ -6,9 +6,9 @@ import asyncHandler from '../../middlewares/asyncHandler';
 
 const reviewRouter = Router();
 
-const { createProductReview, getProductReviews } = ReviewController;
+const { createProductReview, getProductReview } = ReviewController;
 
 reviewRouter.post('/', [verifyToken], asyncHandler(createProductReview));
-reviewRouter.get('/', asyncHandler(getProductReviews));
+reviewRouter.get('/:id', [verifyToken], asyncHandler(getProductReview));
 
 export default reviewRouter;

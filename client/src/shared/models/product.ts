@@ -16,6 +16,7 @@ export interface ICreateProductData extends IProduct {
 export interface IProductData extends IProduct {
   gallery: IProductGallery;
   info: IProductInfo;
+  reviews: IProductReview[] | undefined;
 }
 
 export interface IProductGallery {
@@ -24,6 +25,15 @@ export interface IProductGallery {
 
 export interface IProductInfo {
   text: string | undefined;
+}
+
+export interface IProductReview {
+  id: string;
+  title: string;
+  text: string;
+  rate: string;
+  productId: string;
+  userId: string;
 }
 
 export interface IProductsRequest {
