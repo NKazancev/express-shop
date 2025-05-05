@@ -24,9 +24,17 @@ const ProductBrandSchema = z.object({
   name: z.string(),
 });
 
+const ProductReviewSchema = z.object({
+  title: z.string(),
+  text: z.string(),
+  value: z.number(),
+  productId: z.string(),
+});
+
 export {
   CreateProductSchema,
   UpdateProductSchema,
   ProductTypeSchema,
   ProductBrandSchema,
+  ProductReviewSchema,
 };

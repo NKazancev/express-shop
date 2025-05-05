@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Rating } from 'react-simple-star-rating';
 
 import { IProduct } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
@@ -28,11 +29,29 @@ const ProductPanel: FC<Partial<IProduct>> = ({ id, name, price }) => {
 
   return (
     <div className={styles.container}>
-      <h5 className={styles.title}>{name}</h5>
-
       <div className={styles.status}>
         <div className={styles.circle}></div>
         <div>In stock</div>
+      </div>
+
+      <h5 className={styles.title}>{name}</h5>
+
+      <div className={styles.rating}>
+        <span>Rating:</span>
+        <div className={styles.stars}>
+          <Rating
+            iconsCount={10}
+            allowFraction={true}
+            initialValue={10}
+            SVGstyle={{ width: '24px', height: '24px' }}
+            fillColor="#ffd76d"
+            style={{
+              height: '24px',
+              pointerEvents: 'none',
+            }}
+          />
+          <span className={styles.votes}>(total votes: 2)</span>
+        </div>
       </div>
 
       <span className={styles.price}>Price: {price} &#8381;</span>

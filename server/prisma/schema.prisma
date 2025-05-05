@@ -18,6 +18,7 @@ model User {
   password          String
   role              Role            @default(USER)
   cartProducts      CartProduct[]
+  reviews           ProductReview[]
 }
 
 model Product {
@@ -33,6 +34,7 @@ model Product {
   gallery           ProductGallery?
   info              ProductInfo?
   cartProducts      CartProduct[]
+  reviews           ProductReview[]
 }
 
 model ProductType {
@@ -59,6 +61,24 @@ model ProductInfo {
   text            String
   productId       String            @unique
   product         Product           @relation(fields: [productId], references: [id])
+}
+
+model ProductReview {
+  id              String            @id @default(cuid())
+  title           String
+  text            String
+  userId          String
+  productId       String
+  author          User              @relation(fields: [userId], references: [id])
+  product         Product           @relation(fields: [productId], references: [id])
+  rating          ProductRating?
+}
+
+model ProductRating {
+  id              String            @id @default(cuid())
+  value           Decimal
+  reviewId        String            @unique
+  review          ProductReview     @relation(fields: [reviewId], references: [id])
 }
 
 model CartProduct {

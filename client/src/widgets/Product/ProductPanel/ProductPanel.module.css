@@ -1,27 +1,27 @@
 .container {
-  padding-top: 43px;
+  padding-top: 33px;
 
   display: flex;
   flex-direction: column;
 }
 
-.title {
-  margin-bottom: 13px;
-
-  font-family: 'Barlow', sans-serif;
-  font-size: 26px;
-  font-weight: 600;
-}
-
 .status {
-  margin-bottom: 26px;
+  margin-bottom: 8px;
 
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 400;
 
   display: inline-flex;
   align-items: center;
-  column-gap: 8px;
+  column-gap: 6px;
+}
+
+.title {
+  margin-bottom: 10px;
+
+  font-family: 'Barlow', sans-serif;
+  font-size: 27px;
+  font-weight: 600;
 }
 
 .circle {
@@ -31,11 +31,33 @@
   border-radius: 50%;
 }
 
-.price {
-  margin-bottom: 33px;
+.rating {
+  margin-bottom: 24px;
 
   font-size: 16px;
   font-weight: 400;
+
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.stars {
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(6px);
+}
+
+.price {
+  margin-bottom: 25px;
+
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.votes {
+  font-size: 13px;
 }
 
 .button {
