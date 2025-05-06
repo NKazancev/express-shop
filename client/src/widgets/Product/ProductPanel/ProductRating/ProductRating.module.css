@@ -1,0 +1,19 @@
+.container {
+  font-size: 16px;
+  font-weight: 400;
+
+  display: flex;
+  column-gap: 6px;
+  align-items: center;
+}
+
+.stars {
+  display: flex;
+  flex-direction: column;
+
+  transform: translateY(6px);
+}
+
+.votes {
+  font-size: 12px;
+}
