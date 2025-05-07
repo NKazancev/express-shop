@@ -1,11 +1,14 @@
 import { FC } from 'react';
 
 import { STATIC_URL } from '@config/consts';
-import { IProductGallery } from '@shared/models/product';
 
 import styles from './ProductGallery.module.css';
 
-const ProductGallery: FC<IProductGallery> = ({ images }) => {
+type TProductGallery = {
+  images?: string[];
+};
+
+const ProductGallery: FC<TProductGallery> = ({ images }) => {
   const thumbnailsPlaceholder = images
     ?.reduce((acc, el) => {
       return acc.concat(Array(5).fill(el));

@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
-import { IProductReview } from '@shared/models/product';
+import { FC, useState, useEffect } from 'react';
 
+import { IProductReview } from '@shared/models/product';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
+import { useLazyGetProductReviewQuery } from '@shared/api/reviewApi';
 import ModalReview from '@modals/ModalReview/ModalReview';
 
 import styles from './ReviewsList.module.css';
-import { useAppSelector } from '@shared/hooks/reduxHooks';
-import { useGetProductReviewQuery } from '@shared/api/reviewApi';
 
 type TReviewsList = {
   reviews?: IProductReview[];
@@ -14,11 +14,22 @@ type TReviewsList = {
 
 const ReviewsList: FC<TReviewsList> = ({ reviews, productId }) => {
   const { isLogged } = useAppSelector((state) => state.user);
-  const { data: userReview } = useGetProductReviewQuery(productId);
+  const [trigger] = useLazyGetProductReviewQuery();
+  const [userReview, setUserReview] = useState<IProductReview | null>();
   const [modalVisible, setModalVisible] = useState<boolean>();
 
+  useEffect(() => {
+    if (!isLogged) setUserReview(null);
+    if (isLogged && !userReview)
+      trigger(productId).then((res) => setUserReview(res.data));
+  }, [isLogged, userReview]);
+
   const showModal = () => setModalVisible(true);
-  const hideModal = () => setModalVisible(false);
+
+  const hideModal = () => {
+    setModalVisible(false);
+    trigger(productId).then((res) => setUserReview(res.data));
+  };
 
   return (
     <div className={styles.container}>
@@ -37,6 +48,7 @@ const ReviewsList: FC<TReviewsList> = ({ reviews, productId }) => {
           return (
             <li key={review.id}>
               <h5>{review.title}</h5>
+              <p>{review.user.email}</p>
               <p>{review.text}</p>
               <p>{review.rate}</p>
             </li>

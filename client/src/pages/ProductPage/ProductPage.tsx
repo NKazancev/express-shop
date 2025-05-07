@@ -4,7 +4,7 @@ import { useGetProductByIdQuery } from '@shared/api/productApi';
 import ProductGallery from '@widgets/Product/ProductGallery/ProductGallery';
 import ProductPanel from '@widgets/Product/ProductPanel/ProductPanel';
 import ProductInfo from '@widgets/Product/ProductInfo/ProductInfo';
-import ReviewsList from '@widgets/Product/ProductReviews/ReviewsList';
+import ReviewsList from '@widgets/Product/ProductReviews/ReviewsList/ReviewsList';
 
 import styles from './ProductPage.module.css';
 

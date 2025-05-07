@@ -3,11 +3,8 @@
 }
 
 .label {
-  display: block;
-}
-
-.label:not(:last-of-type) {
   margin-bottom: 9px;
+  display: block;
 }
 
 .label span {
@@ -34,13 +31,15 @@
 }
 
 .textarea {
-  min-height: 250px;
+  min-height: 200px;
   padding: 10px;
 
   resize: none;
 }
 
 .rating {
+  padding-top: 3px;
+
   font-size: 14px;
   font-weight: 500;
 

@@ -16,21 +16,15 @@ export interface ICreateProductData extends IProduct {
 export interface IProductData extends IProduct {
   gallery: IProductGallery;
   info: IProductInfo;
-  reviews: IProductReview[] | undefined;
+  reviews: IProductReview[];
 }
 
 export interface IProductGallery {
-  images: string[] | undefined;
+  images: string[];
 }
 
 export interface IProductInfo {
-  text: string | undefined;
-}
-
-export interface ICreateReviewData {
-  title: string;
   text: string;
-  rate: string;
 }
 
 export interface IProductReview {
@@ -41,6 +35,12 @@ export interface IProductReview {
   productId: string;
   userId: string;
   user: { email: string };
+}
+
+export interface ICreateReviewData {
+  title: string;
+  text: string;
+  rate: string;
 }
 
 export interface IProductsRequest {

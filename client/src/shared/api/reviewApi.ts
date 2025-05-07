@@ -27,5 +27,5 @@ const reviewApi = baseApi
     }),
   });
 
-export const { useCreateProductReviewMutation, useGetProductReviewQuery } =
+export const { useCreateProductReviewMutation, useLazyGetProductReviewQuery } =
   reviewApi;
