@@ -35,7 +35,7 @@ const ProductPage = () => {
         <ProductInfo text={product?.info.text} />
       </div>
 
-      <ReviewsList reviews={product?.reviews} />
+      <ReviewsList reviews={product?.reviews} productId={product?.id} />
     </div>
   );
 };

@@ -4,11 +4,16 @@ import { IProductData } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useCreateCartProductMutation } from '@shared/api/cartApi';
 import ProductRating from './ProductRating/ProductRating';
-import ModalLogin from '@modals/ModalLogin';
+import ModalLogin from '@modals/ModalLogin/ModalLogin';
 
 import styles from './ProductPanel.module.css';
 
-const ProductPanel: FC<IProductData> = ({ id, name, price, reviews }) => {
+const ProductPanel: FC<Partial<IProductData>> = ({
+  id,
+  name,
+  price,
+  reviews,
+}) => {
   const { isLogged } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [createCartProduct] = useCreateCartProductMutation();
@@ -34,7 +39,7 @@ const ProductPanel: FC<IProductData> = ({ id, name, price, reviews }) => {
         <div>In stock</div>
       </div>
 
-      <h5 className={styles.title}>{name}</h5>
+      <h4 className={styles.title}>{name}</h4>
 
       <div className={styles.rating}>
         <ProductRating reviews={reviews} />

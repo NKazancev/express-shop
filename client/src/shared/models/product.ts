@@ -27,6 +27,12 @@ export interface IProductInfo {
   text: string | undefined;
 }
 
+export interface ICreateReviewData {
+  title: string;
+  text: string;
+  rate: string;
+}
+
 export interface IProductReview {
   id: string;
   title: string;
@@ -34,6 +40,7 @@ export interface IProductReview {
   rate: string;
   productId: string;
   userId: string;
+  user: { email: string };
 }
 
 export interface IProductsRequest {

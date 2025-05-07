@@ -1,0 +1,63 @@
+.form {
+  width: 100%;
+}
+
+.label {
+  display: block;
+}
+
+.label:not(:last-of-type) {
+  margin-bottom: 9px;
+}
+
+.label span {
+  display: block;
+  transform: translateX(5px);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
+
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.input {
+  height: 38px;
+  padding: 0 10px;
+}
+
+.textarea {
+  min-height: 250px;
+  padding: 10px;
+
+  resize: none;
+}
+
+.rating {
+  font-size: 14px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: flex-end;
+  column-gap: 8px;
+}
+
+.button {
+  width: 100%;
+  margin-top: 23px;
+  padding: 12px 0px;
+
+  background-color: rgb(140, 171, 155);
+  border-radius: 5px;
+
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  letter-spacing: 0.03rem;
+}

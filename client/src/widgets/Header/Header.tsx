@@ -4,7 +4,7 @@ import { NavLink } from 'react-router';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import UserPanel from './UserPanel/UserPanel';
 import AdminPanel from './AdminPanel/AdminPanel';
-import ModalLogin from '../../modals/ModalLogin';
+import ModalLogin from '../../modals/ModalLogin/ModalLogin';
 
 import styles from './Header.module.css';
 

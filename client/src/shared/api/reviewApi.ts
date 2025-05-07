@@ -1,5 +1,5 @@
 import baseApi from '@config/baseApi';
-import { IProductReview } from '@shared/models/product';
+import { ICreateReviewData, IProductReview } from '@shared/models/product';
 
 const reviewApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Reviews'] })
@@ -7,16 +7,17 @@ const reviewApi = baseApi
     endpoints: (builder) => ({
       createProductReview: builder.mutation<
         IProductReview,
-        Omit<IProductReview, 'id' | 'userId'>
+        ICreateReviewData & { productId?: string }
       >({
-        query: () => ({
+        query: (data) => ({
           url: 'reviews',
           method: 'POST',
+          body: data,
         }),
         invalidatesTags: [{ type: 'Reviews', id: 'LIST' }],
       }),
 
-      getProductReview: builder.query<IProductReview, string>({
+      getProductReview: builder.query<IProductReview, string | undefined>({
         query: (id) => ({
           url: `reviews/${id}`,
           method: 'GET',

@@ -27,7 +27,7 @@ const ProductBrandSchema = z.object({
 const ProductReviewSchema = z.object({
   title: z.string(),
   text: z.string(),
-  rate: z.number(),
+  rate: z.string(),
   productId: z.string(),
 });
 
