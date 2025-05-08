@@ -34,8 +34,8 @@ const ProductPanel: FC<TProductPanel> = ({ id, name, price, reviews }) => {
   return (
     <div className={styles.container}>
       <div className={styles.status}>
-        <div className={styles.circle}></div>
-        <div>In stock</div>
+        <span className={styles.circle}></span>
+        <span>In stock</span>
       </div>
 
       <h4 className={styles.title}>{name}</h4>

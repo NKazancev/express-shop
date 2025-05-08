@@ -20,7 +20,7 @@ const ProductInfo: FC<TProductInfo> = ({ text }) => {
 
   return (
     <div className={styles.container}>
-      <h5 className={styles.title}>Description:</h5>
+      <h4 className={styles.title}>Description:</h4>
       {description}
     </div>
   );

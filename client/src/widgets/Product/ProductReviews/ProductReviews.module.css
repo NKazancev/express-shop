@@ -1,0 +1,52 @@
+.header {
+  margin-bottom: 13px;
+
+  display: flex;
+  align-items: center;
+  column-gap: 25px;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.total {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.notification {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.button {
+  padding: 11px 58px 10px 56px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #8b8b8b;
+  border-radius: 5px;
+
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+
+  display: inline-flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 22px;
+}

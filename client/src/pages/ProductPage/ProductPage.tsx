@@ -4,7 +4,7 @@ import { useGetProductByIdQuery } from '@shared/api/productApi';
 import ProductGallery from '@widgets/Product/ProductGallery/ProductGallery';
 import ProductPanel from '@widgets/Product/ProductPanel/ProductPanel';
 import ProductInfo from '@widgets/Product/ProductInfo/ProductInfo';
-import ReviewsList from '@widgets/Product/ProductReviews/ReviewsList/ReviewsList';
+import ProductReviews from '@widgets/Product/ProductReviews/ProductReviews';
 
 import styles from './ProductPage.module.css';
 
@@ -35,7 +35,7 @@ const ProductPage = () => {
         <ProductInfo text={product?.info.text} />
       </div>
 
-      <ReviewsList reviews={product?.reviews} productId={product?.id} />
+      <ProductReviews reviews={product?.reviews} productId={product?.id} />
     </div>
   );
 };

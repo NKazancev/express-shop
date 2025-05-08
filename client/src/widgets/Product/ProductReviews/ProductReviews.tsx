@@ -3,16 +3,17 @@ import { FC, useState, useEffect } from 'react';
 import { IProductReview } from '@shared/models/product';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useLazyGetProductReviewQuery } from '@shared/api/reviewApi';
+import Review from './Review/Review';
 import ModalReview from '@modals/ModalReview/ModalReview';
 
-import styles from './ReviewsList.module.css';
+import styles from './ProductReviews.module.css';
 
-type TReviewsList = {
+type TProductReviews = {
   reviews?: IProductReview[];
   productId?: string;
 };
 
-const ReviewsList: FC<TReviewsList> = ({ reviews, productId }) => {
+const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
   const { isLogged } = useAppSelector((state) => state.user);
   const [trigger] = useLazyGetProductReviewQuery();
   const [userReview, setUserReview] = useState<IProductReview | null>();
@@ -33,26 +34,23 @@ const ReviewsList: FC<TReviewsList> = ({ reviews, productId }) => {
 
   return (
     <div className={styles.container}>
-      <h5 className={styles.title}>Reviews:</h5>
+      <header className={styles.header}>
+        <div className={styles.info}>
+          <h4 className={styles.title}>Reviews</h4>
+          <span className={styles.total}>Total reviews: {reviews?.length}</span>
+        </div>
 
-      {isLogged && !userReview && (
-        <button type="button" onClick={showModal} className={styles.button}>
-          Add review
-        </button>
-      )}
-
-      {!isLogged && <p>Only authorized users may add reviews</p>}
+        {isLogged && !userReview && (
+          <button type="button" onClick={showModal} className={styles.button}>
+            <span>+</span>
+            <span>Add review</span>
+          </button>
+        )}
+      </header>
 
       <ul className={styles.list}>
         {reviews?.map((review) => {
-          return (
-            <li key={review.id}>
-              <h5>{review.title}</h5>
-              <p>{review.user.email}</p>
-              <p>{review.text}</p>
-              <p>{review.rate}</p>
-            </li>
-          );
+          return <Review key={review.id} {...review} />;
         })}
       </ul>
 
@@ -63,4 +61,4 @@ const ReviewsList: FC<TReviewsList> = ({ reviews, productId }) => {
   );
 };
 
-export default ReviewsList;
+export default ProductReviews;
