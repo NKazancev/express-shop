@@ -1,13 +1,13 @@
 import { FC, useEffect } from 'react';
 
 import { useCreateProductReviewMutation } from '@shared/api/reviewApi';
+import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
 import { ICreateReviewData } from '@shared/models/product';
 import Modal from '@shared/ui/Modal/Modal';
 import ReviewForm from '@widgets/Product/ProductReviews/ReviewForm/ReviewForm';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalReview.module.css';
-import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
 
 type TModalReview = {
   onClose: () => void;

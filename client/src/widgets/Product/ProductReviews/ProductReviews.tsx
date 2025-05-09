@@ -42,8 +42,7 @@ const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
 
         {isLogged && !userReview && (
           <button type="button" onClick={showModal} className={styles.button}>
-            <span>+</span>
-            <span>Add review</span>
+            <span>+ Add review</span>
           </button>
         )}
       </header>
