@@ -20,9 +20,10 @@ class ReviewService {
     return review;
   }
 
-  static async getProductReview(userId: string, productId: string) {
+  static async getUserReview(userId: string, productId: string) {
     const foundReview = await prisma.productReview.findFirst({
       where: { userId, productId },
+      include: { user: { select: { email: true } } },
     });
     return foundReview;
   }

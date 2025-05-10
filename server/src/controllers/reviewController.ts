@@ -19,10 +19,10 @@ class ReviewController {
     res.status(201).json(review);
   }
 
-  static async getProductReview(req: Request, res: Response) {
-    const { productId } = req.params;
+  static async getUserReview(req: Request, res: Response) {
+    const productId = req.params.id;
     const userId = req.user.id;
-    const review = await ReviewService.getProductReview(userId, productId);
+    const review = await ReviewService.getUserReview(userId, productId);
     res.status(200).json(review);
   }
 }

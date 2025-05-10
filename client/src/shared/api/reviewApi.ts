@@ -17,7 +17,7 @@ const reviewApi = baseApi
         invalidatesTags: [{ type: 'Reviews', id: 'LIST' }],
       }),
 
-      getProductReview: builder.query<IProductReview, string | undefined>({
+      getUserReview: builder.query<IProductReview, string | undefined>({
         query: (id) => ({
           url: `reviews/${id}`,
           method: 'GET',
@@ -27,5 +27,5 @@ const reviewApi = baseApi
     }),
   });
 
-export const { useCreateProductReviewMutation, useLazyGetProductReviewQuery } =
+export const { useCreateProductReviewMutation, useLazyGetUserReviewQuery } =
   reviewApi;

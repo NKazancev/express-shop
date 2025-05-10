@@ -6,7 +6,7 @@ import { IProductReview } from '@shared/models/product';
 import authorIcon from '@shared/assets/author-icon.svg';
 import styles from './Review.module.css';
 
-const Review: FC<IProductReview> = ({ title, text, rate, user }) => {
+const Review: FC<Partial<IProductReview>> = ({ title, text, rate, user }) => {
   return (
     <li>
       <article className={styles.review}>
@@ -16,7 +16,7 @@ const Review: FC<IProductReview> = ({ title, text, rate, user }) => {
           <div className={styles.info}>
             <div className={styles.author}>
               <img src={authorIcon} alt="author-icon" />
-              <span>{user.email}</span>
+              <span>{user?.email}</span>
             </div>
 
             <div className={styles.rating}>

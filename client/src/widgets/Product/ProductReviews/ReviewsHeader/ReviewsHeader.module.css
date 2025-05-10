@@ -1,0 +1,38 @@
+.header {
+  margin-bottom: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.total,
+.notification {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.button {
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
+
+  text-decoration: underline;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+}

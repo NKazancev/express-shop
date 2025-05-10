@@ -1,6 +1,7 @@
 import { NavLink, useParams } from 'react-router';
 
 import { useGetProductByIdQuery } from '@shared/api/productApi';
+
 import ProductGallery from '@widgets/Product/ProductGallery/ProductGallery';
 import ProductPanel from '@widgets/Product/ProductPanel/ProductPanel';
 import ProductInfo from '@widgets/Product/ProductInfo/ProductInfo';
@@ -22,13 +23,7 @@ const ProductPage = () => {
 
       <div className={styles.content}>
         <ProductGallery images={product?.gallery.images} />
-
-        <ProductPanel
-          id={product?.id}
-          name={product?.name}
-          price={product?.price}
-          reviews={product?.reviews}
-        />
+        <ProductPanel {...product} />
       </div>
 
       <div className={styles.info}>
