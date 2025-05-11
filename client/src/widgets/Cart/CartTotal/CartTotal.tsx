@@ -9,8 +9,13 @@ type TCartTotal = {
 };
 
 const CartTotal: FC<TCartTotal> = ({ items }) => {
-  const total = items?.reduce((acc, el) => {
+  const totalPrice = items?.reduce((acc, el) => {
     acc += el.product.price * el.quantity;
+    return acc;
+  }, 0);
+
+  const itemsQuantity = items?.reduce((acc, el) => {
+    acc += el.quantity;
     return acc;
   }, 0);
 
@@ -20,12 +25,12 @@ const CartTotal: FC<TCartTotal> = ({ items }) => {
 
       <div className={styles.quantity}>
         <span>Items quantity</span>
-        <span>{items?.length}</span>
+        <span>{itemsQuantity}</span>
       </div>
 
       <div className={styles.total}>
         <span>Total</span>
-        <span>&#8381; {total}</span>
+        <span>&#8381; {totalPrice}</span>
       </div>
 
       <button type="button" className={styles.button}>

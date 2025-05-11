@@ -1,6 +1,4 @@
 .list {
-  flex: 0 1 715px;
-
   display: flex;
   flex-direction: column;
   row-gap: 24px;

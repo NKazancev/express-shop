@@ -2,10 +2,8 @@ import { FC } from 'react';
 
 import { STATIC_URL } from '@config/consts';
 import { ICartProduct } from '@shared/models/cart';
-import {
-  useDeleteCartProductMutation,
-  useUpdateCartProductMutation,
-} from '@shared/api/cartApi';
+import { useDeleteCartProductMutation } from '@shared/api/cartApi';
+import CartProductCounter from '../CartProductCounter/CartProductCounter';
 
 import deleteIcon from '@shared/assets/delete-icon.svg';
 import styles from './CartProduct.module.css';
@@ -13,25 +11,7 @@ import styles from './CartProduct.module.css';
 type TCartProduct = ICartProduct & { index: number };
 
 const CartProduct: FC<TCartProduct> = ({ index, id, product, quantity }) => {
-  const [updateCartProduct] = useUpdateCartProductMutation();
   const [deleteCartProduct] = useDeleteCartProductMutation();
-
-  const increaseQuantity = async () => {
-    try {
-      await updateCartProduct({ id, quantity: quantity + 1 }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const decreaseQuantity = async () => {
-    try {
-      await updateCartProduct({ id, quantity: quantity - 1 }).unwrap();
-      if (quantity === 1) await deleteCartProduct(id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const removeProduct = async () => {
     try {
@@ -49,27 +29,9 @@ const CartProduct: FC<TCartProduct> = ({ index, id, product, quantity }) => {
         <img src={`${STATIC_URL}/${product.image}`} alt="image" />
       </div>
 
-      <div className={styles.name}>{product.name}</div>
+      <h5 className={styles.name}>{product.name}</h5>
 
-      <div className={styles.counter}>
-        <button
-          type="button"
-          className={styles.button}
-          onClick={increaseQuantity}
-        >
-          <span>+</span>
-        </button>
-
-        <span className={styles.quantity}>{quantity}</span>
-
-        <button
-          type="button"
-          className={styles.button}
-          onClick={decreaseQuantity}
-        >
-          <span>-</span>
-        </button>
-      </div>
+      <CartProductCounter id={id} quantity={quantity} />
 
       <div className={styles.price}>{quantity * product.price}</div>
 

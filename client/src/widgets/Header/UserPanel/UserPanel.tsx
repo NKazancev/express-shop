@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 
 import { useGetCartProductsQuery } from '@shared/api/cartApi';
@@ -24,9 +24,15 @@ const UserPanel = () => {
   const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
   const closeMenu = () => setProfileMenuVisible(false);
 
+  const handleCartClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (data?.length === 0) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <NavLink to="/cart" className={styles.cart}>
+      <NavLink to="/cart" onClick={handleCartClick} className={styles.cart}>
         <img src={cart} alt="cart-icon" />
         <span>Cart</span>
 

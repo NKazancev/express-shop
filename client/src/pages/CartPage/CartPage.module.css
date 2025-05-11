@@ -3,6 +3,16 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 40px;
+}
+
+.list {
+  flex: 0 1 715px;
+
+  padding-top: 34px;
+}
+
+.total {
+  flex: 0 1 335px;
 }
