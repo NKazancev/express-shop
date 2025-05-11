@@ -1,14 +1,19 @@
-import { useGetCartProductsQuery } from '@shared/api/cartApi';
+import { FC } from 'react';
+
 import CartProduct from '../CartProduct/CartProduct';
+import { ICartProduct } from '@shared/models/cart';
 
 import styles from './CartProductsList.module.css';
 
-const CartProductsList = () => {
-  const { data: cartProducts } = useGetCartProductsQuery();
+type TCartProductsList = {
+  items?: ICartProduct[];
+};
 
-  const cartProductsList = cartProducts?.map((cartProduct) => {
+const CartProductsList: FC<TCartProductsList> = ({ items }) => {
+  const cartProductsList = items?.map((cartProduct, index) => {
     return (
       <CartProduct
+        index={index}
         key={cartProduct.id}
         id={cartProduct.id}
         quantity={cartProduct.quantity}

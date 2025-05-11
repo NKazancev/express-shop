@@ -1,14 +1,57 @@
 .item {
-  display: flex;
+  width: 100%;
+
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+
+  display: grid;
+  grid-template-columns: 25px 70px 1fr 94px 164px max-content;
   align-items: center;
-  column-gap: 30px;
 }
 
-.buttons {
+.index {
+  font-size: 15px;
+}
+
+.name {
+  padding-left: 26px;
+}
+
+.counter {
   display: flex;
-  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.buttons button {
-  padding: 5px 10px;
+.button {
+  width: 30px;
+  height: 30px;
+
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+
+  position: relative;
+}
+
+.button span {
+  position: absolute;
+  top: 4px;
+  left: 11px;
+
+  font-size: 16px;
+}
+
+.quantity {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.price {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
 }
