@@ -13,3 +13,8 @@
 
   direction: rtl;
 }
+
+.thumbnail,
+.mainImage {
+  cursor: pointer;
+}
