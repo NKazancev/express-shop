@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@config': join(__dirname, './src/config'),
+      '@pages': join(__dirname, './src/pages'),
       '@processes': join(__dirname, './src/processes'),
       '@shared': join(__dirname, './src/shared'),
       '@widgets': join(__dirname, './src/widgets'),
