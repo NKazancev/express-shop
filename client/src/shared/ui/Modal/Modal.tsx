@@ -1,8 +1,5 @@
 import { FC, ReactNode, useEffect, useRef } from 'react';
 
-import usePortal from '@shared/hooks/usePortal';
-import { PORTAL_CONTAINER_ID } from '@config/consts';
-
 import styles from './Modal.module.css';
 
 type TModal = {
@@ -27,14 +24,13 @@ const Modal: FC<TModal> = ({ children, onClose }) => {
     return () => document.removeEventListener('mousedown', handleOverlayClick);
   }, [ref, onClose]);
 
-  const content = (
+  return (
     <div className={styles.overlay}>
-      <div ref={ref}>{children}</div>
+      <div ref={ref} className={styles.container}>
+        {children}
+      </div>
     </div>
   );
-
-  const portal = usePortal(PORTAL_CONTAINER_ID, content);
-  return portal;
 };
 
 export default Modal;

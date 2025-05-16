@@ -3,8 +3,11 @@ import { FC, useEffect } from 'react';
 import { useCreateProductReviewMutation } from '@shared/api/reviewApi';
 import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
 import { ICreateReviewData } from '@shared/models/product';
-import Modal from '@shared/ui/Modal/Modal';
 import ReviewForm from '@widgets/Product/ProductReviews/ReviewForm/ReviewForm';
+
+import Modal from '@shared/ui/Modal/Modal';
+import usePortal from '@shared/hooks/usePortal';
+import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalReview.module.css';
@@ -33,7 +36,7 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
     }
   };
 
-  return (
+  const content = (
     <Modal onClose={onClose}>
       <div className={styles.content}>
         <h3 className={styles.title}>Review form</h3>
@@ -46,6 +49,10 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
       </div>
     </Modal>
   );
+
+  const modal = usePortal(PORTAL_CONTAINER_ID, content);
+
+  return modal;
 };
 
 export default ModalReview;
