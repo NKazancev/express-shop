@@ -1,17 +1,18 @@
 import { FC } from 'react';
+import { UseFormHandleSubmit } from 'react-hook-form';
 
 import { ICartProduct } from '@shared/models/cart';
-
-import styles from './CartTotal.module.css';
-import { useNavigate } from 'react-router';
+import { ICreateOrderData } from '@shared/models/order';
 import useCartTotal from '@shared/hooks/useCartTotal';
 
-type TCartTotal = {
+import styles from './CheckoutTotal.module.css';
+
+type TCheckoutTotal = {
   items?: ICartProduct[];
+  handleSubmit: UseFormHandleSubmit<ICreateOrderData>;
 };
 
-const CartTotal: FC<TCartTotal> = ({ items }) => {
-  const navigate = useNavigate();
+const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
   const { itemsQuantity, totalPrice } = useCartTotal(items);
 
   return (
@@ -29,14 +30,14 @@ const CartTotal: FC<TCartTotal> = ({ items }) => {
       </div>
 
       <button
-        type="button"
-        onClick={() => navigate('checkout')}
+        type="submit"
+        onClick={handleSubmit((data) => console.log(data))}
         className={styles.button}
       >
-        Checkout
+        Proceed to payment
       </button>
     </div>
   );
 };
 
-export default CartTotal;
+export default CheckoutTotal;

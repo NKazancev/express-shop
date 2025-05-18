@@ -12,6 +12,7 @@ import CreateProductPage from '@pages/AdminPage/CreateProductPage/CreateProductP
 import HandleProductsPage from '@pages/AdminPage/HandleProductsPage/HandleProductsPage';
 import HandleTypesPage from '@pages/AdminPage/HandleTypesPage/HandleTypesPage';
 import HandleBrandsPage from '@pages/AdminPage/HandleBrandsPage/HandleBrandsPage';
+import CheckoutPage from '@pages/CheckoutPage/CheckoutPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 
       <Route path="/cart" element={<CartLayout />}>
         <Route index element={<CartPage />} />
+        <Route path="checkout" element={<CheckoutPage />} />
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>
