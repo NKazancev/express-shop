@@ -7,6 +7,8 @@ import typeRouter from './routers/typeRouter';
 import brandRouter from './routers/brandRouter';
 import cartRouter from './routers/cartRouter';
 import reviewRouter from './routers/reviewRouter';
+import countryRouter from './routers/countryRouter';
+import cityRouter from './routers/cityRouter';
 
 const rootRouter = Router();
 
@@ -17,5 +19,7 @@ rootRouter.use('/types', typeRouter);
 rootRouter.use('/brands', brandRouter);
 rootRouter.use('/cart', cartRouter);
 rootRouter.use('/reviews', reviewRouter);
+rootRouter.use('/countries', countryRouter);
+rootRouter.use('/cities', cityRouter);
 
 export default rootRouter;

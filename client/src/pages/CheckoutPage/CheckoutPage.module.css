@@ -8,15 +8,13 @@
 }
 
 .title {
-  margin-bottom: 20px;
-
   font-family: 'Barlow', sans-serif;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 700;
 }
 
 .form {
-  flex: 0 1 680px;
+  padding-top: 10px;
 
   display: flex;
   flex-direction: column;
@@ -24,4 +22,13 @@
 
 .total {
   flex: 0 1 335px;
+}
+
+.notification {
+  margin: 24px 0;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
 }

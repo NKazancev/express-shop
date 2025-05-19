@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { useGetCartProductsQuery } from '@shared/api/cartApi';
 import { ICreateOrderData } from '@shared/models/order';
+
 import CheckoutForm from '@widgets/Checkout/CheckoutForm/CheckoutForm';
 import CheckoutTotal from '@widgets/Checkout/CheckoutTotal/CheckoutTotal';
 
@@ -15,6 +16,8 @@ const CheckoutPage = () => {
     <div className={styles.container}>
       <div className={styles.form}>
         <h3 className={styles.title}>Delivery information</h3>
+        <p className={styles.notification}>All fields are mandatory</p>
+
         <CheckoutForm register={register} />
       </div>
 
