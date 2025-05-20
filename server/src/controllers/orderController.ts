@@ -1,0 +1,31 @@
+import { Request, Response } from 'express';
+import {
+  CreateOrderSchema,
+  UpdateOrderStatusSchema,
+} from '../schema/orderSchema';
+import OrderService from '../services/orderService';
+
+class OrderController {
+  static async createOrder(req: Request, res: Response) {
+    CreateOrderSchema.parse(req.body);
+    const { customer, address } = req.body;
+    const userId = req.user.id;
+    const order = await OrderService.createOrder(customer, address, userId);
+    res.status(201).json(order);
+  }
+
+  static async getAllOrders(req: Request, res: Response) {
+    const orders = await OrderService.getAllOrders();
+    res.status(200).json(orders);
+  }
+
+  static async updateOrderStatus(req: Request, res: Response) {
+    UpdateOrderStatusSchema.parse(req.body);
+    const orderId = req.params.id;
+    const { status } = req.body;
+    const updatedOrder = await OrderService.updateOrderStatus(orderId, status);
+    res.status(200).json(updatedOrder);
+  }
+}
+
+export default OrderController;

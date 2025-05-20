@@ -9,6 +9,7 @@ import cartRouter from './routers/cartRouter';
 import reviewRouter from './routers/reviewRouter';
 import countryRouter from './routers/countryRouter';
 import cityRouter from './routers/cityRouter';
+import orderRouter from './routers/orderRouter';
 
 const rootRouter = Router();
 
@@ -21,5 +22,6 @@ rootRouter.use('/cart', cartRouter);
 rootRouter.use('/reviews', reviewRouter);
 rootRouter.use('/countries', countryRouter);
 rootRouter.use('/cities', cityRouter);
+rootRouter.use('/orders', orderRouter);
 
 export default rootRouter;
