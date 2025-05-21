@@ -1,9 +1,28 @@
 import prisma from '../config/prismaClient';
 import { OrderStatus } from '@prisma/client';
+import CountryService from './countryService';
+import CityService from './cityService';
 
 class OrderService {
-  static async createOrder(customer: string, address: string, userId: string) {
+  static async createOrder(
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: string,
+    countryId: string,
+    cityId: string,
+    street: string,
+    postcode: string,
+    userId: string
+  ) {
     return await prisma.$transaction(async (tx) => {
+      const country = await CountryService.getCountryNameById(countryId);
+      const city = await CityService.getCityNameById(cityId);
+
+      const customer = `${firstName} ${lastName}`;
+      const address = `${country?.name}, ${city?.name}, ${street}, ${postcode}`;
+      const contactInfo = `${email}, ${phone}`;
+
       const cartProducts = await tx.cartProduct.findMany({
         where: { userId },
         include: { product: true },
@@ -18,6 +37,7 @@ class OrderService {
         data: {
           customer,
           address,
+          contactInfo,
           netAmount,
           userId,
           products: {

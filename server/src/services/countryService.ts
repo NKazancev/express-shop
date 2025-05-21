@@ -17,6 +17,14 @@ class CountryService {
     return countries;
   }
 
+  static async getCountryNameById(id: string) {
+    const city = await prisma.deliveryCountry.findFirst({
+      where: { id },
+      select: { name: true },
+    });
+    return city;
+  }
+
   static async deleteCountry(id: string) {
     await prisma.deliveryCountry.delete({ where: { id } }).catch(() => {
       throw new ApiError(404, ErrorMessage.COUNTRY_NOT_FOUND);

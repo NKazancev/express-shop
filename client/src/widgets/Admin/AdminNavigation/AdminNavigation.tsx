@@ -10,6 +10,9 @@ const AdminNavigation = () => {
           <NavLink to="/admin">Handle products</NavLink>
         </li>
         <li>
+          <NavLink to="orders">Handle orders</NavLink>
+        </li>
+        <li>
           <NavLink to="create">Create product</NavLink>
         </li>
         <li>

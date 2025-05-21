@@ -8,9 +8,22 @@ import OrderService from '../services/orderService';
 class OrderController {
   static async createOrder(req: Request, res: Response) {
     CreateOrderSchema.parse(req.body);
-    const { customer, address } = req.body;
+    const { firstName, lastName } = req.body;
+    const { country: countryId, city: cityId } = req.body;
+    const { street, postcode, email, phone } = req.body;
     const userId = req.user.id;
-    const order = await OrderService.createOrder(customer, address, userId);
+
+    const order = await OrderService.createOrder(
+      firstName,
+      lastName,
+      email,
+      phone,
+      countryId,
+      cityId,
+      street,
+      postcode,
+      userId
+    );
     res.status(201).json(order);
   }
 

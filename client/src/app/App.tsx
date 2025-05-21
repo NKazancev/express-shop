@@ -7,12 +7,13 @@ import CartLayout from './layouts/CartLayout';
 import HomePage from '@pages/HomePage/HomePage';
 import ProductPage from '@pages/ProductPage/ProductPage';
 import CartPage from '@pages/CartPage/CartPage';
+import CheckoutPage from '@pages/CheckoutPage/CheckoutPage';
 import RegistrationPage from '@pages/RegistrationPage/RegistrationPage';
 import CreateProductPage from '@pages/AdminPage/CreateProductPage/CreateProductPage';
+import HandleOrdersPage from '@pages/AdminPage/HandleOrdersPage/HandleOrdersPage';
 import HandleProductsPage from '@pages/AdminPage/HandleProductsPage/HandleProductsPage';
 import HandleTypesPage from '@pages/AdminPage/HandleTypesPage/HandleTypesPage';
 import HandleBrandsPage from '@pages/AdminPage/HandleBrandsPage/HandleBrandsPage';
-import CheckoutPage from '@pages/CheckoutPage/CheckoutPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<HandleProductsPage />} />
         <Route path="create" element={<CreateProductPage />} />
+        <Route path="orders" element={<HandleOrdersPage />} />
         <Route path="types" element={<HandleTypesPage />} />
         <Route path="brands" element={<HandleBrandsPage />} />
       </Route>

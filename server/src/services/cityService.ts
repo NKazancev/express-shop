@@ -21,6 +21,14 @@ class CityService {
     return cities;
   }
 
+  static async getCityNameById(id: string) {
+    const city = await prisma.deliveryCity.findFirst({
+      where: { id },
+      select: { name: true },
+    });
+    return city;
+  }
+
   static async deleteCity(id: string) {
     await prisma.deliveryCity.delete({ where: { id } }).catch(() => {
       throw new ApiError(404, ErrorMessage.CITY_NOT_FOUND);

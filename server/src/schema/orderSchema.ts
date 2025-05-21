@@ -1,8 +1,14 @@
 import { z } from 'zod';
 
 const CreateOrderSchema = z.object({
-  customer: z.string(),
-  address: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  phone: z.string(),
+  country: z.string(),
+  city: z.string(),
+  street: z.string(),
+  postcode: z.string(),
 });
 
 const UpdateOrderStatusSchema = z.object({

@@ -4,6 +4,7 @@ import { UseFormHandleSubmit } from 'react-hook-form';
 import { ICartProduct } from '@shared/models/cart';
 import { ICreateOrderData } from '@shared/models/order';
 import useCartTotal from '@shared/hooks/useCartTotal';
+import { useCreateOrderMutation } from '@shared/api/orderApi';
 
 import styles from './CheckoutTotal.module.css';
 
@@ -14,6 +15,15 @@ type TCheckoutTotal = {
 
 const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
   const { itemsQuantity, totalPrice } = useCartTotal(items);
+  const [createOrder] = useCreateOrderMutation();
+
+  const onOrderCreation = async (data: ICreateOrderData) => {
+    try {
+      await createOrder({ ...data }).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -31,7 +41,7 @@ const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
 
       <button
         type="submit"
-        onClick={handleSubmit((data) => console.log(data))}
+        onClick={handleSubmit(onOrderCreation)}
         className={styles.button}
       >
         Proceed to payment
