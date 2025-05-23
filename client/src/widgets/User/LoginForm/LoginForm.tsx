@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ILoginData } from '@shared/models/auth';
+import Input from '@shared/ui/Input/Input';
 
 import styles from './LoginForm.module.css';
 
@@ -10,31 +11,25 @@ type TLoginForm = {
 };
 
 const LoginForm: FC<TLoginForm> = ({ onLogin }) => {
-  const { handleSubmit, register } = useForm<ILoginData>();
+  const { handleSubmit, control } = useForm<ILoginData>();
 
   return (
     <form onSubmit={handleSubmit(onLogin)} className={styles.form}>
-      <label htmlFor="email-login" className={styles.label}>
-        <span>Email</span>
-        <input
-          type="email"
-          id="email-login"
-          autoComplete="off"
-          className={styles.input}
-          {...register('email', { required: true })}
-        />
-      </label>
+      <Input
+        type="email"
+        name="email"
+        label="Email"
+        control={control}
+        rules={{ required: true }}
+      />
 
-      <label htmlFor="password-login" className={styles.label}>
-        <span>Password</span>
-        <input
-          type="password"
-          id="password-login"
-          autoComplete="off"
-          className={styles.input}
-          {...register('password', { required: true })}
-        />
-      </label>
+      <Input
+        type="password"
+        name="password"
+        label="Password"
+        control={control}
+        rules={{ required: true }}
+      />
 
       <button type="submit" className={styles.button}>
         Login
