@@ -10,7 +10,7 @@ import styles from './CheckoutPage.module.css';
 
 const CheckoutPage = () => {
   const { data: cartProducts } = useGetCartProductsQuery();
-  const { register, handleSubmit } = useForm<ICreateOrderData>();
+  const { control, handleSubmit } = useForm<ICreateOrderData>();
 
   return (
     <div className={styles.container}>
@@ -18,7 +18,7 @@ const CheckoutPage = () => {
         <h3 className={styles.title}>Delivery information</h3>
         <p className={styles.notification}>All fields are mandatory</p>
 
-        <CheckoutForm register={register} />
+        <CheckoutForm control={control} />
       </div>
 
       <div className={styles.total}>

@@ -29,8 +29,8 @@ const Input: FC<TInput> = ({
         rules={rules}
         render={({ field }) => {
           return (
-            <label htmlFor={name} className={styles.label}>
-              <span>{label}</span>
+            <label htmlFor={name}>
+              <span className={styles.label}>{label}</span>
 
               <input
                 {...field}
