@@ -1,0 +1,23 @@
+.container {
+  font-family: 'Roboto', sans-serif;
+}
+
+.label {
+  display: block;
+  transform: translateX(5px);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
+
+  font-size: 14px;
+  font-weight: 400;
+
+  resize: none;
+}

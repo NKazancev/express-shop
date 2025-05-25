@@ -1,56 +1,14 @@
 .form {
   width: 100%;
-}
-
-.label {
-  margin-bottom: 9px;
-  display: block;
-}
-
-.label span {
-  display: block;
-  transform: translateX(5px);
-
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.input,
-.textarea {
-  width: 100%;
-  border: 1px solid rgb(139, 139, 139);
-  border-radius: 5px;
-
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.input {
-  height: 38px;
-  padding: 0 10px;
-}
-
-.textarea {
-  min-height: 200px;
-  padding: 10px;
-
-  resize: none;
-}
-
-.rating {
-  padding-top: 3px;
-
-  font-size: 14px;
-  font-weight: 500;
 
   display: flex;
-  align-items: flex-end;
-  column-gap: 8px;
+  flex-direction: column;
+  row-gap: 9px;
 }
 
 .button {
   width: 100%;
-  margin-top: 23px;
+  margin-top: 14px;
   padding: 12px 0px;
 
   background-color: rgb(140, 171, 155);

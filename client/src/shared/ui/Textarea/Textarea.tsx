@@ -1,29 +1,27 @@
-import { FC, HTMLInputTypeAttribute } from 'react';
+import { FC } from 'react';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
 
-import styles from './Input.module.css';
+import styles from './Textarea.module.css';
 
-type TInput = {
-  type?: HTMLInputTypeAttribute;
+type TTextarea = {
   name: string;
   label: string;
+  minHeight: string;
   defaultValue?: string;
-  containerStyle?: any;
   control: Control<any>;
   rules: RegisterOptions;
 };
 
-const Input: FC<TInput> = ({
-  type = 'text',
+const Textarea: FC<TTextarea> = ({
   name,
   label,
+  minHeight,
   defaultValue = '',
-  containerStyle,
   control,
   rules,
 }) => {
   return (
-    <p style={containerStyle} className={styles.container}>
+    <p className={styles.container}>
       <Controller
         name={name}
         defaultValue={defaultValue}
@@ -34,12 +32,11 @@ const Input: FC<TInput> = ({
             <label htmlFor={name}>
               <span className={styles.label}>{label}</span>
 
-              <input
+              <textarea
                 {...field}
-                type={type}
                 id={name}
-                autoComplete="off"
-                className={styles.input}
+                style={{ minHeight }}
+                className={styles.textarea}
               />
             </label>
           );
@@ -49,4 +46,4 @@ const Input: FC<TInput> = ({
   );
 };
 
-export default Input;
+export default Textarea;

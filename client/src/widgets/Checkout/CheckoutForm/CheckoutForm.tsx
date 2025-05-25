@@ -70,14 +70,13 @@ const CheckoutForm: FC<TCheckoutForm> = ({ control }) => {
         rules={{ required: true }}
       />
 
-      <div style={{ gridColumn: 'span 2' }}>
-        <Input
-          name="street"
-          label="Street"
-          control={control}
-          rules={{ required: true }}
-        />
-      </div>
+      <Input
+        name="street"
+        label="Street"
+        containerStyle={{ gridColumn: 'span 2' }}
+        control={control}
+        rules={{ required: true }}
+      />
 
       <Input
         type="tel"
