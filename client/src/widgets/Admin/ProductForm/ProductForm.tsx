@@ -37,9 +37,10 @@ const ProductForm: FC<TProductForm> = ({
           rules={{ required: true }}
         />
         <div className={styles.file}>
-          <label htmlFor="images">Catalogue image</label>
+          <label htmlFor="image">Catalogue image</label>
           <input
             type="file"
+            id="image"
             className="visually-hidden"
             {...register('image')}
           />

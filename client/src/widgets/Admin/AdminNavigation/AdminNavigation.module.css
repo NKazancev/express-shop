@@ -21,5 +21,16 @@
 
 .active {
   background-color: rgb(232, 232, 232);
-  border-right: 5px solid rgb(140, 171, 155);
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  width: 5px;
+  height: 100%;
+  background-color: rgb(140, 171, 155);
+
+  position: absolute;
+  top: 0;
+  right: 0;
 }
