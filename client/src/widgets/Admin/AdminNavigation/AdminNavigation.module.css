@@ -1,8 +1,25 @@
 .navigation {
-  padding: 20px 0;
+  padding-top: 39px;
 }
 
 .list {
   display: flex;
-  column-gap: 10px;
+  flex-direction: column;
+  row-gap: 7px;
+}
+
+.list a {
+  padding: 10px 30px 11px 0px;
+
+  text-align: right;
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  display: block;
+}
+
+.active {
+  background-color: rgb(232, 232, 232);
+  border-right: 5px solid rgb(140, 171, 155);
 }

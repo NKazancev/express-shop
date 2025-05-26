@@ -7,19 +7,45 @@ const AdminNavigation = () => {
     <nav className={styles.navigation}>
       <ul className={styles.list}>
         <li>
-          <NavLink to="/admin">Handle products</NavLink>
+          <NavLink
+            to="/admin"
+            end
+            className={({ isActive, isPending }) =>
+              isActive ? styles.active : isPending ? styles.pending : ''
+            }
+          >
+            Add product
+          </NavLink>
         </li>
         <li>
-          <NavLink to="orders">Handle orders</NavLink>
+          <NavLink
+            to="products"
+            className={({ isActive, isPending }) =>
+              isActive ? styles.active : isPending ? styles.pending : ''
+            }
+          >
+            Products list
+          </NavLink>
         </li>
         <li>
-          <NavLink to="create">Create product</NavLink>
+          <NavLink
+            to="orders"
+            className={({ isActive, isPending }) =>
+              isActive ? styles.active : isPending ? styles.pending : ''
+            }
+          >
+            Orders
+          </NavLink>
         </li>
         <li>
-          <NavLink to="types">Handle types</NavLink>
-        </li>
-        <li>
-          <NavLink to="brands">Handle brands</NavLink>
+          <NavLink
+            to="typesbrands"
+            className={({ isActive, isPending }) =>
+              isActive ? styles.active : isPending ? styles.pending : ''
+            }
+          >
+            Types/brands
+          </NavLink>
         </li>
       </ul>
     </nav>

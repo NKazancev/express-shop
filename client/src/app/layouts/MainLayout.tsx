@@ -3,6 +3,7 @@ import { Outlet } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
+
 import Header from '@widgets/Header/Header';
 import HeaderImage from '@widgets/Header/HeaderImage/HeaderImage';
 
@@ -18,6 +19,7 @@ function MainLayout() {
     <div className="layout">
       <Header />
       <HeaderImage />
+
       <main>
         <Outlet />
       </main>

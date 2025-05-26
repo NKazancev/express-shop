@@ -3,6 +3,7 @@ import { Outlet } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
+
 import Header from '@widgets/Header/Header';
 import AdminNavigation from '@widgets/Admin/AdminNavigation/AdminNavigation';
 
@@ -18,7 +19,7 @@ function AdminLayout() {
     <div className="layout">
       <Header />
 
-      <div>
+      <div className="admin-container">
         <AdminNavigation />
         <Outlet />
       </div>

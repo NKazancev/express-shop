@@ -12,8 +12,7 @@ import RegistrationPage from '@pages/RegistrationPage/RegistrationPage';
 import CreateProductPage from '@pages/AdminPage/CreateProductPage/CreateProductPage';
 import HandleOrdersPage from '@pages/AdminPage/HandleOrdersPage/HandleOrdersPage';
 import HandleProductsPage from '@pages/AdminPage/HandleProductsPage/HandleProductsPage';
-import HandleTypesPage from '@pages/AdminPage/HandleTypesPage/HandleTypesPage';
-import HandleBrandsPage from '@pages/AdminPage/HandleBrandsPage/HandleBrandsPage';
+import HandleTypesBrandsPage from '@pages/AdminPage/HandleTypesBrandsPage/HandleBrandsTypesPage';
 
 function App() {
   return (
@@ -29,11 +28,10 @@ function App() {
       </Route>
 
       <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<HandleProductsPage />} />
-        <Route path="create" element={<CreateProductPage />} />
+        <Route index element={<CreateProductPage />} />
+        <Route path="products" element={<HandleProductsPage />} />
         <Route path="orders" element={<HandleOrdersPage />} />
-        <Route path="types" element={<HandleTypesPage />} />
-        <Route path="brands" element={<HandleBrandsPage />} />
+        <Route path="typesbrands" element={<HandleTypesBrandsPage />} />
       </Route>
 
       <Route path="/registration" element={<RegistrationPage />} />

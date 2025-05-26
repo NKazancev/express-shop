@@ -7,6 +7,10 @@ import {
   IProductType,
 } from '@shared/models/product';
 
+import Input from '@shared/ui/Input/Input';
+import Textarea from '@shared/ui/Textarea/Textarea';
+import Select from '@shared/ui/Select/Select';
+
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
@@ -20,78 +24,82 @@ const ProductForm: FC<TProductForm> = ({
   typeOptions,
   brandOptions,
 }) => {
-  const { handleSubmit, register } = useForm<Omit<ICreateProductData, 'id'>>();
+  const { handleSubmit, register, control } =
+    useForm<Omit<ICreateProductData, 'id'>>();
 
   return (
     <form onSubmit={handleSubmit(onProductCreation)} className={styles.form}>
-      <input
-        type="text"
-        placeholder="Name"
-        autoComplete="off"
-        className={styles.input}
-        {...register('name', { required: true })}
-      />
+      <div className={styles.row}>
+        <Input
+          name="name"
+          label="Name"
+          control={control}
+          rules={{ required: true }}
+        />
+        <div className={styles.file}>
+          <label htmlFor="images">Catalogue image</label>
+          <input
+            type="file"
+            className="visually-hidden"
+            {...register('image')}
+          />
+        </div>
+      </div>
 
-      <input
-        type="text"
-        placeholder="Price"
-        autoComplete="off"
-        className={styles.input}
-        {...register('price', { required: true })}
-      />
+      <div className={styles.row}>
+        <Textarea
+          name="description"
+          label="Short description"
+          minHeight="140px"
+          control={control}
+          rules={{ required: true }}
+        />
+      </div>
 
-      <textarea
-        placeholder="Description"
-        className={styles.textarea}
-        {...register('description', { required: true })}
-      />
+      <div className={styles.row}>
+        <Textarea
+          name="text"
+          label="Full description"
+          minHeight="300px"
+          control={control}
+          rules={{ required: true }}
+        />
+        <div className={styles.file}>
+          <label htmlFor="images">Gallery images</label>
+          <input
+            type="file"
+            id="images"
+            className="visually-hidden"
+            {...register('images')}
+            multiple
+          />
+        </div>
+      </div>
 
-      <textarea
-        placeholder="Info"
-        className={styles.textarea}
-        {...register('text', { required: true })}
-      />
-
-      <select
-        className={styles.select}
-        {...register('typeId', { required: true })}
-      >
-        <option value="" hidden>
-          Choose type
-        </option>
-        {typeOptions?.map((type) => {
-          return (
-            <option key={type.id} value={type.id}>
-              {type.name}
-            </option>
-          );
-        })}
-      </select>
-
-      <select
-        className={styles.select}
-        {...register('brandId', { required: true })}
-      >
-        <option value="" hidden>
-          Choose brand
-        </option>
-        {brandOptions?.map((brand) => {
-          return (
-            <option key={brand.id} value={brand.id}>
-              {brand.name}
-            </option>
-          );
-        })}
-      </select>
-
-      <input type="file" className={styles.file} {...register('image')} />
-
-      <input
-        type="file"
-        className={styles.file}
-        {...register('images')}
-        multiple
-      />
+      <div className={styles.bottom}>
+        <Select
+          name="typeId"
+          label="Type"
+          options={typeOptions}
+          firstOption="Choose type"
+          control={control}
+          rules={{ required: true }}
+        />
+        <Select
+          name="brandId"
+          label="Brand"
+          options={brandOptions}
+          firstOption="Choose brand"
+          control={control}
+          rules={{ required: true }}
+        />
+        <Input
+          name="price"
+          label="Price"
+          control={control}
+          rules={{ required: true }}
+        />
+      </div>
 
       <button type="submit" className={styles.button}>
         Add product

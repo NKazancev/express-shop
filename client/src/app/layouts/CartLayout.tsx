@@ -3,6 +3,7 @@ import { Outlet } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
+
 import Header from '@widgets/Header/Header';
 
 function CartLayout() {
@@ -16,9 +17,10 @@ function CartLayout() {
   return (
     <div className="layout">
       <Header />
-      <main>
+
+      <div>
         <Outlet />
-      </main>
+      </div>
     </div>
   );
 }

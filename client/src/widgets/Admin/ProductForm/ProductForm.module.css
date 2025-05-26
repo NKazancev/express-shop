@@ -1,61 +1,65 @@
 .form {
+  max-width: 730px;
+
   display: flex;
   flex-direction: column;
-  row-gap: 18px;
+  row-gap: 9px;
+
+  font-family: 'Roboto', sans-serif;
 }
 
-.input {
-  height: 42px;
-  padding: 0 10px;
+.row {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  column-gap: 30px;
+  align-items: start;
 }
 
-.textarea {
-  min-height: 200px;
-  padding: 10px;
-  resize: none;
+.bottom {
+  max-width: 550px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 30px;
+  row-gap: 9px;
 }
 
-.input,
-.textarea {
-  width: 100%;
-  border: 1px solid rgb(155, 147, 141);
-  border-radius: 2px;
-  font-size: 16px;
+.file {
+  padding-top: 14px;
 }
 
-.input::placeholder,
-.textarea::placeholder {
-  color: rgb(194, 189, 183);
-}
-
-.select {
-  padding: 5px 0;
-  border: 1px solid rgb(155, 147, 141);
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.file::file-selector-button {
-  padding: 3px 10px;
-  margin-right: 5px;
+.file label {
+  width: 150px;
+  height: 38px;
+  display: block;
   background: transparent;
-  border: 1px solid rgb(155, 147, 141);
-  border-radius: 2px;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
 
-  color: rgb(92, 86, 80);
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.01rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
+}
+
+input[type='file'] {
+  display: none;
 }
 
 .button {
-  align-self: flex-start;
+  width: 260px;
+  margin-top: 14px;
+  padding: 12px 0px;
+  background-color: rgb(140, 171, 155);
+  border-radius: 5px;
 
-  margin-top: 2px;
-  padding: 10px 42px;
-  background-color: rgb(255, 196, 130);
-  border-radius: 2px;
-
+  color: rgb(255, 255, 255);
   font-size: 14px;
-  letter-spacing: 0.02rem;
+  letter-spacing: 0.03rem;
+
+  align-self: flex-start;
 }
