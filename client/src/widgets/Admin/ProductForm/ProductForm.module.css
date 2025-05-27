@@ -12,6 +12,7 @@
   display: grid;
   grid-template-columns: 1fr 150px;
   column-gap: 30px;
+  row-gap: 9px;
   align-items: start;
 }
 
@@ -22,28 +23,6 @@
   grid-template-columns: repeat(2, 1fr);
   column-gap: 30px;
   row-gap: 9px;
-}
-
-.file {
-  padding-top: 14px;
-}
-
-.file label {
-  width: 150px;
-  height: 38px;
-  display: block;
-  background: transparent;
-  border: 1px solid rgb(139, 139, 139);
-  border-radius: 5px;
-
-  font-size: 13px;
-  letter-spacing: 0.01rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
 }
 
 .button {

@@ -1,4 +1,4 @@
-import { FC, HTMLInputTypeAttribute } from 'react';
+import { CSSProperties, FC, HTMLInputTypeAttribute } from 'react';
 import { Control, Controller, RegisterOptions } from 'react-hook-form';
 
 import styles from './Input.module.css';
@@ -8,7 +8,7 @@ type TInput = {
   name: string;
   label: string;
   defaultValue?: string;
-  containerStyle?: any;
+  containerStyle?: CSSProperties;
   control: Control<any>;
   rules: RegisterOptions;
 };

@@ -8,6 +8,7 @@ import {
 } from '@shared/models/product';
 
 import Input from '@shared/ui/Input/Input';
+import InputFile from '@shared/ui/InputFile/InputFile';
 import Textarea from '@shared/ui/Textarea/Textarea';
 import Select from '@shared/ui/Select/Select';
 
@@ -24,8 +25,10 @@ const ProductForm: FC<TProductForm> = ({
   typeOptions,
   brandOptions,
 }) => {
-  const { handleSubmit, register, control } =
+  const { handleSubmit, register, control, watch } =
     useForm<Omit<ICreateProductData, 'id'>>();
+
+  const [image, images] = watch(['image', 'images']);
 
   return (
     <form onSubmit={handleSubmit(onProductCreation)} className={styles.form}>
@@ -36,18 +39,13 @@ const ProductForm: FC<TProductForm> = ({
           control={control}
           rules={{ required: true }}
         />
-        <div className={styles.file}>
-          <label htmlFor="image">Catalogue image</label>
-          <input
-            type="file"
-            id="image"
-            className="visually-hidden"
-            {...register('image')}
-          />
-        </div>
-      </div>
-
-      <div className={styles.row}>
+        <InputFile
+          name="image"
+          label="Catalogue image"
+          file={image}
+          containerStyle={{ paddingTop: '14px' }}
+          register={register}
+        />
         <Textarea
           name="description"
           label="Short description"
@@ -65,16 +63,14 @@ const ProductForm: FC<TProductForm> = ({
           control={control}
           rules={{ required: true }}
         />
-        <div className={styles.file}>
-          <label htmlFor="images">Gallery images</label>
-          <input
-            type="file"
-            id="images"
-            className="visually-hidden"
-            {...register('images')}
-            multiple
-          />
-        </div>
+        <InputFile
+          name="images"
+          label="Gallery images"
+          file={images}
+          multiple={true}
+          containerStyle={{ paddingTop: '14px' }}
+          register={register}
+        />
       </div>
 
       <div className={styles.bottom}>
