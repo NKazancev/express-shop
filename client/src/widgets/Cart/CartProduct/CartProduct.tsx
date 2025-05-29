@@ -5,7 +5,7 @@ import { ICartProduct } from '@shared/models/cart';
 import { useDeleteCartProductMutation } from '@shared/api/cartApi';
 import CartProductCounter from '../CartProductCounter/CartProductCounter';
 
-import deleteIcon from '@shared/assets/delete-icon.svg';
+import xbutton from '@shared/assets/x-button.svg';
 import styles from './CartProduct.module.css';
 
 type TCartProduct = ICartProduct & { index: number };
@@ -36,7 +36,7 @@ const CartProduct: FC<TCartProduct> = ({ index, id, product, quantity }) => {
       <div className={styles.price}>{quantity * product.price}</div>
 
       <button type="button" onClick={removeProduct}>
-        <img src={deleteIcon} alt="delete-icon" />
+        <img src={xbutton} alt="delete-icon" width={12} />
       </button>
     </li>
   );

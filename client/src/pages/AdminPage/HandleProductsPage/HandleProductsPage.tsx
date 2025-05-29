@@ -1,11 +1,20 @@
-import useProducts from '@shared/hooks/useProducts';
+import AdminProductsList from '@widgets/Admin/AdminProductsList/AdminProductsList';
+import SearchBar from '@widgets/Catalogue/ProductsPanel/SearchBar/SearchBar';
+
+import styles from './HandleProductsPage.module.css';
 
 const HandleProductsPage = () => {
-  const products = useProducts();
+  return (
+    <div>
+      <h2 className={styles.title}>Products list</h2>
 
-  console.log(products);
+      <div className={styles.search}>
+        <SearchBar />
+      </div>
 
-  return <h2>Handle products page</h2>;
+      <AdminProductsList />
+    </div>
+  );
 };
 
 export default HandleProductsPage;

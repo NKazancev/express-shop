@@ -1,0 +1,28 @@
+.item {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 90px 1fr 94px 174px 52px;
+  align-items: center;
+}
+
+.name {
+  padding-left: 28px;
+
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.price {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

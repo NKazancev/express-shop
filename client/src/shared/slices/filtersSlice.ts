@@ -36,10 +36,18 @@ const filtersSlice = createSlice({
         }, [] as string[])
         .join(',');
     },
+    resetFilters: () => {
+      return { ...filtersState };
+    },
   },
 });
 
-export const { setSearchQuery, setProductType, setPrices, setBrandFilters } =
-  filtersSlice.actions;
+export const {
+  setSearchQuery,
+  setProductType,
+  setPrices,
+  setBrandFilters,
+  resetFilters,
+} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

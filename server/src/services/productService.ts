@@ -45,6 +45,10 @@ class ProductService {
         take,
       });
     } else {
+      if (!productType) {
+        products = await prisma.product.findMany({ skip, take });
+        return products;
+      }
       if (brandFilters) {
         products = await prisma.product.findMany({
           where: {
