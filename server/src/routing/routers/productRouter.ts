@@ -8,7 +8,7 @@ import upload from '../../middlewares/multerUpload';
 
 const productRouter = Router();
 
-const { createProduct, getProducts, getProductById, updateProduct, deleteProduct } =
+const { createProduct, getProducts, getProductById, updateProductInfo, deleteProduct } =
   ProductController;
 
 const uploadImages = upload.fields([{name: 'image'}, {name: 'images'}])
@@ -16,7 +16,7 @@ const uploadImages = upload.fields([{name: 'image'}, {name: 'images'}])
 productRouter.post('/', [verifyToken, verifyAdmin], uploadImages, asyncHandler(createProduct));
 productRouter.get('/', asyncHandler(getProducts));
 productRouter.get('/:id', asyncHandler(getProductById));
-productRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateProduct));
+productRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateProductInfo));
 productRouter.delete('/:id', [verifyToken, verifyAdmin], asyncHandler(deleteProduct));
 
 export default productRouter;

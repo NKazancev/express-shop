@@ -13,6 +13,12 @@ export interface ICreateProductData extends IProduct {
   text: string;
 }
 
+export type UpdateProductInfoData = Pick<
+  IProduct,
+  'name' | 'description' | 'price'
+> &
+  Pick<ICreateProductData, 'text'>;
+
 export interface IProductData extends IProduct {
   gallery: IProductGallery;
   info: IProductInfo;

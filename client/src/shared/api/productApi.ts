@@ -3,6 +3,7 @@ import {
   IProduct,
   IProductData,
   IProductsRequest,
+  UpdateProductInfoData,
 } from '@shared/models/product';
 
 const productApi = baseApi
@@ -43,7 +44,7 @@ const productApi = baseApi
             : [{ type: 'Products', id: 'LIST' }],
       }),
 
-      getProductById: builder.query<IProductData, string>({
+      getProductById: builder.query<IProductData, string | undefined>({
         query: (id) => ({
           url: `products/${id}`,
           method: 'GET',
@@ -51,7 +52,10 @@ const productApi = baseApi
         providesTags: (__, _, id) => [{ type: 'Products', id }],
       }),
 
-      updateProduct: builder.mutation<IProduct, Partial<IProduct>>({
+      updateProductInfo: builder.mutation<
+        IProduct,
+        UpdateProductInfoData & { id: string }
+      >({
         query: (data) => {
           const { id, ...body } = data;
           return {
@@ -78,6 +82,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useLazyGetProductByIdQuery,
-  useUpdateProductMutation,
+  useUpdateProductInfoMutation,
   useDeleteProductMutation,
 } = productApi;

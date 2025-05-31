@@ -87,13 +87,22 @@ class ProductService {
     return product;
   }
 
-  static async updateProduct(id: string, data: Omit<Product, 'id'>) {
-    const product = await prisma.product
-      .update({ where: { id }, data: { ...data } })
-      .catch(() => {
-        throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
-      });
-    return product;
+  static async updateProductInfo(
+    id: string,
+    data: Pick<Product, 'name' | 'description' | 'price'>,
+    text: string
+  ) {
+    const updatedProduct = await prisma.product.update({
+      where: { id },
+      data: {
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        info: { update: { where: { productId: id }, data: { text } } },
+      },
+    });
+
+    return updatedProduct;
   }
 
   static async deleteProduct(id: string) {
