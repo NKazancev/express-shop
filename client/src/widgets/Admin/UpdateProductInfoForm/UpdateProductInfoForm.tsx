@@ -30,7 +30,6 @@ const UpdateProductInfoForm: FC<TUpdateProductInfoForm> = ({
         control={control}
         rules={{ required: true }}
       />
-
       <Textarea
         name="description"
         label="Short description"
@@ -38,7 +37,6 @@ const UpdateProductInfoForm: FC<TUpdateProductInfoForm> = ({
         control={control}
         rules={{ required: true }}
       />
-
       <Textarea
         name="text"
         label="Full description"
@@ -47,12 +45,21 @@ const UpdateProductInfoForm: FC<TUpdateProductInfoForm> = ({
         rules={{ required: true }}
       />
 
-      <Input
-        name="price"
-        label="Price"
-        control={control}
-        rules={{ required: true }}
-      />
+      <div className={styles.row}>
+        <Input
+          name="price"
+          label="Price"
+          control={control}
+          rules={{ required: true }}
+        />
+        <Input
+          type="number"
+          name="stock"
+          label="Stock"
+          control={control}
+          rules={{ required: true }}
+        />
+      </div>
 
       <button type="submit" className={styles.button}>
         Update product

@@ -6,6 +6,7 @@ export interface IProduct {
   image: FileList | string;
   typeId: string;
   brandId: string;
+  stock: number;
 }
 
 export interface ICreateProductData extends IProduct {
@@ -13,11 +14,9 @@ export interface ICreateProductData extends IProduct {
   text: string;
 }
 
-export type UpdateProductInfoData = Pick<
-  IProduct,
-  'name' | 'description' | 'price'
-> &
-  Pick<ICreateProductData, 'text'>;
+export type UpdateProductInfoData = Partial<
+  Pick<ICreateProductData, 'name' | 'description' | 'price' | 'text' | 'stock'>
+>;
 
 export interface IProductData extends IProduct {
   gallery: IProductGallery;

@@ -1,10 +1,7 @@
 import { Request, Response } from 'express';
 
 import ProductService from '../services/productService';
-import {
-  CreateProductSchema,
-  UpdateProductSchema,
-} from '../schema/productSchema';
+import { CreateProductSchema } from '../schema/productSchema';
 
 class ProductController {
   static async createProduct(req: Request, res: Response) {
@@ -53,12 +50,12 @@ class ProductController {
   }
 
   static async updateProductInfo(req: Request, res: Response) {
-    UpdateProductSchema.parse(req.body);
-    const { text } = req.body;
+    const { text, stock } = req.body;
     const updatedProduct = await ProductService.updateProductInfo(
       req.params.id,
       req.body,
-      text
+      text,
+      stock
     );
     res.status(200).json(updatedProduct);
   }

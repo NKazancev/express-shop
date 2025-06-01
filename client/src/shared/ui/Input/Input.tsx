@@ -38,6 +38,7 @@ const Input: FC<TInput> = ({
                 {...field}
                 type={type}
                 id={name}
+                min={0}
                 autoComplete="off"
                 className={styles.input}
               />

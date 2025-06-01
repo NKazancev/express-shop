@@ -38,6 +38,7 @@ model Product {
   image             String
   typeId            String
   brandId           String
+  stock             Int             @default(1)
   type              ProductType     @relation(fields: [typeId], references: [id])
   brand             ProductBrand    @relation(fields: [brandId], references: [id])
   gallery           ProductGallery?

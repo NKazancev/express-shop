@@ -1,4 +1,8 @@
 .image {
   max-width: 600px;
   margin: 15vh auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

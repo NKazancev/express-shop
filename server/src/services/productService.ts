@@ -90,26 +90,38 @@ class ProductService {
   static async updateProductInfo(
     id: string,
     data: Pick<Product, 'name' | 'description' | 'price'>,
-    text: string
+    text: string,
+    stock: number
   ) {
-    const updatedProduct = await prisma.product.update({
-      where: { id },
-      data: {
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        info: { update: { where: { productId: id }, data: { text } } },
-      },
-    });
-
+    let updatedProduct;
+    if (data) {
+      updatedProduct = await prisma.product.update({
+        where: { id },
+        data: {
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          stock,
+          info: { update: { where: { productId: id }, data: { text } } },
+        },
+      });
+    } else {
+      updatedProduct = await prisma.product.update({
+        where: { id },
+        data: { stock },
+      });
+    }
     return updatedProduct;
   }
 
   static async deleteProduct(id: string) {
-    await prisma.productGallery.delete({ where: { productId: id } });
-    await prisma.productInfo.delete({ where: { productId: id } });
-    await prisma.product.delete({ where: { id } }).catch(() => {
-      throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
+    await prisma.$transaction(async (tx) => {
+      await tx.productGallery.delete({ where: { productId: id } });
+      await tx.productInfo.delete({ where: { productId: id } });
+      await tx.productReview.deleteMany({ where: { productId: id } });
+      await tx.cartProduct.deleteMany({ where: { productId: id } });
+      await tx.orderProduct.deleteMany({ where: { productId: id } });
+      await tx.product.delete({ where: { id } });
     });
   }
 }

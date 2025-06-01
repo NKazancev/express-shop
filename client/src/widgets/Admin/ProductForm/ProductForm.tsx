@@ -15,7 +15,7 @@ import Select from '@shared/ui/Select/Select';
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
-  onProductCreation: (data: Omit<ICreateProductData, 'id'>) => void;
+  onProductCreation: (data: Omit<ICreateProductData, 'id' | 'stock'>) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
 };
@@ -26,7 +26,7 @@ const ProductForm: FC<TProductForm> = ({
   brandOptions,
 }) => {
   const { handleSubmit, register, control, watch } =
-    useForm<Omit<ICreateProductData, 'id'>>();
+    useForm<Omit<ICreateProductData, 'id' | 'stock'>>();
 
   const [image, images] = watch(['image', 'images']);
 

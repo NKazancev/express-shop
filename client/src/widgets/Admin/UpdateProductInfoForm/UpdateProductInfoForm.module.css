@@ -6,6 +6,12 @@
   row-gap: 9px;
 }
 
+.row {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  column-gap: 20px;
+}
+
 .button {
   width: 100%;
   margin-top: 14px;

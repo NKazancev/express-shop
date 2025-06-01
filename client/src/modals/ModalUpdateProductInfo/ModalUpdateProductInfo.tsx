@@ -26,10 +26,11 @@ const ModalUpdateProductInfo: FC<TModalReview> = ({ onClose, productId }) => {
 
   const [updateProduct, { isSuccess }] = useUpdateProductInfoMutation();
 
-  const updateProductInfo = async (data: UpdateProductInfoData) => {
+  const handleProductUpdate = async (data: UpdateProductInfoData) => {
     try {
       const price = Number(data.price);
-      await updateProduct({ id: productId, ...data, price }).unwrap();
+      const stock = Number(data.stock);
+      await updateProduct({ id: productId, ...data, price, stock }).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -46,7 +47,7 @@ const ModalUpdateProductInfo: FC<TModalReview> = ({ onClose, productId }) => {
 
         <UpdateProductInfoForm
           key={`update-product-${fulfilledTimeStamp}`}
-          onProductUpdate={updateProductInfo}
+          onProductUpdate={handleProductUpdate}
           productData={productData}
         />
 

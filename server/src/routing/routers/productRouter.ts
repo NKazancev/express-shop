@@ -8,8 +8,13 @@ import upload from '../../middlewares/multerUpload';
 
 const productRouter = Router();
 
-const { createProduct, getProducts, getProductById, updateProductInfo, deleteProduct } =
-  ProductController;
+const { 
+  createProduct, 
+  getProducts, 
+  getProductById, 
+  updateProductInfo, 
+  deleteProduct 
+} =  ProductController;
 
 const uploadImages = upload.fields([{name: 'image'}, {name: 'images'}])
 
