@@ -1,0 +1,68 @@
+.order {
+  padding: 30px 30px 28px 30px;
+  border: 1px solid rgb(139, 139, 139);
+  border-radius: 5px;
+
+  font-family: 'Roboto', sans-serif;
+
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: start;
+  justify-items: start;
+  column-gap: 20px;
+  row-gap: 24px;
+}
+
+.info {
+  font-size: 15px;
+  font-weight: 500;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.info span {
+  font-weight: 400;
+}
+
+.status {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.circle {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 14px;
+}
+
+.buttonStatus,
+.buttonOrder {
+  padding: 11px 25px 10px 25px;
+  border-radius: 5px;
+
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+}
+
+.buttonStatus {
+  background-color: rgb(140, 171, 155);
+}
+
+.buttonOrder {
+  background-color: rgb(142, 190, 211);
+}

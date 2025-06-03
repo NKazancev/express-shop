@@ -115,7 +115,7 @@ class ProductService {
   }
 
   static async deleteProduct(id: string) {
-    await prisma.$transaction(async (tx) => {
+    return await prisma.$transaction(async (tx) => {
       await tx.productGallery.delete({ where: { productId: id } });
       await tx.productInfo.delete({ where: { productId: id } });
       await tx.productReview.deleteMany({ where: { productId: id } });
