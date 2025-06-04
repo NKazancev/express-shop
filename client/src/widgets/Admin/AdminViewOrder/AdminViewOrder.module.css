@@ -1,0 +1,35 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.product {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+}
+
+.info {
+  padding-left: 15px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 7px;
+}
+
+.name {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.quantity {
+  text-decoration: underline;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}

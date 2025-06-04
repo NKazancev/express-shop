@@ -59,6 +59,14 @@ class OrderService {
     return orders;
   }
 
+  static async getProductsByOrderId(orderId: string) {
+    const orderProducts = await prisma.orderProduct.findMany({
+      where: { orderId },
+      select: { id: true, product: true, quantity: true },
+    });
+    return orderProducts;
+  }
+
   static async updateOrderStatus(orderId: string, status: OrderStatus) {
     const order = await prisma.order.update({
       where: { id: orderId },

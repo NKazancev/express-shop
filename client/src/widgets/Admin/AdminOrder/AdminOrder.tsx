@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { IOrder } from '@shared/models/order';
+import ModalViewOrder from '@modals/ModalViewOrder/ModalViewOrder';
 
 import styles from './AdminOrder.module.css';
 
@@ -9,8 +10,10 @@ const AdminOrder: FC<IOrder> = ({
   customer,
   contactInfo,
   address,
+  netAmount,
   status,
 }) => {
+  const [modalOrderVisible, setModalOrderVisible] = useState<boolean>(false);
   const [orderStatusColor, setOrderStatusColor] = useState<string>();
 
   useEffect(() => {
@@ -22,6 +25,9 @@ const AdminOrder: FC<IOrder> = ({
         setOrderStatusColor('#F9EA7A');
     }
   }, [status]);
+
+  const showOrder = () => setModalOrderVisible(true);
+  const hideOrder = () => setModalOrderVisible(false);
 
   return (
     <li className={styles.order}>
@@ -38,6 +44,9 @@ const AdminOrder: FC<IOrder> = ({
         <li>
           Address: <span>{address}</span>
         </li>
+        <li>
+          Net amount: <span>{netAmount}</span>
+        </li>
       </ul>
 
       <div className={styles.status}>
@@ -52,10 +61,16 @@ const AdminOrder: FC<IOrder> = ({
         <button type="button" className={styles.buttonStatus}>
           Change status
         </button>
-        <button type="button" className={styles.buttonOrder}>
+        <button
+          type="button"
+          onClick={showOrder}
+          className={styles.buttonOrder}
+        >
           View order
         </button>
       </div>
+
+      {modalOrderVisible && <ModalViewOrder onClose={hideOrder} orderId={id} />}
     </li>
   );
 };

@@ -32,6 +32,12 @@ class OrderController {
     res.status(200).json(orders);
   }
 
+  static async getProductsByOrderId(req: Request, res: Response) {
+    const orderId = req.params.id;
+    const orderProducts = await OrderService.getProductsByOrderId(orderId);
+    res.status(200).json(orderProducts);
+  }
+
   static async updateOrderStatus(req: Request, res: Response) {
     UpdateOrderStatusSchema.parse(req.body);
     const orderId = req.params.id;

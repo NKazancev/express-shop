@@ -1,3 +1,5 @@
+import { IProduct } from './product';
+
 export interface IOrder {
   id: string;
   status: string;
@@ -6,6 +8,12 @@ export interface IOrder {
   address: string;
   contactInfo: string;
   userId: string;
+}
+
+export interface IOrderProduct {
+  id: string;
+  quantity: number;
+  product: IProduct;
 }
 
 export interface ICreateOrderData {

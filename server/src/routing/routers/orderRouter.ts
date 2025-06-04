@@ -1,16 +1,18 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import verifyToken from "../../middlewares/verifyToken";
-import verifyAdmin from "../../middlewares/verifyAdmin";
-import asyncHandler from "../../middlewares/asyncHandler";
-import OrderController from "../../controllers/orderController";
+import verifyToken from '../../middlewares/verifyToken';
+import verifyAdmin from '../../middlewares/verifyAdmin';
+import asyncHandler from '../../middlewares/asyncHandler';
+import OrderController from '../../controllers/orderController';
 
 const orderRouter = Router();
 
-const {createOrder, getAllOrders, updateOrderStatus} = OrderController;
+const { createOrder, getAllOrders, getProductsByOrderId, updateOrderStatus } =
+  OrderController;
 
-orderRouter.post('/', [verifyToken], asyncHandler(createOrder))
-orderRouter.get('/', [verifyToken, verifyAdmin], asyncHandler(getAllOrders))
-orderRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateOrderStatus))
+orderRouter.post('/', [verifyToken], asyncHandler(createOrder));
+orderRouter.get('/', [verifyToken, verifyAdmin], asyncHandler(getAllOrders));
+orderRouter.get('/:id', [verifyToken, verifyAdmin], asyncHandler(getProductsByOrderId));
+orderRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateOrderStatus));
 
 export default orderRouter;
