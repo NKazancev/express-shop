@@ -46,10 +46,12 @@
   display: flex;
   justify-content: space-between;
   column-gap: 14px;
+
+  position: relative;
 }
 
-.buttonStatus,
-.buttonOrder {
+.btnStatus,
+.btnOrder {
   padding: 11px 25px 10px 25px;
   border-radius: 5px;
 
@@ -59,10 +61,10 @@
   letter-spacing: 0.03rem;
 }
 
-.buttonStatus {
+.btnStatus {
   background-color: rgb(140, 171, 155);
 }
 
-.buttonOrder {
+.btnOrder {
   background-color: rgb(142, 190, 211);
 }
