@@ -1,13 +1,15 @@
+import { OrderStatus } from '@config/orderStatus';
 import { IProduct } from './product';
 
 export interface IOrder {
   id: string;
-  status: string;
+  status: OrderStatus;
   netAmount: number;
   customer: string;
   address: string;
   contactInfo: string;
   userId: string;
+  createdAt: Date;
 }
 
 export interface IOrderProduct {

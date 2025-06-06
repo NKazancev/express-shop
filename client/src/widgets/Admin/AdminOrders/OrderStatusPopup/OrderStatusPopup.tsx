@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
+import { OrderStatus, orderStatusesData } from '@config/orderStatus';
 import { useUpdateOrderStatusMutation } from '@shared/api/orderApi';
-import { orderStatusesData } from '@config/orderStatus';
 
 import styles from './OrderStatusPopup.module.css';
 
 type TOrderStatusPopup = {
   orderId: string;
-  orderStatus: string;
+  orderStatus: OrderStatus;
   onClose: () => void;
 };
 
@@ -16,8 +16,12 @@ const OrderStatusPopup: FC<TOrderStatusPopup> = ({
   orderStatus,
   onClose,
 }) => {
-  const [status, setStatus] = useState<string>(orderStatus);
+  const [status, setStatus] = useState<OrderStatus>(orderStatus);
   const [updateOrderStatus, { isSuccess }] = useUpdateOrderStatusMutation();
+
+  const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
+    setStatus(e.target.value as OrderStatus);
+  };
 
   const handleOrderStatus = async () => {
     try {
@@ -42,7 +46,7 @@ const OrderStatusPopup: FC<TOrderStatusPopup> = ({
           name="status"
           id={statusId}
           value={value}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={changeStatus}
           checked={value === status}
           className="visually-hidden"
         />

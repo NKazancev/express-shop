@@ -1,6 +1,6 @@
 import { useCreateBrandMutation } from '@shared/api/brandApi';
 import { IProductBrand } from '@shared/models/product';
-import BrandForm from '@widgets/Admin/BrandForm/BrandForm';
+import BrandForm from '@widgets/Admin/TypesBrands/BrandForm/BrandForm';
 
 function CreateProductBrand() {
   const [createBrand] = useCreateBrandMutation();

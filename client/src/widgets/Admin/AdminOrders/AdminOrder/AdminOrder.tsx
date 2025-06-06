@@ -1,10 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { IOrder } from '@shared/models/order';
 import { orderStatusesData } from '@config/orderStatus';
+import useOrderStatusColor from '@shared/hooks/useOrderStatusColor';
 
 import ModalViewOrder from '@modals/ModalViewOrder/ModalViewOrder';
-import OrderStatusPopup from './OrderStatusPopup/OrderStatusPopup';
+import OrderStatusPopup from '../OrderStatusPopup/OrderStatusPopup';
 
 import styles from './AdminOrder.module.css';
 
@@ -18,23 +19,13 @@ const AdminOrder: FC<IOrder> = ({
 }) => {
   const [modalOrderVisible, setModalOrderVisible] = useState<boolean>(false);
   const [popupStatusVisible, setPopupStatusVisible] = useState<boolean>(false);
-  const [orderStatusColor, setOrderStatusColor] = useState<string>();
 
-  useEffect(() => {
-    switch (status) {
-      case 'PENDING':
-        setOrderStatusColor('#F9EA7A');
-        break;
-      default:
-        setOrderStatusColor('#F9EA7A');
-    }
-  }, [status]);
-
-  const showOrder = () => setModalOrderVisible(true);
-  const hideOrder = () => setModalOrderVisible(false);
+  const showOrderInfo = () => setModalOrderVisible(true);
+  const hideOrderInfo = () => setModalOrderVisible(false);
   const togglePopup = () => setPopupStatusVisible((prev) => !prev);
   const closePopup = () => setPopupStatusVisible(false);
 
+  const orderStatusColor = useOrderStatusColor(status);
   const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 
   return (
@@ -74,7 +65,11 @@ const AdminOrder: FC<IOrder> = ({
           Change status
         </button>
 
-        <button type="button" onClick={showOrder} className={styles.btnOrder}>
+        <button
+          type="button"
+          onClick={showOrderInfo}
+          className={styles.btnOrder}
+        >
           View order
         </button>
 
@@ -87,7 +82,9 @@ const AdminOrder: FC<IOrder> = ({
         )}
       </div>
 
-      {modalOrderVisible && <ModalViewOrder onClose={hideOrder} orderId={id} />}
+      {modalOrderVisible && (
+        <ModalViewOrder onClose={hideOrderInfo} orderId={id} />
+      )}
     </li>
   );
 };

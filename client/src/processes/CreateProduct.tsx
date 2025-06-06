@@ -3,7 +3,7 @@ import { useGetTypesQuery } from '@shared/api/typeApi';
 import { useGetBrandsQuery } from '@shared/api/brandApi';
 import { ICreateProductData } from '@shared/models/product';
 
-import ProductForm from '@widgets/Admin/ProductForm/ProductForm';
+import ProductForm from '@widgets/Admin/AdminProducts/ProductForm/ProductForm';
 
 function CreateProduct() {
   const [createProduct] = useCreateProductMutation();
@@ -11,7 +11,7 @@ function CreateProduct() {
   const { data: productBrands } = useGetBrandsQuery();
 
   const handleProductCreation = async (
-    data: Omit<ICreateProductData, 'id'>
+    data: Omit<ICreateProductData, 'id' | 'stock'>
   ) => {
     const { image, images, ...rest } = data;
 

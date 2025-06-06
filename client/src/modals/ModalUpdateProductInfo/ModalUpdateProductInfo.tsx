@@ -5,7 +5,7 @@ import {
   useUpdateProductInfoMutation,
 } from '@shared/api/productApi';
 
-import UpdateProductInfoForm from '@widgets/Admin/UpdateProductInfoForm/UpdateProductInfoForm';
+import UpdateProductInfoForm from '@widgets/Admin/AdminProducts/UpdateProductInfoForm/UpdateProductInfoForm';
 import { UpdateProductInfoData } from '@shared/models/product';
 
 import Modal from '@shared/ui/Modal/Modal';

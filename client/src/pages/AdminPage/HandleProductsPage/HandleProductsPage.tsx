@@ -1,4 +1,4 @@
-import AdminProductsList from '@widgets/Admin/AdminProductsList/AdminProductsList';
+import AdminProductsList from '@widgets/Admin/AdminProducts/AdminProductsList/AdminProductsList';
 import SearchBar from '@widgets/Catalogue/ProductsPanel/SearchBar/SearchBar';
 
 import styles from './HandleProductsPage.module.css';

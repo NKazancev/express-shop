@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { useGetProductsByOrderIdQuery } from '@shared/api/orderApi';
 
 import Modal from '@shared/ui/Modal/Modal';
-import AdminViewOrder from '@widgets/Admin/AdminViewOrder/AdminViewOrder';
+import AdminViewOrder from '@widgets/Admin/AdminOrders/AdminViewOrder/AdminViewOrder';
 
 import usePortal from '@shared/hooks/usePortal';
 import { PORTAL_CONTAINER_ID } from '@config/consts';

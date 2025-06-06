@@ -1,6 +1,6 @@
 import { useGetAllOrdersQuery } from '@shared/api/orderApi';
 
-import AdminOrdersList from '@widgets/Admin/AdminOrdersList/AdminOrdersList';
+import AdminOrdersList from '@widgets/Admin/AdminOrders/AdminOrdersList/AdminOrdersList';
 
 import styles from './HandleOrdersPage.module.css';
 
