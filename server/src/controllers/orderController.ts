@@ -32,10 +32,10 @@ class OrderController {
     res.status(200).json(orders);
   }
 
-  static async getProductsByOrderId(req: Request, res: Response) {
+  static async getOrderById(req: Request, res: Response) {
     const orderId = req.params.id;
-    const orderProducts = await OrderService.getProductsByOrderId(orderId);
-    res.status(200).json(orderProducts);
+    const order = await OrderService.getOrderById(orderId);
+    res.status(200).json(order);
   }
 
   static async updateOrderStatus(req: Request, res: Response) {

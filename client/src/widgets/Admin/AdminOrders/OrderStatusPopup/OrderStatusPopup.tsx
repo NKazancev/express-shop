@@ -36,7 +36,7 @@ const OrderStatusPopup: FC<TOrderStatusPopup> = ({
   }, [isSuccess]);
 
   const statusOptions = orderStatusesData.map(({ id, value, name }) => {
-    const statusId = `{status-${value}}`;
+    const statusId = `{status-${value}${orderId}}`;
     const optionClass = value === status ? styles.activeOption : '';
 
     return (

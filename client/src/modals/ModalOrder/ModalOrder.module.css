@@ -1,7 +1,7 @@
 .content {
   max-width: 650px;
   margin: 15vh auto;
-  padding: 35px 44px 50px 44px;
+  padding: 35px 44px 48px 44px;
 
   background-color: white;
   border-radius: 5px;
@@ -11,12 +11,18 @@
 }
 
 .title {
-  margin-bottom: 29px;
+  margin-bottom: 34px;
 
   text-align: center;
   font-family: 'Barlow', sans-serif;
   font-size: 25px;
   font-weight: 700;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
 }
 
 .button {

@@ -10,20 +10,7 @@
   align-items: start;
   justify-items: start;
   column-gap: 20px;
-  row-gap: 24px;
-}
-
-.info {
-  font-size: 15px;
-  font-weight: 500;
-
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
-}
-
-.info span {
-  font-weight: 400;
+  row-gap: 20px;
 }
 
 .status {
@@ -50,10 +37,10 @@
   position: relative;
 }
 
-.btnStatus,
-.btnOrder {
+.button {
   padding: 11px 25px 10px 25px;
   border-radius: 5px;
+  background-color: rgb(140, 171, 155);
 
   color: rgb(255, 255, 255);
   font-size: 14px;
@@ -61,10 +48,6 @@
   letter-spacing: 0.03rem;
 }
 
-.btnStatus {
-  background-color: rgb(140, 171, 155);
-}
-
-.btnOrder {
+.button:nth-child(2) {
   background-color: rgb(142, 190, 211);
 }

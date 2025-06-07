@@ -1,5 +1,4 @@
 import { OrderStatus } from '@config/orderStatus';
-import { IProduct } from './product';
 
 export interface IOrder {
   id: string;
@@ -12,12 +11,6 @@ export interface IOrder {
   createdAt: Date;
 }
 
-export interface IOrderProduct {
-  id: string;
-  quantity: number;
-  product: IProduct;
-}
-
 export interface ICreateOrderData {
   firstName: string;
   lastName: string;
@@ -27,4 +20,15 @@ export interface ICreateOrderData {
   city: string;
   street: string;
   postcode: string;
+}
+
+export interface IOrderData extends IOrder {
+  products: IOrderProduct[];
+}
+
+export interface IOrderProduct {
+  id: string;
+  quantity: number;
+  name: string;
+  image: string;
 }

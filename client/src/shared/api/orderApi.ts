@@ -1,5 +1,5 @@
 import baseApi from '@config/baseApi';
-import { ICreateOrderData, IOrder, IOrderProduct } from '@shared/models/order';
+import { ICreateOrderData, IOrder, IOrderData } from '@shared/models/order';
 
 const orderApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Orders'] })
@@ -28,9 +28,9 @@ const orderApi = baseApi
             : [{ type: 'Orders', id: 'LIST' }],
       }),
 
-      getProductsByOrderId: builder.query<IOrderProduct[], string>({
-        query: (orderId) => ({
-          url: `orders/${orderId}`,
+      getOrderById: builder.query<IOrderData, string>({
+        query: (id) => ({
+          url: `orders/${id}`,
           method: 'GET',
         }),
         providesTags: (_, __, orderId) => [{ type: 'Orders', id: orderId }],
@@ -56,6 +56,6 @@ const orderApi = baseApi
 export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
-  useGetProductsByOrderIdQuery,
+  useGetOrderByIdQuery,
   useUpdateOrderStatusMutation,
 } = orderApi;

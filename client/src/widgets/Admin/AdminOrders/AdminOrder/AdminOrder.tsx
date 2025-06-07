@@ -4,49 +4,29 @@ import { IOrder } from '@shared/models/order';
 import { orderStatusesData } from '@config/orderStatus';
 import useOrderStatusColor from '@shared/hooks/useOrderStatusColor';
 
-import ModalViewOrder from '@modals/ModalViewOrder/ModalViewOrder';
+import ModalOrderInfo from '@modals/ModalOrder/ModalOrder';
+import AdminOrderInfo from '../AdminOrderInfo/AdminOrderInfo';
 import OrderStatusPopup from '../OrderStatusPopup/OrderStatusPopup';
 
 import styles from './AdminOrder.module.css';
 
-const AdminOrder: FC<IOrder> = ({
-  id,
-  customer,
-  contactInfo,
-  address,
-  netAmount,
-  status,
-}) => {
+const AdminOrder: FC<IOrder> = (order) => {
+  const { id, status } = order;
+
   const [modalOrderVisible, setModalOrderVisible] = useState<boolean>(false);
   const [popupStatusVisible, setPopupStatusVisible] = useState<boolean>(false);
+
+  const orderStatusColor = useOrderStatusColor(status);
+  const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 
   const showOrderInfo = () => setModalOrderVisible(true);
   const hideOrderInfo = () => setModalOrderVisible(false);
   const togglePopup = () => setPopupStatusVisible((prev) => !prev);
   const closePopup = () => setPopupStatusVisible(false);
 
-  const orderStatusColor = useOrderStatusColor(status);
-  const statusName = orderStatusesData.find((s) => s.value === status)?.name;
-
   return (
     <li className={styles.order}>
-      <ul className={styles.info}>
-        <li>
-          OrderID: <span>{id}</span>
-        </li>
-        <li>
-          Customer: <span>{customer}</span>
-        </li>
-        <li>
-          Contact info: <span>{contactInfo}</span>
-        </li>
-        <li>
-          Address: <span>{address}</span>
-        </li>
-        <li>
-          Net amount: <span>{netAmount}</span>
-        </li>
-      </ul>
+      <AdminOrderInfo order={order} />
 
       <div className={styles.status}>
         <div
@@ -57,19 +37,10 @@ const AdminOrder: FC<IOrder> = ({
       </div>
 
       <div className={styles.buttons}>
-        <button
-          type="button"
-          onClick={togglePopup}
-          className={styles.btnStatus}
-        >
+        <button type="button" onClick={togglePopup} className={styles.button}>
           Change status
         </button>
-
-        <button
-          type="button"
-          onClick={showOrderInfo}
-          className={styles.btnOrder}
-        >
+        <button type="button" onClick={showOrderInfo} className={styles.button}>
           View order
         </button>
 
@@ -83,7 +54,7 @@ const AdminOrder: FC<IOrder> = ({
       </div>
 
       {modalOrderVisible && (
-        <ModalViewOrder onClose={hideOrderInfo} orderId={id} />
+        <ModalOrderInfo onClose={hideOrderInfo} orderId={id} />
       )}
     </li>
   );

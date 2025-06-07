@@ -61,12 +61,25 @@ class OrderService {
     return orders;
   }
 
-  static async getProductsByOrderId(orderId: string) {
-    const orderProducts = await prisma.orderProduct.findMany({
-      where: { orderId },
-      select: { id: true, product: true, quantity: true },
+  static async getOrderById(orderId: string) {
+    const order = await prisma.order.findFirst({
+      where: { id: orderId },
+      include: {
+        products: {
+          select: {
+            quantity: true,
+            product: { select: { id: true, name: true, image: true } },
+          },
+        },
+      },
     });
-    return orderProducts;
+    const orderProducts = order?.products.map((el) => ({
+      id: el.product.id,
+      quantity: el.quantity,
+      name: el.product.name,
+      image: el.product.image,
+    }));
+    return { ...order, products: orderProducts };
   }
 
   static async updateOrderStatus(orderId: string, status: OrderStatus) {
