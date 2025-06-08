@@ -37,20 +37,22 @@ const AdminOrder: FC<IOrder> = (order) => {
       </div>
 
       <div className={styles.buttons}>
-        <button type="button" onClick={togglePopup} className={styles.button}>
-          Change status
-        </button>
+        <div>
+          <button type="button" onClick={togglePopup} className={styles.button}>
+            Change status
+          </button>
+          {popupStatusVisible && (
+            <OrderStatusPopup
+              onClose={closePopup}
+              orderId={id}
+              orderStatus={status}
+            />
+          )}
+        </div>
+
         <button type="button" onClick={showOrderInfo} className={styles.button}>
           View order
         </button>
-
-        {popupStatusVisible && (
-          <OrderStatusPopup
-            onClose={closePopup}
-            orderId={id}
-            orderStatus={status}
-          />
-        )}
       </div>
 
       {modalOrderVisible && (

@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { OrderStatus, orderStatusesData } from '@config/orderStatus';
 import { useUpdateOrderStatusMutation } from '@shared/api/orderApi';
+import Popup from '@shared/ui/Popup/Popup';
 
 import styles from './OrderStatusPopup.module.css';
 
@@ -58,17 +59,19 @@ const OrderStatusPopup: FC<TOrderStatusPopup> = ({
   });
 
   return (
-    <div className={styles.container}>
-      <ul className={styles.list}>{statusOptions}</ul>
+    <Popup onClose={onClose}>
+      <div className={styles.container}>
+        <ul className={styles.list}>{statusOptions}</ul>
 
-      <button
-        type="button"
-        onClick={handleOrderStatus}
-        className={styles.button}
-      >
-        Confirm
-      </button>
-    </div>
+        <button
+          type="button"
+          onClick={handleOrderStatus}
+          className={styles.button}
+        >
+          Confirm
+        </button>
+      </div>
+    </Popup>
   );
 };
 

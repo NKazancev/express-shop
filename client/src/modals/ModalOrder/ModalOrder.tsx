@@ -4,20 +4,20 @@ import { useGetOrderByIdQuery } from '@shared/api/orderApi';
 
 import Modal from '@shared/ui/Modal/Modal';
 import AdminOrderInfo from '@widgets/Admin/AdminOrders/AdminOrderInfo/AdminOrderInfo';
+import AdminOrderProducts from '@widgets/Admin/AdminOrders/AdminOrderProducts/AdminOrderProducts';
 
 import usePortal from '@shared/hooks/usePortal';
 import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalOrder.module.css';
-import AdminOrderProducts from '@widgets/Admin/AdminOrders/AdminOrderProducts/AdminOrderProducts';
 
-type TModalViewOrder = {
+type TModalOrder = {
   onClose: () => void;
   orderId: string;
 };
 
-const ModalOrderInfo: FC<TModalViewOrder> = ({ onClose, orderId }) => {
+const ModalOrderInfo: FC<TModalOrder> = ({ onClose, orderId }) => {
   const { data: order } = useGetOrderByIdQuery(orderId);
 
   const content = (
