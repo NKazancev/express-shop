@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IProductType } from '@shared/models/product';
+import Input from '@shared/ui/Input/Input';
 
 import styles from './TypeForm.module.css';
 
@@ -10,16 +11,15 @@ type TTypeForm = {
 };
 
 const TypeForm: FC<TTypeForm> = ({ onTypeCreation }) => {
-  const { register, handleSubmit } = useForm<Omit<IProductType, 'id'>>();
+  const { control, handleSubmit } = useForm<Omit<IProductType, 'id'>>();
 
   return (
     <form onSubmit={handleSubmit(onTypeCreation)} className={styles.form}>
-      <input
-        type="text"
-        placeholder="Type"
-        autoComplete="off"
-        className={styles.input}
-        {...register('name', { required: true })}
+      <Input
+        name="name"
+        label="Type name"
+        control={control}
+        rules={{ required: true }}
       />
 
       <button type="submit" className={styles.button}>

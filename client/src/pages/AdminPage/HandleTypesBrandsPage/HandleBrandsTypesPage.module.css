@@ -1,4 +1,19 @@
 .container {
   display: flex;
+  flex-direction: column;
+  row-gap: 27px;
+}
+
+.title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 360px);
+  align-items: start;
   column-gap: 50px;
+  row-gap: 40px;
 }

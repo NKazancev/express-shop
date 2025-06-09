@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { IProductBrand } from '@shared/models/product';
+import Input from '@shared/ui/Input/Input';
 
 import styles from './BrandForm.module.css';
 
@@ -10,16 +11,15 @@ type TBrandForm = {
 };
 
 const BrandForm: FC<TBrandForm> = ({ onBrandCreation }) => {
-  const { register, handleSubmit } = useForm<Omit<IProductBrand, 'id'>>();
+  const { control, handleSubmit } = useForm<Omit<IProductBrand, 'id'>>();
 
   return (
     <form onSubmit={handleSubmit(onBrandCreation)} className={styles.form}>
-      <input
-        type="text"
-        placeholder="Brand"
-        autoComplete="off"
-        className={styles.input}
-        {...register('name', { required: true })}
+      <Input
+        name="name"
+        label="Brand name"
+        control={control}
+        rules={{ required: true }}
       />
 
       <button type="submit" className={styles.button}>
