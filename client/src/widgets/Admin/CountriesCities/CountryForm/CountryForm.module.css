@@ -1,0 +1,20 @@
+.form {
+  font-family: 'Roboto', sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 22px;
+}
+
+.button {
+  padding: 11px 61px;
+
+  background-color: rgb(140, 171, 155);
+  border-radius: 5px;
+
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  letter-spacing: 0.03rem;
+
+  align-self: flex-start;
+}

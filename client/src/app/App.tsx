@@ -13,6 +13,7 @@ import CreateProductPage from '@pages/AdminPage/CreateProductPage/CreateProductP
 import HandleOrdersPage from '@pages/AdminPage/HandleOrdersPage/HandleOrdersPage';
 import HandleProductsPage from '@pages/AdminPage/HandleProductsPage/HandleProductsPage';
 import HandleTypesBrandsPage from '@pages/AdminPage/HandleTypesBrandsPage/HandleBrandsTypesPage';
+import HandleCountriesCitiesPage from '@pages/AdminPage/HandleCountriesCitiesPage/HandleCountriesCitiesPage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="products" element={<HandleProductsPage />} />
         <Route path="orders" element={<HandleOrdersPage />} />
         <Route path="typesbrands" element={<HandleTypesBrandsPage />} />
+        <Route path="countriescities" element={<HandleCountriesCitiesPage />} />
       </Route>
 
       <Route path="/registration" element={<RegistrationPage />} />

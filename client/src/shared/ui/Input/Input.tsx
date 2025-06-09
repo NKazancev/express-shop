@@ -9,6 +9,7 @@ type TInput = {
   label: string;
   defaultValue?: string;
   containerStyle?: CSSProperties;
+  disabled?: boolean;
   control: Control<any>;
   rules: RegisterOptions;
 };
@@ -19,6 +20,7 @@ const Input: FC<TInput> = ({
   label,
   defaultValue = '',
   containerStyle,
+  disabled = false,
   control,
   rules,
 }) => {
@@ -40,6 +42,7 @@ const Input: FC<TInput> = ({
                 id={name}
                 min={0}
                 autoComplete="off"
+                disabled={disabled}
                 className={styles.input}
               />
             </label>

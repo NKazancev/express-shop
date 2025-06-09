@@ -19,6 +19,12 @@ const cityApi = baseApi
           url: `cities?countryId=${countryId}`,
           method: 'GET',
         }),
+        transformResponse: (response: ICity[]) => {
+          const sortedCities = response.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          );
+          return sortedCities;
+        },
         providesTags: (_, __, countryId) => [{ type: 'Cities', id: countryId }],
       }),
 
@@ -34,6 +40,7 @@ const cityApi = baseApi
 
 export const {
   useCreateCityMutation,
+  useGetAllCitiesByCountryIdQuery,
   useLazyGetAllCitiesByCountryIdQuery,
   useDeleteCityMutation,
 } = cityApi;
