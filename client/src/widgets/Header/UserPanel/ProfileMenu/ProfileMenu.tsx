@@ -1,4 +1,6 @@
 import { useLogoutMutation } from '@shared/api/authApi';
+import { NavLink } from 'react-router';
+
 import styles from './ProfileMenu.module.css';
 
 const DropdownProfile = () => {
@@ -7,7 +9,9 @@ const DropdownProfile = () => {
 
   return (
     <ul className={styles.profileMenu}>
-      <li>Profile</li>
+      <li>
+        <NavLink to="/user">Profile</NavLink>
+      </li>
       <li>
         <button type="button" onClick={handleLogout}>
           Logout

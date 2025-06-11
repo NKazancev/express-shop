@@ -5,9 +5,9 @@ import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
 
 import Header from '@widgets/Header/Header';
-import AdminNavigation from '@widgets/Admin/AdminNavigation/AdminNavigation';
+import UserNavigation from '@widgets/User/UserNavigation';
 
-function AdminLayout() {
+function UserLayout() {
   const { isLogged } = useAppSelector((state) => state.user);
   const [refresh] = useRefreshMutation();
 
@@ -20,11 +20,11 @@ function AdminLayout() {
       <Header />
 
       <div className="container">
-        <AdminNavigation />
+        <UserNavigation />
         <Outlet />
       </div>
     </div>
   );
 }
 
-export default AdminLayout;
+export default UserLayout;

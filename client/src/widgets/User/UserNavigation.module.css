@@ -1,0 +1,36 @@
+.navigation {
+  padding-top: 39px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 7px;
+}
+
+.list a {
+  padding: 10px 30px 11px 0px;
+
+  text-align: right;
+  font-family: 'Barlow', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+
+  display: block;
+}
+
+.active {
+  background-color: rgb(232, 232, 232);
+  position: relative;
+}
+
+.active::after {
+  content: '';
+  width: 5px;
+  height: 100%;
+  background-color: rgb(140, 171, 155);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}

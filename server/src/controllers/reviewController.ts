@@ -19,6 +19,12 @@ class ReviewController {
     res.status(201).json(review);
   }
 
+  static async getAllUserReviews(req: Request, res: Response) {
+    const userId = req.user.id;
+    const reviews = await ReviewService.getAllUserReviews(userId);
+    res.status(200).json(reviews);
+  }
+
   static async getUserReview(req: Request, res: Response) {
     const productId = req.params.id;
     const userId = req.user.id;

@@ -7,11 +7,17 @@ import OrderController from '../../controllers/orderController';
 
 const orderRouter = Router();
 
-const { createOrder, getAllOrders, getOrderById, updateOrderStatus } =
-  OrderController;
+const {
+  createOrder,
+  getAllOrders,
+  getAllUserOrders,
+  getOrderById,
+  updateOrderStatus,
+} = OrderController;
 
 orderRouter.post('/', [verifyToken], asyncHandler(createOrder));
 orderRouter.get('/', [verifyToken, verifyAdmin], asyncHandler(getAllOrders));
+orderRouter.get('/user', [verifyToken], asyncHandler(getAllUserOrders));
 orderRouter.get('/:id', [verifyToken, verifyAdmin], asyncHandler(getOrderById));
 orderRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateOrderStatus));
 

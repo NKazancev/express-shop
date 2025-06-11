@@ -28,6 +28,12 @@ class UserController {
       .status(201)
       .json({ accessToken, role: user.role });
   }
+
+  static async getUser(req: Request, res: Response) {
+    const userId = req.user.id;
+    const info = await UserService.getUserInfo(userId);
+    res.status(200).json(info);
+  }
 }
 
 export default UserController;

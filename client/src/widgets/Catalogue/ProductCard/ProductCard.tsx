@@ -2,14 +2,11 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router';
 
 import { IProduct } from '@shared/models/product';
-import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { STATIC_URL } from '@config/consts';
-import AdminActions from './AdminActions/AdminActions';
 
 import styles from './ProductCard.module.css';
 
 const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
-  const { role } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   const imageUrl = `${STATIC_URL}/${image}`;
@@ -26,10 +23,6 @@ const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
         <h4 className={styles.name}>{name}</h4>
         <p className={styles.description}>{description}</p>
         <span className={styles.price}>{price} &#8381;</span>
-      </div>
-
-      <div className={styles.actions}>
-        {role == 'ADMIN' && <AdminActions id={id} />}
       </div>
     </li>
   );

@@ -2,7 +2,7 @@ import { useLoginMutation } from '@shared/api/authApi';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { ILoginData } from '@shared/models/auth';
 import { setCredentials } from '@shared/slices/userSlice';
-import LoginForm from '@widgets/User/LoginForm/LoginForm';
+import LoginForm from '@widgets/Auth/LoginForm/LoginForm';
 
 function LoginUser() {
   const [login] = useLoginMutation();

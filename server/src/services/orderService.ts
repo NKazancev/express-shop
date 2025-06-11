@@ -61,6 +61,14 @@ class OrderService {
     return orders;
   }
 
+  static async getAllUserOrders(userId: string) {
+    const orders = await prisma.order.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'asc' },
+    });
+    return orders;
+  }
+
   static async getOrderById(orderId: string) {
     const order = await prisma.order.findFirst({
       where: { id: orderId },

@@ -20,6 +20,11 @@ class ReviewService {
     return review;
   }
 
+  static async getAllUserReviews(userId: string) {
+    const reviews = await prisma.productReview.findMany({ where: { userId } });
+    return reviews;
+  }
+
   static async getUserReview(userId: string, productId: string) {
     const foundReview = await prisma.productReview.findFirst({
       where: { userId, productId },

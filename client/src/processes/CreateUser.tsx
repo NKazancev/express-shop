@@ -2,7 +2,7 @@ import { useCreateUserMutation } from '@shared/api/userApi';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { ICreateUserData } from '@shared/models/user';
 import { setCredentials } from '@shared/slices/userSlice';
-import RegistrationForm from '@widgets/User/RegistrationForm/RegistrationForm';
+import RegistrationForm from '@widgets/Auth/RegistrationForm/RegistrationForm';
 
 function CreateUser() {
   const [createUser] = useCreateUserMutation();

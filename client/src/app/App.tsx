@@ -1,19 +1,23 @@
 import { Routes, Route } from 'react-router';
 
 import MainLayout from './layouts/MainLayout';
-import AdminLayout from './layouts/AdminLayout';
 import CartLayout from './layouts/CartLayout';
+import AdminLayout from './layouts/AdminLayout';
+import UserLayout from './layouts/UserLayout';
 
 import HomePage from '@pages/HomePage/HomePage';
 import ProductPage from '@pages/ProductPage/ProductPage';
 import CartPage from '@pages/CartPage/CartPage';
 import CheckoutPage from '@pages/CheckoutPage/CheckoutPage';
 import RegistrationPage from '@pages/RegistrationPage/RegistrationPage';
-import CreateProductPage from '@pages/AdminPage/CreateProductPage/CreateProductPage';
-import HandleOrdersPage from '@pages/AdminPage/HandleOrdersPage/HandleOrdersPage';
-import HandleProductsPage from '@pages/AdminPage/HandleProductsPage/HandleProductsPage';
-import HandleTypesBrandsPage from '@pages/AdminPage/HandleTypesBrandsPage/HandleBrandsTypesPage';
-import HandleCountriesCitiesPage from '@pages/AdminPage/HandleCountriesCitiesPage/HandleCountriesCitiesPage';
+import CreateProductPage from '@pages/AdminPages/CreateProductPage/CreateProductPage';
+import HandleOrdersPage from '@pages/AdminPages/HandleOrdersPage/HandleOrdersPage';
+import HandleProductsPage from '@pages/AdminPages/HandleProductsPage/HandleProductsPage';
+import HandleTypesBrandsPage from '@pages/AdminPages/HandleTypesBrandsPage/HandleBrandsTypesPage';
+import HandleCountriesCitiesPage from '@pages/AdminPages/HandleCountriesCitiesPage/HandleCountriesCitiesPage';
+import UserInfoPage from '@pages/UserPages/UserInfoPage/UserInfoPage';
+import UserOrdersPage from '@pages/UserPages/UserOrdersPage/UserOrdersPage';
+import UserReviewsPage from '@pages/UserPages/UserReviewsPage/UserReviewsPage';
 
 function App() {
   return (
@@ -34,6 +38,12 @@ function App() {
         <Route path="orders" element={<HandleOrdersPage />} />
         <Route path="typesbrands" element={<HandleTypesBrandsPage />} />
         <Route path="countriescities" element={<HandleCountriesCitiesPage />} />
+      </Route>
+
+      <Route path="/user" element={<UserLayout />}>
+        <Route index element={<UserInfoPage />} />
+        <Route path="orders" element={<UserOrdersPage />} />
+        <Route path="reviews" element={<UserReviewsPage />} />
       </Route>
 
       <Route path="/registration" element={<RegistrationPage />} />

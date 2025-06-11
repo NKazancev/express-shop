@@ -22,6 +22,11 @@ class UserService {
     );
     return { user, accessToken, refreshToken };
   }
+
+  static async getUserInfo(userId: string) {
+    const info = await prisma.user.findFirst({ where: { id: userId } });
+    return info;
+  }
 }
 
 export default UserService;

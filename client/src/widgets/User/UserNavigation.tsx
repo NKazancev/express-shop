@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router';
 
-import adminRoutes from '@config/adminRoutes';
+import userRoutes from '@config/userRoutes';
 
-import styles from './AdminNavigation.module.css';
+import styles from './UserNavigation.module.css';
 
-const AdminNavigation = () => {
+const UserNavigation = () => {
   const linksList = (
     <ul className={styles.list}>
-      {adminRoutes.map((link) => {
+      {userRoutes.map((link) => {
         return (
           <li key={link.id}>
             <NavLink
@@ -28,4 +28,4 @@ const AdminNavigation = () => {
   return <nav className={styles.navigation}>{linksList}</nav>;
 };
 
-export default AdminNavigation;
+export default UserNavigation;

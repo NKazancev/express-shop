@@ -28,6 +28,20 @@ const orderApi = baseApi
             : [{ type: 'Orders', id: 'LIST' }],
       }),
 
+      getAllUserOrders: builder.query<IOrder[], void>({
+        query: () => ({
+          url: 'orders/user',
+          method: 'GET',
+        }),
+        providesTags: (result) =>
+          result
+            ? [
+                ...result.map(({ id }) => ({ type: 'Orders', id } as const)),
+                { type: 'Orders', id: 'LIST' },
+              ]
+            : [{ type: 'Orders', id: 'LIST' }],
+      }),
+
       getOrderById: builder.query<IOrderData, string>({
         query: (id) => ({
           url: `orders/${id}`,
@@ -56,6 +70,7 @@ const orderApi = baseApi
 export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
+  useGetAllUserOrdersQuery,
   useGetOrderByIdQuery,
   useUpdateOrderStatusMutation,
 } = orderApi;

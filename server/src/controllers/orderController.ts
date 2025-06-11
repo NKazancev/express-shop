@@ -32,6 +32,12 @@ class OrderController {
     res.status(200).json(orders);
   }
 
+  static async getAllUserOrders(req: Request, res: Response) {
+    const userId = req.user.id;
+    const orders = await OrderService.getAllUserOrders(userId);
+    res.status(200).json(orders);
+  }
+
   static async getOrderById(req: Request, res: Response) {
     const orderId = req.params.id;
     const order = await OrderService.getOrderById(orderId);
