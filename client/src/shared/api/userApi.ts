@@ -1,6 +1,6 @@
 import baseApi from '@config/baseApi';
 import { IAuthResponse } from '@shared/models/auth';
-import { ICreateUserData, IUser } from '@shared/models/user';
+import { ICreateUserData, IPasswordData, IUser } from '@shared/models/user';
 
 const userApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Users'] })
@@ -12,6 +12,7 @@ const userApi = baseApi
           method: 'POST',
           body: { ...data },
         }),
+        invalidatesTags: ['Users'],
       }),
 
       getUserInfo: builder.query<IUser, void>({
@@ -19,8 +20,22 @@ const userApi = baseApi
           url: 'users/info',
           method: 'GET',
         }),
+        providesTags: ['Users'],
+      }),
+
+      changePassword: builder.mutation<IUser, IPasswordData>({
+        query: ({ ...body }) => ({
+          url: 'users/password',
+          method: 'PUT',
+          body: { ...body },
+        }),
+        invalidatesTags: ['Users'],
       }),
     }),
   });
 
-export const { useCreateUserMutation, useGetUserInfoQuery } = userApi;
+export const {
+  useCreateUserMutation,
+  useGetUserInfoQuery,
+  useChangePasswordMutation,
+} = userApi;

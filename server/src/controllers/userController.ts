@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { CreateUserSchema } from '../schema/userSchema';
+import { ChangePasswordSchema, CreateUserSchema } from '../schema/userSchema';
 import UserService from '../services/userService';
 
 class UserController {
@@ -33,6 +33,18 @@ class UserController {
     const userId = req.user.id;
     const info = await UserService.getUserInfo(userId);
     res.status(200).json(info);
+  }
+
+  static async changePassword(req: Request, res: Response) {
+    ChangePasswordSchema.parse(req.body);
+    const userId = req.user.id;
+    const { oldPassword, newPassword } = req.body;
+    const user = await UserService.changePassword(
+      userId,
+      oldPassword,
+      newPassword
+    );
+    res.status(200).json(user);
   }
 }
 

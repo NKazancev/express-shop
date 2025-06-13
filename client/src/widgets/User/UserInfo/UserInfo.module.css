@@ -1,0 +1,44 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 35px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 156px max-content 1fr;
+  align-items: center;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.email {
+  font-weight: 400;
+}
+
+.circle {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: rgb(48, 58, 53);
+  border-radius: 50%;
+}
+
+.password {
+  margin-right: 50px;
+
+  display: inline-flex;
+  column-gap: 6px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  column-gap: 5px;
+
+  color: rgb(139, 139, 139);
+  font-size: 13px;
+  font-weight: 400;
+}

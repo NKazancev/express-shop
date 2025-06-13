@@ -3,7 +3,7 @@ import {
   IProduct,
   IProductData,
   IProductsRequest,
-  UpdateProductInfoData,
+  UpdateProductData,
 } from '@shared/models/product';
 
 const productApi = baseApi
@@ -52,9 +52,9 @@ const productApi = baseApi
         providesTags: (__, _, id) => [{ type: 'Products', id }],
       }),
 
-      updateProductInfo: builder.mutation<
+      updateProduct: builder.mutation<
         IProduct,
-        UpdateProductInfoData & { id: string }
+        UpdateProductData & { id: string }
       >({
         query: (data) => {
           const { id, ...body } = data;
@@ -82,6 +82,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useLazyGetProductByIdQuery,
-  useUpdateProductInfoMutation,
+  useUpdateProductMutation,
   useDeleteProductMutation,
 } = productApi;

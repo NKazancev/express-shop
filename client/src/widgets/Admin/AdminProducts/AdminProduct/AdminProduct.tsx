@@ -6,7 +6,7 @@ import { STATIC_URL } from '@config/consts';
 import { useDeleteProductMutation } from '@shared/api/productApi';
 
 import StockCounter from '../StockCounter/StockCounter';
-import ModalUpdateProductInfo from '@modals/ModalUpdateProductInfo/ModalUpdateProductInfo';
+import ModalUpdateProduct from '@modals/ModalUpdateProduct/ModalUpdateProduct';
 
 import penIcon from '@shared/assets/pen-icon.svg';
 import xbutton from '@shared/assets/x-button.svg';
@@ -51,7 +51,7 @@ const AdminProduct: FC<IProduct> = ({ id, image, name, price, stock }) => {
       </li>
 
       {modalVisible && (
-        <ModalUpdateProductInfo productId={id} onClose={hideModal} />
+        <ModalUpdateProduct productId={id} onClose={hideModal} />
       )}
     </>
   );

@@ -1,23 +1,23 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { IProductData, UpdateProductInfoData } from '@shared/models/product';
+import { IProductData, UpdateProductData } from '@shared/models/product';
 
 import Input from '@shared/ui/Input/Input';
 import Textarea from '@shared/ui/Textarea/Textarea';
 
-import styles from './UpdateProductInfoForm.module.css';
+import styles from './UpdateProductForm.module.css';
 
 type TUpdateProductInfoForm = {
-  onProductUpdate: (data: UpdateProductInfoData) => void;
+  onProductUpdate: (data: UpdateProductData) => void;
   productData: IProductData | undefined;
 };
 
-const UpdateProductInfoForm: FC<TUpdateProductInfoForm> = ({
+const UpdateProductForm: FC<TUpdateProductInfoForm> = ({
   onProductUpdate,
   productData,
 }) => {
-  const { control, handleSubmit } = useForm<UpdateProductInfoData>({
+  const { control, handleSubmit } = useForm<UpdateProductData>({
     defaultValues: { ...productData, text: productData?.info.text },
     resetOptions: { keepDirtyValues: true, keepErrors: true },
   });
@@ -68,4 +68,4 @@ const UpdateProductInfoForm: FC<TUpdateProductInfoForm> = ({
   );
 };
 
-export default UpdateProductInfoForm;
+export default UpdateProductForm;

@@ -1,3 +1,5 @@
+import { IProductReview } from './review';
+
 export interface IProduct {
   id: string;
   name: string;
@@ -9,13 +11,13 @@ export interface IProduct {
   stock: number;
 }
 
-export interface ICreateProductData extends IProduct {
+export type CreateProductData = Omit<IProduct, 'id'> & {
   images: FileList;
   text: string;
-}
+};
 
-export type UpdateProductInfoData = Partial<
-  Pick<ICreateProductData, 'name' | 'description' | 'price' | 'text' | 'stock'>
+export type UpdateProductData = Partial<
+  Pick<CreateProductData, 'name' | 'description' | 'price' | 'text' | 'stock'>
 >;
 
 export interface IProductData extends IProduct {
@@ -32,40 +34,10 @@ export interface IProductInfo {
   text: string;
 }
 
-export interface IProductReview {
-  id: string;
-  title: string;
-  text: string;
-  rate: string;
-  productId: string;
-  userId: string;
-  user: { email: string };
-}
-
-export interface ICreateReviewData {
-  title: string;
-  text: string;
-  rate: string;
-}
-
 export interface IProductsRequest {
   searchQuery: string;
   productType: string;
   brandFilters: string;
   minPrice: number;
   maxPrice: number;
-}
-
-export interface IProductType {
-  id: string;
-  name: string;
-}
-
-export interface IProductBrand {
-  id: string;
-  name: string;
-}
-
-export interface IBrandCheckbox extends IProductBrand {
-  checked: boolean;
 }

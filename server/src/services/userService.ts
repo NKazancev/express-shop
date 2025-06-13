@@ -1,4 +1,4 @@
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 import { Role } from '@prisma/client';
 import prisma from '../config/prismaClient';
@@ -26,6 +26,28 @@ class UserService {
   static async getUserInfo(userId: string) {
     const info = await prisma.user.findFirst({ where: { id: userId } });
     return info;
+  }
+
+  static async changePassword(
+    userId: string,
+    oldPassword: string,
+    newPassword: string
+  ) {
+    const foundUser = await prisma.user.findFirst({ where: { id: userId } });
+    if (!foundUser) throw new ApiError(403, ErrorMessage.FORBIDDEN);
+
+    const foundPassword = await compare(oldPassword, foundUser.password);
+    if (!foundPassword) throw new ApiError(400, ErrorMessage.CREDENTIALS);
+
+    const password = await hash(newPassword, 10);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: foundUser.id },
+      data: {
+        password,
+      },
+    });
+    return updatedUser;
   }
 }
 

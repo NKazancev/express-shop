@@ -2,31 +2,31 @@ import { FC, useEffect } from 'react';
 
 import {
   useGetProductByIdQuery,
-  useUpdateProductInfoMutation,
+  useUpdateProductMutation,
 } from '@shared/api/productApi';
 
-import UpdateProductInfoForm from '@widgets/Admin/AdminProducts/UpdateProductInfoForm/UpdateProductInfoForm';
-import { UpdateProductInfoData } from '@shared/models/product';
+import UpdateProductForm from '@widgets/Admin/AdminProducts/UpdateProductForm/UpdateProductForm';
+import { UpdateProductData } from '@shared/models/product';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
 import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
-import styles from './ModalUpdateProductInfo.module.css';
+import styles from './ModalUpdateProduct.module.css';
 
 type TModalReview = {
   onClose: () => void;
   productId: string;
 };
 
-const ModalUpdateProductInfo: FC<TModalReview> = ({ onClose, productId }) => {
+const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
   const { data: productData, fulfilledTimeStamp } =
     useGetProductByIdQuery(productId);
 
-  const [updateProduct, { isSuccess }] = useUpdateProductInfoMutation();
+  const [updateProduct, { isSuccess }] = useUpdateProductMutation();
 
-  const handleProductUpdate = async (data: UpdateProductInfoData) => {
+  const handleProductUpdate = async (data: UpdateProductData) => {
     try {
       const price = Number(data.price);
       const stock = Number(data.stock);
@@ -45,7 +45,7 @@ const ModalUpdateProductInfo: FC<TModalReview> = ({ onClose, productId }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Update product info</h3>
 
-        <UpdateProductInfoForm
+        <UpdateProductForm
           key={`update-product-${fulfilledTimeStamp}`}
           onProductUpdate={handleProductUpdate}
           productData={productData}
@@ -63,4 +63,4 @@ const ModalUpdateProductInfo: FC<TModalReview> = ({ onClose, productId }) => {
   return modal;
 };
 
-export default ModalUpdateProductInfo;
+export default ModalUpdateProduct;

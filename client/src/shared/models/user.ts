@@ -12,3 +12,9 @@ export interface ICreateUserData {
   password: string;
   confirmPassword: string;
 }
+
+export interface IPasswordData {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}

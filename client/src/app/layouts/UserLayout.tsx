@@ -5,7 +5,7 @@ import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useRefreshMutation } from '@shared/api/authApi';
 
 import Header from '@widgets/Header/Header';
-import UserNavigation from '@widgets/User/UserNavigation';
+import UserNavigation from '@widgets/User/UserNavigation/UserNavigation';
 
 function UserLayout() {
   const { isLogged } = useAppSelector((state) => state.user);

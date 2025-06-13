@@ -1,13 +1,19 @@
 import { useGetUserInfoQuery } from '@shared/api/userApi';
 
+import UserInfo from '@widgets/User/UserInfo/UserInfo';
+
 import styles from './UserInfoPage.module.css';
 
 const UserInfoPage = () => {
-  const { data: info } = useGetUserInfoQuery();
+  const { data: user } = useGetUserInfoQuery();
 
-  console.log(info);
+  return (
+    <div className={styles.container}>
+      <h2 className={styles.title}>Info</h2>
 
-  return <h2 className={styles.title}>User info page</h2>;
+      {user && <UserInfo {...user} />}
+    </div>
+  );
 };
 
 export default UserInfoPage;

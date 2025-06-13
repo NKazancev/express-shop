@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { useUpdateProductInfoMutation } from '@shared/api/productApi';
+import { useUpdateProductMutation } from '@shared/api/productApi';
 
 import styles from './StockCounter.module.css';
 
@@ -10,7 +10,7 @@ type TStockCounter = {
 };
 
 const StockCounter: FC<TStockCounter> = ({ id, stock }) => {
-  const [updateProduct] = useUpdateProductInfoMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   const increaseProductStock = async () => {
     try {

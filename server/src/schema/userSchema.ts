@@ -6,4 +6,9 @@ const CreateUserSchema = z.object({
   role: z.enum(['USER', 'ADMIN']).optional(),
 });
 
-export { CreateUserSchema };
+const ChangePasswordSchema = z.object({
+  oldPassword: z.string(),
+  newPassword: z.string().min(5),
+});
+
+export { CreateUserSchema, ChangePasswordSchema };
