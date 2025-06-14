@@ -11,4 +11,8 @@ const ChangePasswordSchema = z.object({
   newPassword: z.string().min(5),
 });
 
-export { CreateUserSchema, ChangePasswordSchema };
+const ChangeUsernameSchema = z.object({
+  username: z.string().min(2),
+});
+
+export { CreateUserSchema, ChangePasswordSchema, ChangeUsernameSchema };

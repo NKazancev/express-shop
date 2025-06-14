@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { IProductType } from '@shared/models/product';
+import { IProductType } from '@shared/models/typesbrands';
 import { useDeleteTypeMutation } from '@shared/api/typeApi';
 
 import xbutton from '@shared/assets/x-button.svg';

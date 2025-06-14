@@ -19,11 +19,12 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
-
+  
 model User {
   id                String          @id @default(cuid())
   email             String          @unique
   password          String
+  username          String          @unique
   role              Role            @default(USER)
   cartProducts      CartProduct[]
   orders            Order[]
@@ -68,21 +69,21 @@ model ProductGallery {
 }
 
 model ProductInfo {
-  id              String            @id @default(cuid())
-  text            String
-  productId       String            @unique
-  product         Product           @relation(fields: [productId], references: [id])
+  id                String            @id @default(cuid())
+  text              String
+  productId         String            @unique
+  product           Product           @relation(fields: [productId], references: [id])
 }
 
 model ProductReview {
-  id              String            @id @default(cuid())
-  title           String
-  text            String
-  rate            Decimal            
-  productId       String
-  userId          String
-  product         Product           @relation(fields: [productId], references: [id])
-  user            User              @relation(fields: [userId], references: [id])
+  id                String            @id @default(cuid())
+  title             String
+  text              String
+  rate              Decimal            
+  productId         String
+  userId            String
+  product           Product           @relation(fields: [productId], references: [id])
+  user              User              @relation(fields: [userId], references: [id])
 }
 
 model CartProduct {

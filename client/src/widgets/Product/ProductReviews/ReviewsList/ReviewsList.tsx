@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import { IProductReview } from '@shared/models/product';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
+import { IProductReview } from '@shared/models/review';
 import Review from '../Review/Review';
 
 import styles from './ReviewsList.module.css';
-import { useAppSelector } from '@shared/hooks/reduxHooks';
 
 type TReviewsList = {
   reviews?: IProductReview[];

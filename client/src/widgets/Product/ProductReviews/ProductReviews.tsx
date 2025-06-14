@@ -1,12 +1,11 @@
 import { FC, useState, useEffect } from 'react';
 
-import { IProductReview } from '@shared/models/product';
+import { IProductReview } from '@shared/models/review';
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import { useLazyGetUserReviewQuery } from '@shared/api/reviewApi';
 
 import ReviewsHeader from './ReviewsHeader/ReviewsHeader';
 import ReviewsList from './ReviewsList/ReviewsList';
-
 import ModalReview from '@modals/ModalReview/ModalReview';
 
 import styles from './ProductReviews.module.css';
@@ -41,7 +40,6 @@ const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
         isUserReview={Boolean(userReview)}
         onAddButtonClick={showModal}
       />
-
       <ReviewsList reviews={reviews} userReview={userReview} />
 
       {modalVisible && (

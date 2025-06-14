@@ -7,13 +7,21 @@ import ApiError from '../error/ApiError';
 import ErrorMessage from '../error/errorMessage';
 
 class UserService {
+  static async createUsername(email: string) {
+    const arr = email.split('@');
+    const username = arr[0] + String(Math.random()).slice(2, 6) + arr[1][0];
+    return username;
+  }
+
   static async createUser(email: string, password: string, role: Role) {
     const foundUser = await prisma.user.findFirst({ where: { email } });
     if (foundUser) throw new ApiError(409, ErrorMessage.USER_EXISTS);
 
     const hashedPassword = await hash(password, 10);
+    const username = await UserService.createUsername(email);
+
     const user = await prisma.user.create({
-      data: { email, password: hashedPassword, role },
+      data: { email, password: hashedPassword, username, role },
     });
 
     const { accessToken, refreshToken } = TokenService.createTokens(
@@ -46,6 +54,20 @@ class UserService {
       data: {
         password,
       },
+    });
+    return updatedUser;
+  }
+
+  static async changeUsername(userId: string, username: string) {
+    const foundUser = await prisma.user.findFirst({ where: { id: userId } });
+    if (!foundUser) throw new ApiError(403, ErrorMessage.FORBIDDEN);
+
+    const foundName = await prisma.user.findFirst({ where: { username } });
+    if (foundName) throw new ApiError(409, ErrorMessage.USERNAME_EXISTS);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: foundUser.id },
+      data: { username },
     });
     return updatedUser;
   }

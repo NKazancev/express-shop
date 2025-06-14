@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 
 import { useCreateProductReviewMutation } from '@shared/api/reviewApi';
 import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
-import { ICreateReviewData } from '@shared/models/product';
+import { ICreateReviewData } from '@shared/models/review';
 import ReviewForm from '@widgets/Product/ProductReviews/ReviewForm/ReviewForm';
 
 import Modal from '@shared/ui/Modal/Modal';

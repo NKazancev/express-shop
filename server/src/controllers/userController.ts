@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 
-import { ChangePasswordSchema, CreateUserSchema } from '../schema/userSchema';
+import {
+  ChangePasswordSchema,
+  ChangeUsernameSchema,
+  CreateUserSchema,
+} from '../schema/userSchema';
 import UserService from '../services/userService';
 
 class UserController {
@@ -44,6 +48,14 @@ class UserController {
       oldPassword,
       newPassword
     );
+    res.status(200).json(user);
+  }
+
+  static async changeUsername(req: Request, res: Response) {
+    ChangeUsernameSchema.parse(req.body);
+    const userId = req.user.id;
+    const { username } = req.body;
+    const user = await UserService.changeUsername(userId, username);
     res.status(200).json(user);
   }
 }

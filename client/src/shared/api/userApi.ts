@@ -31,6 +31,15 @@ const userApi = baseApi
         }),
         invalidatesTags: ['Users'],
       }),
+
+      changeUsername: builder.mutation<IUser, Pick<IUser, 'username'>>({
+        query: ({ ...body }) => ({
+          url: 'users/username',
+          method: 'PUT',
+          body: { ...body },
+        }),
+        invalidatesTags: ['Users'],
+      }),
     }),
   });
 
@@ -38,4 +47,5 @@ export const {
   useCreateUserMutation,
   useGetUserInfoQuery,
   useChangePasswordMutation,
+  useChangeUsernameMutation,
 } = userApi;

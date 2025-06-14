@@ -1,5 +1,5 @@
 import baseApi from '@config/baseApi';
-import { ICreateReviewData, IProductReview } from '@shared/models/product';
+import { ICreateReviewData, IProductReview } from '@shared/models/review';
 
 const reviewApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Reviews'] })

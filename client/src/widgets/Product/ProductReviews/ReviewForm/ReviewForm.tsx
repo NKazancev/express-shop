@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ICreateReviewData } from '@shared/models/product';
+import { ICreateReviewData } from '@shared/models/review';
 
 import Input from '@shared/ui/Input/Input';
 import Textarea from '@shared/ui/Textarea/Textarea';

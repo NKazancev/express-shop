@@ -39,7 +39,6 @@ const ChangePasswordForm: FC<TChangePasswordForm> = ({ onPasswordChange }) => {
           required: true,
           validate: (formField) => {
             if (formField !== newPassword) {
-              console.log('Passwords must match');
               return 'Passwords must match';
             }
           },

@@ -5,7 +5,7 @@ export interface IProductReview {
   rate: string;
   productId: string;
   userId: string;
-  user: { email: string };
+  user: { username: string };
 }
 
 export interface ICreateReviewData {

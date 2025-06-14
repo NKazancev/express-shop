@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { IProductBrand } from '@shared/models/product';
+import { IProductBrand } from '@shared/models/typesbrands';
 import { useDeleteBrandMutation } from '@shared/api/brandApi';
 
 import xbutton from '@shared/assets/x-button.svg';

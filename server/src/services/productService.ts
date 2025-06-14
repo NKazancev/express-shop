@@ -80,7 +80,7 @@ class ProductService {
       include: {
         gallery: { select: { images: true } },
         info: { select: { text: true } },
-        reviews: { include: { user: { select: { email: true } } } },
+        reviews: { include: { user: { select: { username: true } } } },
       },
     });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
