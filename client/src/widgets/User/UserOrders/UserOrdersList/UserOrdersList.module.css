@@ -1,0 +1,12 @@
+.orders {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.notification {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+}

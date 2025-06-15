@@ -28,7 +28,7 @@ const orderApi = baseApi
             : [{ type: 'Orders', id: 'LIST' }],
       }),
 
-      getAllUserOrders: builder.query<IOrder[], void>({
+      getAllUserOrders: builder.query<IOrderData[], void>({
         query: () => ({
           url: 'orders/user',
           method: 'GET',

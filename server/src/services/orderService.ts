@@ -65,8 +65,31 @@ class OrderService {
     const orders = await prisma.order.findMany({
       where: { userId },
       orderBy: { createdAt: 'asc' },
+      include: {
+        products: {
+          select: {
+            quantity: true,
+            product: {
+              select: { id: true, image: true, name: true },
+            },
+          },
+        },
+      },
     });
-    return orders;
+    const userOrders = orders.map((order) => {
+      return {
+        ...order,
+        products: order.products.map((el) => {
+          return {
+            id: el.product.id,
+            quantity: el.quantity,
+            name: el.product.name,
+            image: el.product.image,
+          };
+        }),
+      };
+    });
+    return userOrders;
   }
 
   static async getOrderById(orderId: string) {

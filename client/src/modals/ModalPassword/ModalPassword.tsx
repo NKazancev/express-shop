@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 
 import { useChangePasswordMutation } from '@shared/api/userApi';
 import { IPasswordData } from '@shared/models/user';
-import ChangePasswordForm from '@widgets/User/ChangePasswordForm/ChangePasswordForm';
+import ChangePasswordForm from '@widgets/User/UserInfo/ChangePasswordForm/ChangePasswordForm';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';

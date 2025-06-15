@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 
 import { useChangeUsernameMutation } from '@shared/api/userApi';
 import { IUser } from '@shared/models/user';
-import ChangeUsernameForm from '@widgets/User/ChangeUsernameForm/ChangeUsernameForm';
+import ChangeUsernameForm from '@widgets/User/UserInfo/ChangeUsernameForm/ChangeUsernameForm';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';

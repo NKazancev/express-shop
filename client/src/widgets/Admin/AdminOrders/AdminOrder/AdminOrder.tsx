@@ -12,12 +12,11 @@ import styles from './AdminOrder.module.css';
 
 const AdminOrder: FC<IOrder> = (order) => {
   const { id, status } = order;
+  const orderStatusColor = useOrderStatusColor(status);
+  const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 
   const [modalOrderVisible, setModalOrderVisible] = useState<boolean>(false);
   const [popupStatusVisible, setPopupStatusVisible] = useState<boolean>(false);
-
-  const orderStatusColor = useOrderStatusColor(status);
-  const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 
   const showOrderInfo = () => setModalOrderVisible(true);
   const hideOrderInfo = () => setModalOrderVisible(false);

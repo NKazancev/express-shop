@@ -3,14 +3,14 @@ import { FC } from 'react';
 import { IOrderProduct } from '@shared/models/order';
 import { STATIC_URL } from '@config/consts';
 
-import styles from './AdminOrderProducts.module.css';
+import styles from './UserOrderProducts.module.css';
 
-type TAdminOrderProducts = {
+type TUserOrderProducts = {
   products: IOrderProduct[];
 };
 
-const AdminOrderProducts: FC<TAdminOrderProducts> = ({ products }) => {
-  const orderProducts = products?.map(({ id, name, quantity, image }) => {
+const UserOrderProducts: FC<TUserOrderProducts> = ({ products }) => {
+  const orderProducts = products.map(({ id, image, name, quantity }) => {
     return (
       <li className={styles.product} key={id}>
         <div>
@@ -28,4 +28,4 @@ const AdminOrderProducts: FC<TAdminOrderProducts> = ({ products }) => {
   return <ul className={styles.list}>{orderProducts}</ul>;
 };
 
-export default AdminOrderProducts;
+export default UserOrderProducts;
