@@ -1,13 +1,18 @@
 import { useGetAllUserReviewsQuery } from '@shared/api/reviewApi';
 
+import UserReviewsList from '@widgets/User/UserReviews/UserReviewsList/UserReviewsList';
+
 import styles from './UserReviewPage.module.css';
 
 const UserReviewsPage = () => {
   const { data: reviews } = useGetAllUserReviewsQuery();
 
-  console.log(reviews);
-
-  return <h2 className={styles.title}>User reviews page</h2>;
+  return (
+    <div>
+      <h2 className={styles.title}>Reviews</h2>
+      {reviews && <UserReviewsList reviews={reviews} />}
+    </div>
+  );
 };
 
 export default UserReviewsPage;

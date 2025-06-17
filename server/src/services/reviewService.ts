@@ -21,7 +21,10 @@ class ReviewService {
   }
 
   static async getAllUserReviews(userId: string) {
-    const reviews = await prisma.productReview.findMany({ where: { userId } });
+    const reviews = await prisma.productReview.findMany({
+      where: { userId },
+      include: { product: { select: { name: true } } },
+    });
     return reviews;
   }
 

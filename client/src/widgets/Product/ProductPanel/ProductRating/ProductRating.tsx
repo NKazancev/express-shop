@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 import { Rating } from 'react-simple-star-rating';
 
-import { IProductReview } from '@shared/models/product';
+import { IProductReview } from '@shared/models/review';
 
 import styles from './ProductRating.module.css';
 
