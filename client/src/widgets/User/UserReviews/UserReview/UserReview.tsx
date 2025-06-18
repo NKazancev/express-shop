@@ -1,18 +1,27 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
 
+import { useDeleteReviewMutation } from '@shared/api/reviewApi';
 import { IUserReview } from '@shared/models/review';
 import { Rating } from 'react-simple-star-rating';
 
-import pen from '@shared/assets/pen-icon.svg';
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './UserReview.module.css';
 
 const UserReview: FC<IUserReview> = (review) => {
-  const { productId, product, title, rate, text } = review;
+  const { id, productId, product, title, rate, text } = review;
+  const [deleteReview] = useDeleteReviewMutation();
 
   const navigate = useNavigate();
   const showProductPage = () => navigate(`/products/${productId}`);
+
+  const handleReviewDelete = async () => {
+    try {
+      await deleteReview(id).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <li className={styles.review}>
@@ -42,14 +51,13 @@ const UserReview: FC<IUserReview> = (review) => {
         <p className={styles.text}>{text}</p>
       </article>
 
-      <div className={styles.actions}>
-        <button type="button" className={styles.button}>
-          <img src={pen} alt="pen-icon" width={13} />
-        </button>
-        <button type="button" className={styles.button}>
-          <img src={xbutton} alt="x" width={13} />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={handleReviewDelete}
+        className={styles.button}
+      >
+        <img src={xbutton} alt="x" width={13} />
+      </button>
     </li>
   );
 };

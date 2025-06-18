@@ -12,6 +12,7 @@ enum ErrorMessage {
   PRODUCT_BRAND_EXISTS = 'Such product brand already exists',
   PRODUCT_BRAND_NOT_FOUND = 'Product brand not found',
   REVIEW_EXISTS = 'Review already exists',
+  REVIEW_NOT_FOUND = 'Review not found',
   COUNTRY_EXISTS = 'Country already exists',
   COUNTRY_NOT_FOUND = 'Country not found',
   CITY_EXISTS = 'City already exists',

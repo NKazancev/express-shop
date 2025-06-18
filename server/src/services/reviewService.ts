@@ -1,4 +1,6 @@
 import prisma from '../config/prismaClient';
+import ApiError from '../error/ApiError';
+import ErrorMessage from '../error/errorMessage';
 
 class ReviewService {
   static async createProductReview(
@@ -34,6 +36,12 @@ class ReviewService {
       include: { user: { select: { username: true } } },
     });
     return foundReview;
+  }
+
+  static async deleteReview(id: string) {
+    await prisma.productReview.delete({ where: { id } }).catch(() => {
+      throw new ApiError(404, ErrorMessage.REVIEW_NOT_FOUND);
+    });
   }
 }
 

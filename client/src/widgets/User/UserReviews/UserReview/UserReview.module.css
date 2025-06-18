@@ -50,11 +50,7 @@
   line-height: 1.6;
 }
 
-.actions {
-  display: flex;
-  column-gap: 21px;
-  align-items: center;
-
+.button {
   position: absolute;
   top: 20px;
   right: 20px;

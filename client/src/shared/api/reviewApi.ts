@@ -23,7 +23,7 @@ const reviewApi = baseApi
 
       getAllUserReviews: builder.query<IUserReview[], void>({
         query: () => ({
-          url: `reviews`,
+          url: 'reviews',
           method: 'GET',
         }),
         providesTags: (result) =>
@@ -42,6 +42,14 @@ const reviewApi = baseApi
         }),
         providesTags: ['Reviews'],
       }),
+
+      deleteReview: builder.mutation<void, string>({
+        query: (id) => ({
+          url: `reviews/${id}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: (_, __, id) => [{ type: 'Reviews', id }],
+      }),
     }),
   });
 
@@ -49,4 +57,5 @@ export const {
   useCreateProductReviewMutation,
   useGetAllUserReviewsQuery,
   useLazyGetUserReviewQuery,
+  useDeleteReviewMutation,
 } = reviewApi;
