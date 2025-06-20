@@ -35,8 +35,14 @@ class UserController {
 
   static async getUser(req: Request, res: Response) {
     const userId = req.user.id;
-    const info = await UserService.getUserInfo(userId);
+    const info = await UserService.getUser(userId);
     res.status(200).json(info);
+  }
+
+  static async getUserInfo(req: Request, res: Response) {
+    const userId = req.user.id;
+    const userInfo = await UserService.getUserInfo(userId);
+    res.status(200).json(userInfo);
   }
 
   static async changePassword(req: Request, res: Response) {

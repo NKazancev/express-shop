@@ -19,7 +19,7 @@ enum OrderStatus {
   DELIVERED
   CANCELLED
 }
-  
+
 model User {
   id                String          @id @default(cuid())
   email             String          @unique
@@ -29,6 +29,7 @@ model User {
   cartProducts      CartProduct[]
   orders            Order[]
   reviews           ProductReview[]
+  address           Address?
 }
 
 model Product {
@@ -128,4 +129,14 @@ model OrderProduct {
   orderId           String
   product           Product         @relation(fields: [productId], references: [id])
   order             Order           @relation(fields: [orderId], references: [id])
+}
+
+model Address {
+  id                String          @id @default(cuid())
+  countryId         String
+  cityId            String
+  street            String
+  postcode          String
+  userId            String          @unique
+  user              User            @relation(fields: [userId], references: [id])  
 }

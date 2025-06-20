@@ -1,15 +1,17 @@
 import { FC, useState } from 'react';
-import { IUser } from '@shared/models/user';
+import { IUserInfo } from '@shared/models/user';
 
 import ModalPassword from '@modals/ModalPassword/ModalPassword';
 import ModalUsername from '@modals/ModalUsername/ModalUsername';
+import ModalAddress from '@modals/ModalAddress/ModalAddress';
 
 import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserInfo.module.css';
 
-const UserInfo: FC<IUser> = ({ email, username }) => {
+const UserInfo: FC<IUserInfo> = ({ email, username, stringAddress }) => {
   const [modalPassword, setModalPassword] = useState<boolean>(false);
   const [modalUsername, setModalUsername] = useState<boolean>(false);
+  const [modalAddress, setModalAddress] = useState<boolean>(false);
 
   const password = new Array(9)
     .fill(null)
@@ -19,6 +21,8 @@ const UserInfo: FC<IUser> = ({ email, username }) => {
   const hidePassword = () => setModalPassword(false);
   const showUsername = () => setModalUsername(true);
   const hideUsername = () => setModalUsername(false);
+  const showAddress = () => setModalAddress(true);
+  const hideAddress = () => setModalAddress(false);
 
   return (
     <div className={styles.info}>
@@ -45,8 +49,24 @@ const UserInfo: FC<IUser> = ({ email, username }) => {
         </button>
       </div>
 
+      <div className={styles.row}>
+        <span>Delivery address:</span>
+        {stringAddress ? (
+          <span className={styles.username}>{stringAddress}</span>
+        ) : (
+          <button
+            type="button"
+            onClick={showAddress}
+            className={styles.addressBtn}
+          >
+            + add delivery address
+          </button>
+        )}
+      </div>
+
       {modalPassword && <ModalPassword onClose={hidePassword} />}
       {modalUsername && <ModalUsername onClose={hideUsername} />}
+      {modalAddress && <ModalAddress onClose={hideAddress} />}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import UserRole from '@config/userRoles';
+import { IAddress } from './address';
 
 export interface IUser {
   id: string;
@@ -6,6 +7,11 @@ export interface IUser {
   password: string;
   username: string;
   role: UserRole;
+}
+
+export interface IUserInfo extends IUser {
+  address: IAddress;
+  stringAddress: string;
 }
 
 export interface ICreateUserData {

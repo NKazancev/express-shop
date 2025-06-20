@@ -1,6 +1,11 @@
 import baseApi from '@config/baseApi';
 import { IAuthResponse } from '@shared/models/auth';
-import { ICreateUserData, IPasswordData, IUser } from '@shared/models/user';
+import {
+  ICreateUserData,
+  IPasswordData,
+  IUser,
+  IUserInfo,
+} from '@shared/models/user';
 
 const userApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Users'] })
@@ -15,7 +20,15 @@ const userApi = baseApi
         invalidatesTags: ['Users'],
       }),
 
-      getUserInfo: builder.query<IUser, void>({
+      getUser: builder.query<IUser, void>({
+        query: () => ({
+          url: 'users',
+          method: 'GET',
+        }),
+        providesTags: ['Users'],
+      }),
+
+      getUserInfo: builder.query<IUserInfo, void>({
         query: () => ({
           url: 'users/info',
           method: 'GET',
@@ -45,6 +58,7 @@ const userApi = baseApi
 
 export const {
   useCreateUserMutation,
+  useGetUserQuery,
   useGetUserInfoQuery,
   useChangePasswordMutation,
   useChangeUsernameMutation,

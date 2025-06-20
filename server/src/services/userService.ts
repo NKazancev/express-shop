@@ -5,6 +5,7 @@ import prisma from '../config/prismaClient';
 import TokenService from './tokenService';
 import ApiError from '../error/ApiError';
 import ErrorMessage from '../error/errorMessage';
+import AddressService from './addressService';
 
 class UserService {
   static async createUsername(email: string) {
@@ -31,9 +32,26 @@ class UserService {
     return { user, accessToken, refreshToken };
   }
 
+  static async getUser(userId: string) {
+    const user = await prisma.user.findFirst({ where: { id: userId } });
+    return user;
+  }
+
   static async getUserInfo(userId: string) {
-    const info = await prisma.user.findFirst({ where: { id: userId } });
-    return info;
+    const info = await prisma.user.findFirst({
+      where: { id: userId },
+      include: { address: { omit: { id: true, userId: true } } },
+    });
+    let stringAddress;
+    if (info?.address) {
+      stringAddress = await AddressService.createStringAddress(
+        info.address?.countryId,
+        info.address?.cityId,
+        info.address?.street,
+        info.address?.postcode
+      );
+    }
+    return { ...info, stringAddress };
   }
 
   static async changePassword(

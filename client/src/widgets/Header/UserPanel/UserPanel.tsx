@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react';
 import { NavLink } from 'react-router';
 
 import { useGetCartProductsQuery } from '@shared/api/cartApi';
-import { useGetUserInfoQuery } from '@shared/api/userApi';
+import { useGetUserQuery } from '@shared/api/userApi';
 import useCartTotal from '@shared/hooks/useCartTotal';
 
 import Dropdown from '@shared/ui/Dropdown/Dropdown';
@@ -16,7 +16,7 @@ const UserPanel = () => {
   const { data: cartProducts } = useGetCartProductsQuery();
   const { itemsQuantity } = useCartTotal(cartProducts);
 
-  const { data: user } = useGetUserInfoQuery();
+  const { data: user } = useGetUserQuery();
   const [profileMenuVisible, setProfileMenuVisible] = useState<boolean>(false);
 
   const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
