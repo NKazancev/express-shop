@@ -1,17 +1,12 @@
+import { Address } from '@prisma/client';
 import prisma from '../config/prismaClient';
 import CityService from './cityService';
 import CountryService from './countryService';
 
 class AddressService {
-  static async createAddress(
-    userId: string,
-    countryId: string,
-    cityId: string,
-    street: string,
-    postcode: string
-  ) {
+  static async createAddress(data: Omit<Address, 'id'>) {
     const address = await prisma.address.create({
-      data: { userId, countryId, cityId, street, postcode },
+      data: { ...data },
     });
     return address;
   }
@@ -29,6 +24,14 @@ class AddressService {
 
   static async getAddress(userId: string) {
     const address = await prisma.address.findFirst({ where: { userId } });
+    return address;
+  }
+
+  static async updateAddress(addressId: string, data: Partial<Address>) {
+    const address = await prisma.address.update({
+      where: { id: addressId },
+      data,
+    });
     return address;
   }
 }

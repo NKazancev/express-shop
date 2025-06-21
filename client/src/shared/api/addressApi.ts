@@ -29,7 +29,32 @@ const addressApi = baseApi
         }),
         providesTags: ['Addresses'],
       }),
+
+      updateAddress: builder.mutation<IAddress, IAddress & { id: string }>({
+        query: (data) => {
+          const { id, ...body } = data;
+          return {
+            url: `addresses/${id}`,
+            method: 'PUT',
+            body: { ...body },
+          };
+        },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            dispatch(baseApi.util.invalidateTags(['Users']));
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        invalidatesTags: [{ type: 'Addresses', id: 'LIST' }],
+      }),
     }),
   });
 
-export const { useCreateAddressMutation, useGetAddressQuery } = addressApi;
+export const {
+  useCreateAddressMutation,
+  useGetAddressQuery,
+  useLazyGetAddressQuery,
+  useUpdateAddressMutation,
+} = addressApi;

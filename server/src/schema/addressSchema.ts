@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { optional, z } from 'zod';
 
 const CreateAddressSchema = z.object({
   countryId: z.string(),
@@ -7,4 +7,11 @@ const CreateAddressSchema = z.object({
   postcode: z.string(),
 });
 
-export default CreateAddressSchema;
+const UpdateAddressSchema = z.object({
+  countryId: z.string().optional(),
+  cityId: z.string().optional(),
+  street: z.string().optional(),
+  postcode: z.string().optional(),
+});
+
+export { CreateAddressSchema, UpdateAddressSchema };

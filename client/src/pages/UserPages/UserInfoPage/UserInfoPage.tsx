@@ -5,13 +5,13 @@ import UserInfo from '@widgets/User/UserInfo/UserInfo';
 import styles from './UserInfoPage.module.css';
 
 const UserInfoPage = () => {
-  const { data: user } = useGetUserInfoQuery();
+  const { data: userInfo } = useGetUserInfoQuery();
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Info</h2>
+      <h2 className={styles.title}>User info</h2>
 
-      {user && <UserInfo {...user} />}
+      {userInfo && <UserInfo {...userInfo} />}
     </div>
   );
 };

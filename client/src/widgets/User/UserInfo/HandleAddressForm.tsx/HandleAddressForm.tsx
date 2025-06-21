@@ -11,18 +11,29 @@ import Select from '@shared/ui/Select/Select';
 import styles from './HandleAddressForm.module.css';
 
 type THandleAddressForm = {
-  handleAddressChange: (data: Omit<IAddress, 'id'>) => void;
+  handleAddress: (data: Omit<IAddress, 'id'>) => void;
+  isUpdate: boolean;
+  address?: IAddress;
 };
 
-const HandleAddressForm: FC<THandleAddressForm> = ({ handleAddressChange }) => {
-  const { control, handleSubmit } = useForm<Omit<IAddress, 'id'>>();
+const HandleAddressForm: FC<THandleAddressForm> = ({
+  handleAddress,
+  isUpdate,
+  address,
+}) => {
+  const { control, handleSubmit } = useForm<Omit<IAddress, 'id'>>({
+    defaultValues: address,
+    resetOptions: { keepDirtyValues: true, keepErrors: true },
+  });
 
   const { data: countriesOptions } = useGetCountriesQuery();
-  const [countryId, setCountryId] = useState<string | undefined>();
+  const [countryId, setCountryId] = useState<string | undefined>(
+    address?.countryId
+  );
   const citiesOptions = useCitiesOptions(countryId);
 
   return (
-    <form onSubmit={handleSubmit(handleAddressChange)} className={styles.form}>
+    <form onSubmit={handleSubmit(handleAddress)} className={styles.form}>
       <Select
         name="countryId"
         label="Country"
@@ -55,7 +66,7 @@ const HandleAddressForm: FC<THandleAddressForm> = ({ handleAddressChange }) => {
       />
 
       <button type="submit" className={styles.button}>
-        Login
+        {!isUpdate ? 'Create address' : 'Update address'}
       </button>
     </form>
   );

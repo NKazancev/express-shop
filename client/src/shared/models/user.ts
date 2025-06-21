@@ -10,8 +10,8 @@ export interface IUser {
 }
 
 export interface IUserInfo extends IUser {
-  address: IAddress;
-  stringAddress: string;
+  address: IAddress | null;
+  stringAddress?: string;
 }
 
 export interface ICreateUserData {

@@ -44,11 +44,12 @@ class UserService {
     });
     let stringAddress;
     if (info?.address) {
+      const { countryId, cityId, street, postcode } = info.address;
       stringAddress = await AddressService.createStringAddress(
-        info.address?.countryId,
-        info.address?.cityId,
-        info.address?.street,
-        info.address?.postcode
+        countryId,
+        cityId,
+        street,
+        postcode
       );
     }
     return { ...info, stringAddress };

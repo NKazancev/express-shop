@@ -12,11 +12,14 @@ import styles from './CheckoutForm.module.css';
 
 type TCheckoutForm = {
   control: Control<ICreateOrderData>;
+  defaultCountryId?: string;
 };
 
-const CheckoutForm: FC<TCheckoutForm> = ({ control }) => {
+const CheckoutForm: FC<TCheckoutForm> = ({ control, defaultCountryId }) => {
   const { data: countriesOptions } = useGetCountriesQuery();
-  const [countryId, setCountryId] = useState<string | undefined>();
+  const [countryId, setCountryId] = useState<string | undefined>(
+    defaultCountryId
+  );
   const citiesOptions = useCitiesOptions(countryId);
 
   return (
