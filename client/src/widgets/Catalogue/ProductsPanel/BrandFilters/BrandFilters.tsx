@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useLazyGetBrandsQuery } from '@shared/api/brandApi';
-import { IBrandCheckbox, IProductBrand } from '@shared/models/product';
+import { IBrandCheckbox, IProductBrand } from '@shared/models/typesbrands';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { setBrandFilters } from '@shared/slices/filtersSlice';
 

@@ -1,5 +1,5 @@
 import { useCreateTypeMutation } from '@shared/api/typeApi';
-import { IProductType } from '@shared/models/product';
+import { IProductType } from '@shared/models/typesbrands';
 import TypeForm from '@widgets/Admin/TypesBrands/TypeForm/TypeForm';
 
 function CreateProductType() {

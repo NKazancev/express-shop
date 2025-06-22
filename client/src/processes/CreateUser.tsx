@@ -1,6 +1,6 @@
 import { useCreateUserMutation } from '@shared/api/userApi';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
-import { ICreateUserData } from '@shared/models/user';
+import { TCreateUserData } from '@shared/models/user';
 import { setCredentials } from '@shared/slices/userSlice';
 import RegistrationForm from '@widgets/Auth/RegistrationForm/RegistrationForm';
 
@@ -8,7 +8,7 @@ function CreateUser() {
   const [createUser] = useCreateUserMutation();
   const dispatch = useAppDispatch();
 
-  const handleRegistration = async (data: ICreateUserData) => {
+  const handleRegistration = async (data: TCreateUserData) => {
     try {
       const { accessToken, role } = await createUser({ ...data }).unwrap();
       dispatch(setCredentials({ accessToken, role }));

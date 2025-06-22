@@ -1,9 +1,8 @@
 import { MouseEvent, useState } from 'react';
 import { NavLink } from 'react-router';
 
-import { useGetCartProductsQuery } from '@shared/api/cartApi';
-import { useGetUserQuery } from '@shared/api/userApi';
-import useCartTotal from '@shared/hooks/useCartTotal';
+import { useGetUserCartQuery } from '@shared/api/userApi';
+import { useCartItemsCount } from '@shared/hooks/useCart';
 
 import Dropdown from '@shared/ui/Dropdown/Dropdown';
 import ProfileMenu from './ProfileMenu/ProfileMenu';
@@ -13,17 +12,16 @@ import profile from '@shared/assets/profile-icon.svg';
 import styles from './UserPanel.module.css';
 
 const UserPanel = () => {
-  const { data: cartProducts } = useGetCartProductsQuery();
-  const { itemsQuantity } = useCartTotal(cartProducts);
+  const { data: user } = useGetUserCartQuery();
+  const cartItemsCount = useCartItemsCount(user?.cartProducts);
 
-  const { data: user } = useGetUserQuery();
   const [profileMenuVisible, setProfileMenuVisible] = useState<boolean>(false);
 
   const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
   const closeMenu = () => setProfileMenuVisible(false);
 
   const handleCartClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (itemsQuantity === 0) {
+    if (cartItemsCount === 0) {
       e.preventDefault();
     }
   };
@@ -34,8 +32,8 @@ const UserPanel = () => {
         <img src={cart} alt="cart-icon" />
         <span>Cart</span>
 
-        {itemsQuantity && itemsQuantity > 0 ? (
-          <div className={styles.counter}>{itemsQuantity}</div>
+        {cartItemsCount && cartItemsCount > 0 ? (
+          <div className={styles.counter}>{cartItemsCount}</div>
         ) : null}
       </NavLink>
 

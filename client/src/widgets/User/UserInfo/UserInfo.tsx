@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { IUserInfo } from '@shared/models/user';
+import { TUserInfo } from '@shared/models/user';
 
 import ModalPassword from '@modals/ModalPassword/ModalPassword';
 import ModalUsername from '@modals/ModalUsername/ModalUsername';
@@ -9,7 +9,7 @@ import UserAddress from './UserAddress/UserAddress';
 import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserInfo.module.css';
 
-const UserInfo: FC<IUserInfo> = ({ email, username, stringAddress }) => {
+const UserInfo: FC<TUserInfo> = ({ email, username, stringAddress }) => {
   const [modalPassword, setModalPassword] = useState<boolean>(false);
   const [modalUsername, setModalUsername] = useState<boolean>(false);
 

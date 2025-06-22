@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useLazyGetTypesQuery } from '@shared/api/typeApi';
-import { IProductType } from '@shared/models/product';
+import { IProductType } from '@shared/models/typesbrands';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { setProductType } from '@shared/slices/filtersSlice';
 

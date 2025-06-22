@@ -5,7 +5,7 @@ import baseQueryWithReauth from './baseQuery';
 const baseApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ['Users'],
+  tagTypes: ['Users', 'Cart'],
 });
 
 export default baseApi;

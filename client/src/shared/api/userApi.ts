@@ -1,17 +1,18 @@
 import baseApi from '@config/baseApi';
 import { IAuthResponse } from '@shared/models/auth';
 import {
-  ICreateUserData,
   IPasswordData,
   IUser,
-  IUserInfo,
+  TCreateUserData,
+  TUserCart,
+  TUserInfo,
 } from '@shared/models/user';
 
 const userApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Users'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createUser: builder.mutation<IAuthResponse, ICreateUserData>({
+      createUser: builder.mutation<IAuthResponse, TCreateUserData>({
         query: (data) => ({
           url: 'users/registration',
           method: 'POST',
@@ -20,15 +21,15 @@ const userApi = baseApi
         invalidatesTags: ['Users'],
       }),
 
-      getUser: builder.query<IUser, void>({
+      getUserCart: builder.query<TUserCart, void>({
         query: () => ({
-          url: 'users',
+          url: 'users/cart',
           method: 'GET',
         }),
         providesTags: ['Users'],
       }),
 
-      getUserInfo: builder.query<IUserInfo, void>({
+      getUserInfo: builder.query<TUserInfo, void>({
         query: () => ({
           url: 'users/info',
           method: 'GET',
@@ -58,9 +59,8 @@ const userApi = baseApi
 
 export const {
   useCreateUserMutation,
-  useGetUserQuery,
+  useGetUserCartQuery,
   useGetUserInfoQuery,
-  useLazyGetUserInfoQuery,
   useChangePasswordMutation,
   useChangeUsernameMutation,
 } = userApi;

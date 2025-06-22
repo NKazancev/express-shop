@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { ICreateUserData } from '@shared/models/user';
+import { TCreateUserData } from '@shared/models/user';
 import Input from '@shared/ui/Input/Input';
 
 import styles from './RegistrationForm.module.css';
 
 type TRegistrationForm = {
-  onRegister: (data: ICreateUserData) => void;
+  onRegister: (data: TCreateUserData) => void;
 };
 
 const RegistrationForm: FC<TRegistrationForm> = ({ onRegister }) => {
-  const { handleSubmit, control, watch } = useForm<ICreateUserData>();
+  const { handleSubmit, control, watch } = useForm<TCreateUserData>();
   const password = watch('password');
 
   return (

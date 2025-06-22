@@ -1,5 +1,6 @@
 import UserRole from '@config/userRoles';
 import { IAddress } from './address';
+import { ICartProduct } from './cart';
 
 export interface IUser {
   id: string;
@@ -9,16 +10,18 @@ export interface IUser {
   role: UserRole;
 }
 
-export interface IUserInfo extends IUser {
+export type TUserCart = Pick<IUser, 'username'> & {
+  cartProducts: ICartProduct[];
+};
+
+export type TUserInfo = Pick<IUser, 'email' | 'username'> & {
   address: IAddress | null;
   stringAddress?: string;
-}
+};
 
-export interface ICreateUserData {
-  email: string;
-  password: string;
+export type TCreateUserData = Pick<IUser, 'email' | 'password'> & {
   confirmPassword: string;
-}
+};
 
 export interface IPasswordData {
   oldPassword: string;

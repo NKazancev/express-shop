@@ -3,7 +3,7 @@ import { UseFormHandleSubmit } from 'react-hook-form';
 
 import { ICartProduct } from '@shared/models/cart';
 import { ICreateOrderData } from '@shared/models/order';
-import useCartTotal from '@shared/hooks/useCartTotal';
+import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 import { useCreateOrderMutation } from '@shared/api/orderApi';
 
 import styles from './CheckoutTotal.module.css';
@@ -14,7 +14,8 @@ type TCheckoutTotal = {
 };
 
 const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
-  const { itemsQuantity, totalPrice } = useCartTotal(items);
+  const itemsQuantity = useCartItemsCount(items);
+  const totalPrice = useCartTotalPrice(items);
   const [createOrder] = useCreateOrderMutation();
 
   const onOrderCreation = async (data: ICreateOrderData) => {

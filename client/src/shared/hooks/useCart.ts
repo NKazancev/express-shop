@@ -1,9 +1,8 @@
 import { ICartProduct } from '@shared/models/cart';
 import { useEffect, useState } from 'react';
 
-const useCartTotal = (items: ICartProduct[] | undefined) => {
+const useCartItemsCount = (items: ICartProduct[] | undefined) => {
   const [itemsQuantity, setItemsQuantity] = useState<number>();
-  const [totalPrice, setTotalPrice] = useState<number>();
 
   useEffect(() => {
     setItemsQuantity(
@@ -12,6 +11,15 @@ const useCartTotal = (items: ICartProduct[] | undefined) => {
         return acc;
       }, 0)
     );
+  }, [items]);
+
+  return itemsQuantity;
+};
+
+const useCartTotalPrice = (items: ICartProduct[] | undefined) => {
+  const [totalPrice, setTotalPrice] = useState<number>();
+
+  useEffect(() => {
     setTotalPrice(
       items?.reduce((acc, el) => {
         acc += el.product.price * el.quantity;
@@ -20,7 +28,7 @@ const useCartTotal = (items: ICartProduct[] | undefined) => {
     );
   }, [items]);
 
-  return { itemsQuantity, totalPrice };
+  return totalPrice;
 };
 
-export default useCartTotal;
+export { useCartItemsCount, useCartTotalPrice };

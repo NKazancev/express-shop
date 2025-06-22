@@ -33,9 +33,9 @@ class UserController {
       .json({ accessToken, role: user.role });
   }
 
-  static async getUser(req: Request, res: Response) {
+  static async getUserCart(req: Request, res: Response) {
     const userId = req.user.id;
-    const user = await UserService.getUser(userId);
+    const user = await UserService.getUserCart(userId);
     res.status(200).json(user);
   }
 

@@ -4,7 +4,7 @@ import { ICartProduct } from '@shared/models/cart';
 
 import styles from './CartTotal.module.css';
 import { useNavigate } from 'react-router';
-import useCartTotal from '@shared/hooks/useCartTotal';
+import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 
 type TCartTotal = {
   items?: ICartProduct[];
@@ -12,7 +12,8 @@ type TCartTotal = {
 
 const CartTotal: FC<TCartTotal> = ({ items }) => {
   const navigate = useNavigate();
-  const { itemsQuantity, totalPrice } = useCartTotal(items);
+  const itemsQuantity = useCartItemsCount(items);
+  const totalPrice = useCartTotalPrice(items);
 
   return (
     <div className={styles.container}>

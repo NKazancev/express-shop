@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { CreateProductData } from '@shared/models/product';
+import { TCreateProductData } from '@shared/models/product';
 import { IProductBrand, IProductType } from '@shared/models/typesbrands';
 
 import Input from '@shared/ui/Input/Input';
@@ -12,7 +12,7 @@ import Select from '@shared/ui/Select/Select';
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
-  onProductCreation: (data: Omit<CreateProductData, 'id' | 'stock'>) => void;
+  onProductCreation: (data: Omit<TCreateProductData, 'id' | 'stock'>) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
 };
@@ -23,7 +23,7 @@ const ProductForm: FC<TProductForm> = ({
   brandOptions,
 }) => {
   const { handleSubmit, register, control, watch } =
-    useForm<Omit<CreateProductData, 'id' | 'stock'>>();
+    useForm<Omit<TCreateProductData, 'id' | 'stock'>>();
 
   const [image, images] = watch(['image', 'images']);
 

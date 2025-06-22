@@ -19,7 +19,7 @@ const addressApi = baseApi
             console.log(error);
           }
         },
-        invalidatesTags: [{ type: 'Addresses', id: 'LIST' }],
+        invalidatesTags: ['Addresses'],
       }),
 
       getAddress: builder.query<IAddress, void>({
@@ -47,7 +47,7 @@ const addressApi = baseApi
             console.log(error);
           }
         },
-        invalidatesTags: [{ type: 'Addresses', id: 'LIST' }],
+        invalidatesTags: ['Addresses'],
       }),
     }),
   });
@@ -55,6 +55,5 @@ const addressApi = baseApi
 export const {
   useCreateAddressMutation,
   useGetAddressQuery,
-  useLazyGetAddressQuery,
   useUpdateAddressMutation,
 } = addressApi;

@@ -6,7 +6,7 @@ import {
 } from '@shared/api/productApi';
 
 import UpdateProductForm from '@widgets/Admin/AdminProducts/UpdateProductForm/UpdateProductForm';
-import { UpdateProductData } from '@shared/models/product';
+import { TUpdateProductData } from '@shared/models/product';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
@@ -26,7 +26,7 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
 
   const [updateProduct, { isSuccess }] = useUpdateProductMutation();
 
-  const handleProductUpdate = async (data: UpdateProductData) => {
+  const handleProductUpdate = async (data: TUpdateProductData) => {
     try {
       const price = Number(data.price);
       const stock = Number(data.stock);

@@ -32,15 +32,22 @@ class UserService {
     return { user, accessToken, refreshToken };
   }
 
-  static async getUser(userId: string) {
-    const user = await prisma.user.findFirst({ where: { id: userId } });
+  static async getUserCart(userId: string) {
+    const user = await prisma.user.findFirst({
+      where: { id: userId },
+      select: { username: true, cartProducts: true },
+    });
     return user;
   }
 
   static async getUserInfo(userId: string) {
     const info = await prisma.user.findFirst({
       where: { id: userId },
-      include: { address: { omit: { id: true, userId: true } } },
+      select: {
+        email: true,
+        username: true,
+        address: { omit: { id: true, userId: true } },
+      },
     });
     let stringAddress;
     if (info?.address) {

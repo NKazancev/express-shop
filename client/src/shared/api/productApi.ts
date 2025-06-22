@@ -3,7 +3,7 @@ import {
   IProduct,
   IProductData,
   IProductsRequest,
-  UpdateProductData,
+  TUpdateProductData,
 } from '@shared/models/product';
 
 const productApi = baseApi
@@ -54,7 +54,7 @@ const productApi = baseApi
 
       updateProduct: builder.mutation<
         IProduct,
-        UpdateProductData & { id: string }
+        TUpdateProductData & { id: string }
       >({
         query: (data) => {
           const { id, ...body } = data;

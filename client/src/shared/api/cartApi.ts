@@ -14,6 +14,14 @@ const cartApi = baseApi
           method: 'POST',
           body: data,
         }),
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            dispatch(baseApi.util.invalidateTags(['Users']));
+          } catch (error) {
+            console.log(error);
+          }
+        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
 
@@ -49,6 +57,14 @@ const cartApi = baseApi
             body: { quantity },
           };
         },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            dispatch(baseApi.util.invalidateTags(['Users']));
+          } catch (error) {
+            console.log(error);
+          }
+        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
 
@@ -57,6 +73,14 @@ const cartApi = baseApi
           url: `cart/${id}`,
           method: 'DELETE',
         }),
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            dispatch(baseApi.util.invalidateTags(['Users']));
+          } catch (error) {
+            console.log(error);
+          }
+        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
     }),
