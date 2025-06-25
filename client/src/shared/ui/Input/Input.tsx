@@ -1,5 +1,10 @@
 import { CSSProperties, FC, HTMLInputTypeAttribute } from 'react';
-import { Control, Controller, RegisterOptions } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldError,
+  RegisterOptions,
+} from 'react-hook-form';
 
 import styles from './Input.module.css';
 
@@ -7,22 +12,24 @@ type TInput = {
   type?: HTMLInputTypeAttribute;
   name: string;
   label: string;
+  control: Control<any>;
+  rules: RegisterOptions;
+  error?: FieldError;
   defaultValue?: string;
   containerStyle?: CSSProperties;
   disabled?: boolean;
-  control: Control<any>;
-  rules: RegisterOptions;
 };
 
 const Input: FC<TInput> = ({
   type = 'text',
   name,
   label,
+  control,
+  rules,
+  error,
   defaultValue = '',
   containerStyle,
   disabled = false,
-  control,
-  rules,
 }) => {
   return (
     <p style={containerStyle} className={styles.container}>
@@ -44,7 +51,12 @@ const Input: FC<TInput> = ({
                 autoComplete="off"
                 disabled={disabled}
                 className={styles.input}
+                style={{ borderColor: error ? '#ff7474' : '#8b8b8b' }}
               />
+
+              {error?.message && (
+                <strong className={styles.error}>{error?.message}</strong>
+              )}
             </label>
           );
         }}
