@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { RegisterOptions, useForm } from 'react-hook-form';
 
 import { IPasswordData } from '@shared/models/user';
 import Input from '@shared/ui/Input/Input';
@@ -8,44 +8,65 @@ import styles from './ChangePasswordForm.module.css';
 
 type TChangePasswordForm = {
   onPasswordChange: (data: IPasswordData) => void;
+  apiError?: string;
 };
 
-const ChangePasswordForm: FC<TChangePasswordForm> = ({ onPasswordChange }) => {
-  const { control, watch, handleSubmit } = useForm<IPasswordData>();
+const ChangePasswordForm: FC<TChangePasswordForm> = ({
+  onPasswordChange,
+  apiError,
+}) => {
+  const { control, watch, handleSubmit, formState } = useForm<IPasswordData>();
+  const { errors, isSubmitting } = formState;
+
   const newPassword = watch('newPassword');
+
+  const rules: { [key: string]: RegisterOptions } = {
+    oldPassword: { required: 'Old password is required' },
+    newPassword: {
+      required: 'New password is required',
+      minLength: { value: 5, message: 'Password is too short' },
+      maxLength: { value: 40, message: 'Password is too long' },
+    },
+    confirmPassword: {
+      required: 'Password confirmation is required',
+      validate: (field) => {
+        if (field !== newPassword) {
+          return 'Passwords must match';
+        }
+      },
+    },
+  };
 
   return (
     <form onSubmit={handleSubmit(onPasswordChange)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Input
         type="password"
         name="oldPassword"
         label="Old password*"
         control={control}
-        rules={{ required: true }}
+        rules={rules.oldPassword}
+        error={errors.oldPassword}
       />
       <Input
         type="password"
         name="newPassword"
         label="New password*"
         control={control}
-        rules={{ required: true }}
+        rules={rules.newPassword}
+        error={errors.newPassword}
       />
       <Input
         type="password"
         name="confirmPassword"
         label="Confirm password*"
         control={control}
-        rules={{
-          required: true,
-          validate: (formField) => {
-            if (formField !== newPassword) {
-              return 'Passwords must match';
-            }
-          },
-        }}
+        rules={rules.confirmPassword}
+        error={errors.confirmPassword}
       />
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Confirm
       </button>
     </form>

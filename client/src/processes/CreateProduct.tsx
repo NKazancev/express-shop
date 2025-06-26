@@ -4,11 +4,14 @@ import { useGetBrandsQuery } from '@shared/api/brandApi';
 import { TCreateProductData } from '@shared/models/product';
 
 import ProductForm from '@widgets/Admin/AdminProducts/ProductForm/ProductForm';
+import { useState } from 'react';
 
 function CreateProduct() {
   const [createProduct] = useCreateProductMutation();
   const { data: productTypes } = useGetTypesQuery();
   const { data: productBrands } = useGetBrandsQuery();
+
+  const [error, setError] = useState<string>();
 
   const handleProductCreation = async (
     data: Omit<TCreateProductData, 'id' | 'stock'>
@@ -26,8 +29,12 @@ function CreateProduct() {
         }
       }
       await createProduct(formData).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -36,6 +43,7 @@ function CreateProduct() {
       onProductCreation={handleProductCreation}
       typeOptions={productTypes}
       brandOptions={productBrands}
+      apiError={error}
     />
   );
 }

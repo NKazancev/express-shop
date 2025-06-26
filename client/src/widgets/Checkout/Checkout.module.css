@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  column-gap: 40px;
+}
+
+.title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.form {
+  padding-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.total {
+  flex: 0 1 335px;
+}
+
+.notification {
+  margin: 24px 0;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+}

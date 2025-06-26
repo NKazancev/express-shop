@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useChangeUsernameMutation } from '@shared/api/userApi';
 import { IUser } from '@shared/models/user';
@@ -17,12 +17,17 @@ type TModalUsername = {
 
 const ModalUsername: FC<TModalUsername> = ({ onClose }) => {
   const [changeUsername, { isSuccess }] = useChangeUsernameMutation();
+  const [error, setError] = useState<string>();
 
   const handleUsernameChange = async (data: Pick<IUser, 'username'>) => {
     try {
       await changeUsername({ ...data }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -35,7 +40,10 @@ const ModalUsername: FC<TModalUsername> = ({ onClose }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Change username</h3>
 
-        <ChangeUsernameForm onUsernameChange={handleUsernameChange} />
+        <ChangeUsernameForm
+          onUsernameChange={handleUsernameChange}
+          apiError={error}
+        />
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />

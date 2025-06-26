@@ -15,40 +15,41 @@ type TProductForm = {
   onProductCreation: (data: Omit<TCreateProductData, 'id' | 'stock'>) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
+  apiError?: string;
 };
 
 const ProductForm: FC<TProductForm> = ({
   onProductCreation,
   typeOptions,
   brandOptions,
+  apiError,
 }) => {
-  const { handleSubmit, register, control, watch } =
+  const { handleSubmit, register, control, watch, formState } =
     useForm<Omit<TCreateProductData, 'id' | 'stock'>>();
+  const { errors, isSubmitting } = formState;
 
   const [image, images] = watch(['image', 'images']);
 
   return (
     <form onSubmit={handleSubmit(onProductCreation)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <div className={styles.row}>
-        <Input
-          name="name"
-          label="Name"
-          control={control}
-          rules={{ required: true }}
-        />
+        <Input name="name" label="Name" control={control} error={errors.name} />
         <InputFile
           name="image"
           label="Catalogue image"
           file={image}
-          containerStyle={{ paddingTop: '14px' }}
           register={register}
+          error={errors.image}
+          containerStyle={{ paddingTop: '14px' }}
         />
         <Textarea
           name="description"
           label="Short description"
-          minHeight="140px"
           control={control}
-          rules={{ required: true }}
+          error={errors.description}
+          minHeight="140px"
         />
       </div>
 
@@ -56,17 +57,18 @@ const ProductForm: FC<TProductForm> = ({
         <Textarea
           name="text"
           label="Full description"
-          minHeight="300px"
           control={control}
-          rules={{ required: true }}
+          error={errors.text}
+          minHeight="300px"
         />
         <InputFile
           name="images"
           label="Gallery images"
-          file={images}
           multiple={true}
-          containerStyle={{ paddingTop: '14px' }}
+          file={images}
           register={register}
+          error={errors.images}
+          containerStyle={{ paddingTop: '14px' }}
         />
       </div>
 
@@ -77,7 +79,7 @@ const ProductForm: FC<TProductForm> = ({
           options={typeOptions}
           firstOption="Choose type"
           control={control}
-          rules={{ required: true }}
+          error={errors.typeId}
         />
         <Select
           name="brandId"
@@ -85,17 +87,17 @@ const ProductForm: FC<TProductForm> = ({
           options={brandOptions}
           firstOption="Choose brand"
           control={control}
-          rules={{ required: true }}
+          error={errors.brandId}
         />
         <Input
           name="price"
           label="Price"
           control={control}
-          rules={{ required: true }}
+          error={errors.price}
         />
       </div>
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Add product
       </button>
     </form>

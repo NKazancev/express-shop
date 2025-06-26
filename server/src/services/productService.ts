@@ -95,6 +95,11 @@ class ProductService {
   ) {
     let updatedProduct;
     if (data) {
+      const foundProduct = await prisma.product.findFirst({
+        where: { name: data.name },
+      });
+      if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+
       updatedProduct = await prisma.product.update({
         where: { id },
         data: {

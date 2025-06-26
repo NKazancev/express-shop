@@ -11,38 +11,38 @@ import styles from './UpdateProductForm.module.css';
 type TUpdateProductInfoForm = {
   onProductUpdate: (data: TUpdateProductData) => void;
   productData: IProductData | undefined;
+  apiError?: string;
 };
 
 const UpdateProductForm: FC<TUpdateProductInfoForm> = ({
   onProductUpdate,
   productData,
+  apiError,
 }) => {
-  const { control, handleSubmit } = useForm<TUpdateProductData>({
+  const { control, handleSubmit, formState } = useForm<TUpdateProductData>({
     defaultValues: { ...productData, text: productData?.info.text },
     resetOptions: { keepDirtyValues: true, keepErrors: true },
   });
+  const { errors } = formState;
 
   return (
     <form onSubmit={handleSubmit(onProductUpdate)} className={styles.form}>
-      <Input
-        name="name"
-        label="Name"
-        control={control}
-        rules={{ required: true }}
-      />
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
+      <Input name="name" label="Name" control={control} error={errors.name} />
       <Textarea
         name="description"
         label="Short description"
         minHeight="100px"
         control={control}
-        rules={{ required: true }}
+        error={errors.description}
       />
       <Textarea
         name="text"
         label="Full description"
         minHeight="230px"
         control={control}
-        rules={{ required: true }}
+        error={errors.text}
       />
 
       <div className={styles.row}>
@@ -50,14 +50,14 @@ const UpdateProductForm: FC<TUpdateProductInfoForm> = ({
           name="price"
           label="Price"
           control={control}
-          rules={{ required: true }}
+          error={errors.price}
         />
         <Input
           type="number"
           name="stock"
           label="Stock"
           control={control}
-          rules={{ required: true }}
+          error={errors.stock}
         />
       </div>
 

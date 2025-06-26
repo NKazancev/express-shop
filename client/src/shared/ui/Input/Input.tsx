@@ -13,7 +13,7 @@ type TInput = {
   name: string;
   label: string;
   control: Control<any>;
-  rules: RegisterOptions;
+  rules?: RegisterOptions;
   error?: FieldError;
   defaultValue?: string;
   containerStyle?: CSSProperties;
@@ -25,7 +25,7 @@ const Input: FC<TInput> = ({
   name,
   label,
   control,
-  rules,
+  rules = { required: `${label} is required` },
   error,
   defaultValue = '',
   containerStyle,

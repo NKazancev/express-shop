@@ -1,5 +1,5 @@
 import { CSSProperties, FC } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { FieldError, UseFormRegister } from 'react-hook-form';
 
 import useFilePreview from '@shared/hooks/useFilePreview';
 
@@ -8,10 +8,11 @@ import styles from './InputFile.module.css';
 type TInputFile = {
   name: string;
   label: string;
-  file: FileList | string;
   multiple?: boolean;
-  containerStyle?: CSSProperties;
+  file: FileList | string;
   register: UseFormRegister<any>;
+  error?: FieldError;
+  containerStyle?: CSSProperties;
 };
 
 const InputFile: FC<TInputFile> = ({
@@ -19,21 +20,26 @@ const InputFile: FC<TInputFile> = ({
   label,
   multiple = false,
   file,
-  containerStyle,
   register,
+  error,
+  containerStyle,
 }) => {
   const dataUrl = useFilePreview(file);
 
   return (
     <div style={containerStyle} className={styles.container}>
-      <label htmlFor={name} className={styles.label}>
+      <label
+        htmlFor={name}
+        className={styles.label}
+        style={{ borderColor: error ? '#ff7474' : '#8b8b8b' }}
+      >
         <span>{label}</span>
         <input
           type="file"
           id={name}
           multiple={multiple}
           className="visually-hidden"
-          {...register(name)}
+          {...register(name, { required: true })}
         />
       </label>
 

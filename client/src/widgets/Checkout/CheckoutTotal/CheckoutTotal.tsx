@@ -11,9 +11,16 @@ import styles from './CheckoutTotal.module.css';
 type TCheckoutTotal = {
   items?: ICartProduct[];
   handleSubmit: UseFormHandleSubmit<ICreateOrderData>;
+  setError: (data: string) => void;
+  isSubmitting: boolean;
 };
 
-const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
+const CheckoutTotal: FC<TCheckoutTotal> = ({
+  items,
+  handleSubmit,
+  setError,
+  isSubmitting,
+}) => {
   const itemsQuantity = useCartItemsCount(items);
   const totalPrice = useCartTotalPrice(items);
   const [createOrder] = useCreateOrderMutation();
@@ -21,8 +28,12 @@ const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
   const onOrderCreation = async (data: ICreateOrderData) => {
     try {
       await createOrder({ ...data }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -42,6 +53,7 @@ const CheckoutTotal: FC<TCheckoutTotal> = ({ items, handleSubmit }) => {
 
       <button
         type="submit"
+        disabled={isSubmitting}
         onClick={handleSubmit(onOrderCreation)}
         className={styles.button}
       >

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import {
   useGetProductByIdQuery,
@@ -23,16 +23,19 @@ type TModalReview = {
 const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
   const { data: productData, fulfilledTimeStamp } =
     useGetProductByIdQuery(productId);
-
   const [updateProduct, { isSuccess }] = useUpdateProductMutation();
+
+  const [error, setError] = useState<string>();
 
   const handleProductUpdate = async (data: TUpdateProductData) => {
     try {
       const price = Number(data.price);
       const stock = Number(data.stock);
       await updateProduct({ id: productId, ...data, price, stock }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      }
     }
   };
 
@@ -49,6 +52,7 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
           key={`update-product-${fulfilledTimeStamp}`}
           onProductUpdate={handleProductUpdate}
           productData={productData}
+          apiError={error}
         />
 
         <button type="button" onClick={onClose} className={styles.button}>

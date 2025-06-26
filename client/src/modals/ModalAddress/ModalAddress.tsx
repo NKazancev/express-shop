@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import {
   useCreateAddressMutation,
@@ -26,6 +26,8 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
   const [updateAddress, { isSuccess: updated }] = useUpdateAddressMutation();
   const { data: address, refetch } = useGetAddressQuery();
 
+  const [error, setError] = useState<string>();
+
   const handleAddress = async (data: Omit<IAddress, 'id'>) => {
     try {
       if (!isUpdate) {
@@ -34,8 +36,12 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
       if (isUpdate && address) {
         await updateAddress({ id: address.id, ...data }).unwrap();
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -57,6 +63,7 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
           <HandleAddressForm
             handleAddress={handleAddress}
             isUpdate={isUpdate}
+            apiError={error}
           />
         )}
         {address && (
@@ -64,6 +71,7 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
             handleAddress={handleAddress}
             isUpdate={isUpdate}
             address={address}
+            apiError={error}
           />
         )}
         <button type="button" onClick={onClose} className={styles.button}>

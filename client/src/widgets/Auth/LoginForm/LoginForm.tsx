@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { ILoginData } from '@shared/models/auth';
 import Input from '@shared/ui/Input/Input';
@@ -8,30 +8,22 @@ import styles from './LoginForm.module.css';
 
 type TLoginForm = {
   onLogin: (data: ILoginData) => void;
-  loginError?: string;
+  apiError?: string;
 };
 
-const LoginForm: FC<TLoginForm> = ({ onLogin, loginError }) => {
+const LoginForm: FC<TLoginForm> = ({ onLogin, apiError }) => {
   const { handleSubmit, control, formState } = useForm<ILoginData>();
   const { isSubmitting, errors } = formState;
 
-  const rules: { [key: string]: RegisterOptions } = {
-    email: { required: 'Email is required' },
-    password: { required: 'Password is required' },
-  };
-
   return (
     <form onSubmit={handleSubmit(onLogin)} className={styles.form}>
-      {loginError && (
-        <strong className={styles.loginError}>{loginError}</strong>
-      )}
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
 
       <Input
         type="email"
         name="email"
         label="Email"
         control={control}
-        rules={rules.email}
         error={errors.email}
       />
       <Input
@@ -39,7 +31,6 @@ const LoginForm: FC<TLoginForm> = ({ onLogin, loginError }) => {
         name="password"
         label="Password"
         control={control}
-        rules={rules.password}
         error={errors.password}
       />
 

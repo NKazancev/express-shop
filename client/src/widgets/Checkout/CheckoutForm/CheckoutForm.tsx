@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, FieldErrors } from 'react-hook-form';
 
 import { ICreateOrderData } from '@shared/models/order';
 import { useGetCountriesQuery } from '@shared/api/countryApi';
@@ -13,9 +13,16 @@ import styles from './CheckoutForm.module.css';
 type TCheckoutForm = {
   control: Control<ICreateOrderData>;
   defaultCountryId?: string;
+  errors: FieldErrors<ICreateOrderData>;
+  apiError?: string;
 };
 
-const CheckoutForm: FC<TCheckoutForm> = ({ control, defaultCountryId }) => {
+const CheckoutForm: FC<TCheckoutForm> = ({
+  control,
+  defaultCountryId,
+  errors,
+  apiError,
+}) => {
   const { data: countriesOptions } = useGetCountriesQuery();
   const [countryId, setCountryId] = useState<string | undefined>(
     defaultCountryId
@@ -24,69 +31,64 @@ const CheckoutForm: FC<TCheckoutForm> = ({ control, defaultCountryId }) => {
 
   return (
     <form className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Input
         name="firstName"
         label="First name"
         control={control}
-        rules={{ required: true }}
+        error={errors.firstName}
       />
-
       <Select
         name="country"
         label="Country"
         options={countriesOptions}
         firstOption="Choose country"
         control={control}
+        error={errors.country}
         onChange={(id: string) => setCountryId(id)}
-        rules={{ required: true }}
       />
-
       <Input
         name="lastName"
         label="Last name"
         control={control}
-        rules={{ required: true }}
+        error={errors.lastName}
       />
-
       <Select
         name="city"
         label="City"
         options={citiesOptions}
         firstOption="Choose city"
         control={control}
+        error={errors.city}
         disabled={!Boolean(countryId)}
-        rules={{ required: true }}
       />
-
       <Input
         type="email"
         name="email"
         label="Email"
         control={control}
-        rules={{ required: true }}
+        error={errors.email}
       />
-
       <Input
         name="postcode"
         label="Postcode"
         control={control}
-        rules={{ required: true }}
+        error={errors.postcode}
       />
-
       <Input
         name="street"
         label="Street"
-        containerStyle={{ gridColumn: 'span 2' }}
         control={control}
-        rules={{ required: true }}
+        error={errors.street}
+        containerStyle={{ gridColumn: 'span 2' }}
       />
-
       <Input
         type="tel"
         name="phone"
         label="Phone"
         control={control}
-        rules={{ required: true }}
+        error={errors.phone}
       />
     </form>
   );

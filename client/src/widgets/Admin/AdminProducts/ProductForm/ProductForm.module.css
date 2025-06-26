@@ -38,3 +38,10 @@
 
   align-self: flex-start;
 }
+
+.apiError {
+  text-align: left;
+  color: rgb(255, 116, 116);
+  font-size: 14px;
+  font-weight: 500;
+}

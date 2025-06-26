@@ -1,24 +1,31 @@
 import { FC } from 'react';
-import { Control, Controller, RegisterOptions } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldError,
+  RegisterOptions,
+} from 'react-hook-form';
 
 import styles from './Textarea.module.css';
 
 type TTextarea = {
   name: string;
   label: string;
-  minHeight: string;
-  defaultValue?: string;
   control: Control<any>;
-  rules: RegisterOptions;
+  rules?: RegisterOptions;
+  error?: FieldError;
+  defaultValue?: string;
+  minHeight: string;
 };
 
 const Textarea: FC<TTextarea> = ({
   name,
   label,
-  minHeight,
-  defaultValue = '',
   control,
-  rules,
+  rules = { required: `${label} is required` },
+  error,
+  defaultValue = '',
+  minHeight,
 }) => {
   return (
     <p className={styles.container}>
@@ -35,9 +42,16 @@ const Textarea: FC<TTextarea> = ({
               <textarea
                 {...field}
                 id={name}
-                style={{ minHeight }}
+                style={{
+                  minHeight,
+                  borderColor: error ? '#ff7474' : '#8b8b8b',
+                }}
                 className={styles.textarea}
               />
+
+              {error?.message && (
+                <strong className={styles.error}>{error?.message}</strong>
+              )}
             </label>
           );
         }}

@@ -25,7 +25,7 @@ function LoginUser() {
     }
   };
 
-  return <LoginForm onLogin={handleLogin} loginError={error} />;
+  return <LoginForm onLogin={handleLogin} apiError={error} />;
 }
 
 export default LoginUser;

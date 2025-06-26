@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useChangePasswordMutation } from '@shared/api/userApi';
 import { IPasswordData } from '@shared/models/user';
@@ -17,12 +17,17 @@ type TModalPassword = {
 
 const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
   const [changePassword, { isSuccess }] = useChangePasswordMutation();
+  const [error, setError] = useState<string>();
 
   const handlePasswordChange = async (data: IPasswordData) => {
     try {
       await changePassword({ ...data }).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if ('status' in error) {
+        setError(error.data.message);
+      } else {
+        console.log(error);
+      }
     }
   };
 
@@ -35,7 +40,10 @@ const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Change password</h3>
 
-        <ChangePasswordForm onPasswordChange={handlePasswordChange} />
+        <ChangePasswordForm
+          onPasswordChange={handlePasswordChange}
+          apiError={error}
+        />
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />

@@ -14,17 +14,20 @@ type THandleAddressForm = {
   handleAddress: (data: Omit<IAddress, 'id'>) => void;
   isUpdate: boolean;
   address?: IAddress;
+  apiError?: string;
 };
 
 const HandleAddressForm: FC<THandleAddressForm> = ({
   handleAddress,
   isUpdate,
   address,
+  apiError,
 }) => {
-  const { control, handleSubmit } = useForm<Omit<IAddress, 'id'>>({
+  const { control, handleSubmit, formState } = useForm<Omit<IAddress, 'id'>>({
     defaultValues: address,
     resetOptions: { keepDirtyValues: true, keepErrors: true },
   });
+  const { errors } = formState;
 
   const { data: countriesOptions } = useGetCountriesQuery();
   const [countryId, setCountryId] = useState<string | undefined>(
@@ -34,6 +37,8 @@ const HandleAddressForm: FC<THandleAddressForm> = ({
 
   return (
     <form onSubmit={handleSubmit(handleAddress)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Select
         name="countryId"
         label="Country"
@@ -41,7 +46,7 @@ const HandleAddressForm: FC<THandleAddressForm> = ({
         firstOption="Choose country"
         control={control}
         onChange={(id: string) => setCountryId(id)}
-        rules={{ required: true }}
+        error={errors.countryId}
       />
       <Select
         name="cityId"
@@ -50,19 +55,19 @@ const HandleAddressForm: FC<THandleAddressForm> = ({
         firstOption="Choose city"
         control={control}
         disabled={!Boolean(countryId)}
-        rules={{ required: true }}
+        error={errors.cityId}
       />
       <Input
         name="street"
         label="Street"
         control={control}
-        rules={{ required: true }}
+        error={errors.street}
       />
       <Input
         name="postcode"
         label="Postcode"
         control={control}
-        rules={{ required: true }}
+        error={errors.postcode}
       />
 
       <button type="submit" className={styles.button}>

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Control, Controller, RegisterOptions } from 'react-hook-form';
+import { Control, Controller, FieldError } from 'react-hook-form';
 
 import styles from './Select.module.css';
 
@@ -9,8 +9,8 @@ type TSelect = {
   options: { id: string; name: string }[] | undefined;
   firstOption: string;
   control: Control<any>;
+  error?: FieldError;
   onChange?: (option: string) => void;
-  rules: RegisterOptions;
   disabled?: boolean;
 };
 
@@ -20,8 +20,8 @@ const Select: FC<TSelect> = ({
   options,
   firstOption,
   control,
+  error,
   onChange,
-  rules,
   disabled = false,
 }) => {
   return (
@@ -29,7 +29,7 @@ const Select: FC<TSelect> = ({
       <Controller
         name={name}
         control={control}
-        rules={rules}
+        rules={{ required: `${label} is required` }}
         render={({ field }) => {
           return (
             <label htmlFor={name}>
@@ -42,7 +42,10 @@ const Select: FC<TSelect> = ({
                   field.onChange(e.target.value);
                   onChange && onChange(e.target.value);
                 }}
-                style={{ pointerEvents: !disabled ? 'all' : 'none' }}
+                style={{
+                  pointerEvents: !disabled ? 'all' : 'none',
+                  borderColor: error ? '#ff7474' : '#8b8b8b',
+                }}
                 className={styles.select}
               >
                 {!disabled && (
@@ -58,6 +61,10 @@ const Select: FC<TSelect> = ({
                   );
                 })}
               </select>
+
+              {error?.message && (
+                <strong className={styles.error}>{error?.message}</strong>
+              )}
             </label>
           );
         }}

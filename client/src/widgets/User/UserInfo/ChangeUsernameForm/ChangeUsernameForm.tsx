@@ -8,21 +8,29 @@ import styles from './ChangeUsernameForm.module.css';
 
 type TChangeUsernameForm = {
   onUsernameChange: (data: Pick<IUser, 'username'>) => void;
+  apiError?: string;
 };
 
-const ChangeUsernameForm: FC<TChangeUsernameForm> = ({ onUsernameChange }) => {
-  const { control, handleSubmit } = useForm<Pick<IUser, 'username'>>();
+const ChangeUsernameForm: FC<TChangeUsernameForm> = ({
+  onUsernameChange,
+  apiError,
+}) => {
+  const { control, handleSubmit, formState } =
+    useForm<Pick<IUser, 'username'>>();
+  const { errors, isSubmitting } = formState;
 
   return (
     <form onSubmit={handleSubmit(onUsernameChange)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Input
         name="username"
         label="New username"
         control={control}
-        rules={{ required: true }}
+        error={errors.username}
       />
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Confirm
       </button>
     </form>
