@@ -3,7 +3,7 @@
   margin: 15vh auto;
   padding: 35px 44px 46px 44px;
 
-  background-color: white;
+  background-color: var(--white);
   border-radius: 5px;
   font-family: 'Roboto', sans-serif;
 

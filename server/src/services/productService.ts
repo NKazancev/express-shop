@@ -88,31 +88,39 @@ class ProductService {
   }
 
   static async updateProductInfo(
-    id: string,
+    productId: string,
     data: Pick<Product, 'name' | 'description' | 'price'>,
     text: string,
     stock: number
   ) {
     let updatedProduct;
     if (data) {
+      const sourceProduct = await prisma.product.findFirst({
+        where: { id: productId },
+      });
       const foundProduct = await prisma.product.findFirst({
         where: { name: data.name },
       });
-      if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+      if (
+        sourceProduct?.name !== data?.name &&
+        data.name === foundProduct?.name
+      ) {
+        throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+      }
 
       updatedProduct = await prisma.product.update({
-        where: { id },
+        where: { id: productId },
         data: {
           name: data.name,
           description: data.description,
           price: data.price,
           stock,
-          info: { update: { where: { productId: id }, data: { text } } },
+          info: { update: { where: { productId }, data: { text } } },
         },
       });
     } else {
       updatedProduct = await prisma.product.update({
-        where: { id },
+        where: { id: productId },
         data: { stock },
       });
     }

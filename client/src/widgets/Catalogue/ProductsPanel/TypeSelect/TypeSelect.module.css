@@ -7,7 +7,7 @@
   height: 40px;
   padding-left: 20px;
 
-  border: 1px solid rgb(139, 139, 139);
+  border: 1px solid var(--greyBorder);
   border-radius: 5px;
 
   appearance: none;

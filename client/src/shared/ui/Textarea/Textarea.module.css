@@ -13,7 +13,7 @@
 .textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid rgb(139, 139, 139);
+  border: 1px solid var(--greyBorder);
   border-radius: 5px;
 
   font-size: 14px;
@@ -23,7 +23,7 @@
 }
 
 .error {
-  color: rgb(255, 116, 116);
+  color: var(--red);
   font-size: 11px;
   font-weight: 500;
 }

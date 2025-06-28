@@ -2,7 +2,7 @@
   width: 300px;
   height: 40px;
 
-  border: 1px solid rgb(139, 139, 139);
+  border: 1px solid var(--greyBorder);
   border-radius: 5px;
   overflow: hidden;
 
@@ -23,7 +23,7 @@
 }
 
 input::placeholder {
-  color: rgb(48, 58, 53);
+  color: var(--black);
   font-size: 14px;
   font-weight: 400;
 }

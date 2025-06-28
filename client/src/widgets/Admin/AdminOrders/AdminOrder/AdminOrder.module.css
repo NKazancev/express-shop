@@ -1,6 +1,6 @@
 .order {
   padding: 30px 30px 28px 30px;
-  border: 1px solid rgb(139, 139, 139);
+  border: 1px solid var(--greyBorder);
   border-radius: 5px;
 
   font-family: 'Roboto', sans-serif;
@@ -40,7 +40,7 @@
 .button {
   padding: 11px 25px 10px 25px;
   border-radius: 5px;
-  background-color: rgb(140, 171, 155);
+  background-color: var(--green);
 
   color: rgb(255, 255, 255);
   font-size: 14px;
@@ -49,5 +49,5 @@
 }
 
 .button:nth-child(2) {
-  background-color: rgb(142, 190, 211);
+  background-color: var(--blue);
 }

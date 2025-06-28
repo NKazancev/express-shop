@@ -16,7 +16,7 @@
 }
 
 .text {
-  color: rgb(255, 255, 255);
+  color: var(--white);
   font-family: 'Montserrat', sans-serif;
   font-size: 44px;
   font-weight: 800;

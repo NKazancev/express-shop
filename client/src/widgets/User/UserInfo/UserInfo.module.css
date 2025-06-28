@@ -24,7 +24,7 @@
   display: block;
   width: 8px;
   height: 8px;
-  background-color: rgb(48, 58, 53);
+  background-color: var(--black);
   border-radius: 50%;
 }
 

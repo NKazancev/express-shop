@@ -9,10 +9,12 @@ import ModalLogin from '@modals/ModalLogin/ModalLogin';
 import styles from './ProductPanel.module.css';
 
 type TProductPanel = Partial<
-  Pick<IProductData, 'id' | 'name' | 'price' | 'reviews'>
+  Pick<IProductData, 'id' | 'name' | 'price' | 'reviews' | 'stock'>
 >;
 
-const ProductPanel: FC<TProductPanel> = ({ id, name, price, reviews }) => {
+const ProductPanel: FC<TProductPanel> = (props) => {
+  const { id, name, price, reviews, stock } = props;
+
   const { isLogged } = useAppSelector((state) => state.user);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [createCartProduct] = useCreateCartProductMutation();
@@ -34,8 +36,13 @@ const ProductPanel: FC<TProductPanel> = ({ id, name, price, reviews }) => {
   return (
     <div className={styles.container}>
       <div className={styles.status}>
-        <span className={styles.circle}></span>
-        <span>In stock</span>
+        <span
+          className={styles.circle}
+          style={{
+            backgroundColor: stock && stock > 0 ? '#8cab9b' : '#f97a7a',
+          }}
+        ></span>
+        <span>{stock && stock > 0 ? 'In stock' : 'Out of stock'}</span>
       </div>
 
       <h4 className={styles.title}>{name}</h4>

@@ -8,7 +8,7 @@
 
 .apiError {
   text-align: left;
-  color: rgb(255, 116, 116);
+  color: var(--red);
   font-size: 14px;
   font-weight: 500;
 }
@@ -17,10 +17,10 @@
   width: 100%;
   margin-top: 14px;
   padding: 12px 0px;
-  background-color: rgb(140, 171, 155);
+  background-color: var(--green);
   border-radius: 5px;
 
-  color: rgb(255, 255, 255);
+  color: var(--white);
   font-size: 14px;
   letter-spacing: 0.03rem;
 }

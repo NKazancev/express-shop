@@ -9,10 +9,10 @@
 .button {
   padding: 11px 61px;
 
-  background-color: rgb(140, 171, 155);
+  background-color: var(--green);
   border-radius: 5px;
 
-  color: rgb(255, 255, 255);
+  color: var(--white);
   font-size: 14px;
   letter-spacing: 0.03rem;
 

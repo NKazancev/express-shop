@@ -9,7 +9,7 @@
 
 .apiError {
   text-align: left;
-  color: rgb(255, 116, 116);
+  color: var(--red);
   font-size: 14px;
   font-weight: 500;
 }
