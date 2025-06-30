@@ -6,6 +6,13 @@
   row-gap: 22px;
 }
 
+.apiError {
+  text-align: left;
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 500;
+}
+
 .button {
   padding: 11px 61px;
 

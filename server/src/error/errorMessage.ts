@@ -13,9 +13,9 @@ enum ErrorMessage {
   PRODUCT_BRAND_NOT_FOUND = 'Product brand not found',
   REVIEW_EXISTS = 'Review already exists',
   REVIEW_NOT_FOUND = 'Review not found',
-  COUNTRY_EXISTS = 'Country already exists',
+  COUNTRY_EXISTS = 'Such country already exists',
   COUNTRY_NOT_FOUND = 'Country not found',
-  CITY_EXISTS = 'City already exists',
+  CITY_EXISTS = 'Such city already exists',
   CITY_NOT_FOUND = 'City not found',
   INTERNAL = 'Internal server error',
 }

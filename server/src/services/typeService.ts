@@ -4,7 +4,9 @@ import ErrorMessage from '../error/errorMessage';
 
 class TypeService {
   static async createType(name: string) {
-    const foundType = await prisma.productType.findFirst({ where: { name } });
+    const foundType = await prisma.productType.findFirst({
+      where: { name: { equals: name, mode: 'insensitive' } },
+    });
     if (foundType) throw new ApiError(409, ErrorMessage.PRODUCT_TYPE_EXISTS);
     const type = await prisma.productType.create({ data: { name } });
     return type;

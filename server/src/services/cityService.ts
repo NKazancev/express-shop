@@ -5,7 +5,10 @@ import ErrorMessage from '../error/errorMessage';
 class CityService {
   static async createCity(name: string, countryId: string) {
     const foundCity = await prisma.deliveryCity.findFirst({
-      where: { name, countryId },
+      where: {
+        name: { equals: name, mode: 'insensitive' },
+        countryId,
+      },
     });
     if (foundCity) throw new ApiError(409, ErrorMessage.CITY_EXISTS);
     const city = await prisma.deliveryCity.create({

@@ -4,7 +4,9 @@ import ErrorMessage from '../error/errorMessage';
 
 class BrandService {
   static async createBrand(name: string) {
-    const foundBrand = await prisma.productBrand.findFirst({ where: { name } });
+    const foundBrand = await prisma.productBrand.findFirst({
+      where: { name: { equals: name, mode: 'insensitive' } },
+    });
     if (foundBrand) throw new ApiError(409, ErrorMessage.PRODUCT_BRAND_EXISTS);
     const brand = await prisma.productBrand.create({ data: { name } });
     return brand;

@@ -5,7 +5,7 @@ import ErrorMessage from '../error/errorMessage';
 class CountryService {
   static async createCountry(name: string) {
     const foundCountry = await prisma.deliveryCountry.findFirst({
-      where: { name },
+      where: { name: { equals: name, mode: 'insensitive' } },
     });
     if (foundCountry) throw new ApiError(409, ErrorMessage.COUNTRY_EXISTS);
     const country = await prisma.deliveryCountry.create({ data: { name } });

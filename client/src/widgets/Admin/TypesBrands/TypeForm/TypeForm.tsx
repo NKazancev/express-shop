@@ -7,22 +7,32 @@ import Input from '@shared/ui/Input/Input';
 import styles from './TypeForm.module.css';
 
 type TTypeForm = {
-  onTypeCreation: (data: Omit<IProductType, 'id'>) => void;
+  createProductType: (data: Omit<IProductType, 'id'>) => void;
+  apiError?: string;
 };
 
-const TypeForm: FC<TTypeForm> = ({ onTypeCreation }) => {
-  const { control, handleSubmit } = useForm<Omit<IProductType, 'id'>>();
+const TypeForm: FC<TTypeForm> = ({ createProductType, apiError }) => {
+  const { control, formState, reset, handleSubmit } =
+    useForm<Omit<IProductType, 'id'>>();
+  const { errors, isSubmitting } = formState;
+
+  const onSubmit = (data: Omit<IProductType, 'id'>) => {
+    createProductType(data);
+    reset();
+  };
 
   return (
-    <form onSubmit={handleSubmit(onTypeCreation)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Input
         name="name"
         label="Type name"
         control={control}
-        rules={{ required: true }}
+        error={errors.name}
       />
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Add type
       </button>
     </form>

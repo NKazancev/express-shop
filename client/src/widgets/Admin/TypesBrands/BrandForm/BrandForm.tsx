@@ -7,22 +7,32 @@ import Input from '@shared/ui/Input/Input';
 import styles from './BrandForm.module.css';
 
 type TBrandForm = {
-  onBrandCreation: (data: Omit<IProductBrand, 'id'>) => void;
+  createProductBrand: (data: Omit<IProductBrand, 'id'>) => void;
+  apiError?: string;
 };
 
-const BrandForm: FC<TBrandForm> = ({ onBrandCreation }) => {
-  const { control, handleSubmit } = useForm<Omit<IProductBrand, 'id'>>();
+const BrandForm: FC<TBrandForm> = ({ createProductBrand, apiError }) => {
+  const { control, formState, reset, handleSubmit } =
+    useForm<Omit<IProductBrand, 'id'>>();
+  const { errors, isSubmitting } = formState;
+
+  const onSubmit = (data: Omit<IProductBrand, 'id'>) => {
+    createProductBrand(data);
+    reset();
+  };
 
   return (
-    <form onSubmit={handleSubmit(onBrandCreation)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      {apiError && <strong className={styles.apiError}>{apiError}</strong>}
+
       <Input
         name="name"
         label="Brand name"
         control={control}
-        rules={{ required: true }}
+        error={errors.name}
       />
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Add brand
       </button>
     </form>
