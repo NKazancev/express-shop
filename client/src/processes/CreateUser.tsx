@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { useCreateUserMutation } from '@shared/api/userApi';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
@@ -16,12 +19,16 @@ function CreateUser() {
   const handleRegistration = async (data: TCreateUserData) => {
     try {
       const { accessToken, role } = await createUser({ ...data }).unwrap();
-      dispatch(setCredentials({ accessToken, role }));
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+      if (accessToken && role) {
+        dispatch(setCredentials({ accessToken, role }));
+        toast.success('Successful registration');
+      }
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

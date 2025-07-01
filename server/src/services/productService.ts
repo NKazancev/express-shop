@@ -11,7 +11,9 @@ class ProductService {
     text: string
   ) {
     const foundProduct = await prisma.product.findFirst({
-      where: { name: productData.name },
+      where: {
+        name: { equals: productData.name, mode: 'insensitive' },
+      },
     });
     if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
 

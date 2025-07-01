@@ -1,4 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { useChangePasswordMutation } from '@shared/api/userApi';
 import { IPasswordData } from '@shared/models/user';
@@ -22,11 +25,12 @@ const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
   const handlePasswordChange = async (data: IPasswordData) => {
     try {
       await changePassword({ ...data }).unwrap();
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

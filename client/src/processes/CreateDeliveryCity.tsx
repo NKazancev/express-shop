@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { useCreateCityMutation } from '@shared/api/cityApi';
 import { ICity } from '@shared/models/country';
@@ -23,11 +26,12 @@ const CreateDeliveryCity = () => {
         setIsSuccess(true);
         setError('');
       }
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

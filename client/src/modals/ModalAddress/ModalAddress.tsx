@@ -1,4 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import {
   useCreateAddressMutation,
@@ -36,11 +39,12 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
       if (isUpdate && address) {
         await updateAddress({ id: address.id, ...data }).unwrap();
       }
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

@@ -1,10 +1,14 @@
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
+
 import { useCreateProductMutation } from '@shared/api/productApi';
 import { useGetTypesQuery } from '@shared/api/typeApi';
 import { useGetBrandsQuery } from '@shared/api/brandApi';
 import { TCreateProductData } from '@shared/models/product';
 
 import ProductForm from '@widgets/Admin/AdminProducts/ProductForm/ProductForm';
-import { useState } from 'react';
 
 function CreateProduct() {
   const [createProduct] = useCreateProductMutation();
@@ -28,19 +32,23 @@ function CreateProduct() {
           formData.append('images', images[i]);
         }
       }
-      await createProduct(formData).unwrap();
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+      const response = await createProduct(formData).unwrap();
+      if (response) {
+        toast.success('Product successfully created');
+      }
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };
 
   return (
     <ProductForm
-      onProductCreation={handleProductCreation}
+      createProduct={handleProductCreation}
       typeOptions={productTypes}
       brandOptions={productBrands}
       apiError={error}

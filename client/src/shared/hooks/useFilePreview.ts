@@ -22,6 +22,7 @@ const useFilePreview = (data: FileList | string) => {
         }
       }
     }
+    return () => setImagesUrl([]);
   }, [data]);
 
   return imagesUrl;

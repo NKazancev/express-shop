@@ -1,4 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import {
   useGetProductByIdQuery,
@@ -32,9 +35,12 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
       const price = Number(data.price);
       const stock = Number(data.stock);
       await updateProduct({ id: productId, ...data, price, stock }).unwrap();
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

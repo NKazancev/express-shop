@@ -1,5 +1,8 @@
 import { FC } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { ICartProduct } from '@shared/models/cart';
 import { ICreateOrderData } from '@shared/models/order';
@@ -28,11 +31,12 @@ const CheckoutTotal: FC<TCheckoutTotal> = ({
   const onOrderCreation = async (data: ICreateOrderData) => {
     try {
       await createOrder({ ...data }).unwrap();
-    } catch (error: any) {
-      if ('status' in error) {
-        setError(error.data.message);
-      } else {
-        console.log(error);
+    } catch (error) {
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
       }
     }
   };

@@ -1,4 +1,7 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
+import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { useCreateProductReviewMutation } from '@shared/api/reviewApi';
 import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
@@ -21,6 +24,8 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
   const [createProductReview, { isSuccess }] = useCreateProductReviewMutation();
   const [trigger] = useLazyGetProductByIdQuery();
 
+  const [error, setError] = useState<string>();
+
   useEffect(() => {
     if (isSuccess && productId) {
       onClose();
@@ -32,7 +37,12 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
     try {
       await createProductReview({ ...data, productId }).unwrap();
     } catch (error) {
-      console.log(error);
+      if (isFetchBaseQueryError(error)) {
+        const errorMessage = (error.data as { message: string }).message;
+        setError(errorMessage);
+      } else if (isErrorWithMessage(error)) {
+        toast.error(error.message);
+      }
     }
   };
 
@@ -41,7 +51,7 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Review form</h3>
 
-        <ReviewForm onReviewCreation={handleReviewCreation} />
+        <ReviewForm onReviewCreation={handleReviewCreation} apiError={error} />
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />
