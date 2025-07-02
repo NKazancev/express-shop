@@ -23,7 +23,7 @@ const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
 
   useEffect(() => {
     if (!isLogged) setUserReview(null);
-    if (isLogged && !userReview)
+    if (isLogged && !userReview && productId)
       trigger(productId).then((res) => setUserReview(res.data));
   }, [isLogged, userReview, productId]);
 

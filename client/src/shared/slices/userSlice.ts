@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import UserRole from '@config/userRoles';
 
-const authSession = Cookies.get('authSession');
+const authSession = Cookies.get('authSession') as UserRole | undefined;
 
 interface IUserState {
   token: string | null;
-  role: string | null;
+  role: UserRole | undefined;
   isLogged: boolean;
 }
 
 const initialState: IUserState = {
   token: null,
-  role: null,
+  role: authSession,
   isLogged: !!authSession,
 };
 

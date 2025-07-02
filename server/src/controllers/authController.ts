@@ -18,7 +18,7 @@ class AuthController {
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .cookie('authSession', 'ok', {
+      .cookie('authSession', user.role, {
         httpOnly: false,
         sameSite: 'none',
         secure: true,
