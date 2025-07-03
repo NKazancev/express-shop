@@ -34,7 +34,7 @@ const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
             onClick={createAddress}
             className={styles.addressButton}
           >
-            + add delivery address
+            + add address
           </button>
         </>
       )}

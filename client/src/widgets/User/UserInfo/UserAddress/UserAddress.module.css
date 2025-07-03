@@ -3,6 +3,7 @@
 
   text-align: left;
   text-decoration: underline;
+  text-decoration-skip-ink: none;
 
   font-size: 14px;
   font-weight: 400;

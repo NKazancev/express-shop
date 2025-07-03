@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router';
 
-import adminRoutes from '@config/adminRoutes';
+import { adminNavigation } from '@config/navigation';
 
 import styles from './AdminNavigation.module.css';
 
 const AdminNavigation = () => {
   const linksList = (
     <ul className={styles.list}>
-      {adminRoutes.map((link) => {
+      {adminNavigation.map((link) => {
         return (
           <li key={link.id}>
             <NavLink

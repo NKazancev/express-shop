@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router';
 
-import userRoutes from '@config/userRoutes';
+import { userNavigation } from '@config/navigation';
 
 import styles from './UserNavigation.module.css';
 
 const UserNavigation = () => {
   const linksList = (
     <ul className={styles.list}>
-      {userRoutes.map((link) => {
+      {userNavigation.map((link) => {
         return (
           <li key={link.id}>
             <NavLink
