@@ -1,0 +1,14 @@
+.button {
+  padding: 11px 42px 10px 42px;
+  background-color: var(--red);
+  border-radius: 5px;
+  color: var(--white);
+
+  display: flex;
+  column-gap: 7px;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+}

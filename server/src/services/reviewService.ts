@@ -38,8 +38,14 @@ class ReviewService {
     return foundReview;
   }
 
-  static async deleteReview(id: string) {
-    await prisma.productReview.delete({ where: { id } }).catch(() => {
+  static async deleteReview(userId: string, reviewId: string) {
+    const review = await prisma.productReview.findFirst({
+      where: { id: reviewId },
+    });
+    if (review?.userId !== userId) {
+      throw new ApiError(403, ErrorMessage.FORBIDDEN);
+    }
+    await prisma.productReview.delete({ where: { id: reviewId } }).catch(() => {
       throw new ApiError(404, ErrorMessage.REVIEW_NOT_FOUND);
     });
   }

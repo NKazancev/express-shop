@@ -64,6 +64,12 @@ class UserController {
     const user = await UserService.changeUsername(userId, username);
     res.status(200).json(user);
   }
+
+  static async deleteUser(req: Request, res: Response) {
+    const userId = req.user.id;
+    await UserService.deleteUser(userId);
+    res.status(204).json();
+  }
 }
 
 export default UserController;

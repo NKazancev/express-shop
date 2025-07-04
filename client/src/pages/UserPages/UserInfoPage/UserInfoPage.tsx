@@ -1,6 +1,7 @@
 import { useGetUserInfoQuery } from '@shared/api/userApi';
 
 import UserInfo from '@widgets/User/UserInfo/UserInfo';
+import DeleteUser from '@processes/DeleteUser';
 
 import styles from './UserInfoPage.module.css';
 
@@ -12,6 +13,10 @@ const UserInfoPage = () => {
       <h2 className={styles.title}>User info</h2>
 
       {userInfo && <UserInfo {...userInfo} />}
+
+      <div className={styles.button}>
+        <DeleteUser />
+      </div>
     </div>
   );
 };

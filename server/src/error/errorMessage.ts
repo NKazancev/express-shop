@@ -17,6 +17,7 @@ enum ErrorMessage {
   COUNTRY_NOT_FOUND = 'Country not found',
   CITY_EXISTS = 'Such city already exists',
   CITY_NOT_FOUND = 'City not found',
+  UNDELIVERED_ORDERS = 'You have undelivered orders',
   INTERNAL = 'Internal server error',
 }
 

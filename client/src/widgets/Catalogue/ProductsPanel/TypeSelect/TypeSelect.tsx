@@ -13,13 +13,15 @@ const TypeSelect = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    trigger().then((res) => {
-      if (res.data) {
-        setProductTypes(res.data);
-        dispatch(setProductType(res.data[0].id));
-      }
-    });
-  }, []);
+    if (!productTypes) {
+      trigger().then((res) => {
+        if (res.data) {
+          setProductTypes(res.data);
+          dispatch(setProductType(res.data[0].id));
+        }
+      });
+    }
+  }, [productTypes]);
 
   return (
     <div className={styles.container}>

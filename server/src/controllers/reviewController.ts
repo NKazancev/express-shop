@@ -33,8 +33,9 @@ class ReviewController {
   }
 
   static async deleteReview(req: Request, res: Response) {
-    const productId = req.params.id;
-    await ReviewService.deleteReview(productId);
+    const userId = req.user.id;
+    const reviewId = req.params.id;
+    await ReviewService.deleteReview(userId, reviewId);
     res.status(204).json();
   }
 }

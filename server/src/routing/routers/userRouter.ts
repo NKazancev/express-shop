@@ -6,13 +6,20 @@ import verifyToken from '../../middlewares/verifyToken';
 
 const userRouter = Router();
 
-const { createUser, getUserCart, getUserInfo, changePassword, changeUsername } =
-  UserController;
+const {
+  createUser,
+  getUserCart,
+  getUserInfo,
+  changePassword,
+  changeUsername,
+  deleteUser,
+} = UserController;
 
 userRouter.post('/registration', asyncHandler(createUser));
 userRouter.get('/cart', [verifyToken], asyncHandler(getUserCart));
 userRouter.get('/info', [verifyToken], asyncHandler(getUserInfo));
 userRouter.put('/password', [verifyToken], asyncHandler(changePassword));
 userRouter.put('/username', [verifyToken], asyncHandler(changeUsername));
+userRouter.delete('/', [verifyToken], asyncHandler(deleteUser));
 
 export default userRouter;

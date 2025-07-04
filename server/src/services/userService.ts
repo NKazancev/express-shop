@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt';
 
-import { Role } from '@prisma/client';
+import { OrderStatus, Role } from '@prisma/client';
 import prisma from '../config/prismaClient';
 import TokenService from './tokenService';
 import ApiError from '../error/ApiError';
@@ -96,6 +96,35 @@ class UserService {
       data: { username },
     });
     return updatedUser;
+  }
+
+  static async deleteUser(userId: string) {
+    return await prisma.$transaction(async (tx) => {
+      await tx.cartProduct.deleteMany({ where: { userId } });
+      await tx.productReview.deleteMany({ where: { userId } });
+
+      const userAddress = await tx.address.findFirst({ where: { userId } });
+      if (userAddress) await tx.address.delete({ where: { userId } });
+
+      const userOrders = await prisma.order.findMany({ where: { userId } });
+      if (userOrders) {
+        const undeliveredOrder = await prisma.order.findFirst({
+          where: {
+            status:
+              OrderStatus.PENDING ||
+              OrderStatus.ACCEPTED ||
+              OrderStatus.OUT_FOR_DELIVERY ||
+              OrderStatus.DELIVERED,
+          },
+        });
+        if (undeliveredOrder) {
+          throw new ApiError(409, ErrorMessage.UNDELIVERED_ORDERS);
+        } else {
+          await tx.order.deleteMany({ where: { userId } });
+        }
+      }
+      await tx.user.delete({ where: { id: userId } });
+    });
   }
 }
 
