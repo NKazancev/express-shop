@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
@@ -8,14 +8,21 @@ import { useDeleteUserMutation } from '@shared/api/userApi';
 import { useLogoutMutation } from '@shared/api/authApi';
 
 import DeleteProfileButton from '@widgets/User/UserInfo/DeleteProfileButton/DeleteProfileButton';
+import Confirmation from '@shared/ui/Confirmation/Confirmation';
 
 const DeleteUser = () => {
   const [deleteUser, { isSuccess }] = useDeleteUserMutation();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
 
+  const [confirmationVisible, setConfirmationVisible] = useState<boolean>();
+
+  const showConfirmation = () => setConfirmationVisible(true);
+  const hideConfirmation = () => setConfirmationVisible(false);
+
   useEffect(() => {
     const handler = async () => {
+      hideConfirmation();
       await logout();
       await navigate('/');
       toast.success('Profile was successfully deleted');
@@ -29,6 +36,7 @@ const DeleteUser = () => {
     try {
       await deleteUser().unwrap();
     } catch (error) {
+      hideConfirmation();
       if (isFetchBaseQueryError(error)) {
         const errorMessage = (error.data as { message: string }).message;
         toast.error(errorMessage);
@@ -38,7 +46,19 @@ const DeleteUser = () => {
     }
   };
 
-  return <DeleteProfileButton onProfileDelete={handleDelete} />;
+  return (
+    <>
+      <DeleteProfileButton onProfileDelete={showConfirmation} />
+
+      {confirmationVisible && (
+        <Confirmation
+          text={'Are you sure you want to delete your profile?'}
+          onAgree={handleDelete}
+          onClose={hideConfirmation}
+        />
+      )}
+    </>
+  );
 };
 
 export default DeleteUser;
