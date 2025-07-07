@@ -23,7 +23,11 @@ const ProductsPanel = () => {
         <TypeSelect />
 
         <div>
-          <button type="button" onClick={toggleBrands}>
+          <button
+            type="button"
+            onClick={toggleBrands}
+            className={styles.button}
+          >
             Brands
           </button>
           <Dropdown isVisible={brandsVisible} onClose={closeBrands}>
@@ -32,11 +36,15 @@ const ProductsPanel = () => {
         </div>
 
         <div>
-          <button type="button" onClick={togglePrices}>
+          <button
+            type="button"
+            onClick={togglePrices}
+            className={styles.button}
+          >
             Price
           </button>
           <Dropdown isVisible={pricesVisible} onClose={closePrices}>
-            <PricesSlider />
+            <PricesSlider onClose={closePrices} />
           </Dropdown>
         </div>
       </div>

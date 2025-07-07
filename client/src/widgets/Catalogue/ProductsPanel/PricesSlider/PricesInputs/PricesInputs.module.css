@@ -1,0 +1,35 @@
+.inputs {
+  margin: 28px 0px 24px 0px;
+
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input {
+  width: 140px;
+  padding: 5px 0px 5px 2px;
+  border: none;
+  border-bottom: 1px solid var(--greyBorder);
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.input::placeholder {
+  color: var(--greyBorder);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  appearance: none;
+}

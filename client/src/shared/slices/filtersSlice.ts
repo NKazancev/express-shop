@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import { MAX_PRICE, MIN_PRICE } from '@config/consts';
 import { IBrandCheckbox } from '@shared/models/typesbrands';
 
 interface IFiltersState {
@@ -12,7 +14,7 @@ const filtersState: IFiltersState = {
   searchQuery: '',
   productType: '',
   brandFilters: '',
-  prices: [0, 300000],
+  prices: [MIN_PRICE, MAX_PRICE],
 };
 
 const filtersSlice = createSlice({

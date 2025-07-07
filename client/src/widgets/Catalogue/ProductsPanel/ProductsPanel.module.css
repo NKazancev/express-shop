@@ -14,7 +14,7 @@
   column-gap: 40px;
 }
 
-.filters button {
+.button {
   width: 160px;
   height: 40px;
   padding-left: 20px;
@@ -32,7 +32,7 @@
   z-index: 10;
 }
 
-.filters button::after {
+.button::after {
   content: url(@shared/assets/arrow.svg);
   position: absolute;
   top: 9px;
