@@ -10,31 +10,9 @@
 }
 
 .filters {
-  display: flex;
-  column-gap: 40px;
-}
-
-.button {
-  width: 160px;
   height: 40px;
-  padding-left: 20px;
 
-  background: var(--white);
-  border: 1px solid var(--greyBorder);
-  border-radius: 5px;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  overflow: hidden;
-  position: relative;
-  z-index: 10;
-}
-
-.button::after {
-  content: url(@shared/assets/arrow.svg);
-  position: absolute;
-  top: 9px;
-  right: 13px;
+  display: grid;
+  grid-template-columns: repeat(3, 160px);
+  column-gap: 40px;
 }

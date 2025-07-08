@@ -1,3 +1,28 @@
+.pricesButton {
+  width: 100%;
+  height: 100%;
+  padding-left: 20px;
+
+  background: var(--white);
+  border: 1px solid var(--greyBorder);
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.pricesButton::after {
+  content: url(@shared/assets/arrow.svg);
+  position: absolute;
+  top: 9px;
+  right: 13px;
+}
+
 .container {
   width: 370px;
   padding: 36px 25px 21px 25px;
@@ -6,26 +31,6 @@
   border-radius: 5px;
 
   position: absolute;
-}
-
-.track {
-  width: calc(100% - 24px);
-  height: 6px;
-  background-color: var(--greyBorder);
-
-  position: relative;
-  left: 12px;
-}
-
-.thumb {
-  width: 24px;
-  height: 24px;
-  border: none;
-  background: var(--white);
-  border-radius: 50%;
-  box-shadow: 0px 0px 2px rgb(0, 0, 0);
-
-  cursor: pointer;
 }
 
 .button {

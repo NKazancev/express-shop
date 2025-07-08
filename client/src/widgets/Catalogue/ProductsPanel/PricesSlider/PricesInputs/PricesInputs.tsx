@@ -1,4 +1,12 @@
-import { FC, RefObject, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import {
+  FC,
+  RefObject,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
+
 import { MIN_PRICE, MAX_PRICE } from '@config/consts';
 
 import styles from './PricesInputs.module.css';
@@ -15,6 +23,12 @@ const PricesInputs: FC<TPricesInputs> = (props) => {
 
   const minPrice = values[0];
   const maxPrice = values[1];
+
+  useEffect(() => {
+    if (minPrice === 0 && maxPrice === 0) {
+      setValues([MIN_PRICE, MAX_PRICE]);
+    }
+  }, [values]);
 
   const handleMinPrice = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setAttribute('value', String(minPrice));

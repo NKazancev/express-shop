@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react';
 
-import { useLazyGetTypesQuery } from '@shared/api/typeApi';
-import { IProductType } from '@shared/models/typesbrands';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { useLazyGetTypesQuery } from '@shared/api/typeApi';
 import { setProductType } from '@shared/slices/filtersSlice';
+import { IProductType } from '@shared/models/typesbrands';
+
+import Dropdown from '@shared/ui/Dropdown/Dropdown';
 
 import styles from './TypeSelect.module.css';
 
 const TypeSelect = () => {
-  const [trigger] = useLazyGetTypesQuery();
-  const [productTypes, setProductTypes] = useState<IProductType[]>();
   const dispatch = useAppDispatch();
+  const [trigger] = useLazyGetTypesQuery();
+
+  const [productTypes, setProductTypes] = useState<IProductType[]>();
+  const [activeType, setActiveType] = useState<string>();
+
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+  const toggleDropdown = () => setDropdownVisible((prev) => !prev);
+  const closeDropdown = () => setDropdownVisible(false);
 
   useEffect(() => {
     if (!productTypes) {
       trigger().then((res) => {
         if (res.data) {
           setProductTypes(res.data);
+          setActiveType(res.data[0].name);
           dispatch(setProductType(res.data[0].id));
         }
       });
@@ -24,19 +33,36 @@ const TypeSelect = () => {
   }, [productTypes]);
 
   return (
-    <div className={styles.container}>
-      <select
-        onChange={(e) => dispatch(setProductType(e.target.value))}
-        className={styles.select}
+    <div>
+      <button
+        type="button"
+        onClick={toggleDropdown}
+        className={styles.typesButton}
       >
-        {productTypes?.map((type) => {
-          return (
-            <option key={type.id} value={type.id}>
-              {type.name}
-            </option>
-          );
-        })}
-      </select>
+        {activeType}
+      </button>
+
+      <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>
+        <ul className={styles.list}>
+          {productTypes?.map(({ id, name }) => {
+            return (
+              <li key={id}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(setProductType(id));
+                    setActiveType(name);
+                    setDropdownVisible(false);
+                  }}
+                  className={styles.listButton}
+                >
+                  {name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </Dropdown>
     </div>
   );
 };

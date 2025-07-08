@@ -4,13 +4,18 @@ import { useLazyGetBrandsQuery } from '@shared/api/brandApi';
 import { IBrandCheckbox, IProductBrand } from '@shared/models/typesbrands';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { setBrandFilters } from '@shared/slices/filtersSlice';
+import Dropdown from '@shared/ui/Dropdown/Dropdown';
 
 import styles from './BrandFilters.module.css';
 
 const BrandFilters = () => {
+  const dispatch = useAppDispatch();
   const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
   const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[]>();
-  const dispatch = useAppDispatch();
+
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+  const toggleDropdown = () => setDropdownVisible((prev) => !prev);
+  const closeDropdown = () => setDropdownVisible(false);
 
   useEffect(() => {
     if (!checkboxes) {
@@ -21,8 +26,6 @@ const BrandFilters = () => {
         }, [] as IBrandCheckbox[]);
         setCheckboxes(data);
       });
-    } else {
-      dispatch(setBrandFilters(checkboxes));
     }
   }, [checkboxes]);
 
@@ -39,22 +42,47 @@ const BrandFilters = () => {
   const checkboxesList = checkboxes?.map((brand) => {
     return (
       <li key={brand.id} className={styles.checkbox}>
-        <input
-          type="checkbox"
-          id={brand.id}
-          checked={brand.checked}
-          onChange={handleChange}
-        />
         <label htmlFor={brand.id} className={styles.label}>
-          {brand.name}
+          <input
+            type="checkbox"
+            id={brand.id}
+            checked={brand.checked}
+            onChange={handleChange}
+            className={styles.checkbox}
+          />
+          <span>{brand.name}</span>
         </label>
       </li>
     );
   });
 
+  const dispatchBrands = () => {
+    dispatch(setBrandFilters(checkboxes));
+    setDropdownVisible(false);
+  };
+
   return (
-    <div className={styles.container}>
-      <ul className={styles.list}>{checkboxesList}</ul>
+    <div>
+      <button
+        type="button"
+        onClick={toggleDropdown}
+        className={styles.brandsButton}
+      >
+        Brands
+      </button>
+
+      <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>
+        <div className={styles.container}>
+          <ul className={styles.list}>{checkboxesList}</ul>
+          <button
+            type="button"
+            onClick={dispatchBrands}
+            className={styles.button}
+          >
+            Apply
+          </button>
+        </div>
+      </Dropdown>
     </div>
   );
 };
