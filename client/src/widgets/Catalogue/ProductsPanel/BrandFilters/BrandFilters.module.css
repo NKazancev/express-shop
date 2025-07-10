@@ -57,6 +57,7 @@
 
 .checkbox {
   accent-color: var(--greyBorder);
+  cursor: pointer;
 }
 
 .button {

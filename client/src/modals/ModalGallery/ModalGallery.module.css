@@ -1,0 +1,14 @@
+.container {
+  max-width: 750px;
+  margin: 15vh auto;
+  background-color: var(--white);
+
+  display: grid;
+  grid-template-columns: 1fr 600px 1fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  height: 100%;
+}

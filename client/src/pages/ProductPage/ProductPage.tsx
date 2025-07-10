@@ -22,7 +22,9 @@ const ProductPage = () => {
       </NavLink>
 
       <div className={styles.content}>
-        <ProductGallery images={product?.gallery.images} />
+        {product?.gallery.images && (
+          <ProductGallery images={product?.gallery.images} />
+        )}
         <ProductPanel {...product} />
       </div>
 
