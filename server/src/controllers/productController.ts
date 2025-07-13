@@ -30,7 +30,7 @@ class ProductController {
     const minPrice = Number(req.query.minPrice);
     const maxPrice = Number(req.query.maxPrice);
     const skip = Number(req.query.skip) || 0;
-    const take = 10;
+    const take = 50;
 
     const products = await ProductService.getProducts(
       searchQuery,

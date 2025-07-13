@@ -1,14 +1,14 @@
 .container {
-  max-width: 535px;
+  max-width: 600px;
 
   display: grid;
-  grid-template-columns: 165px 1fr;
+  grid-template-columns: 225px 1fr;
   align-items: start;
 }
 
 .thumbnails {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 5px;
 
   direction: rtl;
