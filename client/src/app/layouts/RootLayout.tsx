@@ -16,7 +16,7 @@ function RootLayout() {
   }, [isLogged]);
 
   return (
-    <div className="layout">
+    <div className="root-layout">
       <Outlet />
       <Toaster toastOptions={toastOptions} />
     </div>

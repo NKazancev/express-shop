@@ -9,6 +9,7 @@ const MainRoutes = () => {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="products/page/:page" element={<HomePage />} />
         <Route path="products/:id" element={<ProductPage />} />
       </Route>
     </Routes>

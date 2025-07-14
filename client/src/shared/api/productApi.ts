@@ -2,6 +2,7 @@ import baseApi from '@config/baseApi';
 import {
   IProduct,
   IProductData,
+  IProductsResponse,
   IProductsRequest,
   TUpdateProductData,
 } from '@shared/models/product';
@@ -19,26 +20,20 @@ const productApi = baseApi
         invalidatesTags: [{ type: 'Products', id: 'LIST' }],
       }),
 
-      getProducts: builder.query<IProduct[], IProductsRequest>({
+      getProducts: builder.query<IProductsResponse, IProductsRequest>({
         query: (args) => {
-          const { searchQuery, productType, brandFilters, minPrice, maxPrice } =
-            args;
           return {
             url: 'products',
             method: 'GET',
-            params: {
-              searchQuery,
-              productType,
-              brandFilters,
-              minPrice,
-              maxPrice,
-            },
+            params: { ...args },
           };
         },
         providesTags: (result) =>
           result
             ? [
-                ...result.map(({ id }) => ({ type: 'Products', id } as const)),
+                ...result.data.map(
+                  ({ id }) => ({ type: 'Products', id } as const)
+                ),
                 { type: 'Products', id: 'LIST' },
               ]
             : [{ type: 'Products', id: 'LIST' }],

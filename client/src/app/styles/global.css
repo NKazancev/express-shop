@@ -6,10 +6,17 @@ button {
   cursor: pointer;
 }
 
-.layout {
+.root-layout {
   max-width: 1190px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+.main-layout {
+  min-height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto auto 1fr;
 }
 
 .container {

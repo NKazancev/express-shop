@@ -40,4 +40,11 @@ export interface IProductsRequest {
   brandFilters: string;
   minPrice: number;
   maxPrice: number;
+  skip: number;
+  take: number;
+}
+
+export interface IProductsResponse {
+  data: IProduct[];
+  quantity: number;
 }

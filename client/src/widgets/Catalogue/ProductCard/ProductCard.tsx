@@ -11,7 +11,7 @@ const ProductCard: FC<IProduct> = ({ id, name, price, description, image }) => {
 
   const imageUrl = `${STATIC_URL}/${image}`;
 
-  const showProductPage = () => navigate(`products/${id}`);
+  const showProductPage = () => navigate(`/products/${id}`);
 
   return (
     <li onClick={showProductPage} className={styles.product}>

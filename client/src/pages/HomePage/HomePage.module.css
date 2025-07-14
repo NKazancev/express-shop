@@ -1,3 +1,7 @@
 .products {
+  height: 100%;
   padding: 24px 0px;
+
+  display: flex;
+  flex-direction: column;
 }

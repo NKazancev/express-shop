@@ -30,9 +30,9 @@ class ProductController {
     const minPrice = Number(req.query.minPrice);
     const maxPrice = Number(req.query.maxPrice);
     const skip = Number(req.query.skip) || 0;
-    const take = 50;
+    const take = Number(req.query.take) || 50;
 
-    const products = await ProductService.getProducts(
+    const { products, quantity } = await ProductService.getProducts(
       searchQuery,
       productType,
       brandFilters,
@@ -41,7 +41,7 @@ class ProductController {
       skip,
       take
     );
-    res.status(200).json(products);
+    res.status(200).json({ data: products, quantity });
   }
 
   static async getProductById(req: Request, res: Response) {

@@ -15,9 +15,9 @@ const AdminProductsList = () => {
     dispatch(resetFilters());
   }, []);
 
-  const products = useProducts();
+  const products = useProducts(1, 50);
 
-  const productsList = products?.map((product) => {
+  const productsList = products?.data.map((product) => {
     return <AdminProduct key={product.id} {...product} />;
   });
 

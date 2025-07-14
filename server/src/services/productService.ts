@@ -37,43 +37,27 @@ class ProductService {
     skip: number,
     take: number
   ) {
-    let products;
-    if (searchQuery) {
-      products = await prisma.product.findMany({
+    const [products, productsQuantity] = await prisma.$transaction([
+      prisma.product.findMany({
         where: {
           name: { contains: searchQuery, mode: 'insensitive' },
+          typeId: productType || undefined,
+          brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
         },
         skip,
         take,
-      });
-    } else {
-      if (!productType) {
-        products = await prisma.product.findMany({ skip, take });
-        return products;
-      }
-      if (brandFilters) {
-        products = await prisma.product.findMany({
-          where: {
-            typeId: productType,
-            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-            brandId: { in: brandFilters.split(',') },
-          },
-          skip,
-          take,
-        });
-      }
-      if (!brandFilters) {
-        products = await prisma.product.findMany({
-          where: {
-            typeId: productType,
-            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-          },
-          skip,
-          take,
-        });
-      }
-    }
-    return products;
+      }),
+      prisma.product.count({
+        where: {
+          name: { contains: searchQuery, mode: 'insensitive' },
+          typeId: productType || undefined,
+          brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+        },
+      }),
+    ]);
+    return { products, quantity: productsQuantity };
   }
 
   static async getProductById(id: string) {

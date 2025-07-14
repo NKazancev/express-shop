@@ -1,0 +1,34 @@
+.container {
+  margin-top: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+}
+
+.buttonsList {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.btn,
+.activeBtn {
+  padding: 5px 8px;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.activeBtn {
+  border: 1px solid var(--greyBorder);
+  border-radius: 5px;
+}
+
+.switchBtn {
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+}
