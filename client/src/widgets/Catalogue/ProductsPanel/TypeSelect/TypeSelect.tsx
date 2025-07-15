@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 import { useGetTypesQuery } from '@shared/api/typeApi';
 import { setProductType } from '@shared/slices/filtersSlice';
 
@@ -11,8 +11,8 @@ import styles from './TypeSelect.module.css';
 const TypeSelect = () => {
   const dispatch = useAppDispatch();
   const { data: productTypes } = useGetTypesQuery();
+  const { productType } = useAppSelector((state) => state.filters);
 
-  const [activeType, setActiveType] = useState<string>('');
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
@@ -24,8 +24,8 @@ const TypeSelect = () => {
         <button
           type="button"
           onClick={() => {
-            dispatch(setProductType(id));
-            setActiveType(name);
+            dispatch(setProductType({ id, name }));
+            localStorage.setItem('productType', JSON.stringify({ id, name }));
             setDropdownVisible(false);
           }}
           className={styles.listButton}
@@ -43,7 +43,7 @@ const TypeSelect = () => {
         onClick={toggleDropdown}
         className={styles.typesButton}
       >
-        {!activeType ? 'All products' : activeType}
+        {!productType.name ? 'All products' : productType.name}
       </button>
 
       <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>

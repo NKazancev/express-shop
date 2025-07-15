@@ -1,20 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { MAX_PRICE, MIN_PRICE } from '@config/consts';
-import { IBrandCheckbox } from '@shared/models/typesbrands';
+import { IBrandCheckbox, IProductType } from '@shared/models/typesbrands';
+
+const productType = JSON.parse(localStorage.getItem('productType') || '{}');
+const prices = JSON.parse(localStorage.getItem('prices') || '[]');
+const brandCheckboxes = JSON.parse(localStorage.getItem('checkboxes') || '[]');
+const brandFilters = localStorage.getItem('brands') || '';
 
 interface IFiltersState {
   searchQuery: string;
-  productType: string;
+  productType: IProductType;
+  brandCheckboxes: IBrandCheckbox[];
   brandFilters: string;
   prices: number[];
 }
 
 const filtersState: IFiltersState = {
   searchQuery: '',
-  productType: '',
-  brandFilters: '',
-  prices: [MIN_PRICE, MAX_PRICE],
+  productType,
+  brandCheckboxes,
+  brandFilters,
+  prices: !prices.length ? [MIN_PRICE, MAX_PRICE] : prices,
 };
 
 const filtersSlice = createSlice({
@@ -31,15 +38,16 @@ const filtersSlice = createSlice({
       state.prices = action.payload;
     },
     setBrandFilters: (state, action) => {
-      state.brandFilters = action.payload
-        .reduce((acc: string[], el: IBrandCheckbox) => {
-          if (el.checked) acc.push(el.id);
-          return acc;
-        }, [] as string[])
-        .join(',');
+      state.brandFilters = action.payload;
     },
     resetFilters: () => {
-      return { ...filtersState };
+      return {
+        searchQuery: '',
+        brandCheckboxes: [],
+        brandFilters: '',
+        productType: { id: '', name: '' },
+        prices: [MIN_PRICE, MAX_PRICE],
+      };
     },
   },
 });

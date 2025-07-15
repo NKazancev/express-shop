@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useLazyGetBrandsQuery } from '@shared/api/brandApi';
 import { IBrandCheckbox, IProductBrand } from '@shared/models/typesbrands';
-import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 import { setBrandFilters } from '@shared/slices/filtersSlice';
 import Dropdown from '@shared/ui/Dropdown/Dropdown';
 
@@ -12,20 +12,22 @@ const BrandFilters = () => {
   const dispatch = useAppDispatch();
   const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
 
-  const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[]>();
-  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+  const { brandCheckboxes } = useAppSelector((state) => state.filters);
+  const [checkboxes, setCheckboxes] =
+    useState<IBrandCheckbox[]>(brandCheckboxes);
 
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
   const closeDropdown = () => setDropdownVisible(false);
 
   useEffect(() => {
-    if (!checkboxes) {
+    if (!checkboxes.length) {
       trigger().then((res) => {
         const data = res.data?.reduce((acc, el) => {
           acc.push({ ...el, checked: false });
           return acc;
         }, [] as IBrandCheckbox[]);
-        setCheckboxes(data);
+        if (data) setCheckboxes(data);
       });
     }
   }, [checkboxes]);
@@ -58,7 +60,16 @@ const BrandFilters = () => {
   });
 
   const dispatchBrands = () => {
-    dispatch(setBrandFilters(checkboxes));
+    const brands = checkboxes
+      ?.reduce((acc: string[], el: IBrandCheckbox) => {
+        if (el.checked) acc.push(el.id);
+        return acc;
+      }, [] as string[])
+      .join(',');
+
+    dispatch(setBrandFilters(brands));
+    localStorage.setItem('brands', brands);
+    localStorage.setItem('checkboxes', JSON.stringify(checkboxes));
     setDropdownVisible(false);
   };
 

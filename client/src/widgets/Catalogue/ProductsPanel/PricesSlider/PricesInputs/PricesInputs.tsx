@@ -28,7 +28,16 @@ const PricesInputs: FC<TPricesInputs> = (props) => {
     if (minPrice === 0 && maxPrice === 0) {
       setValues([MIN_PRICE, MAX_PRICE]);
     }
-  }, [values]);
+  }, [minPrice, maxPrice]);
+
+  useEffect(() => {
+    if (minInput.current && maxInput.current) {
+      if (minPrice !== MIN_PRICE || maxPrice !== MAX_PRICE) {
+        minInput.current.value = String(minPrice);
+        maxInput.current.value = String(maxPrice);
+      }
+    }
+  }, []);
 
   const handleMinPrice = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.setAttribute('value', String(minPrice));

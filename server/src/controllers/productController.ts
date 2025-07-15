@@ -25,7 +25,7 @@ class ProductController {
 
   static async getProducts(req: Request, res: Response) {
     const searchQuery = String(req.query.searchQuery) || '';
-    const productType = String(req.query.productType);
+    const productType = String(req.query.productTypeId);
     const brandFilters = String(req.query.brandFilters);
     const minPrice = Number(req.query.minPrice);
     const maxPrice = Number(req.query.maxPrice);

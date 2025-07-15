@@ -12,7 +12,7 @@ const useProducts = (page: number, take: number) => {
   const { data: products } = useGetProductsQuery(
     {
       searchQuery,
-      productType,
+      productTypeId: productType.id || '',
       brandFilters,
       minPrice: prices[0],
       maxPrice: prices[1],

@@ -23,6 +23,7 @@ const PricesSlider = () => {
 
   const dispatchPrices = () => {
     dispatch(setPrices(values));
+    localStorage.setItem('prices', JSON.stringify(values));
     closeDropdown();
   };
 

@@ -36,7 +36,7 @@ export interface IProductInfo {
 
 export interface IProductsRequest {
   searchQuery: string;
-  productType: string;
+  productTypeId: string;
   brandFilters: string;
   minPrice: number;
   maxPrice: number;

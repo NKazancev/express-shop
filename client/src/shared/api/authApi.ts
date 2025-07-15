@@ -1,5 +1,6 @@
 import baseApi from '@config/baseApi';
 import { IAuthResponse, ILoginData } from '@shared/models/auth';
+import { resetFilters } from '@shared/slices/filtersSlice';
 import { logout, setCredentials } from '@shared/slices/userSlice';
 
 const authApi = baseApi
@@ -21,9 +22,11 @@ const authApi = baseApi
           method: 'POST',
         }),
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          localStorage.clear();
           try {
             await queryFulfilled;
             dispatch(logout());
+            dispatch(resetFilters());
             dispatch(baseApi.util.resetApiState());
           } catch (error) {
             console.log(error);
