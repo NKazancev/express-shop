@@ -6,6 +6,10 @@ button {
   cursor: pointer;
 }
 
+.layout {
+  min-height: 100vh;
+}
+
 .root-layout {
   max-width: 1190px;
   margin: 0 auto;
@@ -13,13 +17,16 @@ button {
 }
 
 .main-layout {
-  min-height: 100vh;
-
   display: grid;
   grid-template-rows: auto auto 1fr;
 }
 
-.container {
+.admin-layout {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.sidebar-container {
   padding-top: 40px;
 
   display: grid;

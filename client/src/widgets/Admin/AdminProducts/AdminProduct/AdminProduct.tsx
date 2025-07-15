@@ -42,10 +42,10 @@ const AdminProduct: FC<IProduct> = ({ id, image, name, price, stock }) => {
 
         <div className={styles.buttons}>
           <button type="button" onClick={showModal}>
-            <img src={penIcon} alt="pen-icon" width={13} />
+            <img src={penIcon} alt="pen-icon" width={12} />
           </button>
           <button type="button" onClick={handleDeleteProduct}>
-            <img src={xbutton} alt="delete-icon" width={13} />
+            <img src={xbutton} alt="delete-icon" width={12} />
           </button>
         </div>
       </li>

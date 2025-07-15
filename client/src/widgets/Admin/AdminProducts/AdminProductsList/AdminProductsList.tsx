@@ -1,23 +1,25 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
+import { IProduct } from '@shared/models/product';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { resetFilters } from '@shared/slices/filtersSlice';
-import useProducts from '@shared/hooks/useProducts';
 
 import AdminProduct from '../AdminProduct/AdminProduct';
 
 import styles from './AdminProductsList.module.css';
 
-const AdminProductsList = () => {
+type TAdminProductsList = {
+  products: IProduct[];
+};
+
+const AdminProductsList: FC<TAdminProductsList> = ({ products }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(resetFilters());
   }, []);
 
-  const products = useProducts(1, 50);
-
-  const productsList = products?.data.map((product) => {
+  const productsList = products?.map((product) => {
     return <AdminProduct key={product.id} {...product} />;
   });
 

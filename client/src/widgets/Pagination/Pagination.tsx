@@ -5,17 +5,19 @@ import styles from './Pagination.module.css';
 
 type TPagination = {
   currentPage: number;
+  currentLocation: string;
   productsQuantity: number;
   take: number;
 };
 
 const Pagination: FC<TPagination> = (props) => {
-  const { currentPage, productsQuantity, take } = props;
+  const { currentPage, currentLocation, productsQuantity, take } = props;
+
   const navigate = useNavigate();
 
   const getPage = (e: MouseEvent<HTMLButtonElement>) => {
     const page = e.currentTarget.textContent;
-    navigate(`/products/page/${page}`);
+    navigate(`${currentLocation}/page/${page}`);
   };
 
   const pagesQuantity = Math.ceil(productsQuantity / take);
@@ -37,12 +39,12 @@ const Pagination: FC<TPagination> = (props) => {
 
   const getPrevPage = () => {
     if (currentPage === 1) return;
-    navigate(`/products/page/${currentPage - 1}`);
+    navigate(`${currentLocation}/page/${currentPage - 1}`);
   };
 
   const getNextPage = () => {
     if (currentPage === pagesQuantity) return;
-    navigate(`/products/page/${currentPage + 1}`);
+    navigate(`${currentLocation}/page/${currentPage + 1}`);
   };
 
   return (

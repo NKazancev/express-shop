@@ -4,7 +4,7 @@ import Header from '@widgets/Header/Header';
 
 function CartLayout() {
   return (
-    <div>
+    <div className="layout">
       <Header />
       <div>
         <Outlet />

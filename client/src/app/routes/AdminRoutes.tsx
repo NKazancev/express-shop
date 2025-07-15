@@ -24,6 +24,7 @@ const AdminRoutes = () => {
       >
         <Route index element={<CreateProductPage />} />
         <Route path="products" element={<HandleProductsPage />} />
+        <Route path="products/page/:page" element={<HandleProductsPage />} />
         <Route path="orders" element={<HandleOrdersPage />} />
         <Route path="typesbrands" element={<HandleTypesBrandsPage />} />
         <Route path="countriescities" element={<HandleCountriesCitiesPage />} />

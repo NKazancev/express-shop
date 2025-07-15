@@ -11,9 +11,10 @@ import styles from './BrandFilters.module.css';
 const BrandFilters = () => {
   const dispatch = useAppDispatch();
   const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
-  const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[]>();
 
+  const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[]>();
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
   const closeDropdown = () => setDropdownVisible(false);
 
@@ -74,6 +75,7 @@ const BrandFilters = () => {
       <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>
         <div className={styles.container}>
           <ul className={styles.list}>{checkboxesList}</ul>
+
           <button
             type="button"
             onClick={dispatchBrands}

@@ -5,7 +5,7 @@ import HeaderImage from '@widgets/Header/HeaderImage/HeaderImage';
 
 function MainLayout() {
   return (
-    <div className="main-layout">
+    <div className="main-layout layout">
       <Header />
       <HeaderImage />
       <main>

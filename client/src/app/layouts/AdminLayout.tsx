@@ -5,9 +5,9 @@ import AdminNavigation from '@widgets/Admin/AdminNavigation/AdminNavigation';
 
 function AdminLayout() {
   return (
-    <div>
+    <div className="admin-layout layout">
       <Header />
-      <div className="container">
+      <div className="sidebar-container">
         <AdminNavigation />
         <Outlet />
       </div>

@@ -11,9 +11,10 @@ import styles from './TypeSelect.module.css';
 const TypeSelect = () => {
   const dispatch = useAppDispatch();
   const { data: productTypes } = useGetTypesQuery();
-  const [activeType, setActiveType] = useState<string>('');
 
+  const [activeType, setActiveType] = useState<string>('');
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
+
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
   const closeDropdown = () => setDropdownVisible(false);
 
@@ -42,7 +43,7 @@ const TypeSelect = () => {
         onClick={toggleDropdown}
         className={styles.typesButton}
       >
-        {activeType === '' ? 'All products' : activeType}
+        {!activeType ? 'All products' : activeType}
       </button>
 
       <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>
