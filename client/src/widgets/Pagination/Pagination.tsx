@@ -1,6 +1,8 @@
 import { FC, MouseEvent } from 'react';
 import { useNavigate } from 'react-router';
 
+import arrowLeft from '@shared/assets/pagination-arrow-left.svg';
+import arrowRight from '@shared/assets/pagination-arrow-right.svg';
 import styles from './Pagination.module.css';
 
 type TPagination = {
@@ -49,14 +51,14 @@ const Pagination: FC<TPagination> = (props) => {
 
   return (
     <div className={styles.container}>
-      <button type="button" onClick={getPrevPage} className={styles.switchBtn}>
-        Prev
+      <button type="button" onClick={getPrevPage} className={styles.arrowBtn}>
+        <img src={arrowLeft} alt="arrow-left" />
       </button>
 
       <ul className={styles.buttonsList}>{buttonsList}</ul>
 
-      <button type="button" onClick={getNextPage} className={styles.switchBtn}>
-        Next
+      <button type="button" onClick={getNextPage} className={styles.arrowBtn}>
+        <img src={arrowRight} alt="arrow-right" />
       </button>
     </div>
   );

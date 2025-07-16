@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 
+import UserRole from '@config/userRoles';
 import useProducts from '@shared/hooks/useProducts';
 
 import ProductsPanel from '@widgets/Catalogue/ProductsPanel/ProductsPanel';
@@ -13,7 +14,7 @@ function HomePage() {
   const currentPage = Number(page ?? 1);
   const take = 8;
 
-  const products = useProducts(currentPage, take);
+  const products = useProducts(currentPage, take, UserRole.USER);
 
   return (
     <div className={styles.products}>

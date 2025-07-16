@@ -1,17 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { MAX_PRICE, MIN_PRICE } from '@config/consts';
-import { IBrandCheckbox, IProductType } from '@shared/models/typesbrands';
+import { IProductType } from '@shared/models/typesbrands';
 
 const productType = JSON.parse(localStorage.getItem('productType') || '{}');
-const prices = JSON.parse(localStorage.getItem('prices') || '[]');
-const brandCheckboxes = JSON.parse(localStorage.getItem('checkboxes') || '[]');
 const brandFilters = localStorage.getItem('brands') || '';
+const prices = JSON.parse(localStorage.getItem('prices') || '[]');
 
 interface IFiltersState {
   searchQuery: string;
   productType: IProductType;
-  brandCheckboxes: IBrandCheckbox[];
   brandFilters: string;
   prices: number[];
 }
@@ -19,7 +17,6 @@ interface IFiltersState {
 const filtersState: IFiltersState = {
   searchQuery: '',
   productType,
-  brandCheckboxes,
   brandFilters,
   prices: !prices.length ? [MIN_PRICE, MAX_PRICE] : prices,
 };

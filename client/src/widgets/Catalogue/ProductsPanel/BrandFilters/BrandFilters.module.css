@@ -35,32 +35,7 @@
   left: -25%;
 }
 
-.list {
-  margin-bottom: 14px;
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 12px;
-}
-
-.label {
-  font-family: 'Roboto', sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-
-  display: inline-flex;
-  align-items: center;
-  column-gap: 9px;
-
-  cursor: pointer;
-}
-
-.checkbox {
-  accent-color: var(--greyBorder);
-  cursor: pointer;
-}
-
-.button {
+.applyButton {
   width: 100%;
   padding: 8px 0;
   background-color: var(--green);

@@ -16,11 +16,16 @@
 
 .btn,
 .activeBtn {
-  padding: 5px 8px;
+  width: 27px;
+  height: 27px;
 
   font-family: 'Roboto', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .activeBtn {
@@ -28,7 +33,9 @@
   border-radius: 5px;
 }
 
-.switchBtn {
+.arrowBtn {
+  padding: 5px;
+
   font-family: 'Roboto';
   font-size: 14px;
   font-weight: 400;

@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
+import UserRole from '@config/userRoles';
 import useProducts from '@shared/hooks/useProducts';
-import { useAppDispatch } from '@shared/hooks/reduxHooks';
-import { resetFilters } from '@shared/slices/filtersSlice';
 
 import AdminProductsList from '@widgets/Admin/AdminProducts/AdminProductsList/AdminProductsList';
 import SearchBar from '@widgets/Catalogue/ProductsPanel/SearchBar/SearchBar';
@@ -16,13 +14,7 @@ const HandleProductsPage = () => {
   const currentPage = Number(page ?? 1);
   const take = 10;
 
-  const products = useProducts(currentPage, take);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    localStorage.clear();
-    dispatch(resetFilters());
-  }, []);
+  const products = useProducts(currentPage, take, UserRole.ADMIN);
 
   return (
     <div className={styles.container}>
