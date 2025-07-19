@@ -12,25 +12,26 @@ import styles from './HomePage.module.css';
 function HomePage() {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
-  const take = 8;
+  const itemsPerPage = 8;
 
-  const products = useProducts(currentPage, take, UserRole.USER);
+  const products = useProducts(currentPage, itemsPerPage, UserRole.USER);
 
   return (
     <div className={styles.products}>
       <ProductsPanel />
 
-      {products && (
+      {products?.data.length ? (
         <>
           <ProductsList products={products.data} />
+
           <Pagination
             currentPage={currentPage}
             currentLocation="/products"
             productsQuantity={products.quantity}
-            take={take}
+            itemsPerPage={itemsPerPage}
           />
         </>
-      )}
+      ) : null}
     </div>
   );
 }

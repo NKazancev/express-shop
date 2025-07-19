@@ -9,11 +9,12 @@ type TPagination = {
   currentPage: number;
   currentLocation: string;
   productsQuantity: number;
-  take: number;
+  itemsPerPage: number;
 };
 
 const Pagination: FC<TPagination> = (props) => {
-  const { currentPage, currentLocation, productsQuantity, take } = props;
+  const { currentPage, currentLocation, productsQuantity, itemsPerPage } =
+    props;
 
   const navigate = useNavigate();
 
@@ -22,7 +23,7 @@ const Pagination: FC<TPagination> = (props) => {
     navigate(`${currentLocation}/page/${page}`);
   };
 
-  const pagesQuantity = Math.ceil(productsQuantity / take);
+  const pagesQuantity = Math.ceil(productsQuantity / itemsPerPage);
   const buttonsArray = Array.from({ length: pagesQuantity }, (_, i) => i + 1);
 
   const buttonsList = buttonsArray.map((btn, i) => {
