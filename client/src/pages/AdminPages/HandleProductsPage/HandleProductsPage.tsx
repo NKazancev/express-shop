@@ -12,9 +12,9 @@ import styles from './HandleProductsPage.module.css';
 const HandleProductsPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
-  const take = 10;
+  const itemsPerPage = 10;
 
-  const products = useProducts(currentPage, take, UserRole.ADMIN);
+  const products = useProducts(currentPage, itemsPerPage, UserRole.ADMIN);
 
   return (
     <div className={styles.container}>
@@ -31,7 +31,7 @@ const HandleProductsPage = () => {
             currentPage={currentPage}
             currentLocation="/admin/products"
             productsQuantity={products.quantity}
-            take={take}
+            itemsPerPage={itemsPerPage}
           />
         </>
       )}
