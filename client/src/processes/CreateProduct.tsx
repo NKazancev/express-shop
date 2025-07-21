@@ -17,9 +17,7 @@ function CreateProduct() {
 
   const [error, setError] = useState<string>();
 
-  const handleProductCreation = async (
-    data: Omit<TCreateProductData, 'id' | 'stock'>
-  ) => {
+  const handleProductCreation = async (data: TCreateProductData) => {
     const { image, images, ...rest } = data;
 
     try {

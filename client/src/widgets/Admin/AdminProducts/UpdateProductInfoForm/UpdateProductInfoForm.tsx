@@ -6,7 +6,7 @@ import { IProductData, TUpdateProductData } from '@shared/models/product';
 import Input from '@shared/ui/Input/Input';
 import Textarea from '@shared/ui/Textarea/Textarea';
 
-import styles from './UpdateProductForm.module.css';
+import styles from './UpdateProductInfoForm.module.css';
 
 type TUpdateProductInfoForm = {
   onProductUpdate: (data: TUpdateProductData) => void;

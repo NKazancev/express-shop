@@ -129,6 +129,22 @@ class ProductService {
     return updatedProduct;
   }
 
+  static async updateProductGallery(
+    productId: string,
+    image: string,
+    images: string[]
+  ) {
+    const updatedProduct = await prisma.product.update({
+      where: { id: productId },
+      data: { image },
+    });
+    await prisma.productGallery.update({
+      where: { productId },
+      data: { images },
+    });
+    return updatedProduct;
+  }
+
   static async deleteProduct(id: string) {
     return await prisma.$transaction(async (tx) => {
       await tx.productGallery.delete({ where: { productId: id } });

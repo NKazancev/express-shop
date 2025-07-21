@@ -11,19 +11,6 @@ const useProducts = (page: number, itemsPerPage: number, role: UserRole) => {
   const { searchQuery, productType, prices, brandFilters } = useAppSelector(
     (state) => state.filters
   );
-
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (pathname.includes('page')) {
-      const page = pathname.match(/\d+$/);
-      Number(page) > 1
-        ? navigate(`${pathname.replace(/\d+$/, '1')}`)
-        : navigate(`${pathname}`);
-    }
-  }, [searchQuery, productType, prices, brandFilters]);
-
   const skip = itemsPerPage * (page - 1);
 
   const queryArgs =
@@ -50,6 +37,15 @@ const useProducts = (page: number, itemsPerPage: number, role: UserRole) => {
   const { data: products } = useGetProductsQuery(queryArgs, {
     refetchOnMountOrArgChange: true,
   });
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (products?.data.length) {
+      navigate(`${pathname.replace(/\d+$/, '1')}`);
+    }
+  }, [searchQuery, productType, prices, brandFilters]);
 
   return products;
 };

@@ -62,6 +62,17 @@ const productApi = baseApi
         invalidatesTags: (__, _, { id }) => [{ type: 'Products', id }],
       }),
 
+      updateProductGallery: builder.mutation<IProduct, FormData>({
+        query: (data) => {
+          return {
+            url: `products/gallery`,
+            method: 'POST',
+            body: data,
+          };
+        },
+        invalidatesTags: ['Products'],
+      }),
+
       deleteProduct: builder.mutation<void, string>({
         query: (id) => ({
           url: `products/${id}`,
@@ -78,5 +89,6 @@ export const {
   useGetProductByIdQuery,
   useLazyGetProductByIdQuery,
   useUpdateProductMutation,
+  useUpdateProductGalleryMutation,
   useDeleteProductMutation,
 } = productApi;

@@ -11,14 +11,17 @@ export interface IProduct {
   stock: number;
 }
 
-export type TCreateProductData = Omit<IProduct, 'id'> & {
+export type TCreateProductData = Omit<IProduct, 'id' | 'stock'> & {
   images: FileList;
   text: string;
 };
 
-export type TUpdateProductData = Partial<
-  Pick<TCreateProductData, 'name' | 'description' | 'price' | 'text' | 'stock'>
->;
+export type TUpdateProductData = Pick<
+  IProduct,
+  'name' | 'description' | 'price' | 'stock'
+> & { text: string };
+
+export type TUpdateGalleryData = Pick<IProduct, 'image'> & { images: FileList };
 
 export interface IProductData extends IProduct {
   gallery: IProductGallery;

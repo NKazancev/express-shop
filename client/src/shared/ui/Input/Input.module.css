@@ -21,6 +21,11 @@
   font-weight: 400;
 }
 
+.input::-webkit-inner-spin-button,
+.input::-webkit-outer-spin-button {
+  appearance: none;
+}
+
 .error {
   color: var(--red);
   font-size: 11px;

@@ -60,6 +60,22 @@ class ProductController {
     res.status(200).json(updatedProduct);
   }
 
+  static async updateProductGallery(req: Request, res: Response) {
+    const parsedData = JSON.parse(req.body.data);
+    const { productId } = parsedData;
+
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const image = files['image']?.[0].filename;
+    const images = files['images']?.map((file) => file.filename);
+
+    const product = await ProductService.updateProductGallery(
+      productId,
+      image,
+      images
+    );
+    res.status(200).json(product);
+  }
+
   static async deleteProduct(req: Request, res: Response) {
     await ProductService.deleteProduct(req.params.id);
     res.status(204).json();

@@ -11,8 +11,10 @@ type TInputFile = {
   multiple?: boolean;
   file: FileList | string;
   register: UseFormRegister<any>;
+  required?: boolean;
   error?: FieldError;
   containerStyle?: CSSProperties;
+  previewPosition?: 'absolute' | 'static';
 };
 
 const InputFile: FC<TInputFile> = ({
@@ -21,10 +23,17 @@ const InputFile: FC<TInputFile> = ({
   multiple = false,
   file,
   register,
+  required = true,
   error,
   containerStyle,
+  previewPosition = 'absolute',
 }) => {
   const dataUrl = useFilePreview(file);
+
+  const previewStyle: CSSProperties =
+    previewPosition === 'static'
+      ? { position: 'static', paddingTop: '14px' }
+      : { position: 'absolute', top: '68px', left: '0px' };
 
   return (
     <div style={containerStyle} className={styles.container}>
@@ -39,18 +48,18 @@ const InputFile: FC<TInputFile> = ({
           id={name}
           multiple={multiple}
           className="visually-hidden"
-          {...register(name, { required: true })}
+          {...register(name, { required })}
         />
       </label>
 
       {!multiple && dataUrl.length === 1 && (
-        <div className={styles.preview}>
+        <div style={previewStyle}>
           <img src={dataUrl[0]} alt="preview-image" width={130} />
         </div>
       )}
 
-      {multiple && (
-        <div className={styles.previews}>
+      {multiple && dataUrl.length >= 1 && (
+        <div style={previewStyle} className={styles.previews}>
           {dataUrl?.map((url, index) => {
             return (
               <img key={index} src={url} alt="preview-image" width={100} />

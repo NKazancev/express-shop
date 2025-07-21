@@ -3,38 +3,40 @@ import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
-import {
-  useGetProductByIdQuery,
-  useUpdateProductMutation,
-} from '@shared/api/productApi';
-
-import UpdateProductForm from '@widgets/Admin/AdminProducts/UpdateProductForm/UpdateProductForm';
-import { TUpdateProductData } from '@shared/models/product';
+import { useUpdateProductGalleryMutation } from '@shared/api/productApi';
+import { TUpdateGalleryData } from '@shared/models/product';
+import UpdateProductGalleryForm from '@widgets/Admin/AdminProducts/UpdateProductGalleryForm/UpdateProductGalleryForm';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
 import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
-import styles from './ModalUpdateProduct.module.css';
+import styles from './ModalUpdateProductGallery.module.css';
 
 type TModalReview = {
   onClose: () => void;
   productId: string;
 };
 
-const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
-  const { data: productData, fulfilledTimeStamp } =
-    useGetProductByIdQuery(productId);
-  const [updateProduct, { isSuccess }] = useUpdateProductMutation();
+const ModalUpdateProductGallery: FC<TModalReview> = (props) => {
+  const { onClose, productId } = props;
 
+  const [updateProductGallery, { isSuccess }] =
+    useUpdateProductGalleryMutation();
   const [error, setError] = useState<string>();
 
-  const handleProductUpdate = async (data: TUpdateProductData) => {
+  const handleGalleryUpdate = async (data: TUpdateGalleryData) => {
     try {
-      const price = Number(data.price);
-      const stock = Number(data.stock);
-      await updateProduct({ id: productId, ...data, price, stock }).unwrap();
+      const { image, images } = data;
+      const formData = new FormData();
+      formData.append('data', JSON.stringify({ productId }));
+      formData.append('image', image[0]);
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i]);
+      }
+
+      await updateProductGallery(formData).unwrap();
     } catch (error) {
       if (isFetchBaseQueryError(error)) {
         const errorMessage = (error.data as { message: string }).message;
@@ -52,12 +54,10 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
   const content = (
     <Modal onClose={onClose}>
       <div className={styles.content}>
-        <h3 className={styles.title}>Update product info</h3>
+        <h3 className={styles.title}>Update gallery</h3>
 
-        <UpdateProductForm
-          key={`update-product-${fulfilledTimeStamp}`}
-          onProductUpdate={handleProductUpdate}
-          productData={productData}
+        <UpdateProductGalleryForm
+          updateGallery={handleGalleryUpdate}
           apiError={error}
         />
 
@@ -73,4 +73,4 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
   return modal;
 };
 
-export default ModalUpdateProduct;
+export default ModalUpdateProductGallery;

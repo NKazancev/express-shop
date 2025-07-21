@@ -12,7 +12,7 @@ import Select from '@shared/ui/Select/Select';
 import styles from './ProductForm.module.css';
 
 type TProductForm = {
-  createProduct: (data: Omit<TCreateProductData, 'id' | 'stock'>) => void;
+  createProduct: (data: TCreateProductData) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
   apiError?: string;
@@ -25,12 +25,12 @@ const ProductForm: FC<TProductForm> = ({
   apiError,
 }) => {
   const { handleSubmit, register, control, reset, watch, formState } =
-    useForm<Omit<TCreateProductData, 'id' | 'stock'>>();
+    useForm<TCreateProductData>();
   const { errors, isSubmitting } = formState;
 
   const [image, images] = watch(['image', 'images']);
 
-  const onSubmit = (data: Omit<TCreateProductData, 'id' | 'stock'>) => {
+  const onSubmit = (data: TCreateProductData) => {
     createProduct(data);
     reset();
   };
@@ -95,6 +95,7 @@ const ProductForm: FC<TProductForm> = ({
           error={errors.brandId}
         />
         <Input
+          type="number"
           name="price"
           label="Price"
           control={control}
