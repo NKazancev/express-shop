@@ -1,4 +1,5 @@
 import { KeyboardEvent, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { setSearchQuery } from '@shared/slices/filtersSlice';
@@ -7,12 +8,18 @@ import search from '@shared/assets/search-icon.svg';
 import styles from './SearchBar.module.css';
 
 const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState<string>('');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const [searchValue, setSearchValue] = useState<string>('');
 
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(setSearchQuery(searchValue));
+      if (searchValue !== '') {
+        navigate(`${pathname.replace(/\d+/, '1')}`);
+      }
     }, 1000);
     return () => clearTimeout(timer);
   }, [searchValue]);

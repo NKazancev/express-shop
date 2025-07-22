@@ -106,23 +106,24 @@ class UserService {
       const userAddress = await tx.address.findFirst({ where: { userId } });
       if (userAddress) await tx.address.delete({ where: { userId } });
 
-      const userOrders = await prisma.order.findMany({ where: { userId } });
-      if (userOrders) {
-        const undeliveredOrder = await prisma.order.findFirst({
-          where: {
-            status:
-              OrderStatus.PENDING ||
-              OrderStatus.ACCEPTED ||
-              OrderStatus.OUT_FOR_DELIVERY ||
-              OrderStatus.DELIVERED,
+      const undeliveredOrder = await prisma.order.findFirst({
+        where: {
+          userId,
+          status: {
+            in: [
+              OrderStatus.PENDING,
+              OrderStatus.ACCEPTED,
+              OrderStatus.OUT_FOR_DELIVERY,
+            ],
           },
-        });
-        if (undeliveredOrder) {
-          throw new ApiError(409, ErrorMessage.UNDELIVERED_ORDERS);
-        } else {
-          await tx.order.deleteMany({ where: { userId } });
-        }
+        },
+      });
+      if (undeliveredOrder) {
+        throw new ApiError(409, ErrorMessage.UNDELIVERED_ORDERS);
+      } else {
+        await tx.order.deleteMany({ where: { userId } });
       }
+
       await tx.user.delete({ where: { id: userId } });
     });
   }

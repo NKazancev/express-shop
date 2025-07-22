@@ -14,9 +14,21 @@
   font-weight: 700;
 }
 
-.search {
-  margin-bottom: 44px;
+.panel {
+  height: 42px;
+  margin-bottom: 41px;
 
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 430px 1fr;
+  align-items: start;
+}
+
+.total {
+  text-align: right;
+  text-decoration: underline;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
 }

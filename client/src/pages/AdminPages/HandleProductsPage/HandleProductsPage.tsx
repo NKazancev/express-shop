@@ -20,8 +20,9 @@ const HandleProductsPage = () => {
     <div className={styles.container}>
       <h2 className={styles.title}>Products list</h2>
 
-      <div className={styles.search}>
+      <div className={styles.panel}>
         <SearchBar />
+        <p className={styles.total}>Number of products: {products?.quantity}</p>
       </div>
 
       {products && (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useLazyGetBrandsQuery } from '@shared/api/brandApi';
 import { IBrandCheckbox, IProductBrand } from '@shared/models/typesbrands';
@@ -12,6 +13,9 @@ import styles from './BrandFilters.module.css';
 
 const BrandFilters = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
 
   const [checkboxes, setCheckboxes] = useState<IBrandCheckbox[] | []>(
@@ -46,6 +50,7 @@ const BrandFilters = () => {
     localStorage.setItem('brands', brands);
     localStorage.setItem('checkboxes', JSON.stringify(checkboxes));
     setDropdownVisible(false);
+    navigate(`${pathname.replace(/\d+/, '1')}`);
   };
 
   return (

@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router';
-
 import UserRole from '@config/userRoles';
 import { MAX_PRICE, MIN_PRICE } from '@config/consts';
 
@@ -37,15 +34,6 @@ const useProducts = (page: number, itemsPerPage: number, role: UserRole) => {
   const { data: products } = useGetProductsQuery(queryArgs, {
     refetchOnMountOrArgChange: true,
   });
-
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (products?.data.length) {
-      navigate(`${pathname.replace(/\d+$/, '1')}`);
-    }
-  }, [searchQuery, productType, prices, brandFilters]);
 
   return products;
 };

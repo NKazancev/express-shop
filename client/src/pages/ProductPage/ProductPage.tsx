@@ -1,4 +1,4 @@
-import { NavLink, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import { useGetProductByIdQuery } from '@shared/api/productApi';
 
@@ -15,11 +15,14 @@ const ProductPage = () => {
     refetchOnMountOrArgChange: true,
   });
 
+  const navigate = useNavigate();
+  const getPrevRoute = () => navigate(-1);
+
   return (
     <div className={styles.container}>
-      <NavLink to="/" className={styles.link}>
+      <button onClick={getPrevRoute} className={styles.link}>
         &#8592; back to the catalogue
-      </NavLink>
+      </button>
 
       <div className={styles.content}>
         {product?.gallery.images && (

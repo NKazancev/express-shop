@@ -3,7 +3,7 @@
   min-height: 70px;
 
   display: grid;
-  grid-template-columns: 70px 1fr 96px 174px 78px;
+  grid-template-columns: 70px 1fr 100px 174px 76px;
   align-items: center;
 }
 

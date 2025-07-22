@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 import { useGetTypesQuery } from '@shared/api/typeApi';
@@ -10,11 +11,13 @@ import styles from './TypeSelect.module.css';
 
 const TypeSelect = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const { data: productTypes } = useGetTypesQuery();
   const { productType } = useAppSelector((state) => state.filters);
 
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
-
   const toggleDropdown = () => setDropdownVisible((prev) => !prev);
   const closeDropdown = () => setDropdownVisible(false);
 
@@ -27,6 +30,7 @@ const TypeSelect = () => {
             dispatch(setProductType({ id, name }));
             localStorage.setItem('productType', JSON.stringify({ id, name }));
             setDropdownVisible(false);
+            navigate(`${pathname.replace(/\d+/, '1')}`);
           }}
           className={styles.listButton}
         >

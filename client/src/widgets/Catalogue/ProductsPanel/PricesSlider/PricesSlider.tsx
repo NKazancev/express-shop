@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 
 import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 import { setPrices } from '@shared/slices/filtersSlice';
@@ -11,6 +12,9 @@ import styles from './PricesSLider.module.css';
 
 const PricesSlider = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const { prices } = useAppSelector((state) => state.filters);
   const [values, setValues] = useState<number[]>(prices);
 
@@ -25,6 +29,7 @@ const PricesSlider = () => {
     dispatch(setPrices(values));
     localStorage.setItem('prices', JSON.stringify(values));
     closeDropdown();
+    navigate(`${pathname.replace(/\d+/, '1')}`);
   };
 
   return (
