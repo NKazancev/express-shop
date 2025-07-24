@@ -1,0 +1,30 @@
+.buttonsList {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.btn,
+.activeBtn {
+  width: 27px;
+  height: 27px;
+
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activeBtn {
+  border: 1px solid var(--greyBorder);
+  border-radius: 5px;
+}
+
+.dots {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+}

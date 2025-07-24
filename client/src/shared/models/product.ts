@@ -11,7 +11,10 @@ export interface IProduct {
   stock: number;
 }
 
-export type TCreateProductData = Omit<IProduct, 'id' | 'stock'> & {
+export type TCreateProductData = Pick<
+  IProduct,
+  'name' | 'description' | 'price' | 'brandId' | 'typeId' | 'image'
+> & {
   images: FileList;
   text: string;
 };
