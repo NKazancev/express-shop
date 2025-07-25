@@ -1,49 +1,23 @@
 import { FC, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
-import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
-
-import {
-  useGetProductByIdQuery,
-  useUpdateProductMutation,
-} from '@shared/api/productApi';
-
-import UpdateProductForm from '@widgets/Admin/AdminProducts/UpdateProductInfoForm/UpdateProductInfoForm';
-import { TUpdateProductData } from '@shared/models/product';
+import { PORTAL_CONTAINER_ID } from '@config/consts';
+import UpdateProductInfo from '@processes/UpdateProductInfo';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
-import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalUpdateProductInfo.module.css';
 
-type TModalReview = {
+type TModalUpdateProduct = {
   onClose: () => void;
   productId: string;
 };
 
-const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
-  const { data: productData, fulfilledTimeStamp } =
-    useGetProductByIdQuery(productId);
-  const [updateProduct, { isSuccess }] = useUpdateProductMutation();
+const ModalUpdateProduct: FC<TModalUpdateProduct> = (props) => {
+  const { onClose, productId } = props;
 
-  const [error, setError] = useState<string>();
-
-  const handleProductUpdate = async (data: TUpdateProductData) => {
-    try {
-      const price = Number(data.price);
-      const stock = Number(data.stock);
-      await updateProduct({ id: productId, ...data, price, stock }).unwrap();
-    } catch (error) {
-      if (isFetchBaseQueryError(error)) {
-        const errorMessage = (error.data as { message: string }).message;
-        setError(errorMessage);
-      } else if (isErrorWithMessage(error)) {
-        toast.error(error.message);
-      }
-    }
-  };
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (isSuccess) onClose();
@@ -54,12 +28,7 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Update info</h3>
 
-        <UpdateProductForm
-          key={`update-product-${fulfilledTimeStamp}`}
-          onProductUpdate={handleProductUpdate}
-          productData={productData}
-          apiError={error}
-        />
+        <UpdateProductInfo productId={productId} setIsSuccess={setIsSuccess} />
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />
@@ -69,7 +38,6 @@ const ModalUpdateProduct: FC<TModalReview> = ({ onClose, productId }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 

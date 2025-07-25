@@ -16,12 +16,14 @@ const ProductPanel: FC<TProductPanel> = (props) => {
   const { id, name, price, reviews, stock } = props;
 
   const { isLogged } = useAppSelector((state) => state.user);
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [modalLoginVisible, setModalLoginVisible] = useState<boolean>(false);
+  const hideModal = () => setModalLoginVisible(false);
+
   const [createCartProduct] = useCreateCartProductMutation();
 
   const addProductToCart = async () => {
     if (!isLogged) {
-      setModalVisible(true);
+      setModalLoginVisible(true);
       return;
     }
     try {
@@ -30,8 +32,6 @@ const ProductPanel: FC<TProductPanel> = (props) => {
       console.log(error);
     }
   };
-
-  const hideModal = () => setModalVisible(false);
 
   return (
     <div className={styles.container}>
@@ -61,7 +61,7 @@ const ProductPanel: FC<TProductPanel> = (props) => {
         Add to cart
       </button>
 
-      {modalVisible && <ModalLogin onClose={hideModal} />}
+      {modalLoginVisible && <ModalLogin onClose={hideModal} />}
     </div>
   );
 };

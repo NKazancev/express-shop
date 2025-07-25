@@ -1,11 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
-import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
-
-import { useChangePasswordMutation } from '@shared/api/userApi';
-import { IPasswordData } from '@shared/models/user';
-import ChangePasswordForm from '@widgets/User/UserInfo/ChangePasswordForm/ChangePasswordForm';
+import ChangePassword from '@processes/ChangePassword';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
@@ -19,21 +14,7 @@ type TModalPassword = {
 };
 
 const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
-  const [changePassword, { isSuccess }] = useChangePasswordMutation();
-  const [error, setError] = useState<string>();
-
-  const handlePasswordChange = async (data: IPasswordData) => {
-    try {
-      await changePassword({ ...data }).unwrap();
-    } catch (error) {
-      if (isFetchBaseQueryError(error)) {
-        const errorMessage = (error.data as { message: string }).message;
-        setError(errorMessage);
-      } else if (isErrorWithMessage(error)) {
-        toast.error(error.message);
-      }
-    }
-  };
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     if (isSuccess) onClose();
@@ -44,10 +25,7 @@ const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Change password</h3>
 
-        <ChangePasswordForm
-          onPasswordChange={handlePasswordChange}
-          apiError={error}
-        />
+        <ChangePassword setIsSuccess={setIsSuccess} />
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />
@@ -57,7 +35,6 @@ const ModalPassword: FC<TModalPassword> = ({ onClose }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 

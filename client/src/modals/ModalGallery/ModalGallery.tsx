@@ -8,13 +8,13 @@ import arrowLeft from '@shared/assets/gallery-arrow-left.svg';
 import arrowRight from '@shared/assets/gallery-arrow-right.svg';
 import styles from './ModalGallery.module.css';
 
-type TModalImage = {
+type TModalGallery = {
   onClose: () => void;
   images: string[];
   imageUrl: string;
 };
 
-const ModalImage: FC<TModalImage> = ({ onClose, images, imageUrl }) => {
+const ModalGallery: FC<TModalGallery> = ({ onClose, images, imageUrl }) => {
   const [allImages, setAllImages] = useState<string[]>();
   const [visibleImage, setVisibleImage] = useState<string>(imageUrl);
 
@@ -35,6 +35,7 @@ const ModalImage: FC<TModalImage> = ({ onClose, images, imageUrl }) => {
       }
     }
   };
+
   const showNextImage = () => {
     if (allImages) {
       const visibleImageIndex = allImages.indexOf(visibleImage);
@@ -68,8 +69,7 @@ const ModalImage: FC<TModalImage> = ({ onClose, images, imageUrl }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 
-export default ModalImage;
+export default ModalGallery;

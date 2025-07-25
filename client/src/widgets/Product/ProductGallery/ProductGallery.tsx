@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useState } from 'react';
 
 import { STATIC_URL } from '@config/consts';
-import ModalImage from '@modals/ModalGallery/ModalGallery';
+import ModalGallery from '@modals/ModalGallery/ModalGallery';
 
 import styles from './ProductGallery.module.css';
 
@@ -45,7 +45,7 @@ const ProductGallery: FC<TProductGallery> = ({ images }) => {
       </div>
 
       {modalGallery && (
-        <ModalImage
+        <ModalGallery
           onClose={closeGallery}
           images={images}
           imageUrl={mainImageUrl}

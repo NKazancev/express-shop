@@ -19,10 +19,9 @@ export type TCreateProductData = Pick<
   text: string;
 };
 
-export type TUpdateProductData = Pick<
-  IProduct,
-  'name' | 'description' | 'price' | 'stock'
-> & { text: string };
+export type TUpdateProductData = Partial<
+  Pick<IProduct, 'name' | 'description' | 'price' | 'stock'> & { text: string }
+>;
 
 export type TUpdateGalleryData = Pick<IProduct, 'image'> & { images: FileList };
 

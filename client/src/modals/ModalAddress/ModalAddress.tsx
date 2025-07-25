@@ -1,16 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 
-import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
-
-import {
-  useCreateAddressMutation,
-  useGetAddressQuery,
-  useUpdateAddressMutation,
-} from '@shared/api/addressApi';
-
-import { IAddress } from '@shared/models/address';
-import HandleAddressForm from '@widgets/User/UserInfo/HandleAddressForm.tsx/HandleAddressForm';
+import HandleAddress from '@processes/HandleAddress';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
@@ -25,36 +15,13 @@ type TModalAddress = {
 };
 
 const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
-  const [createAddress, { isSuccess: created }] = useCreateAddressMutation();
-  const [updateAddress, { isSuccess: updated }] = useUpdateAddressMutation();
-  const { data: address, refetch } = useGetAddressQuery();
-
-  const [error, setError] = useState<string>();
-
-  const handleAddress = async (data: Omit<IAddress, 'id'>) => {
-    try {
-      if (!isUpdate) {
-        await createAddress({ ...data }).unwrap();
-      }
-      if (isUpdate && address) {
-        await updateAddress({ id: address.id, ...data }).unwrap();
-      }
-    } catch (error) {
-      if (isFetchBaseQueryError(error)) {
-        const errorMessage = (error.data as { message: string }).message;
-        setError(errorMessage);
-      } else if (isErrorWithMessage(error)) {
-        toast.error(error.message);
-      }
-    }
-  };
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
-    if (created || updated) {
+    if (isSuccess) {
       onClose();
-      refetch();
     }
-  }, [created, updated]);
+  }, [isSuccess]);
 
   const content = (
     <Modal onClose={onClose}>
@@ -63,21 +30,8 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
           {!isUpdate ? 'Add address' : 'Update address'}
         </h3>
 
-        {!address && (
-          <HandleAddressForm
-            handleAddress={handleAddress}
-            isUpdate={isUpdate}
-            apiError={error}
-          />
-        )}
-        {address && (
-          <HandleAddressForm
-            handleAddress={handleAddress}
-            isUpdate={isUpdate}
-            address={address}
-            apiError={error}
-          />
-        )}
+        <HandleAddress isUpdate={isUpdate} setIsSuccess={setIsSuccess} />
+
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />
         </button>
@@ -86,7 +40,6 @@ const ModalAddress: FC<TModalAddress> = ({ onClose, isUpdate }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 
