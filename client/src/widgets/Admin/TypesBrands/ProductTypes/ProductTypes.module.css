@@ -1,4 +1,12 @@
-.country {
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 16px;
+  row-gap: 13px;
+}
+
+.type {
   padding: 10px 12px 10px 16px;
   border: 1px solid var(--greyBorder);
   border-radius: 5px;

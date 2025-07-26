@@ -3,18 +3,19 @@ import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
-import { useCreateCityMutation } from '@shared/api/cityApi';
 import { ICity } from '@shared/models/country';
+import { useCreateCityMutation } from '@shared/api/cityApi';
 import useCitiesOptions from '@shared/hooks/useCitiesOptions';
 
 import CityForm from '@widgets/Admin/CountriesCities/CityForm/CityForm';
-import CitiesList from '@widgets/Admin/CountriesCities/CitiesList/CitiesList';
+import DeliveryCities from '@widgets/Admin/CountriesCities/DeliveryCities/DeliveryCities';
 
 const CreateDeliveryCity = () => {
   const [createCity] = useCreateCityMutation();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [countryId, setCountryId] = useState<string>('');
-  const cities = useCitiesOptions(countryId, isSuccess);
+
+  const citiesList = useCitiesOptions(countryId, isSuccess);
 
   const [error, setError] = useState<string>();
 
@@ -43,7 +44,7 @@ const CreateDeliveryCity = () => {
         setCountryId={setCountryId}
         apiError={error}
       />
-      <CitiesList cities={cities} setIsSuccess={setIsSuccess} />
+      <DeliveryCities citiesList={citiesList} setIsSuccess={setIsSuccess} />
     </div>
   );
 };

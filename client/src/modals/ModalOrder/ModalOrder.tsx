@@ -38,7 +38,6 @@ const ModalOrderInfo: FC<TModalOrder> = ({ onClose, orderId }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 

@@ -1,27 +1,17 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router';
-
-import { useDeleteReviewMutation } from '@shared/api/reviewApi';
-import { IUserReview } from '@shared/models/review';
 import { Rating } from 'react-simple-star-rating';
 
-import xbutton from '@shared/assets/x-button.svg';
+import DeleteProductReview from '@processes/DeleteProductReview';
+import { IUserReview } from '@shared/models/review';
+
 import styles from './UserReview.module.css';
 
 const UserReview: FC<IUserReview> = (review) => {
   const { id, productId, product, title, rate, text } = review;
-  const [deleteReview] = useDeleteReviewMutation();
 
   const navigate = useNavigate();
   const showProductPage = () => navigate(`/products/${productId}`);
-
-  const handleReviewDelete = async () => {
-    try {
-      await deleteReview(id).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <li className={styles.review}>
@@ -51,13 +41,7 @@ const UserReview: FC<IUserReview> = (review) => {
         <p className={styles.text}>{text}</p>
       </article>
 
-      <button
-        type="button"
-        onClick={handleReviewDelete}
-        className={styles.button}
-      >
-        <img src={xbutton} alt="x" width={13} />
-      </button>
+      <DeleteProductReview reviewId={id} />
     </li>
   );
 };

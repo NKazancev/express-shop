@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import toast from 'react-hot-toast';
 
 import { useUpdateProductMutation } from '@shared/api/productApi';
 
@@ -16,7 +17,7 @@ const StockCounter: FC<TStockCounter> = ({ id, stock }) => {
     try {
       await updateProduct({ id, stock: stock + 1 }).unwrap();
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong');
     }
   };
 
@@ -24,7 +25,7 @@ const StockCounter: FC<TStockCounter> = ({ id, stock }) => {
     try {
       await updateProduct({ id, stock: stock - 1 }).unwrap();
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong');
     }
   };
 

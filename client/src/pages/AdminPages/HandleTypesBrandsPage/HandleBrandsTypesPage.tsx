@@ -1,7 +1,7 @@
 import CreateProductBrand from '@processes/CreateProductBrand';
 import CreateProductType from '@processes/CreateProductType';
-import TypesList from '@widgets/Admin/TypesBrands/TypesList/TypesList';
-import BrandsList from '@widgets/Admin/TypesBrands/BrandsList/BrandsList';
+import TypesList from '@widgets/Admin/TypesBrands/ProductTypes/ProductTypes';
+import BrandsList from '@widgets/Admin/TypesBrands/ProductBrands/ProductBrands';
 
 import styles from './HandleBrandsTypesPage.module.css';
 

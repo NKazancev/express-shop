@@ -1,10 +1,10 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router';
 
 import { ICartProduct } from '@shared/models/cart';
+import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 
 import styles from './CartTotal.module.css';
-import { useNavigate } from 'react-router';
-import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 
 type TCartTotal = {
   items?: ICartProduct[];

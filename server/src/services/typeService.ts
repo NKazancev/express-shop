@@ -17,14 +17,18 @@ class TypeService {
     return types;
   }
 
-  static async deleteType(id: string) {
+  static async deleteType(typeId: string) {
+    const foundType = await prisma.productType.findFirst({
+      where: { id: typeId },
+    });
+    if (!foundType) {
+      throw new ApiError(400, ErrorMessage.PRODUCT_TYPE_NOT_FOUND);
+    }
     const hasProducts = await prisma.product.findFirst({
-      where: { typeId: id },
+      where: { typeId },
     });
-    if (hasProducts) throw new ApiError(400, ErrorMessage.BAD_REQUEST);
-    await prisma.productType.delete({ where: { id } }).catch(() => {
-      throw new ApiError(404, ErrorMessage.PRODUCT_TYPE_NOT_FOUND);
-    });
+    if (hasProducts) throw new ApiError(409, ErrorMessage.TYPE_CONFLICT);
+    await prisma.productType.delete({ where: { id: typeId } });
   }
 }
 

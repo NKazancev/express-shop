@@ -17,14 +17,18 @@ class BrandService {
     return brands;
   }
 
-  static async deleteBrand(id: string) {
+  static async deleteBrand(brandId: string) {
+    const foundBrand = await prisma.productBrand.findFirst({
+      where: { id: brandId },
+    });
+    if (!foundBrand) {
+      throw new ApiError(400, ErrorMessage.PRODUCT_BRAND_NOT_FOUND);
+    }
     const hasProducts = await prisma.product.findFirst({
-      where: { brandId: id },
+      where: { brandId },
     });
-    if (hasProducts) throw new ApiError(400, ErrorMessage.BAD_REQUEST);
-    await prisma.productBrand.delete({ where: { id } }).catch(() => {
-      throw new ApiError(404, ErrorMessage.PRODUCT_BRAND_NOT_FOUND);
-    });
+    if (hasProducts) throw new ApiError(409, ErrorMessage.BRAND_CONFLICT);
+    await prisma.productBrand.delete({ where: { id: brandId } });
   }
 }
 

@@ -7,6 +7,7 @@ import { useCreateCountryMutation } from '@shared/api/countryApi';
 import { ICountry } from '@shared/models/country';
 
 import CountryForm from '@widgets/Admin/CountriesCities/CountryForm/CountryForm';
+import DeliveryCountries from '@widgets/Admin/CountriesCities/DeliveryCountries/DeliveryCountries';
 
 const CreateDeliveryCountry = () => {
   const [createCountry] = useCreateCountryMutation();
@@ -28,10 +29,13 @@ const CreateDeliveryCountry = () => {
   };
 
   return (
-    <CountryForm
-      createDeliveryCountry={handleCountryCreation}
-      apiError={error}
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', rowGap: '40px' }}>
+      <CountryForm
+        createDeliveryCountry={handleCountryCreation}
+        apiError={error}
+      />
+      <DeliveryCountries />
+    </div>
   );
 };
 

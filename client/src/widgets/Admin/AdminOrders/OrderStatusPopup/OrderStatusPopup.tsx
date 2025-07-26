@@ -1,7 +1,8 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { OrderStatus, orderStatusesData } from '@config/orderStatus';
-import { useUpdateOrderStatusMutation } from '@shared/api/orderApi';
+import UpdateOrderStatus from '@processes/UpdateOrderStatus';
+
 import Popup from '@shared/ui/Popup/Popup';
 
 import styles from './OrderStatusPopup.module.css';
@@ -12,34 +13,19 @@ type TOrderStatusPopup = {
   onClose: () => void;
 };
 
-const OrderStatusPopup: FC<TOrderStatusPopup> = ({
-  orderId,
-  orderStatus,
-  onClose,
-}) => {
+const OrderStatusPopup: FC<TOrderStatusPopup> = (props) => {
+  const { orderId, orderStatus, onClose } = props;
+
   const [status, setStatus] = useState<OrderStatus>(orderStatus);
-  const [updateOrderStatus, { isSuccess }] = useUpdateOrderStatusMutation();
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const changeStatus = (e: ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value as OrderStatus);
   };
 
-  const handleOrderStatus = async () => {
-    try {
-      await updateOrderStatus({ id: orderId, status }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (isSuccess) onClose();
-  }, [isSuccess]);
-
   const statusOptions = orderStatusesData.map(({ id, value, name }) => {
     const statusId = `{status-${value}${orderId}}`;
     const optionClass = value === status ? styles.activeOption : '';
-
     return (
       <li key={id} className={optionClass}>
         <input
@@ -58,18 +44,21 @@ const OrderStatusPopup: FC<TOrderStatusPopup> = ({
     );
   });
 
+  useEffect(() => {
+    if (isSuccess) onClose();
+  }, [isSuccess]);
+
   return (
     <Popup onClose={onClose}>
       <div className={styles.container}>
         <ul className={styles.list}>{statusOptions}</ul>
 
-        <button
-          type="button"
-          onClick={handleOrderStatus}
-          className={styles.button}
-        >
-          Confirm
-        </button>
+        <UpdateOrderStatus
+          orderId={orderId}
+          status={status}
+          setIsSuccess={setIsSuccess}
+          buttonStyle={styles.button}
+        />
       </div>
     </Popup>
   );

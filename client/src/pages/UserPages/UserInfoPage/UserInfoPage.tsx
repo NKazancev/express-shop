@@ -14,9 +14,7 @@ const UserInfoPage = () => {
 
       {userInfo && <UserInfo {...userInfo} />}
 
-      <div className={styles.button}>
-        <DeleteUser />
-      </div>
+      <DeleteUser buttonStyle={styles.button} />
     </div>
   );
 };

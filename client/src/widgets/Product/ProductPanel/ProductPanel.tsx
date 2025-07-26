@@ -1,10 +1,9 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+
+import CreateCartProduct from '@processes/CreateCartProduct';
 
 import { IProductData } from '@shared/models/product';
-import { useAppSelector } from '@shared/hooks/reduxHooks';
-import { useCreateCartProductMutation } from '@shared/api/cartApi';
 import ProductRating from './ProductRating/ProductRating';
-import ModalLogin from '@modals/ModalLogin/ModalLogin';
 
 import styles from './ProductPanel.module.css';
 
@@ -15,33 +14,14 @@ type TProductPanel = Partial<
 const ProductPanel: FC<TProductPanel> = (props) => {
   const { id, name, price, reviews, stock } = props;
 
-  const { isLogged } = useAppSelector((state) => state.user);
-  const [modalLoginVisible, setModalLoginVisible] = useState<boolean>(false);
-  const hideModal = () => setModalLoginVisible(false);
-
-  const [createCartProduct] = useCreateCartProductMutation();
-
-  const addProductToCart = async () => {
-    if (!isLogged) {
-      setModalLoginVisible(true);
-      return;
-    }
-    try {
-      await createCartProduct({ productId: id, quantity: 1 }).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
+  const statusColor = {
+    backgroundColor: stock && stock > 0 ? '#8cab9b' : '#f97a7a',
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.status}>
-        <span
-          className={styles.circle}
-          style={{
-            backgroundColor: stock && stock > 0 ? '#8cab9b' : '#f97a7a',
-          }}
-        ></span>
+        <span className={styles.circle} style={statusColor}></span>
         <span>{stock && stock > 0 ? 'In stock' : 'Out of stock'}</span>
       </div>
 
@@ -53,15 +33,7 @@ const ProductPanel: FC<TProductPanel> = (props) => {
 
       <span className={styles.price}>Price: {price} &#8381;</span>
 
-      <button
-        type="button"
-        onClick={addProductToCart}
-        className={styles.button}
-      >
-        Add to cart
-      </button>
-
-      {modalLoginVisible && <ModalLogin onClose={hideModal} />}
+      <CreateCartProduct productId={id} buttonStyle={styles.button} />
     </div>
   );
 };

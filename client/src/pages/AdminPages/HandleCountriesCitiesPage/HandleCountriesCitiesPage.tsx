@@ -1,5 +1,4 @@
 import CreateDeliveryCountry from '@processes/CreateDeliveryCountry';
-import CountriesList from '@widgets/Admin/CountriesCities/CountriesList/CountriesList';
 import CreateDeliveryCity from '@processes/CreateDeliveryCity';
 
 import styles from './HandleCountriesCitiesPage.module.css';
@@ -10,11 +9,7 @@ const HandleCountriesCitiesPage = () => {
       <h2 className={styles.title}>Delivery countries and cities</h2>
 
       <div className={styles.content}>
-        <div className={styles.country}>
-          <CreateDeliveryCountry />
-          <CountriesList />
-        </div>
-
+        <CreateDeliveryCountry />
         <CreateDeliveryCity />
       </div>
     </div>

@@ -7,10 +7,9 @@ import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 import { useDeleteUserMutation } from '@shared/api/userApi';
 import { useLogoutMutation } from '@shared/api/authApi';
 
-import DeleteProfileButton from '@widgets/User/UserInfo/DeleteProfileButton/DeleteProfileButton';
 import Confirmation from '@shared/ui/Confirmation/Confirmation';
 
-const DeleteUser = () => {
+const DeleteUser = ({ buttonStyle }: { buttonStyle: string }) => {
   const [deleteUser, { isSuccess }] = useDeleteUserMutation();
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
@@ -47,8 +46,10 @@ const DeleteUser = () => {
   };
 
   return (
-    <>
-      <DeleteProfileButton onProfileDelete={showConfirmation} />
+    <div>
+      <button type="button" onClick={showConfirmation} className={buttonStyle}>
+        <span>Delete profile</span>
+      </button>
 
       {confirmationVisible && (
         <Confirmation
@@ -57,7 +58,7 @@ const DeleteUser = () => {
           onClose={hideConfirmation}
         />
       )}
-    </>
+    </div>
   );
 };
 

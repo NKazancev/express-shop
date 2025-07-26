@@ -1,12 +1,12 @@
 import { FC, useEffect } from 'react';
 import { NavLink } from 'react-router';
 
-import { useAppSelector } from '@shared/hooks/reduxHooks';
+import { PORTAL_CONTAINER_ID } from '@config/consts';
 import LoginUser from '@processes/LoginUser';
 
-import Modal from '@shared/ui/Modal/Modal';
+import { useAppSelector } from '@shared/hooks/reduxHooks';
 import usePortal from '@shared/hooks/usePortal';
-import { PORTAL_CONTAINER_ID } from '@config/consts';
+import Modal from '@shared/ui/Modal/Modal';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalLogin.module.css';
@@ -44,7 +44,6 @@ const ModalLogin: FC<TModalLogin> = ({ onClose }) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import toast from 'react-hot-toast';
 
 import { useUpdateCartProductMutation } from '@shared/api/cartApi';
 
@@ -17,7 +18,7 @@ const CartProductCounter: FC<TCartProductCounter> = ({ id, quantity }) => {
       if (quantity)
         await updateCartProduct({ id, quantity: quantity + 1 }).unwrap();
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong');
     }
   };
 
@@ -26,7 +27,7 @@ const CartProductCounter: FC<TCartProductCounter> = ({ id, quantity }) => {
       if (quantity)
         await updateCartProduct({ id, quantity: quantity - 1 }).unwrap();
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong');
     }
   };
 

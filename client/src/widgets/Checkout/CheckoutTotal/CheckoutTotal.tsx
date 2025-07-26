@@ -1,45 +1,26 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form';
-import toast from 'react-hot-toast';
 
-import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
+import CreateOrder from '@processes/CreateOrder';
 
 import { ICartProduct } from '@shared/models/cart';
 import { ICreateOrderData } from '@shared/models/order';
 import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
-import { useCreateOrderMutation } from '@shared/api/orderApi';
 
 import styles from './CheckoutTotal.module.css';
 
 type TCheckoutTotal = {
   items?: ICartProduct[];
   handleSubmit: UseFormHandleSubmit<ICreateOrderData>;
-  setError: (data: string) => void;
+  setError: Dispatch<SetStateAction<string>>;
   isSubmitting: boolean;
 };
 
-const CheckoutTotal: FC<TCheckoutTotal> = ({
-  items,
-  handleSubmit,
-  setError,
-  isSubmitting,
-}) => {
+const CheckoutTotal: FC<TCheckoutTotal> = (props) => {
+  const { items, handleSubmit, setError, isSubmitting } = props;
+
   const itemsQuantity = useCartItemsCount(items);
   const totalPrice = useCartTotalPrice(items);
-  const [createOrder] = useCreateOrderMutation();
-
-  const onOrderCreation = async (data: ICreateOrderData) => {
-    try {
-      await createOrder({ ...data }).unwrap();
-    } catch (error) {
-      if (isFetchBaseQueryError(error)) {
-        const errorMessage = (error.data as { message: string }).message;
-        setError(errorMessage);
-      } else if (isErrorWithMessage(error)) {
-        toast.error(error.message);
-      }
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -55,14 +36,12 @@ const CheckoutTotal: FC<TCheckoutTotal> = ({
         <span>&#8381; {totalPrice}</span>
       </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        onClick={handleSubmit(onOrderCreation)}
-        className={styles.button}
-      >
-        Proceed to payment
-      </button>
+      <CreateOrder
+        handleSubmit={handleSubmit}
+        setError={setError}
+        isSubmitting={isSubmitting}
+        buttonStyle={styles.button}
+      />
     </div>
   );
 };
