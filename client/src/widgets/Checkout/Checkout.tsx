@@ -32,7 +32,7 @@ const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
   );
 
   const { errors, isSubmitting } = formState;
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     reset(formData);

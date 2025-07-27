@@ -1,6 +1,14 @@
 .form {
   width: 100%;
 
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
   display: grid;
   grid-template-columns: 360px 246px;
   column-gap: 22px;
