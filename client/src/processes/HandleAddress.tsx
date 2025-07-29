@@ -1,8 +1,10 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import baseApi from '@config/baseApi';
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
 import { IAddress } from '@shared/models/address';
 import {
   useCreateAddressMutation,
@@ -20,7 +22,9 @@ type THandleAddress = {
 const HandleAddress: FC<THandleAddress> = ({ setIsSuccess, isUpdate }) => {
   const [createAddress, { isSuccess: created }] = useCreateAddressMutation();
   const [updateAddress, { isSuccess: updated }] = useUpdateAddressMutation();
+
   const { data: address, refetch } = useGetAddressQuery();
+  const dispatch = useAppDispatch();
 
   const [error, setError] = useState<string>();
 
@@ -28,9 +32,11 @@ const HandleAddress: FC<THandleAddress> = ({ setIsSuccess, isUpdate }) => {
     try {
       if (!isUpdate) {
         await createAddress({ ...data }).unwrap();
+        dispatch(baseApi.util.invalidateTags(['Users']));
       }
       if (isUpdate && address) {
         await updateAddress({ id: address.id, ...data }).unwrap();
+        dispatch(baseApi.util.invalidateTags(['Users']));
       }
     } catch (error) {
       if (isFetchBaseQueryError(error)) {

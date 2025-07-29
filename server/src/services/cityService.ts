@@ -11,10 +11,9 @@ class CityService {
       },
     });
     if (foundCity) throw new ApiError(409, ErrorMessage.CITY_EXISTS);
-    const city = await prisma.deliveryCity.create({
+    return await prisma.deliveryCity.create({
       data: { name, countryId },
     });
-    return city;
   }
 
   static async getAllCitiesByCountryId(countryId: string) {
@@ -35,7 +34,7 @@ class CityService {
   static async deleteCity(cityId: string) {
     const city = await prisma.deliveryCity.findFirst({ where: { id: cityId } });
     if (!city) throw new ApiError(404, ErrorMessage.CITY_NOT_FOUND);
-    await prisma.deliveryCity.delete({ where: { id: cityId } });
+    return await prisma.deliveryCity.delete({ where: { id: cityId } });
   }
 }
 

@@ -2,13 +2,14 @@ import { Request, Response } from 'express';
 
 import { ProductTypeSchema } from '../schema/productSchema';
 import TypeService from '../services/typeService';
+import ResMessage from '../config/resMessage';
 
 class TypeController {
   static async createType(req: Request, res: Response) {
     ProductTypeSchema.parse(req.body);
     const { name } = req.body;
-    const type = await TypeService.createType(name);
-    res.status(201).json(type);
+    await TypeService.createType(name);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getAllTypes(req: Request, res: Response) {

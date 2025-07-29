@@ -19,19 +19,19 @@ const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
   const { isLogged } = useAppSelector((state) => state.user);
   const [trigger] = useLazyGetUserReviewQuery();
   const [userReview, setUserReview] = useState<IProductReview | null>();
+
   const [modalVisible, setModalVisible] = useState<boolean>();
+  const showModal = () => setModalVisible(true);
+  const hideModal = () => {
+    setModalVisible(false);
+    trigger(productId).then((res) => setUserReview(res.data));
+  };
 
   useEffect(() => {
     if (!isLogged) setUserReview(null);
     if (isLogged && !userReview && productId)
       trigger(productId).then((res) => setUserReview(res.data));
   }, [isLogged, userReview, productId]);
-
-  const showModal = () => setModalVisible(true);
-  const hideModal = () => {
-    setModalVisible(false);
-    trigger(productId).then((res) => setUserReview(res.data));
-  };
 
   return (
     <div className={styles.container}>
@@ -40,7 +40,7 @@ const ProductReviews: FC<TProductReviews> = ({ reviews, productId }) => {
         isUserReview={Boolean(userReview)}
         onAddButtonClick={showModal}
       />
-      <ReviewsList reviews={reviews} userReview={userReview} />
+      {reviews && <ReviewsList reviews={reviews} userReview={userReview} />}
 
       {modalVisible && (
         <ModalReview onClose={hideModal} productId={productId} />

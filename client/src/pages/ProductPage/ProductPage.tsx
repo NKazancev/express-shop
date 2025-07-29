@@ -28,7 +28,7 @@ const ProductPage = () => {
         {product?.gallery.images && (
           <ProductGallery images={product?.gallery.images} />
         )}
-        <ProductPanel {...product} />
+        {product && <ProductPanel {...product} />}
       </div>
 
       <div className={styles.info}>

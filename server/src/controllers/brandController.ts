@@ -2,13 +2,14 @@ import { Request, Response } from 'express';
 
 import { ProductBrandSchema } from '../schema/productSchema';
 import BrandService from '../services/brandService';
+import ResMessage from '../config/resMessage';
 
 class ProductBrandController {
   static async createBrand(req: Request, res: Response) {
     ProductBrandSchema.parse(req.body);
     const { name } = req.body;
-    const brand = await BrandService.createBrand(name);
-    res.status(201).json(brand);
+    await BrandService.createBrand(name);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getAllBrands(req: Request, res: Response) {

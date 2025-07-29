@@ -10,7 +10,7 @@ class ReviewService {
     productId: string,
     userId: string
   ) {
-    const review = await prisma.productReview.create({
+    return await prisma.productReview.create({
       data: {
         title,
         text,
@@ -19,35 +19,35 @@ class ReviewService {
         userId,
       },
     });
-    return review;
   }
 
   static async getAllUserReviews(userId: string) {
     const reviews = await prisma.productReview.findMany({
       where: { userId },
       include: { product: { select: { name: true } } },
+      omit: { userId: true },
     });
     return reviews;
   }
 
   static async getUserReview(userId: string, productId: string) {
-    const foundReview = await prisma.productReview.findFirst({
+    const userReview = await prisma.productReview.findFirst({
       where: { userId, productId },
       include: { user: { select: { username: true } } },
+      omit: { userId: true },
     });
-    return foundReview;
+    return userReview;
   }
 
   static async deleteReview(userId: string, reviewId: string) {
     const review = await prisma.productReview.findFirst({
       where: { id: reviewId },
     });
+    if (!review) throw new ApiError(404, ErrorMessage.REVIEW_NOT_FOUND);
     if (review?.userId !== userId) {
       throw new ApiError(403, ErrorMessage.FORBIDDEN);
     }
-    await prisma.productReview.delete({ where: { id: reviewId } }).catch(() => {
-      throw new ApiError(404, ErrorMessage.REVIEW_NOT_FOUND);
-    });
+    return await prisma.productReview.delete({ where: { id: reviewId } });
   }
 }
 

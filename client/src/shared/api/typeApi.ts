@@ -5,7 +5,7 @@ const typeApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Types'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createType: builder.mutation<IProductType, string>({
+      createType: builder.mutation<{ message: string }, string>({
         query: (name) => ({
           url: 'types',
           method: 'POST',

@@ -13,28 +13,28 @@ class CartService {
     });
     if (!foundProduct) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
 
-    let cartProduct;
-
     const foundCartProduct = await prisma.cartProduct.findFirst({
       where: { productId, userId },
     });
     if (!foundCartProduct) {
-      cartProduct = await prisma.cartProduct.create({
+      return await prisma.cartProduct.create({
         data: { quantity, productId, userId },
       });
     } else {
-      cartProduct = await prisma.cartProduct.update({
+      return await prisma.cartProduct.update({
         where: { id: foundCartProduct.id },
         data: { quantity: foundCartProduct.quantity + quantity },
       });
     }
-    return cartProduct;
   }
 
   static async getCartProducts(userId: string) {
     const cartProducts = await prisma.cartProduct.findMany({
       where: { userId },
-      include: { product: true },
+      include: {
+        product: { select: { image: true, name: true, price: true } },
+      },
+      omit: { userId: true, productId: true },
     });
     return cartProducts;
   }
@@ -50,11 +50,10 @@ class CartService {
     if (cartProduct?.userId !== userId) {
       throw new ApiError(403, ErrorMessage.FORBIDDEN);
     }
-    const updatedCartProduct = await prisma.cartProduct.update({
+    return await prisma.cartProduct.update({
       where: { id: cartProductId },
       data: { quantity },
     });
-    return updatedCartProduct;
   }
 
   static async deleteCartProduct(cartProductId: string, userId: string) {

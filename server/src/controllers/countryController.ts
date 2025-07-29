@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import CountryService from '../services/countryService';
 import { DeliveryCountrySchema } from '../schema/countrySchema';
+import ResMessage from '../config/resMessage';
 
 class CountryController {
   static async createCountry(req: Request, res: Response) {
     DeliveryCountrySchema.parse(req.body);
     const { name } = req.body;
-    const country = await CountryService.createCountry(name);
-    res.status(201).json(country);
+    await CountryService.createCountry(name);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getCountries(req: Request, res: Response) {

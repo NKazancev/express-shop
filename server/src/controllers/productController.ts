@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import ProductService from '../services/productService';
 import { CreateProductSchema } from '../schema/productSchema';
+import ResMessage from '../config/resMessage';
 
 class ProductController {
   static async createProduct(req: Request, res: Response) {
@@ -14,13 +15,8 @@ class ProductController {
     const image = files['image'][0].filename;
     const images = files['images'].map((file) => file.filename);
 
-    const product = await ProductService.createProduct(
-      productData,
-      image,
-      images,
-      text
-    );
-    res.status(201).json(product);
+    await ProductService.createProduct(productData, image, images, text);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getProducts(req: Request, res: Response) {
@@ -51,13 +47,13 @@ class ProductController {
 
   static async updateProductInfo(req: Request, res: Response) {
     const { text, stock } = req.body;
-    const updatedProduct = await ProductService.updateProductInfo(
+    await ProductService.updateProductInfo(
       req.params.id,
       req.body,
       text,
       stock
     );
-    res.status(200).json(updatedProduct);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 
   static async updateProductGallery(req: Request, res: Response) {
@@ -68,12 +64,8 @@ class ProductController {
     const image = files['image']?.[0].filename;
     const images = files['images']?.map((file) => file.filename);
 
-    const product = await ProductService.updateProductGallery(
-      productId,
-      image,
-      images
-    );
-    res.status(200).json(product);
+    await ProductService.updateProductGallery(productId, image, images);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 
   static async deleteProduct(req: Request, res: Response) {

@@ -1,7 +1,9 @@
 import { ICartProduct } from '@shared/models/cart';
 import { useEffect, useState } from 'react';
 
-const useCartItemsCount = (items: ICartProduct[] | undefined) => {
+const useCartItemsCount = (
+  items: Pick<ICartProduct, 'quantity'>[] | undefined
+) => {
   const [itemsQuantity, setItemsQuantity] = useState<number>();
 
   useEffect(() => {

@@ -37,7 +37,7 @@ const userApi = baseApi
         providesTags: ['Users'],
       }),
 
-      changePassword: builder.mutation<IUser, IPasswordData>({
+      changePassword: builder.mutation<{ message: string }, IPasswordData>({
         query: ({ ...body }) => ({
           url: 'users/password',
           method: 'PUT',
@@ -46,7 +46,10 @@ const userApi = baseApi
         invalidatesTags: ['Users'],
       }),
 
-      changeUsername: builder.mutation<IUser, Pick<IUser, 'username'>>({
+      changeUsername: builder.mutation<
+        { message: string },
+        Pick<IUser, 'username'>
+      >({
         query: ({ ...body }) => ({
           url: 'users/username',
           method: 'PUT',

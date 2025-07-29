@@ -5,18 +5,15 @@ import {
   CreateCartProductSchema,
   UpdateCartProductSchema,
 } from '../schema/cartSchema';
+import ResMessage from '../config/resMessage';
 
 class CartController {
   static async createCartProduct(req: Request, res: Response) {
     CreateCartProductSchema.parse(req.body);
     const { quantity, productId } = req.body;
     const userId = req.user.id;
-    const cartProduct = await CartService.createCartProduct(
-      quantity,
-      productId,
-      userId
-    );
-    res.status(201).json(cartProduct);
+    await CartService.createCartProduct(quantity, productId, userId);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getCartProducts(req: Request, res: Response) {
@@ -30,12 +27,8 @@ class CartController {
     const { quantity } = req.body;
     const cartProductId = req.params.id;
     const userId = req.user.id;
-    const updatedCartProduct = await CartService.updateCartProduct(
-      quantity,
-      cartProductId,
-      userId
-    );
-    res.status(200).json(updatedCartProduct);
+    await CartService.updateCartProduct(quantity, cartProductId, userId);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 
   static async deleteCartProduct(req: Request, res: Response) {

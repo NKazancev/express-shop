@@ -25,11 +25,11 @@ export type TUpdateProductData = Partial<
 
 export type TUpdateGalleryData = Pick<IProduct, 'image'> & { images: FileList };
 
-export interface IProductData extends IProduct {
+export type TProductData = Pick<IProduct, 'id' | 'name' | 'price' | 'stock'> & {
   gallery: IProductGallery;
   info: IProductInfo;
   reviews: IProductReview[];
-}
+};
 
 export interface IProductGallery {
   images: string[];
@@ -50,6 +50,9 @@ export interface IProductsRequest {
 }
 
 export interface IProductsResponse {
-  data: IProduct[];
+  data: Pick<
+    IProduct,
+    'id' | 'name' | 'price' | 'description' | 'image' | 'stock'
+  >[];
   quantity: number;
 }

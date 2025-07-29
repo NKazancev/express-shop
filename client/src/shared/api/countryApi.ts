@@ -5,7 +5,7 @@ const countryApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Countries'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createCountry: builder.mutation<ICountry, string>({
+      createCountry: builder.mutation<{ message: string }, string>({
         query: (name) => ({
           url: 'countries',
           method: 'POST',

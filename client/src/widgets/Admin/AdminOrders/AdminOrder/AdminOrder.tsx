@@ -12,6 +12,7 @@ import styles from './AdminOrder.module.css';
 
 const AdminOrder: FC<IOrder> = (order) => {
   const { id, status } = order;
+
   const orderStatusColor = useOrderStatusColor(status);
   const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 

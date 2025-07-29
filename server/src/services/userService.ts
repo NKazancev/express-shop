@@ -35,7 +35,7 @@ class UserService {
   static async getUserCart(userId: string) {
     const user = await prisma.user.findFirst({
       where: { id: userId },
-      select: { username: true, cartProducts: true },
+      select: { username: true, cartProducts: { select: { quantity: true } } },
     });
     return user;
   }
@@ -75,13 +75,12 @@ class UserService {
 
     const password = await hash(newPassword, 10);
 
-    const updatedUser = await prisma.user.update({
+    return await prisma.user.update({
       where: { id: foundUser.id },
       data: {
         password,
       },
     });
-    return updatedUser;
   }
 
   static async changeUsername(userId: string, username: string) {
@@ -91,11 +90,10 @@ class UserService {
     const foundName = await prisma.user.findFirst({ where: { username } });
     if (foundName) throw new ApiError(409, ErrorMessage.USERNAME_EXISTS);
 
-    const updatedUser = await prisma.user.update({
+    return await prisma.user.update({
       where: { id: foundUser.id },
       data: { username },
     });
-    return updatedUser;
   }
 
   static async deleteUser(userId: string) {

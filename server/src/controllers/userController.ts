@@ -6,6 +6,7 @@ import {
   CreateUserSchema,
 } from '../schema/userSchema';
 import UserService from '../services/userService';
+import ResMessage from '../config/resMessage';
 
 class UserController {
   static async createUser(req: Request, res: Response) {
@@ -49,20 +50,16 @@ class UserController {
     ChangePasswordSchema.parse(req.body);
     const userId = req.user.id;
     const { oldPassword, newPassword } = req.body;
-    const user = await UserService.changePassword(
-      userId,
-      oldPassword,
-      newPassword
-    );
-    res.status(200).json(user);
+    await UserService.changePassword(userId, oldPassword, newPassword);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 
   static async changeUsername(req: Request, res: Response) {
     ChangeUsernameSchema.parse(req.body);
     const userId = req.user.id;
     const { username } = req.body;
-    const user = await UserService.changeUsername(userId, username);
-    res.status(200).json(user);
+    await UserService.changeUsername(userId, username);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 
   static async deleteUser(req: Request, res: Response) {

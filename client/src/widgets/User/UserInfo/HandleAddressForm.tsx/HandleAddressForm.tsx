@@ -17,12 +17,9 @@ type THandleAddressForm = {
   apiError?: string;
 };
 
-const HandleAddressForm: FC<THandleAddressForm> = ({
-  handleAddress,
-  isUpdate,
-  address,
-  apiError,
-}) => {
+const HandleAddressForm: FC<THandleAddressForm> = (props) => {
+  const { handleAddress, isUpdate, address, apiError } = props;
+
   const { control, handleSubmit, formState } = useForm<Omit<IAddress, 'id'>>({
     defaultValues: address,
     resetOptions: { keepDirtyValues: true, keepErrors: true },

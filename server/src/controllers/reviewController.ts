@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { ProductReviewSchema } from '../schema/productSchema';
 import ReviewService from '../services/reviewService';
+import ResMessage from '../config/resMessage';
 
 class ReviewController {
   static async createProductReview(req: Request, res: Response) {
@@ -9,14 +10,14 @@ class ReviewController {
     const { title, text, rate, productId } = req.body;
     const userId = req.user.id;
 
-    const review = await ReviewService.createProductReview(
+    await ReviewService.createProductReview(
       title,
       text,
       rate,
       productId,
       userId
     );
-    res.status(201).json(review);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getAllUserReviews(req: Request, res: Response) {

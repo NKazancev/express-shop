@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 import { useUpdateCartProductMutation } from '@shared/api/cartApi';
 
 import styles from './CartProductCounter.module.css';
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import baseApi from '@config/baseApi';
 
 type TCartProductCounter = {
   id: string;
@@ -12,20 +14,24 @@ type TCartProductCounter = {
 
 const CartProductCounter: FC<TCartProductCounter> = ({ id, quantity }) => {
   const [updateCartProduct] = useUpdateCartProductMutation();
+  const dispatch = useAppDispatch();
 
   const increaseQuantity = async () => {
     try {
-      if (quantity)
+      if (quantity) {
         await updateCartProduct({ id, quantity: quantity + 1 }).unwrap();
+        dispatch(baseApi.util.invalidateTags(['Users']));
+      }
     } catch (error) {
       toast.error('Something went wrong');
     }
   };
-
   const decreaseQuantity = async () => {
     try {
-      if (quantity)
+      if (quantity) {
         await updateCartProduct({ id, quantity: quantity - 1 }).unwrap();
+        dispatch(baseApi.util.invalidateTags(['Users']));
+      }
     } catch (error) {
       toast.error('Something went wrong');
     }

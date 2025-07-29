@@ -7,7 +7,7 @@ class AuthController {
   static async login(req: Request, res: Response) {
     LoginUserSchema.parse(req.body);
     const { email, password } = req.body;
-    const { accessToken, refreshToken, user } = await AuthService.login(
+    const { accessToken, refreshToken, role } = await AuthService.login(
       email,
       password
     );
@@ -18,14 +18,14 @@ class AuthController {
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
-      .cookie('authSession', user.role, {
+      .cookie('authSession', role, {
         httpOnly: false,
         sameSite: 'none',
         secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)
-      .json({ accessToken, role: user.role });
+      .json({ accessToken, role });
   }
 
   static async logout(req: Request, res: Response) {

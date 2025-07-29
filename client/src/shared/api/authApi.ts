@@ -2,6 +2,7 @@ import baseApi from '@config/baseApi';
 import { IAuthResponse, ILoginData } from '@shared/models/auth';
 import { resetFilters } from '@shared/slices/filtersSlice';
 import { logout, setCredentials } from '@shared/slices/userSlice';
+import toast from 'react-hot-toast';
 
 const authApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Auth'] })
@@ -22,14 +23,14 @@ const authApi = baseApi
           method: 'POST',
         }),
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          localStorage.clear();
           try {
             await queryFulfilled;
             dispatch(logout());
             dispatch(resetFilters());
             dispatch(baseApi.util.resetApiState());
+            localStorage.clear();
           } catch (error) {
-            console.log(error);
+            toast.error('Something went wrong');
           }
         },
         invalidatesTags: ['Auth'],
@@ -46,7 +47,7 @@ const authApi = baseApi
             const { accessToken, role } = data;
             dispatch(setCredentials({ accessToken, role }));
           } catch (error) {
-            console.log(error);
+            toast.error('Something went wrong');
           }
         },
         invalidatesTags: ['Auth'],

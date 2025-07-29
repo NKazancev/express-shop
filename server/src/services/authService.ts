@@ -19,7 +19,7 @@ class AuthService {
       user.id,
       user.role
     );
-    return { user, accessToken, refreshToken };
+    return { accessToken, refreshToken, role: user.role };
   }
 
   static async refresh(refreshToken: string) {

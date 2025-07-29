@@ -16,7 +16,6 @@ const UserPanel = () => {
   const cartItemsCount = useCartItemsCount(user?.cartProducts);
 
   const [profileMenuVisible, setProfileMenuVisible] = useState<boolean>(false);
-
   const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
   const closeMenu = () => setProfileMenuVisible(false);
 

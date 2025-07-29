@@ -5,7 +5,10 @@ const cityApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Cities'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createCity: builder.mutation<ICity, Pick<ICity, 'name' | 'countryId'>>({
+      createCity: builder.mutation<
+        { message: string },
+        Pick<ICity, 'name' | 'countryId'>
+      >({
         query: ({ name, countryId }) => ({
           url: 'cities',
           method: 'POST',

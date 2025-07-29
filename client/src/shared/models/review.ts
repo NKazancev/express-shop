@@ -4,14 +4,12 @@ export interface IReview {
   text: string;
   rate: string;
   productId: string;
-  userId: string;
 }
 
-export interface ICreateReviewData {
-  title: string;
-  text: string;
-  rate: string;
-}
+export type TCreateReviewData = Pick<
+  IReview,
+  'productId' | 'title' | 'text' | 'rate'
+>;
 
 export interface IProductReview extends IReview {
   user: { username: string };

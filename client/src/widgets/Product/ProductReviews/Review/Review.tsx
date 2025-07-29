@@ -6,7 +6,9 @@ import { IProductReview } from '@shared/models/review';
 import authorIcon from '@shared/assets/author-icon.svg';
 import styles from './Review.module.css';
 
-const Review: FC<Partial<IProductReview>> = ({ title, text, rate, user }) => {
+type TReview = Pick<IProductReview, 'title' | 'text' | 'rate' | 'user'>;
+
+const Review: FC<TReview> = ({ title, text, rate, user }) => {
   return (
     <li>
       <article className={styles.review}>

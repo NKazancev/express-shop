@@ -8,8 +8,7 @@ class TypeService {
       where: { name: { equals: name, mode: 'insensitive' } },
     });
     if (foundType) throw new ApiError(409, ErrorMessage.PRODUCT_TYPE_EXISTS);
-    const type = await prisma.productType.create({ data: { name } });
-    return type;
+    return await prisma.productType.create({ data: { name } });
   }
 
   static async getAllTypes() {
@@ -28,7 +27,7 @@ class TypeService {
       where: { typeId },
     });
     if (hasProducts) throw new ApiError(409, ErrorMessage.TYPE_CONFLICT);
-    await prisma.productType.delete({ where: { id: typeId } });
+    return await prisma.productType.delete({ where: { id: typeId } });
   }
 }
 

@@ -1,11 +1,14 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { ICreateOrderData } from '@shared/models/order';
 import { useCreateOrderMutation } from '@shared/api/orderApi';
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import baseApi from '@config/baseApi';
 
 type TCreateOrder = {
   handleSubmit: UseFormHandleSubmit<ICreateOrderData>;
@@ -18,10 +21,17 @@ const CreateOrder: FC<TCreateOrder> = (props) => {
   const { handleSubmit, setError, isSubmitting, buttonStyle } = props;
 
   const [createOrder] = useCreateOrderMutation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onOrderCreation = async (data: ICreateOrderData) => {
     try {
-      await createOrder({ ...data }).unwrap();
+      const response = await createOrder({ ...data }).unwrap();
+      if (response) {
+        dispatch(baseApi.util.invalidateTags(['Cart', 'Users']));
+        navigate('/');
+        toast.success('Order successfully created');
+      }
     } catch (error) {
       if (isFetchBaseQueryError(error)) {
         const errorMessage = (error.data as { message: string }).message;

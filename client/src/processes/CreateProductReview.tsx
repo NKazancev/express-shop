@@ -3,14 +3,14 @@ import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
-import { ICreateReviewData } from '@shared/models/review';
+import { TCreateReviewData } from '@shared/models/review';
 import { useCreateProductReviewMutation } from '@shared/api/reviewApi';
 import { useLazyGetProductByIdQuery } from '@shared/api/productApi';
 
 import ReviewForm from '@widgets/Product/ProductReviews/ReviewForm/ReviewForm';
 
 type TCreateProductReview = {
-  productId?: string;
+  productId: string;
   setIsSuccess: Dispatch<SetStateAction<boolean>>;
 };
 
@@ -29,7 +29,7 @@ const CreateProductReview: FC<TCreateProductReview> = (props) => {
     }
   }, [isSuccess]);
 
-  const handleReviewCreation = async (data: ICreateReviewData) => {
+  const handleReviewCreation = async (data: TCreateReviewData) => {
     try {
       await createProductReview({ ...data, productId }).unwrap();
     } catch (error) {

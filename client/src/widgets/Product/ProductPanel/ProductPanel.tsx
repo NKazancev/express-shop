@@ -2,14 +2,19 @@ import { FC } from 'react';
 
 import CreateCartProduct from '@processes/CreateCartProduct';
 
-import { IProductData } from '@shared/models/product';
+import { IProduct } from '@shared/models/product';
+import { IProductReview } from '@shared/models/review';
+
 import ProductRating from './ProductRating/ProductRating';
 
 import styles from './ProductPanel.module.css';
 
-type TProductPanel = Partial<
-  Pick<IProductData, 'id' | 'name' | 'price' | 'reviews' | 'stock'>
->;
+export type TProductPanel = Pick<
+  IProduct,
+  'id' | 'name' | 'price' | 'stock'
+> & {
+  reviews: IProductReview[];
+};
 
 const ProductPanel: FC<TProductPanel> = (props) => {
   const { id, name, price, reviews, stock } = props;

@@ -11,10 +11,9 @@ type TChangeUsernameForm = {
   apiError?: string;
 };
 
-const ChangeUsernameForm: FC<TChangeUsernameForm> = ({
-  onUsernameChange,
-  apiError,
-}) => {
+const ChangeUsernameForm: FC<TChangeUsernameForm> = (props) => {
+  const { onUsernameChange, apiError } = props;
+
   const { control, handleSubmit, formState } =
     useForm<Pick<IUser, 'username'>>();
   const { errors, isSubmitting } = formState;

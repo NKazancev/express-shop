@@ -5,7 +5,7 @@ const brandApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Brands'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createBrand: builder.mutation<IProductBrand, string>({
+      createBrand: builder.mutation<{ message: string }, string>({
         query: (name) => ({
           url: 'brands',
           method: 'POST',

@@ -23,16 +23,18 @@ class AddressService {
   }
 
   static async getAddress(userId: string) {
-    const address = await prisma.address.findFirst({ where: { userId } });
+    const address = await prisma.address.findFirst({
+      where: { userId },
+      omit: { userId: true },
+    });
     return address;
   }
 
   static async updateAddress(addressId: string, data: Partial<Address>) {
-    const address = await prisma.address.update({
+    return await prisma.address.update({
       where: { id: addressId },
       data,
     });
-    return address;
   }
 }
 

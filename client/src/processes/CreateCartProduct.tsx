@@ -1,15 +1,16 @@
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import baseApi from '@config/baseApi';
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { useCreateCartProductMutation } from '@shared/api/cartApi';
-import { useAppSelector } from '@shared/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 
 import ModalLogin from '@modals/ModalLogin/ModalLogin';
 
 type TCreateCartProduct = {
-  productId: string | undefined;
+  productId: string;
   buttonStyle: string;
 };
 
@@ -18,6 +19,7 @@ const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
 
   const { isLogged } = useAppSelector((state) => state.user);
   const [createCartProduct] = useCreateCartProductMutation();
+  const dispatch = useAppDispatch();
 
   const [modalLoginVisible, setModalLoginVisible] = useState<boolean>(false);
   const hideModal = () => setModalLoginVisible(false);
@@ -29,6 +31,7 @@ const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
     }
     try {
       await createCartProduct({ productId, quantity: 1 }).unwrap();
+      dispatch(baseApi.util.invalidateTags(['Users']));
     } catch (error) {
       if (isFetchBaseQueryError(error)) {
         const errorMessage = (error.data as { message: string }).message;

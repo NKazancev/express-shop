@@ -7,7 +7,7 @@ import Review from '../Review/Review';
 import styles from './ReviewsList.module.css';
 
 type TReviewsList = {
-  reviews?: IProductReview[];
+  reviews: IProductReview[];
   userReview: IProductReview | null | undefined;
 };
 

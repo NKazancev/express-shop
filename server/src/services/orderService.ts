@@ -1,7 +1,6 @@
 import prisma from '../config/prismaClient';
 import { OrderStatus } from '@prisma/client';
-import CountryService from './countryService';
-import CityService from './cityService';
+import AddressService from './addressService';
 
 class OrderService {
   static async createOrder(
@@ -16,24 +15,26 @@ class OrderService {
     userId: string
   ) {
     return await prisma.$transaction(async (tx) => {
-      const country = await CountryService.getCountryNameById(countryId);
-      const city = await CityService.getCityNameById(cityId);
-
       const customer = `${firstName} ${lastName}`;
-      const address = `${country?.name}, ${city?.name}, ${street}, ${postcode}`;
       const contactInfo = `${email}, ${phone}`;
+      const address = await AddressService.createStringAddress(
+        countryId,
+        cityId,
+        street,
+        postcode
+      );
 
       const cartProducts = await tx.cartProduct.findMany({
         where: { userId },
         include: { product: true },
       });
-
       const netAmount = cartProducts.reduce((acc, el) => {
         acc += el.quantity * el.product.price;
         return acc;
       }, 0);
 
-      const order = await tx.order.create({
+      await tx.cartProduct.deleteMany({ where: { userId } });
+      await tx.order.create({
         data: {
           customer,
           address,
@@ -50,13 +51,13 @@ class OrderService {
           },
         },
       });
-      return order;
     });
   }
 
   static async getAllOrders() {
     const orders = await prisma.order.findMany({
       orderBy: { createdAt: 'asc' },
+      omit: { userId: true },
     });
     return orders;
   }
@@ -75,6 +76,7 @@ class OrderService {
           },
         },
       },
+      omit: { userId: true },
     });
     const userOrders = orders.map((order) => {
       return {
@@ -103,6 +105,7 @@ class OrderService {
           },
         },
       },
+      omit: { userId: true },
     });
     const orderProducts = order?.products.map((el) => ({
       id: el.product.id,
@@ -114,11 +117,10 @@ class OrderService {
   }
 
   static async updateOrderStatus(orderId: string, status: OrderStatus) {
-    const order = await prisma.order.update({
+    return await prisma.order.update({
       where: { id: orderId },
       data: { status },
     });
-    return order;
   }
 }
 

@@ -1,17 +1,16 @@
 import baseApi from '@config/baseApi';
 import {
-  IProduct,
-  IProductData,
   IProductsResponse,
   IProductsRequest,
   TUpdateProductData,
+  TProductData,
 } from '@shared/models/product';
 
 const productApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Products'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createProduct: builder.mutation<IProduct, FormData>({
+      createProduct: builder.mutation<{ message: string }, FormData>({
         query: (data) => ({
           url: 'products',
           method: 'POST',
@@ -39,7 +38,7 @@ const productApi = baseApi
             : [{ type: 'Products', id: 'LIST' }],
       }),
 
-      getProductById: builder.query<IProductData, string | undefined>({
+      getProductById: builder.query<TProductData, string | undefined>({
         query: (id) => ({
           url: `products/${id}`,
           method: 'GET',
@@ -48,7 +47,7 @@ const productApi = baseApi
       }),
 
       updateProduct: builder.mutation<
-        IProduct,
+        { message: string },
         TUpdateProductData & { id: string }
       >({
         query: (data) => {
@@ -62,7 +61,7 @@ const productApi = baseApi
         invalidatesTags: (__, _, { id }) => [{ type: 'Products', id }],
       }),
 
-      updateProductGallery: builder.mutation<IProduct, FormData>({
+      updateProductGallery: builder.mutation<{ message: string }, FormData>({
         query: (data) => {
           return {
             url: `products/gallery`,

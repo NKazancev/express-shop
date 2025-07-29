@@ -1,6 +1,6 @@
 import UserRole from '@config/userRoles';
-import { IAddress } from './address';
 import { ICartProduct } from './cart';
+import { IAddress } from './address';
 
 export interface IUser {
   id: string;
@@ -11,7 +11,7 @@ export interface IUser {
 }
 
 export type TUserCart = Pick<IUser, 'username'> & {
-  cartProducts: ICartProduct[];
+  cartProducts: Pick<ICartProduct, 'quantity'>[];
 };
 
 export type TUserInfo = Pick<IUser, 'email' | 'username'> & {

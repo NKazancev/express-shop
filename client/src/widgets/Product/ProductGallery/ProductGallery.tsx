@@ -1,15 +1,13 @@
 import { FC, MouseEvent, useState } from 'react';
 
 import { STATIC_URL } from '@config/consts';
+
+import { IProductGallery } from '@shared/models/product';
 import ModalGallery from '@modals/ModalGallery/ModalGallery';
 
 import styles from './ProductGallery.module.css';
 
-type TProductGallery = {
-  images: string[];
-};
-
-const ProductGallery: FC<TProductGallery> = ({ images }) => {
+const ProductGallery: FC<IProductGallery> = ({ images }) => {
   const [mainImageUrl, setMainImageUrl] = useState<string>(
     `${STATIC_URL}/${images[0]}`
   );

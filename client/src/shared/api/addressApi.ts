@@ -5,20 +5,15 @@ const addressApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Addresses'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createAddress: builder.mutation<IAddress, Omit<IAddress, 'id'>>({
+      createAddress: builder.mutation<
+        { message: string },
+        Omit<IAddress, 'id'>
+      >({
         query: (data) => ({
           url: 'addresses',
           method: 'POST',
           body: { ...data },
         }),
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            await queryFulfilled;
-            dispatch(baseApi.util.invalidateTags(['Users']));
-          } catch (error) {
-            console.log(error);
-          }
-        },
         invalidatesTags: ['Addresses'],
       }),
 
@@ -30,7 +25,7 @@ const addressApi = baseApi
         providesTags: ['Addresses'],
       }),
 
-      updateAddress: builder.mutation<IAddress, IAddress & { id: string }>({
+      updateAddress: builder.mutation<{ message: string }, IAddress>({
         query: (data) => {
           const { id, ...body } = data;
           return {
@@ -38,14 +33,6 @@ const addressApi = baseApi
             method: 'PUT',
             body: { ...body },
           };
-        },
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            await queryFulfilled;
-            dispatch(baseApi.util.invalidateTags(['Users']));
-          } catch (error) {
-            console.log(error);
-          }
         },
         invalidatesTags: ['Addresses'],
       }),

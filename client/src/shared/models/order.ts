@@ -7,7 +7,6 @@ export interface IOrder {
   customer: string;
   address: string;
   contactInfo: string;
-  userId: string;
   createdAt: Date;
 }
 

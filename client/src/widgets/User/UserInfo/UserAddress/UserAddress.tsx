@@ -1,15 +1,11 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import ModalAddress from '@modals/ModalAddress/ModalAddress';
 
 import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserAddress.module.css';
 
-type TUserAddress = {
-  stringAddress?: string;
-};
-
-const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
+const UserAddress = ({ stringAddress }: { stringAddress: string }) => {
   const [modalAddress, setModalAddress] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 

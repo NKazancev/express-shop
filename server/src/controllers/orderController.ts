@@ -4,6 +4,7 @@ import {
   UpdateOrderStatusSchema,
 } from '../schema/orderSchema';
 import OrderService from '../services/orderService';
+import ResMessage from '../config/resMessage';
 
 class OrderController {
   static async createOrder(req: Request, res: Response) {
@@ -13,7 +14,7 @@ class OrderController {
     const { street, postcode, email, phone } = req.body;
     const userId = req.user.id;
 
-    const order = await OrderService.createOrder(
+    await OrderService.createOrder(
       firstName,
       lastName,
       email,
@@ -24,7 +25,7 @@ class OrderController {
       postcode,
       userId
     );
-    res.status(201).json(order);
+    res.status(201).json({ message: ResMessage.SUCCESS });
   }
 
   static async getAllOrders(req: Request, res: Response) {
@@ -48,8 +49,8 @@ class OrderController {
     UpdateOrderStatusSchema.parse(req.body);
     const orderId = req.params.id;
     const { status } = req.body;
-    const updatedOrder = await OrderService.updateOrderStatus(orderId, status);
-    res.status(200).json(updatedOrder);
+    await OrderService.updateOrderStatus(orderId, status);
+    res.status(200).json({ message: ResMessage.SUCCESS });
   }
 }
 

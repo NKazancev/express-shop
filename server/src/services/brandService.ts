@@ -8,8 +8,7 @@ class BrandService {
       where: { name: { equals: name, mode: 'insensitive' } },
     });
     if (foundBrand) throw new ApiError(409, ErrorMessage.PRODUCT_BRAND_EXISTS);
-    const brand = await prisma.productBrand.create({ data: { name } });
-    return brand;
+    return await prisma.productBrand.create({ data: { name } });
   }
 
   static async getAllBrands() {

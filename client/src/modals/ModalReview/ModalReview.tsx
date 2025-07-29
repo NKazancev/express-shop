@@ -28,10 +28,12 @@ const ModalReview: FC<TModalReview> = ({ onClose, productId }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Review form</h3>
 
-        <CreateProductReview
-          productId={productId}
-          setIsSuccess={setIsSuccess}
-        />
+        {productId && (
+          <CreateProductReview
+            productId={productId}
+            setIsSuccess={setIsSuccess}
+          />
+        )}
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />

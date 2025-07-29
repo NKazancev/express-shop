@@ -1,8 +1,8 @@
 import baseApi from '@config/baseApi';
 import {
-  ICreateReviewData,
   IProductReview,
   IUserReview,
+  TCreateReviewData,
 } from '@shared/models/review';
 
 const reviewApi = baseApi
@@ -10,8 +10,8 @@ const reviewApi = baseApi
   .injectEndpoints({
     endpoints: (builder) => ({
       createProductReview: builder.mutation<
-        IProductReview,
-        ICreateReviewData & { productId?: string }
+        { message: string },
+        TCreateReviewData
       >({
         query: (data) => ({
           url: 'reviews',

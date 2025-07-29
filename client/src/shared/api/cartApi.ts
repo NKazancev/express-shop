@@ -6,22 +6,14 @@ const cartApi = baseApi
   .injectEndpoints({
     endpoints: (builder) => ({
       createCartProduct: builder.mutation<
-        ICartProduct,
-        Pick<ICartProduct, 'quantity' | 'productId'>
+        { message: string },
+        Pick<ICartProduct, 'quantity'> & { productId: string }
       >({
         query: (data) => ({
           url: 'cart',
           method: 'POST',
           body: data,
         }),
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            await queryFulfilled;
-            dispatch(baseApi.util.invalidateTags(['Users']));
-          } catch (error) {
-            console.log(error);
-          }
-        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
 
@@ -46,7 +38,7 @@ const cartApi = baseApi
       }),
 
       updateCartProduct: builder.mutation<
-        ICartProduct,
+        { message: string },
         Pick<ICartProduct, 'id' | 'quantity'>
       >({
         query: (args) => {
@@ -57,14 +49,6 @@ const cartApi = baseApi
             body: { quantity },
           };
         },
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            await queryFulfilled;
-            dispatch(baseApi.util.invalidateTags(['Users']));
-          } catch (error) {
-            console.log(error);
-          }
-        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
 
@@ -73,14 +57,6 @@ const cartApi = baseApi
           url: `cart/${id}`,
           method: 'DELETE',
         }),
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            await queryFulfilled;
-            dispatch(baseApi.util.invalidateTags(['Users']));
-          } catch (error) {
-            console.log(error);
-          }
-        },
         invalidatesTags: [{ type: 'Cart', id: 'LIST' }],
       }),
     }),

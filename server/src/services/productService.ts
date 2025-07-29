@@ -17,7 +17,7 @@ class ProductService {
     });
     if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
 
-    const product = await prisma.product.create({
+    return await prisma.product.create({
       data: {
         ...productData,
         image,
@@ -25,7 +25,6 @@ class ProductService {
         info: { create: { text } },
       },
     });
-    return product;
   }
 
   static async getProducts(
@@ -43,6 +42,7 @@ class ProductService {
           where: {
             name: { contains: searchQuery, mode: 'insensitive' },
           },
+          omit: { brandId: true, typeId: true },
           skip,
           take,
         }),
@@ -61,6 +61,7 @@ class ProductService {
             brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
             AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
           },
+          omit: { brandId: true, typeId: true },
           skip,
           take,
         }),
@@ -82,8 +83,12 @@ class ProductService {
       include: {
         gallery: { select: { images: true } },
         info: { select: { text: true } },
-        reviews: { include: { user: { select: { username: true } } } },
+        reviews: {
+          include: { user: { select: { username: true } } },
+          omit: { userId: true },
+        },
       },
+      omit: { typeId: true, brandId: true, image: true, description: true },
     });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
     return product;
@@ -95,7 +100,6 @@ class ProductService {
     text: string,
     stock: number
   ) {
-    let updatedProduct;
     if (data) {
       const sourceProduct = await prisma.product.findFirst({
         where: { id: productId },
@@ -109,8 +113,7 @@ class ProductService {
       ) {
         throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
       }
-
-      updatedProduct = await prisma.product.update({
+      return await prisma.product.update({
         where: { id: productId },
         data: {
           name: data.name,
@@ -121,12 +124,11 @@ class ProductService {
         },
       });
     } else {
-      updatedProduct = await prisma.product.update({
+      return await prisma.product.update({
         where: { id: productId },
         data: { stock },
       });
     }
-    return updatedProduct;
   }
 
   static async updateProductGallery(
@@ -134,15 +136,16 @@ class ProductService {
     image: string,
     images: string[]
   ) {
-    const updatedProduct = await prisma.product.update({
-      where: { id: productId },
-      data: { image },
+    return await prisma.$transaction(async (tx) => {
+      await tx.product.update({
+        where: { id: productId },
+        data: { image },
+      });
+      await tx.productGallery.update({
+        where: { productId },
+        data: { images },
+      });
     });
-    await prisma.productGallery.update({
-      where: { productId },
-      data: { images },
-    });
-    return updatedProduct;
   }
 
   static async deleteProduct(id: string) {

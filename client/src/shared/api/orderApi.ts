@@ -5,7 +5,7 @@ const orderApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Orders'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      createOrder: builder.mutation<IOrder, ICreateOrderData>({
+      createOrder: builder.mutation<{ message: string }, ICreateOrderData>({
         query: (data) => ({
           url: 'orders',
           method: 'POST',
@@ -51,7 +51,7 @@ const orderApi = baseApi
       }),
 
       updateOrderStatus: builder.mutation<
-        IOrder,
+        { message: string },
         Pick<IOrder, 'id' | 'status'>
       >({
         query: (args) => {

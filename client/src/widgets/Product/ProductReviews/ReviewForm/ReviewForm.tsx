@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { RegisterOptions, useForm } from 'react-hook-form';
 
-import { ICreateReviewData } from '@shared/models/review';
+import { TCreateReviewData } from '@shared/models/review';
 
 import Input from '@shared/ui/Input/Input';
 import Textarea from '@shared/ui/Textarea/Textarea';
@@ -10,12 +10,12 @@ import InputRating from '@shared/ui/InputRating/InputRating';
 import styles from './ReviewForm.module.css';
 
 type TReviewForm = {
-  onReviewCreation: (data: ICreateReviewData) => void;
+  onReviewCreation: (data: TCreateReviewData) => void;
   apiError?: string;
 };
 
 const ReviewForm: FC<TReviewForm> = ({ onReviewCreation, apiError }) => {
-  const { control, handleSubmit, formState } = useForm<ICreateReviewData>();
+  const { control, handleSubmit, formState } = useForm<TCreateReviewData>();
   const { errors, isSubmitting } = formState;
 
   const [rating, setRating] = useState<number>(0);

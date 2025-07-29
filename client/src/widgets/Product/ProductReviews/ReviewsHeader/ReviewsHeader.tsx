@@ -10,11 +10,9 @@ type TReviewsHeader = {
   onAddButtonClick: () => void;
 };
 
-const ReviewsHeader: FC<TReviewsHeader> = ({
-  reviewsQuantity,
-  isUserReview,
-  onAddButtonClick,
-}) => {
+const ReviewsHeader: FC<TReviewsHeader> = (props) => {
+  const { reviewsQuantity, isUserReview, onAddButtonClick } = props;
+
   const { isLogged } = useAppSelector((state) => state.user);
 
   return (

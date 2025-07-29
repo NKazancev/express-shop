@@ -49,7 +49,7 @@ const UserInfo: FC<TUserInfo> = ({ email, username, stringAddress }) => {
 
       <li className={styles.row}>
         <span>Delivery address:</span>
-        <UserAddress stringAddress={stringAddress} />
+        {stringAddress && <UserAddress stringAddress={stringAddress} />}
       </li>
 
       {modalPassword && <ModalPassword onClose={hidePassword} />}

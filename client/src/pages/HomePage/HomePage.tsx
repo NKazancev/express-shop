@@ -22,7 +22,7 @@ function HomePage() {
 
       {products?.data.length ? (
         <>
-          <ProductsList products={products.data} />
+          <ProductsList data={products.data} />
 
           <Pagination
             currentPage={currentPage}

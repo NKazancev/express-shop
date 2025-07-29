@@ -11,10 +11,9 @@ type TChangePasswordForm = {
   apiError?: string;
 };
 
-const ChangePasswordForm: FC<TChangePasswordForm> = ({
-  onPasswordChange,
-  apiError,
-}) => {
+const ChangePasswordForm: FC<TChangePasswordForm> = (props) => {
+  const { onPasswordChange, apiError } = props;
+
   const { control, watch, handleSubmit, formState } = useForm<IPasswordData>();
   const { errors, isSubmitting } = formState;
 
