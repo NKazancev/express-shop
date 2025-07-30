@@ -10,7 +10,7 @@ const UserOrdersPage = () => {
   return (
     <div>
       <h2 className={styles.title}>Orders</h2>
-      <UserOrdersList orders={orders} />
+      {orders && <UserOrdersList orders={orders} />}
     </div>
   );
 };

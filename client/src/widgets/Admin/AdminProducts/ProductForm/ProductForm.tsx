@@ -18,12 +18,9 @@ type TProductForm = {
   apiError?: string;
 };
 
-const ProductForm: FC<TProductForm> = ({
-  createProduct,
-  typeOptions,
-  brandOptions,
-  apiError,
-}) => {
+const ProductForm: FC<TProductForm> = (props) => {
+  const { createProduct, typeOptions, brandOptions, apiError } = props;
+
   const { handleSubmit, register, control, reset, watch, formState } =
     useForm<TCreateProductData>();
   const { errors, isSubmitting } = formState;

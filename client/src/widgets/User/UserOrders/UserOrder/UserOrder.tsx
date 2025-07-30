@@ -11,6 +11,7 @@ import styles from './UserOrder.module.css';
 
 const UserOrder: FC<IOrderData> = (order) => {
   const { status, products } = order;
+
   const orderStatusColor = useOrderStatusColor(status);
   const statusName = orderStatusesData.find((s) => s.value === status)?.name;
 

@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { useGetOrderByIdQuery } from '@shared/api/orderApi';
+import { PORTAL_CONTAINER_ID } from '@config/consts';
 
+import { useGetOrderByIdQuery } from '@shared/api/orderApi';
+import usePortal from '@shared/hooks/usePortal';
 import Modal from '@shared/ui/Modal/Modal';
+
 import AdminOrderInfo from '@widgets/Admin/AdminOrders/AdminOrderInfo/AdminOrderInfo';
 import AdminOrderProducts from '@widgets/Admin/AdminOrders/AdminOrderProducts/AdminOrderProducts';
-
-import usePortal from '@shared/hooks/usePortal';
-import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalOrder.module.css';
@@ -25,10 +25,12 @@ const ModalOrderInfo: FC<TModalOrder> = ({ onClose, orderId }) => {
       <div className={styles.content}>
         <h3 className={styles.title}>Order info</h3>
 
-        <div className={styles.info}>
-          {order && <AdminOrderInfo order={order} />}
-          {order && <AdminOrderProducts products={order.products} />}
-        </div>
+        {order && (
+          <div className={styles.info}>
+            <AdminOrderInfo {...order} />
+            <AdminOrderProducts products={order.products} />
+          </div>
+        )}
 
         <button type="button" onClick={onClose} className={styles.button}>
           <img src={xbutton} />

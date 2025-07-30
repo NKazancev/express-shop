@@ -6,12 +6,7 @@ import { STATIC_URL } from '@config/consts';
 
 import styles from './ProductCard.module.css';
 
-type TProductCard = Pick<
-  IProduct,
-  'id' | 'name' | 'price' | 'description' | 'image'
->;
-
-const ProductCard: FC<TProductCard> = (props) => {
+const ProductCard: FC<IProduct> = (props) => {
   const { id, name, price, description, image } = props;
 
   const navigate = useNavigate();

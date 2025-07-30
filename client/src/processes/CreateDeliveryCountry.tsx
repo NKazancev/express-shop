@@ -3,7 +3,10 @@ import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
-import { useCreateCountryMutation } from '@shared/api/countryApi';
+import {
+  useCreateCountryMutation,
+  useGetCountriesQuery,
+} from '@shared/api/countryApi';
 import { ICountry } from '@shared/models/country';
 
 import CountryForm from '@widgets/Admin/CountriesCities/CountryForm/CountryForm';
@@ -11,6 +14,7 @@ import DeliveryCountries from '@widgets/Admin/CountriesCities/DeliveryCountries/
 
 const CreateDeliveryCountry = () => {
   const [createCountry] = useCreateCountryMutation();
+  const { data: countries } = useGetCountriesQuery();
 
   const [error, setError] = useState<string>();
 
@@ -34,7 +38,7 @@ const CreateDeliveryCountry = () => {
         createDeliveryCountry={handleCountryCreation}
         apiError={error}
       />
-      <DeliveryCountries />
+      {countries && <DeliveryCountries countries={countries} />}
     </div>
   );
 };

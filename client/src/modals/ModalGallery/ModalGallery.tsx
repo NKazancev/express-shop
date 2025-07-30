@@ -1,8 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
 import { PORTAL_CONTAINER_ID, STATIC_URL } from '@config/consts';
-import Modal from '@shared/ui/Modal/Modal';
+
 import usePortal from '@shared/hooks/usePortal';
+import Modal from '@shared/ui/Modal/Modal';
 
 import arrowLeft from '@shared/assets/gallery-arrow-left.svg';
 import arrowRight from '@shared/assets/gallery-arrow-right.svg';
@@ -35,7 +36,6 @@ const ModalGallery: FC<TModalGallery> = ({ onClose, images, imageUrl }) => {
       }
     }
   };
-
   const showNextImage = () => {
     if (allImages) {
       const visibleImageIndex = allImages.indexOf(visibleImage);

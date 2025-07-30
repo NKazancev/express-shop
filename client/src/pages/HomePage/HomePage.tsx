@@ -22,8 +22,7 @@ function HomePage() {
 
       {products?.data.length ? (
         <>
-          <ProductsList data={products.data} />
-
+          <ProductsList items={products.data} />
           <Pagination
             currentPage={currentPage}
             currentLocation="/products"

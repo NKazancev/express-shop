@@ -6,10 +6,7 @@ import AdminProduct from '../AdminProduct/AdminProduct';
 import styles from './AdminProductsList.module.css';
 
 type TAdminProductsList = {
-  products: Pick<
-    IProduct,
-    'id' | 'name' | 'price' | 'description' | 'image' | 'stock'
-  >[];
+  products: IProduct[];
 };
 
 const AdminProductsList: FC<TAdminProductsList> = ({ products }) => {

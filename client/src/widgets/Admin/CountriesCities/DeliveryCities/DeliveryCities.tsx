@@ -6,7 +6,7 @@ import DeleteDeliveryCity from '@processes/DeleteDeliveryCity';
 import styles from './DeliveryCities.module.css';
 
 type TDeliveryCities = {
-  citiesList?: ICity[];
+  citiesList: ICity[];
   setIsSuccess: Dispatch<SetStateAction<boolean>>;
 };
 

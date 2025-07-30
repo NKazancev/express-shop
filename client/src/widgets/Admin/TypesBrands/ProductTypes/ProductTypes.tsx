@@ -1,15 +1,18 @@
-import { useGetTypesQuery } from '@shared/api/typeApi';
+import { FC } from 'react';
 
 import DeleteProductType from '@processes/DeleteProductType';
+import { IProductType } from '@shared/models/typesbrands';
 
 import styles from './ProductTypes.module.css';
 
-const ProductTypes = () => {
-  const { data: types } = useGetTypesQuery();
+type TProductTypes = {
+  types: IProductType[];
+};
 
+const ProductTypes: FC<TProductTypes> = ({ types }) => {
   return (
     <ul className={styles.list}>
-      {types?.map(({ id, name }) => {
+      {types.map(({ id, name }) => {
         return (
           <li key={id} className={styles.type}>
             <span>{name}</span>

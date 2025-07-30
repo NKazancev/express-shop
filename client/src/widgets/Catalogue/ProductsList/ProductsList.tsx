@@ -1,14 +1,16 @@
 import { FC } from 'react';
 
-import { IProductsResponse } from '@shared/models/product';
+import { IProduct } from '@shared/models/product';
 import ProductCard from '@widgets/Catalogue/ProductCard/ProductCard';
 
 import styles from './ProductsList.module.css';
 
-type TProductsList = Pick<IProductsResponse, 'data'>;
+type TProductsList = {
+  items: IProduct[];
+};
 
-const ProductsList: FC<TProductsList> = ({ data }) => {
-  const productsList = data?.map((product) => {
+const ProductsList: FC<TProductsList> = ({ items }) => {
+  const productsList = items.map((product) => {
     return (
       <ProductCard
         key={product.id}

@@ -7,11 +7,12 @@ import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 import styles from './CartTotal.module.css';
 
 type TCartTotal = {
-  items?: ICartProduct[];
+  items: ICartProduct[];
 };
 
 const CartTotal: FC<TCartTotal> = ({ items }) => {
   const navigate = useNavigate();
+
   const itemsQuantity = useCartItemsCount(items);
   const totalPrice = useCartTotalPrice(items);
 

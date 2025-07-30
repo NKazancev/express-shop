@@ -44,7 +44,9 @@ const CreateDeliveryCity = () => {
         setCountryId={setCountryId}
         apiError={error}
       />
-      <DeliveryCities citiesList={citiesList} setIsSuccess={setIsSuccess} />
+      {citiesList && (
+        <DeliveryCities citiesList={citiesList} setIsSuccess={setIsSuccess} />
+      )}
     </div>
   );
 };

@@ -5,12 +5,12 @@ import UserOrder from '../UserOrder/UserOrder';
 
 import styles from './UserOrdersList.module.css';
 
-type TOrdersList = {
-  orders?: IOrderData[];
+type TUserOrdersList = {
+  orders: IOrderData[];
 };
 
-const UserOrdersList: FC<TOrdersList> = ({ orders }) => {
-  const ordersList = orders?.map((order) => {
+const UserOrdersList: FC<TUserOrdersList> = ({ orders }) => {
+  const ordersList = orders.map((order) => {
     return <UserOrder key={order.id} {...order} />;
   });
 

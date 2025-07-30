@@ -19,6 +19,7 @@ type TPagination = {
 const Pagination: FC<TPagination> = (props) => {
   const { currentPage, currentLocation, productsQuantity, itemsPerPage } =
     props;
+
   const navigate = useNavigate();
 
   const pagination = usePagination(
@@ -46,11 +47,13 @@ const Pagination: FC<TPagination> = (props) => {
         <img src={arrowLeft} alt="arrow-left" />
       </button>
 
-      <PaginationButtons
-        buttons={pagination?.buttons}
-        currentPage={currentPage}
-        currentLocation={currentLocation}
-      />
+      {pagination && (
+        <PaginationButtons
+          buttons={pagination.buttons}
+          currentPage={currentPage}
+          currentLocation={currentLocation}
+        />
+      )}
 
       <button type="button" onClick={getNextPage} className={styles.arrowBtn}>
         <img src={arrowRight} alt="arrow-right" />

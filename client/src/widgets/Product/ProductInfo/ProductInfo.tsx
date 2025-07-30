@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
+import { IProductInfo } from '@shared/models/product';
+
 import styles from './ProductInfo.module.css';
 
-type TProductInfo = {
-  text?: string;
-};
-
-const ProductInfo: FC<TProductInfo> = ({ text }) => {
+const ProductInfo: FC<IProductInfo> = ({ text }) => {
   const description = text
     ?.trim()
     .split('\n')

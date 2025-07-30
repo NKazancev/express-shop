@@ -16,26 +16,24 @@ type TCheckout = {
 };
 
 const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
-  const formData = {
-    email: user?.email,
-    country: user?.address?.countryId,
-    city: user?.address?.cityId,
-    postcode: user?.address?.postcode,
-    street: user?.address?.street,
+  const defaultFormValues = {
+    email: user.email,
+    country: user.address?.countryId,
+    city: user.address?.cityId,
+    postcode: user.address?.postcode,
+    street: user.address?.street,
   };
-
-  const { control, handleSubmit, reset, formState } = useForm<ICreateOrderData>(
-    {
-      defaultValues: formData,
+  const { control, handleSubmit, reset, setValue, formState } =
+    useForm<ICreateOrderData>({
+      defaultValues: defaultFormValues,
       resetOptions: { keepDirtyValues: true, keepErrors: true },
-    }
-  );
+    });
 
   const { errors, isSubmitting } = formState;
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    reset(formData);
+    reset(defaultFormValues);
   }, [user]);
 
   return (
@@ -44,14 +42,18 @@ const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
         <h3 className={styles.title}>Delivery information</h3>
         <p className={styles.notification}>All fields are mandatory</p>
 
-        {!user?.address && (
-          <CheckoutForm control={control} errors={errors} apiError={error} />
-        )}
-
-        {user?.address && (
+        {!user.address ? (
+          <CheckoutForm
+            control={control}
+            setValue={setValue}
+            errors={errors}
+            apiError={error}
+          />
+        ) : (
           <CheckoutForm
             control={control}
             defaultCountryId={user?.address?.countryId}
+            setValue={setValue}
             errors={errors}
             apiError={error}
           />

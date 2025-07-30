@@ -6,12 +6,12 @@ import { IProductReview } from '@shared/models/review';
 import styles from './ProductRating.module.css';
 
 type TProductRating = {
-  reviews: IProductReview[] | undefined;
+  reviews: IProductReview[];
 };
 
 const ProductRating: FC<TProductRating> = ({ reviews }) => {
   const rating = useMemo(() => {
-    const ratingSum = reviews?.reduce(
+    const ratingSum = reviews.reduce(
       (acc, el) => (acc += parseInt(el.rate)),
       0
     );
@@ -35,7 +35,7 @@ const ProductRating: FC<TProductRating> = ({ reviews }) => {
             pointerEvents: 'none',
           }}
         />
-        <span className={styles.votes}>(votes: {reviews?.length})</span>
+        <span className={styles.votes}>(votes: {reviews.length})</span>
       </div>
     </div>
   );

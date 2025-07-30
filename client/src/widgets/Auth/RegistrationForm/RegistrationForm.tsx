@@ -11,7 +11,9 @@ type TRegistrationForm = {
   apiError?: string;
 };
 
-const RegistrationForm: FC<TRegistrationForm> = ({ onRegister, apiError }) => {
+const RegistrationForm: FC<TRegistrationForm> = (props) => {
+  const { onRegister, apiError } = props;
+
   const { handleSubmit, control, watch, formState } =
     useForm<TCreateUserData>();
   const { errors, isSubmitting } = formState;

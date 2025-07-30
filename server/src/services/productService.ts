@@ -88,7 +88,7 @@ class ProductService {
           omit: { userId: true },
         },
       },
-      omit: { typeId: true, brandId: true, image: true, description: true },
+      omit: { typeId: true, brandId: true, image: true },
     });
     if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
     return product;

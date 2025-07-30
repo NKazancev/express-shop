@@ -15,7 +15,7 @@ export type TUserCart = Pick<IUser, 'username'> & {
 };
 
 export type TUserInfo = Pick<IUser, 'email' | 'username'> & {
-  address: IAddress | null;
+  address: IAddress;
   stringAddress?: string;
 };
 

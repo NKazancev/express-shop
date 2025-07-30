@@ -10,7 +10,7 @@ import { useCartItemsCount, useCartTotalPrice } from '@shared/hooks/useCart';
 import styles from './CheckoutTotal.module.css';
 
 type TCheckoutTotal = {
-  items?: ICartProduct[];
+  items: ICartProduct[];
   handleSubmit: UseFormHandleSubmit<ICreateOrderData>;
   setError: Dispatch<SetStateAction<string>>;
   isSubmitting: boolean;

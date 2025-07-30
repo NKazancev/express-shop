@@ -10,7 +10,7 @@ import { TCreateProductData } from '@shared/models/product';
 
 import ProductForm from '@widgets/Admin/AdminProducts/ProductForm/ProductForm';
 
-function CreateProduct() {
+const CreateProduct = () => {
   const [createProduct] = useCreateProductMutation();
   const { data: productTypes } = useGetTypesQuery();
   const { data: productBrands } = useGetBrandsQuery();
@@ -52,6 +52,6 @@ function CreateProduct() {
       apiError={error}
     />
   );
-}
+};
 
 export default CreateProduct;

@@ -26,7 +26,7 @@ const AdminOrder: FC<IOrder> = (order) => {
 
   return (
     <li className={styles.order}>
-      <AdminOrderInfo order={order} />
+      <AdminOrderInfo {...order} />
 
       <div className={styles.status}>
         <div

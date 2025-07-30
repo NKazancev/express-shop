@@ -6,26 +6,33 @@ export interface IProduct {
   price: number;
   description: string;
   image: FileList | string;
-  typeId: string;
-  brandId: string;
-  stock: number;
+  stock?: number;
 }
 
 export type TCreateProductData = Pick<
   IProduct,
-  'name' | 'description' | 'price' | 'brandId' | 'typeId' | 'image'
+  'name' | 'description' | 'price' | 'image'
 > & {
+  brandId: string;
+  typeId: string;
   images: FileList;
   text: string;
 };
 
 export type TUpdateProductData = Partial<
-  Pick<IProduct, 'name' | 'description' | 'price' | 'stock'> & { text: string }
+  Pick<IProduct, 'name' | 'description' | 'price' | 'stock'> & {
+    text: string;
+  }
 >;
 
-export type TUpdateGalleryData = Pick<IProduct, 'image'> & { images: FileList };
+export type TUpdateGalleryData = Pick<IProduct, 'image'> & {
+  images: FileList;
+};
 
-export type TProductData = Pick<IProduct, 'id' | 'name' | 'price' | 'stock'> & {
+export type TProductData = Pick<
+  IProduct,
+  'id' | 'name' | 'price' | 'description' | 'stock'
+> & {
   gallery: IProductGallery;
   info: IProductInfo;
   reviews: IProductReview[];
@@ -50,9 +57,6 @@ export interface IProductsRequest {
 }
 
 export interface IProductsResponse {
-  data: Pick<
-    IProduct,
-    'id' | 'name' | 'price' | 'description' | 'image' | 'stock'
-  >[];
+  data: IProduct[];
   quantity: number;
 }

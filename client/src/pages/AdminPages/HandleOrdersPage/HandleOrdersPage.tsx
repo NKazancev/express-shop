@@ -10,7 +10,7 @@ const HandleOrdersPage = () => {
   return (
     <div>
       <h2 className={styles.title}>Orders</h2>
-      <AdminOrdersList orders={orders} />
+      {orders && <AdminOrdersList orders={orders} />}
     </div>
   );
 };

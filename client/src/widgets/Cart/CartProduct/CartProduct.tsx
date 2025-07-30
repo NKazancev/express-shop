@@ -9,22 +9,24 @@ import CartProductCounter from '../CartProductCounter/CartProductCounter';
 
 import styles from './CartProduct.module.css';
 
-type TCartProduct = ICartProduct & { index: number };
+const CartProduct: FC<ICartProduct & { index: number }> = (props) => {
+  const { index, id, quantity, product } = props;
 
-const CartProduct: FC<TCartProduct> = ({ index, id, product, quantity }) => {
+  const price = product?.price ? quantity * product.price : 0;
+
   return (
     <li className={styles.item}>
       <div className={styles.index}>{index + 1}.</div>
 
       <div className={styles.image}>
-        <img src={`${STATIC_URL}/${product.image}`} alt="image" />
+        <img src={`${STATIC_URL}/${product?.image}`} alt="image" />
       </div>
 
-      <h5 className={styles.name}>{product.name}</h5>
+      <h5 className={styles.name}>{product?.name}</h5>
 
       <CartProductCounter id={id} quantity={quantity} />
 
-      <div className={styles.price}>{quantity * product.price}</div>
+      <div className={styles.price}>{price}</div>
 
       <DeleteCartProduct productId={id} />
     </li>

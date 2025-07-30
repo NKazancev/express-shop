@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import ModalAddress from '@modals/ModalAddress/ModalAddress';
 
 import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserAddress.module.css';
 
-const UserAddress = ({ stringAddress }: { stringAddress: string }) => {
+type TUserAddress = {
+  stringAddress: string | undefined;
+};
+
+const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
   const [modalAddress, setModalAddress] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
@@ -23,7 +27,7 @@ const UserAddress = ({ stringAddress }: { stringAddress: string }) => {
 
   return (
     <>
-      {!stringAddress && (
+      {!stringAddress ? (
         <>
           <button
             type="button"
@@ -33,9 +37,7 @@ const UserAddress = ({ stringAddress }: { stringAddress: string }) => {
             + add address
           </button>
         </>
-      )}
-
-      {stringAddress && (
+      ) : (
         <>
           <span className={styles.address}>{stringAddress}</span>
           <button

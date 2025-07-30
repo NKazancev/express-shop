@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
 
+import { PORTAL_CONTAINER_ID } from '@config/consts';
 import ChangePassword from '@processes/ChangePassword';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';
-import { PORTAL_CONTAINER_ID } from '@config/consts';
 
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalPassword.module.css';

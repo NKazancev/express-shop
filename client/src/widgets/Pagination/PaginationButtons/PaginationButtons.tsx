@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import styles from './PaginationButtons.module.css';
 
 type TPaginationButtons = {
-  buttons: (string | number)[] | undefined;
+  buttons: (string | number)[];
   currentPage: number;
   currentLocation: string;
 };
@@ -19,7 +19,7 @@ const PaginationButtons: FC<TPaginationButtons> = (props) => {
     navigate(`${currentLocation}/page/${page}`);
   };
 
-  const list = buttons?.map((btn, i) => {
+  const list = buttons.map((btn, i) => {
     return typeof btn === 'number' ? (
       <li key={i}>
         <button

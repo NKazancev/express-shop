@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ICity } from '@shared/models/country';
@@ -11,7 +11,7 @@ import styles from './CityForm.module.css';
 
 type TCityForm = {
   createDeliveryCity: (data: Omit<ICity, 'id'>) => void;
-  setCountryId: (data: string) => void;
+  setCountryId: Dispatch<SetStateAction<string>>;
   apiError?: string;
 };
 

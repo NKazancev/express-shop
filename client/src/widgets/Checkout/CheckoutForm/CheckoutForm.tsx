@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Control, FieldErrors } from 'react-hook-form';
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 
 import { ICreateOrderData } from '@shared/models/order';
 import { useGetCountriesQuery } from '@shared/api/countryApi';
@@ -13,12 +13,13 @@ import styles from './CheckoutForm.module.css';
 type TCheckoutForm = {
   control: Control<ICreateOrderData>;
   defaultCountryId?: string;
+  setValue: UseFormSetValue<ICreateOrderData>;
   errors: FieldErrors<ICreateOrderData>;
   apiError?: string;
 };
 
 const CheckoutForm: FC<TCheckoutForm> = (props) => {
-  const { control, defaultCountryId, errors, apiError } = props;
+  const { control, defaultCountryId, errors, setValue, apiError } = props;
 
   const { data: countriesOptions } = useGetCountriesQuery();
   const [countryId, setCountryId] = useState<string | undefined>(
@@ -44,7 +45,10 @@ const CheckoutForm: FC<TCheckoutForm> = (props) => {
           firstOption="Choose country"
           control={control}
           error={errors.country}
-          onChange={(id: string) => setCountryId(id)}
+          onChange={(id: string) => {
+            setValue('city', '');
+            setCountryId(id);
+          }}
         />
         <Input
           name="lastName"

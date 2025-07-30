@@ -24,18 +24,20 @@ const ProductPage = () => {
         &#8592; back to the catalogue
       </button>
 
-      <div className={styles.content}>
-        {product?.gallery.images && (
-          <ProductGallery images={product?.gallery.images} />
-        )}
-        {product && <ProductPanel {...product} />}
-      </div>
+      {product && (
+        <>
+          <div className={styles.content}>
+            <ProductGallery images={product.gallery.images} />
+            <ProductPanel {...product} />
+          </div>
 
-      <div className={styles.info}>
-        <ProductInfo text={product?.info.text} />
-      </div>
+          <div className={styles.info}>
+            <ProductInfo text={product.info.text} />
+          </div>
 
-      <ProductReviews reviews={product?.reviews} productId={product?.id} />
+          <ProductReviews reviews={product.reviews} productId={product.id} />
+        </>
+      )}
     </div>
   );
 };

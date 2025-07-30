@@ -4,11 +4,7 @@ import { IOrder } from '@shared/models/order';
 
 import styles from './AdminOrderInfo.module.css';
 
-type TAdminOrderInfo = {
-  order: IOrder;
-};
-
-const AdminOrderInfo: FC<TAdminOrderInfo> = ({ order }) => {
+const AdminOrderInfo: FC<IOrder> = (order) => {
   const { customer, contactInfo, address, netAmount } = order;
 
   return (

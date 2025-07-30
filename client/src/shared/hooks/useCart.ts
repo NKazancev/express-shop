@@ -24,7 +24,9 @@ const useCartTotalPrice = (items: ICartProduct[] | undefined) => {
   useEffect(() => {
     setTotalPrice(
       items?.reduce((acc, el) => {
-        acc += el.product.price * el.quantity;
+        el.product?.price
+          ? (acc += el.product?.price * el.quantity)
+          : (acc += 0);
         return acc;
       }, 0)
     );

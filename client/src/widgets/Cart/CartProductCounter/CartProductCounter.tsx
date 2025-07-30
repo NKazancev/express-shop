@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import toast from 'react-hot-toast';
 
+import baseApi from '@config/baseApi';
+
 import { useUpdateCartProductMutation } from '@shared/api/cartApi';
+import { useAppDispatch } from '@shared/hooks/reduxHooks';
 
 import styles from './CartProductCounter.module.css';
-import { useAppDispatch } from '@shared/hooks/reduxHooks';
-import baseApi from '@config/baseApi';
 
 type TCartProductCounter = {
   id: string;
-  quantity?: number;
+  quantity: number;
 };
 
 const CartProductCounter: FC<TCartProductCounter> = ({ id, quantity }) => {

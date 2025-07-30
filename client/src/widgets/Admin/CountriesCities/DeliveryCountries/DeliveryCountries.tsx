@@ -1,15 +1,18 @@
-import DeleteDeliveryCountry from '@processes/DeleteDeliveryCountry';
+import { FC } from 'react';
 
-import { useGetCountriesQuery } from '@shared/api/countryApi';
+import { ICountry } from '@shared/models/country';
+import DeleteDeliveryCountry from '@processes/DeleteDeliveryCountry';
 
 import styles from './DeliveryCountries.module.css';
 
-const DeliveryCountries = () => {
-  const { data: countries } = useGetCountriesQuery();
+type TDeliveryCountries = {
+  countries: ICountry[];
+};
 
+const DeliveryCountries: FC<TDeliveryCountries> = ({ countries }) => {
   return (
     <ul className={styles.list}>
-      {countries?.map(({ id, name }) => {
+      {countries.map(({ id, name }) => {
         return (
           <li key={id} className={styles.country}>
             <span>{name}</span>

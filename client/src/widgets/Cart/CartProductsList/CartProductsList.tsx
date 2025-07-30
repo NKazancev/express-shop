@@ -5,16 +5,16 @@ import { ICartProduct } from '@shared/models/cart';
 
 import styles from './CartProductsList.module.css';
 
-type TCartProductsList = {
-  items?: ICartProduct[];
+type CartProductsListProps = {
+  items: ICartProduct[];
 };
 
-const CartProductsList: FC<TCartProductsList> = ({ items }) => {
-  const cartProductsList = items?.map((cartProduct, index) => {
+const CartProductsList: FC<CartProductsListProps> = ({ items }) => {
+  const cartProductsList = items.map((cartProduct, index) => {
     return (
       <CartProduct
-        index={index}
         key={cartProduct.id}
+        index={index}
         id={cartProduct.id}
         quantity={cartProduct.quantity}
         product={cartProduct.product}

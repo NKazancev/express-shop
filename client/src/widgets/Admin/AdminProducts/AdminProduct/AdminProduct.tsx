@@ -13,12 +13,7 @@ import penIcon from '@shared/assets/pen-icon.svg';
 import imageIcon from '@shared/assets/image-icon.svg';
 import styles from './AdminProduct.module.css';
 
-type TAdminProduct = Pick<
-  IProduct,
-  'id' | 'name' | 'price' | 'description' | 'image' | 'stock'
->;
-
-const AdminProduct: FC<TAdminProduct> = ({ id, image, name, price, stock }) => {
+const AdminProduct: FC<IProduct> = ({ id, image, name, price, stock }) => {
   const [modalInfoVisible, setModalInfoVisible] = useState<boolean>(false);
   const [modalGalleryVisible, setGalleryModalVisible] =
     useState<boolean>(false);
@@ -37,7 +32,7 @@ const AdminProduct: FC<TAdminProduct> = ({ id, image, name, price, stock }) => {
 
         <h5 className={styles.name}>{name}</h5>
 
-        <StockCounter id={id} stock={stock} />
+        {stock && <StockCounter id={id} stock={stock} />}
 
         <div className={styles.price}>{price}</div>
 

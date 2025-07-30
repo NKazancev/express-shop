@@ -19,13 +19,17 @@ const CartPage = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.list}>
-        <CartProductsList items={cartProducts} />
-      </div>
+      {cartProducts && (
+        <>
+          <div className={styles.list}>
+            <CartProductsList items={cartProducts} />
+          </div>
 
-      <div className={styles.total}>
-        <CartTotal items={cartProducts} />
-      </div>
+          <div className={styles.total}>
+            <CartTotal items={cartProducts} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

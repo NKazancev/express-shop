@@ -12,8 +12,8 @@ import profile from '@shared/assets/profile-icon.svg';
 import styles from './UserPanel.module.css';
 
 const UserPanel = () => {
-  const { data: user } = useGetUserCartQuery();
-  const cartItemsCount = useCartItemsCount(user?.cartProducts);
+  const { data: userCart } = useGetUserCartQuery();
+  const cartItemsCount = useCartItemsCount(userCart?.cartProducts);
 
   const [profileMenuVisible, setProfileMenuVisible] = useState<boolean>(false);
   const toggleMenu = () => setProfileMenuVisible((prev) => !prev);
@@ -39,7 +39,7 @@ const UserPanel = () => {
       <div className={styles.profile}>
         <button type="button" onClick={toggleMenu}>
           <img src={profile} alt="profile-icon" />
-          <span>{user?.username}</span>
+          <span>{userCart?.username}</span>
         </button>
 
         <Dropdown isVisible={profileMenuVisible} onClose={closeMenu}>
