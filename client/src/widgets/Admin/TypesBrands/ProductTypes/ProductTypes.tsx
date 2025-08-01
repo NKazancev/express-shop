@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import DeleteProductType from '@processes/DeleteProductType';
+import DeleteProductType from '@processes/Admin/DeleteProductType';
 import { IProductType } from '@shared/models/typesbrands';
 
 import styles from './ProductTypes.module.css';

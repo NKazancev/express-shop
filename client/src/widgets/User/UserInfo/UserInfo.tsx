@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { TUserInfo } from '@shared/models/user';
 
 import ModalPassword from '@modals/ModalPassword/ModalPassword';
 import ModalUsername from '@modals/ModalUsername/ModalUsername';
@@ -9,7 +8,13 @@ import UserAddress from './UserAddress/UserAddress';
 import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserInfo.module.css';
 
-const UserInfo: FC<TUserInfo> = ({ email, username, stringAddress }) => {
+type TUserInfo = {
+  email: string;
+  username: string;
+  address?: string;
+};
+
+const UserInfo: FC<TUserInfo> = ({ email, username, address }) => {
   const [modalPassword, setModalPassword] = useState<boolean>(false);
   const [modalUsername, setModalUsername] = useState<boolean>(false);
 
@@ -49,7 +54,7 @@ const UserInfo: FC<TUserInfo> = ({ email, username, stringAddress }) => {
 
       <li className={styles.row}>
         <span>Delivery address:</span>
-        <UserAddress stringAddress={stringAddress} />
+        <UserAddress address={address} />
       </li>
 
       {modalPassword && <ModalPassword onClose={hidePassword} />}

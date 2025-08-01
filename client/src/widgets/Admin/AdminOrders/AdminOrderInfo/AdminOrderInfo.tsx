@@ -4,7 +4,12 @@ import { IOrder } from '@shared/models/order';
 
 import styles from './AdminOrderInfo.module.css';
 
-const AdminOrderInfo: FC<IOrder> = (order) => {
+type TAdminOrderInfo = Pick<
+  IOrder,
+  'customer' | 'contactInfo' | 'address' | 'netAmount'
+>;
+
+const AdminOrderInfo: FC<TAdminOrderInfo> = (order) => {
   const { customer, contactInfo, address, netAmount } = order;
 
   return (

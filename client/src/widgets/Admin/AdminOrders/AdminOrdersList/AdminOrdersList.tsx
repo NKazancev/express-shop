@@ -11,7 +11,17 @@ type TAdminOrdersList = {
 
 const AdminOrdersList: FC<TAdminOrdersList> = ({ orders }) => {
   const ordersList = orders.map((order) => {
-    return <AdminOrder key={order.id} {...order} />;
+    return (
+      <AdminOrder
+        key={order.id}
+        id={order.id}
+        status={order.status}
+        customer={order.customer}
+        contactInfo={order.contactInfo}
+        address={order.address}
+        netAmount={order.netAmount}
+      />
+    );
   });
 
   return (

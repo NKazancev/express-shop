@@ -28,7 +28,13 @@ const ProductPage = () => {
         <>
           <div className={styles.content}>
             <ProductGallery images={product.gallery.images} />
-            <ProductPanel {...product} />
+            <ProductPanel
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              stock={product.stock}
+              reviews={product.reviews}
+            />
           </div>
 
           <div className={styles.info}>

@@ -15,10 +15,9 @@ const AdminProductsList: FC<TAdminProductsList> = ({ products }) => {
       <AdminProduct
         key={product.id}
         id={product.id}
+        image={product.image}
         name={product.name}
         price={product.price}
-        description={product.description}
-        image={product.image}
         stock={product.stock}
       />
     );

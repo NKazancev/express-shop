@@ -1,7 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 
 import { STATIC_URL } from '@config/consts';
-import DeleteProduct from '@processes/DeleteProduct';
+import DeleteProduct from '@processes/Admin/DeleteProduct';
 
 import { IProduct } from '@shared/models/product';
 import StockCounter from '../StockCounter/StockCounter';
@@ -13,7 +13,9 @@ import penIcon from '@shared/assets/pen-icon.svg';
 import imageIcon from '@shared/assets/image-icon.svg';
 import styles from './AdminProduct.module.css';
 
-const AdminProduct: FC<IProduct> = ({ id, image, name, price, stock }) => {
+const AdminProduct: FC<Omit<IProduct, 'description'>> = memo((props) => {
+  const { id, image, name, price, stock } = props;
+
   const [modalInfoVisible, setModalInfoVisible] = useState<boolean>(false);
   const [modalGalleryVisible, setGalleryModalVisible] =
     useState<boolean>(false);
@@ -56,6 +58,6 @@ const AdminProduct: FC<IProduct> = ({ id, image, name, price, stock }) => {
       )}
     </>
   );
-};
+});
 
 export default AdminProduct;

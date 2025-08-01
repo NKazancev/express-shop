@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
+import UserRole from '@config/userRoles';
 import baseApi from '@config/baseApi';
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
@@ -17,7 +18,7 @@ type TCreateCartProduct = {
 const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
   const { productId, buttonStyle } = props;
 
-  const { isLogged } = useAppSelector((state) => state.user);
+  const { isLogged, role } = useAppSelector((state) => state.user);
   const [createCartProduct] = useCreateCartProductMutation();
   const dispatch = useAppDispatch();
 
@@ -25,6 +26,8 @@ const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
   const hideModal = () => setModalLoginVisible(false);
 
   const addProductToCart = async () => {
+    if (role === UserRole.ADMIN) return;
+
     if (!isLogged) {
       setModalLoginVisible(true);
       return;

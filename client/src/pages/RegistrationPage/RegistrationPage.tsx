@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
-import CreateUser from '@processes/CreateUser';
+import CreateUser from '@processes/User/CreateUser';
 
 import regImage from '@shared/assets/registration-image.jpg';
 import styles from './RegistrationPage.module.css';

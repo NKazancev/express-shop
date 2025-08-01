@@ -14,7 +14,11 @@ const HandleProductsPage = () => {
   const currentPage = Number(page ?? 1);
   const itemsPerPage = 10;
 
-  const products = useProducts(currentPage, itemsPerPage, UserRole.ADMIN);
+  const { products, isSuccess } = useProducts(
+    currentPage,
+    itemsPerPage,
+    UserRole.ADMIN
+  );
 
   return (
     <div className={styles.container}>
@@ -25,7 +29,7 @@ const HandleProductsPage = () => {
         <p className={styles.total}>Number of products: {products?.quantity}</p>
       </div>
 
-      {products && (
+      {!!products?.data.length && isSuccess && (
         <>
           <AdminProductsList products={products.data} />
           <Pagination
@@ -35,6 +39,10 @@ const HandleProductsPage = () => {
             itemsPerPage={itemsPerPage}
           />
         </>
+      )}
+
+      {!products?.data.length && isSuccess && (
+        <div className={styles.notFound}>Nothing was found</div>
       )}
     </div>
   );

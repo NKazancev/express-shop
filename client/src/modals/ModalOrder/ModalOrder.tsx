@@ -27,7 +27,12 @@ const ModalOrderInfo: FC<TModalOrder> = ({ onClose, orderId }) => {
 
         {order && (
           <div className={styles.info}>
-            <AdminOrderInfo {...order} />
+            <AdminOrderInfo
+              customer={order.customer}
+              contactInfo={order.contactInfo}
+              address={order.address}
+              netAmount={order.netAmount}
+            />
             <AdminOrderProducts products={order.products} />
           </div>
         )}

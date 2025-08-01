@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 
 import { ICity } from '@shared/models/country';
-import DeleteDeliveryCity from '@processes/DeleteDeliveryCity';
+import DeleteDeliveryCity from '@processes/Admin/DeleteDeliveryCity';
 
 import styles from './DeliveryCities.module.css';
 

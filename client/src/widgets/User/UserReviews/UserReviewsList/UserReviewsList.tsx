@@ -11,7 +11,17 @@ type TUserReviews = {
 
 const UserReviewsList: FC<TUserReviews> = ({ reviews }) => {
   const userReviews = reviews.map((review) => {
-    return <UserReview key={review.id} {...review} />;
+    return (
+      <UserReview
+        key={review.id}
+        id={review.id}
+        productId={review.productId}
+        product={review.product}
+        title={review.title}
+        text={review.text}
+        rate={review.rate}
+      />
+    );
   });
 
   return reviews.length ? (

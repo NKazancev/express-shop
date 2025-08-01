@@ -57,7 +57,7 @@ const ModalGallery: FC<TModalGallery> = ({ onClose, images, imageUrl }) => {
           <img src={arrowLeft} alt="arrow-icon" />
         </button>
 
-        <div>
+        <div className={styles.visibleImage}>
           <img src={visibleImage} alt="image" />
         </div>
 

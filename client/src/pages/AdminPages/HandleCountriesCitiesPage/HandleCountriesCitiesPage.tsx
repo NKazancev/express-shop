@@ -1,5 +1,5 @@
-import CreateDeliveryCountry from '@processes/CreateDeliveryCountry';
-import CreateDeliveryCity from '@processes/CreateDeliveryCity';
+import CreateDeliveryCountry from '@processes/Admin/CreateDeliveryCountry';
+import CreateDeliveryCity from '@processes/Admin/CreateDeliveryCity';
 
 import styles from './HandleCountriesCitiesPage.module.css';
 

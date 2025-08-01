@@ -9,8 +9,13 @@ import UserOrderProducts from '../UserOrderProducts/UserOrderProducts';
 
 import styles from './UserOrder.module.css';
 
-const UserOrder: FC<IOrderData> = (order) => {
-  const { status, products } = order;
+type TUserOrder = Pick<
+  IOrderData,
+  'status' | 'contactInfo' | 'address' | 'netAmount' | 'products'
+>;
+
+const UserOrder: FC<TUserOrder> = (order) => {
+  const { status, contactInfo, address, netAmount, products } = order;
 
   const orderStatusColor = useOrderStatusColor(status);
   const statusName = orderStatusesData.find((s) => s.value === status)?.name;
@@ -18,7 +23,11 @@ const UserOrder: FC<IOrderData> = (order) => {
   return (
     <li className={styles.order}>
       <div className={styles.info}>
-        <UserOrderInfo order={order} />
+        <UserOrderInfo
+          contactInfo={contactInfo}
+          address={address}
+          netAmount={netAmount}
+        />
 
         <div className={styles.status}>
           <div

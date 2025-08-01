@@ -1,5 +1,5 @@
-import CreateProductBrand from '@processes/CreateProductBrand';
-import CreateProductType from '@processes/CreateProductType';
+import CreateProductBrand from '@processes/Admin/CreateProductBrand';
+import CreateProductType from '@processes/Admin/CreateProductType';
 
 import { useGetTypesQuery } from '@shared/api/typeApi';
 import { useGetBrandsQuery } from '@shared/api/brandApi';

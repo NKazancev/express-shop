@@ -1,4 +1,4 @@
-import CreateProduct from '@processes/CreateProduct';
+import CreateProduct from '@processes/Admin/CreateProduct';
 
 import styles from './CreateProductPage.module.css';
 

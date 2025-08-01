@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { IProduct } from '@shared/models/product';
@@ -6,7 +6,7 @@ import { STATIC_URL } from '@config/consts';
 
 import styles from './ProductCard.module.css';
 
-const ProductCard: FC<IProduct> = (props) => {
+const ProductCard: FC<IProduct> = memo((props) => {
   const { id, name, price, description, image } = props;
 
   const navigate = useNavigate();
@@ -26,6 +26,6 @@ const ProductCard: FC<IProduct> = (props) => {
       </div>
     </li>
   );
-};
+});
 
 export default ProductCard;

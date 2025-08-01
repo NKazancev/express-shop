@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 import { UseFormHandleSubmit } from 'react-hook-form';
 
-import CreateOrder from '@processes/CreateOrder';
+import CreateOrder from '@processes/User/CreateOrder';
 
 import { ICartProduct } from '@shared/models/cart';
 import { ICreateOrderData } from '@shared/models/order';

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { PORTAL_CONTAINER_ID } from '@config/consts';
-import UpdateProductInfo from '@processes/UpdateProductInfo';
+import UpdateProductInfo from '@processes/Admin/UpdateProductInfo';
 
 import Modal from '@shared/ui/Modal/Modal';
 import usePortal from '@shared/hooks/usePortal';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { STATIC_URL } from '@config/consts';
-import DeleteCartProduct from '@processes/DeleteCartProduct';
+import DeleteCartProduct from '@processes/User/DeleteCartProduct';
 
 import { ICartProduct } from '@shared/models/cart';
 

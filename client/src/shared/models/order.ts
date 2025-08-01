@@ -7,7 +7,7 @@ export interface IOrder {
   customer: string;
   address: string;
   contactInfo: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export interface ICreateOrderData {

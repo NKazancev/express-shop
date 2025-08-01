@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import CreateCartProduct from '@processes/CreateCartProduct';
+import CreateCartProduct from '@processes/User/CreateCartProduct';
 
 import { IProduct } from '@shared/models/product';
 import { IProductReview } from '@shared/models/review';
@@ -17,7 +17,7 @@ export type TProductPanel = Pick<
 };
 
 const ProductPanel: FC<TProductPanel> = (props) => {
-  const { id, name, price, reviews, stock } = props;
+  const { id, name, price, stock, reviews } = props;
 
   const statusColor = {
     backgroundColor: stock && stock > 0 ? '#8cab9b' : '#f97a7a',
@@ -26,7 +26,7 @@ const ProductPanel: FC<TProductPanel> = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.status}>
-        <span className={styles.circle} style={statusColor}></span>
+        <span className={styles.circle} style={statusColor} />
         <span>{stock && stock > 0 ? 'In stock' : 'Out of stock'}</span>
       </div>
 

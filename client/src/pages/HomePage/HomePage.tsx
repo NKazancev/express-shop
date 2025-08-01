@@ -14,13 +14,17 @@ function HomePage() {
   const currentPage = Number(page ?? 1);
   const itemsPerPage = 8;
 
-  const products = useProducts(currentPage, itemsPerPage, UserRole.USER);
+  const { products, isSuccess } = useProducts(
+    currentPage,
+    itemsPerPage,
+    UserRole.USER
+  );
 
   return (
     <div className={styles.products}>
       <ProductsPanel />
 
-      {products?.data.length ? (
+      {!!products?.data.length && isSuccess && (
         <>
           <ProductsList items={products.data} />
           <Pagination
@@ -30,7 +34,11 @@ function HomePage() {
             itemsPerPage={itemsPerPage}
           />
         </>
-      ) : null}
+      )}
+
+      {!products?.data.length && isSuccess && (
+        <div className={styles.notFound}>Nothing was found</div>
+      )}
     </div>
   );
 }

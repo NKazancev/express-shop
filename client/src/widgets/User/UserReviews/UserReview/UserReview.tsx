@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router';
 import { Rating } from 'react-simple-star-rating';
 
-import DeleteProductReview from '@processes/DeleteProductReview';
+import DeleteProductReview from '@processes/User/DeleteProductReview';
 import { IUserReview } from '@shared/models/review';
 
 import styles from './UserReview.module.css';

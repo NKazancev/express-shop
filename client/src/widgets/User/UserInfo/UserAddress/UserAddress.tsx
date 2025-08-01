@@ -6,10 +6,10 @@ import pen from '@shared/assets/pen-icon.svg';
 import styles from './UserAddress.module.css';
 
 type TUserAddress = {
-  stringAddress: string | undefined;
+  address: string | undefined;
 };
 
-const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
+const UserAddress: FC<TUserAddress> = ({ address }) => {
   const [modalAddress, setModalAddress] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
 
   return (
     <>
-      {!stringAddress ? (
+      {!address ? (
         <>
           <button
             type="button"
@@ -39,7 +39,7 @@ const UserAddress: FC<TUserAddress> = ({ stringAddress }) => {
         </>
       ) : (
         <>
-          <span className={styles.address}>{stringAddress}</span>
+          <span className={styles.address}>{address}</span>
           <button
             type="button"
             onClick={updateAddress}

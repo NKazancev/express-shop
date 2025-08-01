@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { ICountry } from '@shared/models/country';
-import DeleteDeliveryCountry from '@processes/DeleteDeliveryCountry';
+import DeleteDeliveryCountry from '@processes/Admin/DeleteDeliveryCountry';
 
 import styles from './DeliveryCountries.module.css';
 

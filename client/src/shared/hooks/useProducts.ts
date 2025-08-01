@@ -31,11 +31,11 @@ const useProducts = (page: number, itemsPerPage: number, role: UserRole) => {
           take: itemsPerPage,
         };
 
-  const { data: products } = useGetProductsQuery(queryArgs, {
+  const { data: products, isSuccess } = useGetProductsQuery(queryArgs, {
     refetchOnMountOrArgChange: true,
   });
 
-  return products;
+  return { products, isSuccess };
 };
 
 export default useProducts;

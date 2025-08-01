@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { NavLink } from 'react-router';
 
 import { PORTAL_CONTAINER_ID } from '@config/consts';
-import LoginUser from '@processes/LoginUser';
+import LoginUser from '@processes/User/LoginUser';
 
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 import usePortal from '@shared/hooks/usePortal';

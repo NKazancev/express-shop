@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { IProductBrand } from '@shared/models/typesbrands';
-import DeleteProductBrand from '@processes/DeleteProductBrand';
+import DeleteProductBrand from '@processes/Admin/DeleteProductBrand';
 
 import styles from './ProductBrands.module.css';
 

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 
 import { IOrder } from '@shared/models/order';
 import { orderStatusesData } from '@config/orderStatus';
@@ -10,8 +10,8 @@ import OrderStatusPopup from '../OrderStatusPopup/OrderStatusPopup';
 
 import styles from './AdminOrder.module.css';
 
-const AdminOrder: FC<IOrder> = (order) => {
-  const { id, status } = order;
+const AdminOrder: FC<IOrder> = memo((order) => {
+  const { id, status, customer, contactInfo, address, netAmount } = order;
 
   const orderStatusColor = useOrderStatusColor(status);
   const statusName = orderStatusesData.find((s) => s.value === status)?.name;
@@ -26,7 +26,12 @@ const AdminOrder: FC<IOrder> = (order) => {
 
   return (
     <li className={styles.order}>
-      <AdminOrderInfo {...order} />
+      <AdminOrderInfo
+        customer={customer}
+        contactInfo={contactInfo}
+        address={address}
+        netAmount={netAmount}
+      />
 
       <div className={styles.status}>
         <div
@@ -49,7 +54,6 @@ const AdminOrder: FC<IOrder> = (order) => {
             />
           )}
         </div>
-
         <button type="button" onClick={showOrderInfo} className={styles.button}>
           View order
         </button>
@@ -60,6 +64,6 @@ const AdminOrder: FC<IOrder> = (order) => {
       )}
     </li>
   );
-};
+});
 
 export default AdminOrder;

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { OrderStatus, orderStatusesData } from '@config/orderStatus';
-import UpdateOrderStatus from '@processes/UpdateOrderStatus';
+import UpdateOrderStatus from '@processes/Admin/UpdateOrderStatus';
 
 import Popup from '@shared/ui/Popup/Popup';
 

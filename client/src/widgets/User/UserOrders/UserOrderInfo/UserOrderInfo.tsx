@@ -4,12 +4,10 @@ import { IOrder } from '@shared/models/order';
 
 import styles from './UserOrderInfo.module.css';
 
-type TUserOrderInfo = {
-  order: IOrder;
-};
+type TUserOrderInfo = Pick<IOrder, 'contactInfo' | 'address' | 'netAmount'>;
 
-const UserOrderInfo: FC<TUserOrderInfo> = ({ order }) => {
-  const { contactInfo, address, netAmount } = order;
+const UserOrderInfo: FC<TUserOrderInfo> = (props) => {
+  const { contactInfo, address, netAmount } = props;
 
   return (
     <ul className={styles.info}>
