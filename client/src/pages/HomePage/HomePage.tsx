@@ -24,7 +24,7 @@ function HomePage() {
     <div className={styles.products}>
       <ProductsPanel />
 
-      {!!products?.data.length && isSuccess && (
+      {!!products?.quantity && isSuccess && (
         <>
           <ProductsList items={products.data} />
           <Pagination
@@ -36,7 +36,7 @@ function HomePage() {
         </>
       )}
 
-      {!products?.data.length && isSuccess && (
+      {!products?.quantity && isSuccess && (
         <div className={styles.notFound}>Nothing was found</div>
       )}
     </div>

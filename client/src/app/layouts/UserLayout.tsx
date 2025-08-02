@@ -5,7 +5,7 @@ import UserNavigation from '@widgets/User/UserNavigation/UserNavigation';
 
 function UserLayout() {
   return (
-    <div className="layout">
+    <div className="user-layout layout">
       <Header />
       <div className="sidebar-container">
         <UserNavigation />

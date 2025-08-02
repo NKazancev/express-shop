@@ -23,15 +23,7 @@ const UserOrdersList: FC<TUserOrdersList> = ({ orders }) => {
     );
   });
 
-  return (
-    <>
-      {orders?.length ? (
-        <ul className={styles.orders}>{ordersList}</ul>
-      ) : (
-        <p className={styles.notification}>You don't have any orders</p>
-      )}
-    </>
-  );
+  return <ul className={styles.orders}>{ordersList}</ul>;
 };
 
 export default UserOrdersList;

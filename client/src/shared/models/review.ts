@@ -18,3 +18,13 @@ export interface IProductReview extends IReview {
 export interface IUserReview extends IReview {
   product: { name: string };
 }
+
+export interface IReviewsRequest {
+  skip: number;
+  take: number;
+}
+
+export interface IReviewsResponse {
+  data: IUserReview[];
+  quantity: number;
+}

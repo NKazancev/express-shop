@@ -29,7 +29,7 @@ const HandleProductsPage = () => {
         <p className={styles.total}>Number of products: {products?.quantity}</p>
       </div>
 
-      {!!products?.data.length && isSuccess && (
+      {!!products?.quantity && isSuccess && (
         <>
           <AdminProductsList products={products.data} />
           <Pagination
@@ -41,7 +41,7 @@ const HandleProductsPage = () => {
         </>
       )}
 
-      {!products?.data.length && isSuccess && (
+      {!products?.quantity && isSuccess && (
         <div className={styles.notFound}>Nothing was found</div>
       )}
     </div>

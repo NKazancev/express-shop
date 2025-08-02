@@ -21,9 +21,15 @@ class ReviewController {
   }
 
   static async getAllUserReviews(req: Request, res: Response) {
+    const skip = Number(req.query.skip) || 0;
+    const take = Number(req.query.take) || 3;
     const userId = req.user.id;
-    const reviews = await ReviewService.getAllUserReviews(userId);
-    res.status(200).json(reviews);
+    const { reviews, quantity } = await ReviewService.getAllUserReviews(
+      userId,
+      skip,
+      take
+    );
+    res.status(200).json({ data: reviews, quantity });
   }
 
   static async getUserReview(req: Request, res: Response) {

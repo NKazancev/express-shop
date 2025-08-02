@@ -24,15 +24,7 @@ const AdminOrdersList: FC<TAdminOrdersList> = ({ orders }) => {
     );
   });
 
-  return (
-    <>
-      {orders.length > 0 ? (
-        <ul className={styles.orders}>{ordersList}</ul>
-      ) : (
-        <p className={styles.notification}>Nobody has placed any order yet</p>
-      )}
-    </>
-  );
+  return <ul className={styles.orders}>{ordersList}</ul>;
 };
 
 export default AdminOrdersList;

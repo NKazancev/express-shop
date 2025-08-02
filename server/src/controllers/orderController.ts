@@ -29,14 +29,22 @@ class OrderController {
   }
 
   static async getAllOrders(req: Request, res: Response) {
-    const orders = await OrderService.getAllOrders();
-    res.status(200).json(orders);
+    const skip = Number(req.query.skip) || 0;
+    const take = Number(req.query.take) || 4;
+    const { orders, quantity } = await OrderService.getAllOrders(skip, take);
+    res.status(200).json({ data: orders, quantity });
   }
 
   static async getAllUserOrders(req: Request, res: Response) {
+    const skip = Number(req.query.skip) || 0;
+    const take = Number(req.query.take) || 4;
     const userId = req.user.id;
-    const orders = await OrderService.getAllUserOrders(userId);
-    res.status(200).json(orders);
+    const { orders, quantity } = await OrderService.getAllUserOrders(
+      userId,
+      skip,
+      take
+    );
+    res.status(200).json({ data: orders, quantity });
   }
 
   static async getOrderById(req: Request, res: Response) {

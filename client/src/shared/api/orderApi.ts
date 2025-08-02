@@ -1,5 +1,11 @@
 import baseApi from '@config/baseApi';
-import { ICreateOrderData, IOrder, IOrderData } from '@shared/models/order';
+import {
+  ICreateOrderData,
+  IOrder,
+  IOrderData,
+  IOrdersRequest,
+  IOrdersResponse,
+} from '@shared/models/order';
 
 const orderApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Orders'] })
@@ -14,29 +20,40 @@ const orderApi = baseApi
         invalidatesTags: [{ type: 'Orders', id: 'LIST' }],
       }),
 
-      getAllOrders: builder.query<IOrder[], void>({
-        query: () => ({
+      getAllOrders: builder.query<IOrdersResponse<IOrder[]>, IOrdersRequest>({
+        query: (args) => ({
           url: 'orders',
           method: 'GET',
+          params: { ...args },
         }),
         providesTags: (result) =>
           result
             ? [
-                ...result.map(({ id }) => ({ type: 'Orders', id } as const)),
+                ...result.data.map(
+                  ({ id }) => ({ type: 'Orders', id } as const)
+                ),
                 { type: 'Orders', id: 'LIST' },
               ]
             : [{ type: 'Orders', id: 'LIST' }],
       }),
 
-      getAllUserOrders: builder.query<IOrderData[], void>({
-        query: () => ({
-          url: 'orders/user',
-          method: 'GET',
-        }),
+      getAllUserOrders: builder.query<
+        IOrdersResponse<IOrderData[]>,
+        IOrdersRequest
+      >({
+        query: (args) => {
+          return {
+            url: 'orders/user',
+            method: 'GET',
+            params: { ...args },
+          };
+        },
         providesTags: (result) =>
           result
             ? [
-                ...result.map(({ id }) => ({ type: 'Orders', id } as const)),
+                ...result.data.map(
+                  ({ id }) => ({ type: 'Orders', id } as const)
+                ),
                 { type: 'Orders', id: 'LIST' },
               ]
             : [{ type: 'Orders', id: 'LIST' }],

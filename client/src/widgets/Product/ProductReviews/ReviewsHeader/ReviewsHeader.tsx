@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import UserRole from '@config/userRoles';
+
 import { useAppSelector } from '@shared/hooks/reduxHooks';
 
 import styles from './ReviewsHeader.module.css';
@@ -13,7 +15,7 @@ type TReviewsHeader = {
 const ReviewsHeader: FC<TReviewsHeader> = (props) => {
   const { reviewsQuantity, isUserReview, onAddButtonClick } = props;
 
-  const { isLogged } = useAppSelector((state) => state.user);
+  const { isLogged, role } = useAppSelector((state) => state.user);
 
   return (
     <header className={styles.header}>
@@ -29,7 +31,7 @@ const ReviewsHeader: FC<TReviewsHeader> = (props) => {
         )}
       </div>
 
-      {isLogged && !isUserReview && (
+      {isLogged && !isUserReview && role !== UserRole.ADMIN && (
         <button
           type="button"
           onClick={onAddButtonClick}

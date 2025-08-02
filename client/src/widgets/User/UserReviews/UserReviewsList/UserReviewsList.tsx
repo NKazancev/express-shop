@@ -24,11 +24,7 @@ const UserReviewsList: FC<TUserReviews> = ({ reviews }) => {
     );
   });
 
-  return reviews.length ? (
-    <ul className={styles.reviews}>{userReviews}</ul>
-  ) : (
-    <p className={styles.notification}>You don't have any reviews</p>
-  );
+  return <ul className={styles.reviews}>{userReviews}</ul>;
 };
 
 export default UserReviewsList;

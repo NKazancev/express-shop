@@ -54,44 +54,53 @@ class OrderService {
     });
   }
 
-  static async getAllOrders() {
-    const orders = await prisma.order.findMany({
-      orderBy: { createdAt: 'asc' },
-      omit: { userId: true },
-    });
-    return orders;
+  static async getAllOrders(skip: number, take: number) {
+    const [orders, ordersQuantity] = await prisma.$transaction([
+      prisma.order.findMany({
+        orderBy: { createdAt: 'desc' },
+        omit: { userId: true },
+        skip,
+        take,
+      }),
+      prisma.order.count(),
+    ]);
+    return { orders, quantity: ordersQuantity };
   }
 
-  static async getAllUserOrders(userId: string) {
-    const orders = await prisma.order.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'asc' },
-      include: {
-        products: {
-          select: {
-            quantity: true,
-            product: {
-              select: { id: true, image: true, name: true },
+  static async getAllUserOrders(userId: string, skip: number, take: number) {
+    return await prisma.$transaction(async (tx) => {
+      const data = await tx.order.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        include: {
+          products: {
+            select: {
+              quantity: true,
+              product: { select: { id: true, image: true, name: true } },
             },
           },
         },
-      },
-      omit: { userId: true },
+        omit: { userId: true, customer: true },
+        skip,
+        take,
+      });
+
+      const orders = data.map((order) => {
+        return {
+          ...order,
+          products: order.products.map((el) => {
+            return {
+              id: el.product.id,
+              quantity: el.quantity,
+              name: el.product.name,
+              image: el.product.image,
+            };
+          }),
+        };
+      });
+      const ordersQuantity = await tx.order.count({ where: { userId } });
+      return { orders, quantity: ordersQuantity };
     });
-    const userOrders = orders.map((order) => {
-      return {
-        ...order,
-        products: order.products.map((el) => {
-          return {
-            id: el.product.id,
-            quantity: el.quantity,
-            name: el.product.name,
-            image: el.product.image,
-          };
-        }),
-      };
-    });
-    return userOrders;
   }
 
   static async getOrderById(orderId: string) {

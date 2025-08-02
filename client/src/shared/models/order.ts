@@ -31,3 +31,13 @@ export interface IOrderProduct {
   name: string;
   image: string;
 }
+
+export interface IOrdersRequest {
+  skip: number;
+  take: number;
+}
+
+export interface IOrdersResponse<T> {
+  data: T;
+  quantity: number;
+}

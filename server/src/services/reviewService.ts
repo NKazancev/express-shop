@@ -21,13 +21,18 @@ class ReviewService {
     });
   }
 
-  static async getAllUserReviews(userId: string) {
-    const reviews = await prisma.productReview.findMany({
-      where: { userId },
-      include: { product: { select: { name: true } } },
-      omit: { userId: true },
-    });
-    return reviews;
+  static async getAllUserReviews(userId: string, skip: number, take: number) {
+    const [reviews, reviewsQuantity] = await prisma.$transaction([
+      prisma.productReview.findMany({
+        where: { userId },
+        include: { product: { select: { name: true } } },
+        omit: { userId: true },
+        skip,
+        take,
+      }),
+      prisma.productReview.count({ where: { userId } }),
+    ]);
+    return { reviews, quantity: reviewsQuantity };
   }
 
   static async getUserReview(userId: string, productId: string) {

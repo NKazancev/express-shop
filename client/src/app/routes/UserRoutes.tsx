@@ -22,7 +22,9 @@ const UserRoutes = () => {
       >
         <Route index element={<UserInfoPage />} />
         <Route path="orders" element={<UserOrdersPage />} />
+        <Route path="orders/page/:page" element={<UserOrdersPage />} />
         <Route path="reviews" element={<UserReviewsPage />} />
+        <Route path="reviews/page/:page" element={<UserReviewsPage />} />
       </Route>
     </Routes>
   );

@@ -21,7 +21,8 @@ button {
   grid-template-rows: auto auto 1fr;
 }
 
-.admin-layout {
+.admin-layout,
+.user-layout {
   display: grid;
   grid-template-rows: auto 1fr;
 }

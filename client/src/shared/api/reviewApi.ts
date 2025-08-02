@@ -1,7 +1,8 @@
 import baseApi from '@config/baseApi';
 import {
   IProductReview,
-  IUserReview,
+  IReviewsRequest,
+  IReviewsResponse,
   TCreateReviewData,
 } from '@shared/models/review';
 
@@ -21,15 +22,18 @@ const reviewApi = baseApi
         invalidatesTags: [{ type: 'Reviews', id: 'LIST' }],
       }),
 
-      getAllUserReviews: builder.query<IUserReview[], void>({
-        query: () => ({
+      getAllUserReviews: builder.query<IReviewsResponse, IReviewsRequest>({
+        query: (args) => ({
           url: 'reviews',
           method: 'GET',
+          params: { ...args },
         }),
         providesTags: (result) =>
           result
             ? [
-                ...result.map(({ id }) => ({ type: 'Reviews', id } as const)),
+                ...result.data.map(
+                  ({ id }) => ({ type: 'Reviews', id } as const)
+                ),
                 { type: 'Reviews', id: 'LIST' },
               ]
             : [{ type: 'Reviews', id: 'LIST' }],
