@@ -12,7 +12,7 @@ import styles from './HandleProductsPage.module.css';
 const HandleProductsPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 7;
 
   const { products, isSuccess } = useProducts(
     currentPage,

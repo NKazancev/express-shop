@@ -11,7 +11,7 @@ import { TCreateProductData } from '@shared/models/product';
 import ProductForm from '@widgets/Admin/AdminProducts/ProductForm/ProductForm';
 
 const CreateProduct = () => {
-  const [createProduct] = useCreateProductMutation();
+  const [createProduct, { isSuccess }] = useCreateProductMutation();
   const { data: productTypes } = useGetTypesQuery();
   const { data: productBrands } = useGetBrandsQuery();
 
@@ -33,6 +33,7 @@ const CreateProduct = () => {
       const response = await createProduct(formData).unwrap();
       if (response) {
         toast.success('Product successfully created');
+        setError('');
       }
     } catch (error) {
       if (isFetchBaseQueryError(error)) {
@@ -49,6 +50,7 @@ const CreateProduct = () => {
       createProduct={handleProductCreation}
       typeOptions={productTypes}
       brandOptions={productBrands}
+      isSuccess={isSuccess}
       apiError={error}
     />
   );

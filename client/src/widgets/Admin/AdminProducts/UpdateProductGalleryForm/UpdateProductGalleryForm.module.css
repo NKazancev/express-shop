@@ -32,4 +32,6 @@
   color: var(--red);
   font-size: 14px;
   font-weight: 500;
+
+  transform: translateY(-12px);
 }

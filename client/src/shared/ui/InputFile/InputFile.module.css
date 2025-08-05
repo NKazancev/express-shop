@@ -16,13 +16,29 @@
   align-items: center;
   justify-content: center;
 
+  position: relative;
   cursor: pointer;
 }
 
 .previews {
+  max-height: 500px;
+  overflow: hidden;
+
   display: grid;
-  grid-template-columns: repeat(3, 100px);
+  grid-template-columns: repeat(3, 90px);
   align-items: center;
   column-gap: 5px;
   row-gap: 10px;
+}
+
+.error {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  position: absolute;
+  top: -20px;
+  left: 0px;
 }

@@ -35,6 +35,13 @@ const InputFile: FC<TInputFile> = ({
       ? { position: 'static', paddingTop: '14px' }
       : { position: 'absolute', top: '68px', left: '0px' };
 
+  const validateQuantity = (images: FileList) => {
+    const maxQuantity = 12;
+    if (images.length > maxQuantity) {
+      return `You can only upload a maximum of ${maxQuantity} images.`;
+    }
+  };
+
   return (
     <div style={containerStyle} className={styles.container}>
       <label
@@ -48,8 +55,11 @@ const InputFile: FC<TInputFile> = ({
           id={name}
           multiple={multiple}
           className="visually-hidden"
-          {...register(name, { required })}
+          {...register(name, { required, validate: validateQuantity })}
         />
+        {error?.message && (
+          <strong className={styles.error}>{error?.message}</strong>
+        )}
       </label>
 
       {!multiple && dataUrl.length === 1 && (

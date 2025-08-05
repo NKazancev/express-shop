@@ -7,6 +7,7 @@ enum ErrorMessage {
   COUNTRY_EXISTS = 'Such country already exists',
   COUNTRY_NOT_FOUND = 'Country not found',
   CREDENTIALS = 'Incorrect email or password',
+  FILE_TOO_LARGE = 'Uploaded file is too large',
   FORBIDDEN = 'Forbidden',
   INTERNAL = 'Internal server error',
   PRODUCT_EXISTS = 'Such product already exists',

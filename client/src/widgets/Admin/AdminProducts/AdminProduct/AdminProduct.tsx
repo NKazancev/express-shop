@@ -14,7 +14,7 @@ import imageIcon from '@shared/assets/image-icon.svg';
 import styles from './AdminProduct.module.css';
 
 const AdminProduct: FC<Omit<IProduct, 'description'>> = memo((props) => {
-  const { id, image, name, price, stock } = props;
+  const { id, image, name, price, stock = 0 } = props;
 
   const [modalInfoVisible, setModalInfoVisible] = useState<boolean>(false);
   const [modalGalleryVisible, setGalleryModalVisible] =
@@ -34,7 +34,7 @@ const AdminProduct: FC<Omit<IProduct, 'description'>> = memo((props) => {
 
         <h5 className={styles.name}>{name}</h5>
 
-        {stock && <StockCounter id={id} stock={stock} />}
+        <StockCounter id={id} stock={stock} />
 
         <div className={styles.price}>{price}</div>
 

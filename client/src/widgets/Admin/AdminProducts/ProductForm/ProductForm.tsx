@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { TCreateProductData } from '@shared/models/product';
@@ -15,22 +15,24 @@ type TProductForm = {
   createProduct: (data: TCreateProductData) => void;
   typeOptions: IProductType[] | undefined;
   brandOptions: IProductBrand[] | undefined;
+  isSuccess: boolean;
   apiError?: string;
 };
 
 const ProductForm: FC<TProductForm> = (props) => {
-  const { createProduct, typeOptions, brandOptions, apiError } = props;
+  const { createProduct, typeOptions, brandOptions, isSuccess, apiError } =
+    props;
 
   const { handleSubmit, register, control, reset, watch, formState } =
     useForm<TCreateProductData>();
   const { errors, isSubmitting } = formState;
-
   const [image, images] = watch(['image', 'images']);
 
-  const onSubmit = (data: TCreateProductData) => {
-    createProduct(data);
-    reset();
-  };
+  const onSubmit = async (data: TCreateProductData) => createProduct(data);
+
+  useEffect(() => {
+    if (isSuccess) reset();
+  }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

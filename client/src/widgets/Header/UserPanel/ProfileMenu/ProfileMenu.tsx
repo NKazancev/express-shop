@@ -10,10 +10,12 @@ const DropdownProfile = () => {
   return (
     <ul className={styles.profileMenu}>
       <li>
-        <NavLink to="/user">Profile</NavLink>
+        <NavLink to="/user" className={styles.button}>
+          Profile
+        </NavLink>
       </li>
       <li>
-        <button type="button" onClick={handleLogout}>
+        <button type="button" onClick={handleLogout} className={styles.button}>
           Logout
         </button>
       </li>

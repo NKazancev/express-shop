@@ -1,3 +1,6 @@
+import path from 'path';
+import fs from 'fs/promises';
+
 import { Product } from '@prisma/client';
 import prisma from '../config/prismaClient';
 import ApiError from '../error/ApiError';
@@ -137,6 +140,22 @@ class ProductService {
     images: string[]
   ) {
     return await prisma.$transaction(async (tx) => {
+      const product = await tx.product.findFirst({
+        where: { id: productId },
+        include: { gallery: { select: { images: true } } },
+      });
+      if (product?.image && image && image !== product.image) {
+        const imagepath = path.join(__dirname, '..', 'static', product.image);
+        await fs.unlink(imagepath);
+      }
+      if (product?.gallery && images) {
+        for (let image of product.gallery?.images) {
+          if (!images.includes(image)) {
+            const imagepath = path.join(__dirname, '..', 'static', image);
+            await fs.unlink(imagepath);
+          }
+        }
+      }
       await tx.product.update({
         where: { id: productId },
         data: { image },
@@ -148,14 +167,27 @@ class ProductService {
     });
   }
 
-  static async deleteProduct(id: string) {
+  static async deleteProduct(productId: string) {
     return await prisma.$transaction(async (tx) => {
-      await tx.productGallery.delete({ where: { productId: id } });
-      await tx.productInfo.delete({ where: { productId: id } });
-      await tx.productReview.deleteMany({ where: { productId: id } });
-      await tx.cartProduct.deleteMany({ where: { productId: id } });
-      await tx.orderProduct.deleteMany({ where: { productId: id } });
-      await tx.product.delete({ where: { id } });
+      const product = await prisma.product.findFirst({
+        where: { id: productId },
+        include: { gallery: { select: { images: true } } },
+      });
+      if (product && product.gallery) {
+        const filepath = path.join(__dirname, '..', 'static', product.image);
+        await fs.unlink(filepath);
+
+        for (let image of product.gallery.images) {
+          const filepath = path.join(__dirname, '..', 'static', image);
+          await fs.unlink(filepath);
+        }
+      }
+      await tx.productGallery.delete({ where: { productId } });
+      await tx.productInfo.delete({ where: { productId } });
+      await tx.productReview.deleteMany({ where: { productId } });
+      await tx.cartProduct.deleteMany({ where: { productId } });
+      await tx.orderProduct.deleteMany({ where: { productId } });
+      await tx.product.delete({ where: { id: productId } });
     });
   }
 }
