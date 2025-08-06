@@ -7,10 +7,19 @@ const storage = multer.diskStorage({
     cb(null, destination);
   },
   filename: (_, file, cb) => {
-    cb(null, file.originalname);
+    if (file.fieldname === 'image') {
+      const name = `catalogue-${file.originalname}`;
+      cb(null, name);
+    }
+    if (file.fieldname === 'images') {
+      cb(null, file.originalname);
+    }
   },
 });
 
-const upload = multer({ storage, limits: { fileSize: 1024 * 1024 } });
+const uploadImages = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 },
+}).fields([{ name: 'image' }, { name: 'images', maxCount: 12 }]);
 
-export default upload;
+export default uploadImages;

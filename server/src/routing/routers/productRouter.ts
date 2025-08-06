@@ -4,7 +4,7 @@ import ProductController from '../../controllers/productController';
 import asyncHandler from '../../middlewares/asyncHandler';
 import verifyToken from '../../middlewares/verifyToken';
 import verifyAdmin from '../../middlewares/verifyAdmin';
-import upload from '../../middlewares/multerUpload';
+import uploadImages from '../../middlewares/multerUpload';
 
 const productRouter = Router();
 
@@ -16,8 +16,6 @@ const {
   updateProductGallery,
   deleteProduct 
 } =  ProductController;
-
-const uploadImages = upload.fields([{name: 'image'}, {name: 'images'}])
 
 productRouter.post('/', [verifyToken, verifyAdmin], uploadImages, asyncHandler(createProduct));
 productRouter.get('/', asyncHandler(getProducts));

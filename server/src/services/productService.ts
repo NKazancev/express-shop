@@ -1,5 +1,6 @@
-import path from 'path';
-import fs from 'fs/promises';
+import { join } from 'path';
+import { existsSync } from 'fs';
+import { unlink } from 'fs/promises';
 
 import { Product } from '@prisma/client';
 import prisma from '../config/prismaClient';
@@ -139,49 +140,76 @@ class ProductService {
     image: string,
     images: string[]
   ) {
-    return await prisma.$transaction(async (tx) => {
-      const product = await tx.product.findFirst({
-        where: { id: productId },
-        include: { gallery: { select: { images: true } } },
+    const product = await prisma.product.findFirst({
+      where: { id: productId },
+      include: { gallery: { select: { images: true } } },
+    });
+
+    if (product?.image && image) {
+      const otherProduct = await prisma.product.findFirst({
+        where: { image: { equals: product.image }, id: { not: productId } },
       });
-      if (product?.image && image && image !== product.image) {
-        const imagepath = path.join(__dirname, '..', 'static', product.image);
-        await fs.unlink(imagepath);
+      if (!otherProduct && image !== product.image) {
+        const imagepath = join(__dirname, '..', 'static', product.image);
+        if (existsSync(imagepath)) await unlink(imagepath);
       }
-      if (product?.gallery && images) {
-        for (let image of product.gallery?.images) {
-          if (!images.includes(image)) {
-            const imagepath = path.join(__dirname, '..', 'static', image);
-            await fs.unlink(imagepath);
-          }
-        }
-      }
-      await tx.product.update({
+      await prisma.product.update({
         where: { id: productId },
         data: { image },
       });
-      await tx.productGallery.update({
+    }
+
+    if (product?.gallery && images) {
+      for (let image of product.gallery?.images) {
+        const otherProduct = await prisma.product.findFirst({
+          where: {
+            gallery: { images: { has: image } },
+            id: { not: productId },
+          },
+        });
+        if (!otherProduct && !images.includes(image)) {
+          const imagepath = join(__dirname, '..', 'static', image);
+          if (existsSync(imagepath)) await unlink(imagepath);
+        }
+      }
+      await prisma.productGallery.update({
         where: { productId },
         data: { images },
       });
-    });
+    }
   }
 
   static async deleteProduct(productId: string) {
-    return await prisma.$transaction(async (tx) => {
-      const product = await prisma.product.findFirst({
-        where: { id: productId },
-        include: { gallery: { select: { images: true } } },
-      });
-      if (product && product.gallery) {
-        const filepath = path.join(__dirname, '..', 'static', product.image);
-        await fs.unlink(filepath);
+    const product = await prisma.product.findFirst({
+      where: { id: productId },
+      include: { gallery: { select: { images: true } } },
+    });
 
-        for (let image of product.gallery.images) {
-          const filepath = path.join(__dirname, '..', 'static', image);
-          await fs.unlink(filepath);
+    if (product) {
+      const otherProduct = await prisma.product.findFirst({
+        where: { image: { equals: product.image }, id: { not: productId } },
+      });
+      if (!otherProduct) {
+        const imagepath = join(__dirname, '..', 'static', product.image);
+        if (existsSync(imagepath)) await unlink(imagepath);
+      }
+    }
+
+    if (product?.gallery) {
+      for (let image of product.gallery.images) {
+        const otherProduct = await prisma.product.findFirst({
+          where: {
+            gallery: { images: { has: image } },
+            id: { not: productId },
+          },
+        });
+        if (!otherProduct) {
+          const imagepath = join(__dirname, '..', 'static', image);
+          if (existsSync(imagepath)) await unlink(imagepath);
         }
       }
+    }
+    return await prisma.$transaction(async (tx) => {
       await tx.productGallery.delete({ where: { productId } });
       await tx.productInfo.delete({ where: { productId } });
       await tx.productReview.deleteMany({ where: { productId } });

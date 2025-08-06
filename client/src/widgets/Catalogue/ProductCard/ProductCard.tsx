@@ -16,7 +16,7 @@ const ProductCard: FC<IProduct> = memo((props) => {
   return (
     <li onClick={showProductPage} className={styles.product}>
       <div className={styles.image}>
-        <img src={imageUrl} alt="image" />
+        <img src={imageUrl} alt="image" width={130} />
       </div>
 
       <div className={styles.info}>
