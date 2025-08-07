@@ -1,6 +1,8 @@
 import { CSSProperties, FC } from 'react';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
+import { MAX_UPLOADED_IMAGES } from '@config/consts';
+
 import useFilePreview from '@shared/hooks/useFilePreview';
 
 import styles from './InputFile.module.css';
@@ -36,9 +38,8 @@ const InputFile: FC<TInputFile> = ({
       : { position: 'absolute', top: '68px', left: '0px' };
 
   const validateQuantity = (images: FileList) => {
-    const maxQuantity = 12;
-    if (images.length > maxQuantity) {
-      return `You can only upload a maximum of ${maxQuantity} images.`;
+    if (images.length > MAX_UPLOADED_IMAGES) {
+      return `You can only upload a maximum of ${MAX_UPLOADED_IMAGES} images.`;
     }
   };
 

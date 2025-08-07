@@ -12,11 +12,12 @@ import ModalLogin from '@modals/ModalLogin/ModalLogin';
 
 type TCreateCartProduct = {
   productId: string;
+  stock: number;
   buttonStyle: string;
 };
 
 const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
-  const { productId, buttonStyle } = props;
+  const { productId, stock, buttonStyle } = props;
 
   const { isLogged, role } = useAppSelector((state) => state.user);
   const [createCartProduct] = useCreateCartProductMutation();
@@ -45,9 +46,17 @@ const CreateCartProduct: FC<TCreateCartProduct> = (props) => {
     }
   };
 
+  const buttonState = role === UserRole.ADMIN || stock === 0;
+
   return (
     <>
-      <button type="button" onClick={addProductToCart} className={buttonStyle}>
+      <button
+        type="button"
+        disabled={buttonState}
+        onClick={addProductToCart}
+        className={buttonStyle}
+        style={{ cursor: !buttonState ? 'pointer' : 'auto' }}
+      >
         Add to cart
       </button>
 

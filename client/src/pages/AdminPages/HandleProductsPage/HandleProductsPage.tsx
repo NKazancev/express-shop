@@ -1,6 +1,8 @@
 import { useParams } from 'react-router';
 
+import { ADMIN_PRODUCTS_PER_PAGE } from '@config/consts';
 import UserRole from '@config/userRoles';
+
 import useProducts from '@shared/hooks/useProducts';
 
 import AdminProductsList from '@widgets/Admin/AdminProducts/AdminProductsList/AdminProductsList';
@@ -12,11 +14,10 @@ import styles from './HandleProductsPage.module.css';
 const HandleProductsPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
-  const itemsPerPage = 7;
 
   const { products, isSuccess } = useProducts(
     currentPage,
-    itemsPerPage,
+    ADMIN_PRODUCTS_PER_PAGE,
     UserRole.ADMIN
   );
 
@@ -36,7 +37,7 @@ const HandleProductsPage = () => {
             currentPage={currentPage}
             currentLocation="/admin/products"
             productsQuantity={products.quantity}
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={ADMIN_PRODUCTS_PER_PAGE}
           />
         </>
       )}

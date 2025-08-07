@@ -1,5 +1,7 @@
 import { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { RegisterOptions, useForm } from 'react-hook-form';
+
+import { MAX_PRICE } from '@config/consts';
 
 import { TCreateProductData } from '@shared/models/product';
 import { IProductBrand, IProductType } from '@shared/models/typesbrands';
@@ -27,6 +29,17 @@ const ProductForm: FC<TProductForm> = (props) => {
     useForm<TCreateProductData>();
   const { errors, isSubmitting } = formState;
   const [image, images] = watch(['image', 'images']);
+
+  const rules: { [key: string]: RegisterOptions } = {
+    price: {
+      required: 'Price is required',
+      validate: (price) => {
+        if (price > MAX_PRICE) {
+          return 'Price is too high';
+        }
+      },
+    },
+  };
 
   const onSubmit = async (data: TCreateProductData) => createProduct(data);
 
@@ -98,6 +111,7 @@ const ProductForm: FC<TProductForm> = (props) => {
           name="price"
           label="Price"
           control={control}
+          rules={rules.price}
           error={errors.price}
         />
       </div>

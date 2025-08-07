@@ -60,6 +60,12 @@ class OrderController {
     await OrderService.updateOrderStatus(orderId, status);
     res.status(200).json({ message: ResMessage.SUCCESS });
   }
+
+  static async deleteOrder(req: Request, res: Response) {
+    const orderId = req.params.id;
+    await OrderService.deleteOrder(orderId);
+    res.status(204).json();
+  }
 }
 
 export default OrderController;

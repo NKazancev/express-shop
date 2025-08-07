@@ -1,0 +1,27 @@
+.panel {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 14px;
+
+  position: relative;
+}
+
+.button,
+.deleteButton {
+  padding: 11px 25px 10px 25px;
+  border-radius: 5px;
+  background-color: var(--green);
+
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.03rem;
+}
+
+.button:nth-child(2) {
+  background-color: var(--blue);
+}
+
+.deleteButton {
+  background-color: var(--red);
+}

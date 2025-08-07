@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 
+import { USER_ORDERS_PER_PAGE } from '@config/consts';
 import { useGetAllUserOrdersQuery } from '@shared/api/orderApi';
 
 import UserOrdersList from '@widgets/User/UserOrders/UserOrdersList/UserOrdersList';
@@ -11,12 +12,11 @@ const UserOrdersPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
 
-  const itemsPerPage = 3;
-  const skip = itemsPerPage * (currentPage - 1);
+  const skip = USER_ORDERS_PER_PAGE * (currentPage - 1);
 
   const { data: orders, isSuccess } = useGetAllUserOrdersQuery({
     skip,
-    take: itemsPerPage,
+    take: USER_ORDERS_PER_PAGE,
   });
 
   return (
@@ -29,7 +29,7 @@ const UserOrdersPage = () => {
           <Pagination
             currentPage={currentPage}
             currentLocation="/user/orders"
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={USER_ORDERS_PER_PAGE}
             productsQuantity={orders.quantity}
           />
         </>

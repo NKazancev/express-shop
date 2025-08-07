@@ -17,7 +17,7 @@ export type TProductPanel = Pick<
 };
 
 const ProductPanel: FC<TProductPanel> = (props) => {
-  const { id, name, price, stock, reviews } = props;
+  const { id, name, price, stock = 0, reviews } = props;
 
   const statusColor = {
     backgroundColor: stock && stock > 0 ? '#8cab9b' : '#f97a7a',
@@ -27,7 +27,7 @@ const ProductPanel: FC<TProductPanel> = (props) => {
     <div className={styles.container}>
       <div className={styles.status}>
         <span className={styles.circle} style={statusColor} />
-        <span>{stock && stock > 0 ? 'In stock' : 'Out of stock'}</span>
+        <span>{stock > 0 ? 'In stock' : 'Out of stock'}</span>
       </div>
 
       <h4 className={styles.title}>{name}</h4>
@@ -38,7 +38,11 @@ const ProductPanel: FC<TProductPanel> = (props) => {
 
       <span className={styles.price}>Price: {price} &#8381;</span>
 
-      <CreateCartProduct productId={id} buttonStyle={styles.button} />
+      <CreateCartProduct
+        productId={id}
+        stock={stock}
+        buttonStyle={styles.button}
+      />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 import { unlink } from 'fs/promises';
 
-import { Product } from '@prisma/client';
+import { OrderStatus, Product } from '@prisma/client';
 import prisma from '../config/prismaClient';
 import ApiError from '../error/ApiError';
 import ErrorMessage from '../error/errorMessage';
@@ -184,39 +184,51 @@ class ProductService {
       where: { id: productId },
       include: { gallery: { select: { images: true } } },
     });
+    if (!product) throw new ApiError(404, ErrorMessage.PRODUCT_NOT_FOUND);
 
-    if (product) {
-      const otherProduct = await prisma.product.findFirst({
-        where: { image: { equals: product.image }, id: { not: productId } },
-      });
-      if (!otherProduct) {
-        const imagepath = join(__dirname, '..', 'static', product.image);
-        if (existsSync(imagepath)) await unlink(imagepath);
-      }
-    }
+    const undeliveredOrder = await prisma.order.findFirst({
+      where: {
+        products: { some: { productId } },
+        status: {
+          in: [
+            OrderStatus.PENDING,
+            OrderStatus.ACCEPTED,
+            OrderStatus.OUT_FOR_DELIVERY,
+          ],
+        },
+      },
+    });
 
-    if (product?.gallery) {
-      for (let image of product.gallery.images) {
+    if (undeliveredOrder) {
+      throw new ApiError(409, ErrorMessage.PRODUCT_ORDER);
+    } else {
+      if (product) {
         const otherProduct = await prisma.product.findFirst({
-          where: {
-            gallery: { images: { has: image } },
-            id: { not: productId },
-          },
+          where: { image: { equals: product.image }, id: { not: productId } },
         });
         if (!otherProduct) {
-          const imagepath = join(__dirname, '..', 'static', image);
+          const imagepath = join(__dirname, '..', 'static', product.image);
           if (existsSync(imagepath)) await unlink(imagepath);
         }
       }
+
+      if (product?.gallery) {
+        for (let image of product.gallery.images) {
+          const otherProduct = await prisma.product.findFirst({
+            where: {
+              gallery: { images: { has: image } },
+              id: { not: productId },
+            },
+          });
+          if (!otherProduct) {
+            const imagepath = join(__dirname, '..', 'static', image);
+            if (existsSync(imagepath)) await unlink(imagepath);
+          }
+        }
+      }
+
+      await prisma.product.delete({ where: { id: productId } });
     }
-    return await prisma.$transaction(async (tx) => {
-      await tx.productGallery.delete({ where: { productId } });
-      await tx.productInfo.delete({ where: { productId } });
-      await tx.productReview.deleteMany({ where: { productId } });
-      await tx.cartProduct.deleteMany({ where: { productId } });
-      await tx.orderProduct.deleteMany({ where: { productId } });
-      await tx.product.delete({ where: { id: productId } });
-    });
   }
 }
 

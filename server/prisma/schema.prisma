@@ -66,14 +66,14 @@ model ProductGallery {
   id                String          @id @default(cuid())
   images            String[]
   productId         String          @unique
-  product           Product         @relation(fields: [productId], references: [id])
+  product           Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductInfo {
   id                String            @id @default(cuid())
   text              String
   productId         String            @unique
-  product           Product           @relation(fields: [productId], references: [id])
+  product           Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
 
 model ProductReview {
@@ -83,7 +83,7 @@ model ProductReview {
   rate              Decimal            
   productId         String
   userId            String
-  product           Product           @relation(fields: [productId], references: [id])
+  product           Product           @relation(fields: [productId], references: [id], onDelete: Cascade)
   user              User              @relation(fields: [userId], references: [id])
 }
 
@@ -92,7 +92,7 @@ model CartProduct {
   quantity          Int
   productId         String
   userId            String
-  product           Product         @relation(fields: [productId], references: [id])
+  product           Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
   user              User            @relation(fields: [userId], references: [id])
 }
 
@@ -127,7 +127,7 @@ model OrderProduct {
   quantity          Int
   productId         String
   orderId           String
-  product           Product         @relation(fields: [productId], references: [id])
+  product           Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
   order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 

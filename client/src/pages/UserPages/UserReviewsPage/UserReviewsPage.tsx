@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 
+import { REVIEWS_PER_PAGE } from '@config/consts';
 import { useGetAllUserReviewsQuery } from '@shared/api/reviewApi';
 
 import UserReviewsList from '@widgets/User/UserReviews/UserReviewsList/UserReviewsList';
@@ -11,12 +12,11 @@ const UserReviewsPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
 
-  const itemsPerPage = 3;
-  const skip = itemsPerPage * (currentPage - 1);
+  const skip = REVIEWS_PER_PAGE * (currentPage - 1);
 
   const { data: reviews, isSuccess } = useGetAllUserReviewsQuery({
     skip,
-    take: itemsPerPage,
+    take: REVIEWS_PER_PAGE,
   });
 
   return (
@@ -29,7 +29,7 @@ const UserReviewsPage = () => {
           <Pagination
             currentPage={currentPage}
             currentLocation="/user/reviews"
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={REVIEWS_PER_PAGE}
             productsQuantity={reviews.quantity}
           />
         </>

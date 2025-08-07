@@ -16,6 +16,7 @@ enum ErrorMessage {
   PRODUCT_TYPE_NOT_FOUND = 'Product type not found',
   PRODUCT_BRAND_EXISTS = 'Such product brand already exists',
   PRODUCT_BRAND_NOT_FOUND = 'Product brand not found',
+  PRODUCT_ORDER = 'This product belongs to undelivered orders',
   REVIEW_EXISTS = 'Review already exists',
   REVIEW_NOT_FOUND = 'Review not found',
   TYPE_CONFLICT = 'Type has existing products. Delete them first',

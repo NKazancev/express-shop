@@ -1,6 +1,8 @@
 import { useParams } from 'react-router';
 
+import { CATALOGUE_PRODUCTS_PER_PAGE } from '@config/consts';
 import UserRole from '@config/userRoles';
+
 import useProducts from '@shared/hooks/useProducts';
 
 import ProductsPanel from '@widgets/Catalogue/ProductsPanel/ProductsPanel';
@@ -12,11 +14,10 @@ import styles from './HomePage.module.css';
 function HomePage() {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
-  const itemsPerPage = 8;
 
   const { products, isSuccess } = useProducts(
     currentPage,
-    itemsPerPage,
+    CATALOGUE_PRODUCTS_PER_PAGE,
     UserRole.USER
   );
 
@@ -31,7 +32,7 @@ function HomePage() {
             currentPage={currentPage}
             currentLocation="/products"
             productsQuantity={products.quantity}
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={CATALOGUE_PRODUCTS_PER_PAGE}
           />
         </>
       )}

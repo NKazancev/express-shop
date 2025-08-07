@@ -1,5 +1,6 @@
 import { useParams } from 'react-router';
 
+import { ADMIN_ORDERS_PER_PAGE } from '@config/consts';
 import { useGetAllOrdersQuery } from '@shared/api/orderApi';
 
 import Pagination from '@widgets/Pagination/Pagination';
@@ -11,12 +12,11 @@ const HandleOrdersPage = () => {
   const { page } = useParams();
   const currentPage = Number(page ?? 1);
 
-  const itemsPerPage = 3;
-  const skip = itemsPerPage * (currentPage - 1);
+  const skip = ADMIN_ORDERS_PER_PAGE * (currentPage - 1);
 
   const { data: orders, isSuccess } = useGetAllOrdersQuery({
     skip,
-    take: itemsPerPage,
+    take: ADMIN_ORDERS_PER_PAGE,
   });
 
   return (
@@ -30,7 +30,7 @@ const HandleOrdersPage = () => {
             currentPage={currentPage}
             currentLocation="/admin/orders"
             productsQuantity={orders.quantity}
-            itemsPerPage={itemsPerPage}
+            itemsPerPage={ADMIN_ORDERS_PER_PAGE}
           />
         </>
       )}

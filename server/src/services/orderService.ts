@@ -126,9 +126,15 @@ class OrderService {
   }
 
   static async updateOrderStatus(orderId: string, status: OrderStatus) {
-    return await prisma.order.update({
+    await prisma.order.update({
       where: { id: orderId },
       data: { status },
+    });
+  }
+
+  static async deleteOrder(orderId: string) {
+    await prisma.order.delete({
+      where: { id: orderId },
     });
   }
 }

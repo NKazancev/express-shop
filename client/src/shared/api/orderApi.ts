@@ -81,6 +81,14 @@ const orderApi = baseApi
         },
         invalidatesTags: (_, __, { id }) => [{ type: 'Orders', id }],
       }),
+
+      deleteOrder: builder.mutation<void, string>({
+        query: (id) => ({
+          url: `orders/${id}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: (_, __, id) => [{ type: 'Orders', id }],
+      }),
     }),
   });
 
@@ -90,4 +98,5 @@ export const {
   useGetAllUserOrdersQuery,
   useGetOrderByIdQuery,
   useUpdateOrderStatusMutation,
+  useDeleteOrderMutation,
 } = orderApi;

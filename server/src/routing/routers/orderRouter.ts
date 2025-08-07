@@ -13,6 +13,7 @@ const {
   getAllUserOrders,
   getOrderById,
   updateOrderStatus,
+  deleteOrder
 } = OrderController;
 
 orderRouter.post('/', [verifyToken], asyncHandler(createOrder));
@@ -20,5 +21,6 @@ orderRouter.get('/', [verifyToken, verifyAdmin], asyncHandler(getAllOrders));
 orderRouter.get('/user', [verifyToken], asyncHandler(getAllUserOrders));
 orderRouter.get('/:id', [verifyToken, verifyAdmin], asyncHandler(getOrderById));
 orderRouter.put('/:id', [verifyToken, verifyAdmin], asyncHandler(updateOrderStatus));
+orderRouter.delete('/:id', [verifyToken, verifyAdmin], asyncHandler(deleteOrder));
 
 export default orderRouter;

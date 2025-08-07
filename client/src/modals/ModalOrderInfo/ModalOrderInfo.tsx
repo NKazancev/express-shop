@@ -10,14 +10,14 @@ import AdminOrderInfo from '@widgets/Admin/AdminOrders/AdminOrderInfo/AdminOrder
 import AdminOrderProducts from '@widgets/Admin/AdminOrders/AdminOrderProducts/AdminOrderProducts';
 
 import xbutton from '@shared/assets/x-button.svg';
-import styles from './ModalOrder.module.css';
+import styles from './ModalOrderInfo.module.css';
 
-type TModalOrder = {
+type TModalOrderInfo = {
   onClose: () => void;
   orderId: string;
 };
 
-const ModalOrderInfo: FC<TModalOrder> = ({ onClose, orderId }) => {
+const ModalOrderInfo: FC<TModalOrderInfo> = ({ onClose, orderId }) => {
   const { data: order } = useGetOrderByIdQuery(orderId);
 
   const content = (
