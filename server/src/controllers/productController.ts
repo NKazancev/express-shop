@@ -12,10 +12,15 @@ class ProductController {
 
     const { text, ...productData } = data;
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
-    const image = files['image'][0].filename;
-    const images = files['images'].map((file) => file.filename);
+    const catalogueImage = files['image'][0].filename;
+    const galleryImages = files['images'].map((file) => file.filename);
 
-    await ProductService.createProduct(productData, image, images, text);
+    await ProductService.createProduct(
+      productData,
+      catalogueImage,
+      galleryImages,
+      text
+    );
     res.status(201).json({ message: ResMessage.SUCCESS });
   }
 

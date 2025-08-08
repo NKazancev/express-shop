@@ -5,10 +5,9 @@ import CountryService from './countryService';
 
 class AddressService {
   static async createAddress(data: Omit<Address, 'id'>) {
-    const address = await prisma.address.create({
+    await prisma.address.create({
       data: { ...data },
     });
-    return address;
   }
 
   static async createStringAddress(
@@ -31,7 +30,7 @@ class AddressService {
   }
 
   static async updateAddress(addressId: string, data: Partial<Address>) {
-    return await prisma.address.update({
+    await prisma.address.update({
       where: { id: addressId },
       data,
     });

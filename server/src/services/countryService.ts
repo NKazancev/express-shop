@@ -9,7 +9,7 @@ class CountryService {
       where: { name: { equals: name, mode: 'insensitive' } },
     });
     if (foundCountry) throw new ApiError(409, ErrorMessage.COUNTRY_EXISTS);
-    return await prisma.deliveryCountry.create({ data: { name } });
+    await prisma.deliveryCountry.create({ data: { name } });
   }
 
   static async getAllCountries() {
@@ -35,7 +35,7 @@ class CountryService {
     if (foundCities.length)
       throw new ApiError(409, ErrorMessage.COUNTRY_CONFLICT);
 
-    return await prisma.deliveryCountry.delete({ where: { id: countryId } });
+    await prisma.deliveryCountry.delete({ where: { id: countryId } });
   }
 }
 

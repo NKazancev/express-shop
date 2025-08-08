@@ -10,7 +10,7 @@ class ReviewService {
     productId: string,
     userId: string
   ) {
-    return await prisma.productReview.create({
+    await prisma.productReview.create({
       data: {
         title,
         text,
@@ -52,7 +52,7 @@ class ReviewService {
     if (review?.userId !== userId) {
       throw new ApiError(403, ErrorMessage.FORBIDDEN);
     }
-    return await prisma.productReview.delete({ where: { id: reviewId } });
+    await prisma.productReview.delete({ where: { id: reviewId } });
   }
 }
 

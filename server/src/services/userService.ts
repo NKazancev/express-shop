@@ -75,7 +75,7 @@ class UserService {
 
     const password = await hash(newPassword, 10);
 
-    return await prisma.user.update({
+    await prisma.user.update({
       where: { id: foundUser.id },
       data: {
         password,
@@ -90,7 +90,7 @@ class UserService {
     const foundName = await prisma.user.findFirst({ where: { username } });
     if (foundName) throw new ApiError(409, ErrorMessage.USERNAME_EXISTS);
 
-    return await prisma.user.update({
+    await prisma.user.update({
       where: { id: foundUser.id },
       data: { username },
     });

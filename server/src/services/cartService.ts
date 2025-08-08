@@ -50,7 +50,7 @@ class CartService {
     if (cartProduct?.userId !== userId) {
       throw new ApiError(403, ErrorMessage.FORBIDDEN);
     }
-    return await prisma.cartProduct.update({
+    await prisma.cartProduct.update({
       where: { id: cartProductId },
       data: { quantity },
     });

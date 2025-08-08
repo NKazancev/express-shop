@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
@@ -12,7 +12,7 @@ type TDeleteProduct = {
 };
 
 const DeleteOrder: FC<TDeleteProduct> = ({ orderId, buttonStyle }) => {
-  const [deleteOrder, { isSuccess }] = useDeleteOrderMutation();
+  const [deleteOrder] = useDeleteOrderMutation();
 
   const [confirmationVisible, setConfirmationVisible] = useState<boolean>();
   const showConfirmation = () => setConfirmationVisible(true);
@@ -21,6 +21,7 @@ const DeleteOrder: FC<TDeleteProduct> = ({ orderId, buttonStyle }) => {
   const handleDelete = async () => {
     try {
       await deleteOrder(orderId).unwrap();
+      toast.success('Successfully deleted');
     } catch (error) {
       hideConfirmation();
       if (isFetchBaseQueryError(error)) {
@@ -31,10 +32,6 @@ const DeleteOrder: FC<TDeleteProduct> = ({ orderId, buttonStyle }) => {
       }
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) toast.success('Successfully deleted');
-  }, [isSuccess]);
 
   return (
     <>

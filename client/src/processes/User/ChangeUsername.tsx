@@ -34,12 +34,10 @@ const ChangeUsername: FC<TChangeUsername> = ({ setIsSuccess }) => {
   }, [isSuccess]);
 
   return (
-    <>
-      <ChangeUsernameForm
-        onUsernameChange={handleUsernameChange}
-        apiError={error}
-      />
-    </>
+    <ChangeUsernameForm
+      onUsernameChange={handleUsernameChange}
+      apiError={error}
+    />
   );
 };
 

@@ -10,8 +10,8 @@ import ErrorMessage from '../error/errorMessage';
 class ProductService {
   static async createProduct(
     productData: Omit<Product, 'id'>,
-    image: string,
-    images: string[],
+    catalogueImage: string,
+    galleryImages: string[],
     text: string
   ) {
     const foundProduct = await prisma.product.findFirst({
@@ -19,13 +19,37 @@ class ProductService {
         name: { equals: productData.name, mode: 'insensitive' },
       },
     });
-    if (foundProduct) throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+    if (foundProduct) {
+      if (catalogueImage) {
+        const otherProduct = await prisma.product.findFirst({
+          where: { image: { equals: catalogueImage } },
+        });
+        if (!otherProduct) {
+          const imagepath = join(__dirname, '..', 'static', catalogueImage);
+          if (existsSync(imagepath)) await unlink(imagepath);
+        }
+      }
+      if (galleryImages) {
+        for (let image of galleryImages) {
+          const otherProduct = await prisma.product.findFirst({
+            where: {
+              gallery: { images: { has: image } },
+            },
+          });
+          if (!otherProduct) {
+            const imagepath = join(__dirname, '..', 'static', image);
+            if (existsSync(imagepath)) await unlink(imagepath);
+          }
+        }
+      }
+      throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
+    }
 
-    return await prisma.product.create({
+    await prisma.product.create({
       data: {
         ...productData,
-        image,
-        gallery: { create: { images } },
+        image: catalogueImage,
+        gallery: { create: { images: galleryImages } },
         info: { create: { text } },
       },
     });
@@ -226,7 +250,6 @@ class ProductService {
           }
         }
       }
-
       await prisma.product.delete({ where: { id: productId } });
     }
   }

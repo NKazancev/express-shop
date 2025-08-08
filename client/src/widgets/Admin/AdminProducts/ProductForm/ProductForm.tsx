@@ -25,8 +25,15 @@ const ProductForm: FC<TProductForm> = (props) => {
   const { createProduct, typeOptions, brandOptions, isSuccess, apiError } =
     props;
 
-  const { handleSubmit, register, control, reset, watch, formState } =
-    useForm<TCreateProductData>();
+  const {
+    handleSubmit,
+    register,
+    control,
+    reset,
+    resetField,
+    watch,
+    formState,
+  } = useForm<TCreateProductData>();
   const { errors, isSubmitting } = formState;
   const [image, images] = watch(['image', 'images']);
 
@@ -45,7 +52,11 @@ const ProductForm: FC<TProductForm> = (props) => {
 
   useEffect(() => {
     if (isSuccess) reset();
-  }, [isSuccess]);
+    if (apiError) {
+      resetField('image');
+      resetField('images');
+    }
+  }, [isSuccess, apiError]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

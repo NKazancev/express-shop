@@ -19,6 +19,7 @@ const CreateProduct = () => {
 
   const handleProductCreation = async (data: TCreateProductData) => {
     const { image, images, ...rest } = data;
+    setError('');
 
     try {
       const formData = new FormData();

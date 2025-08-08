@@ -32,12 +32,11 @@ const HandleAddress: FC<THandleAddress> = ({ setIsSuccess, isUpdate }) => {
     try {
       if (!isUpdate) {
         await createAddress({ ...data }).unwrap();
-        dispatch(baseApi.util.invalidateTags(['Users']));
       }
       if (isUpdate && address) {
         await updateAddress({ id: address.id, ...data }).unwrap();
-        dispatch(baseApi.util.invalidateTags(['Users']));
       }
+      dispatch(baseApi.util.invalidateTags(['Users']));
     } catch (error) {
       if (isFetchBaseQueryError(error)) {
         const errorMessage = (error.data as { message: string }).message;
