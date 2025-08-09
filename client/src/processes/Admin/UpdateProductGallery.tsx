@@ -22,6 +22,7 @@ const UpdateProductGallery: FC<TUpdateProductGallery> = (props) => {
   const [error, setError] = useState<string>();
 
   const handleGalleryUpdate = async (data: TUpdateGalleryData) => {
+    setError('');
     try {
       const { image, images } = data;
       const formData = new FormData();
@@ -47,12 +48,10 @@ const UpdateProductGallery: FC<TUpdateProductGallery> = (props) => {
   }, [isSuccess]);
 
   return (
-    <>
-      <UpdateProductGalleryForm
-        updateGallery={handleGalleryUpdate}
-        apiError={error}
-      />
-    </>
+    <UpdateProductGalleryForm
+      updateGallery={handleGalleryUpdate}
+      apiError={error}
+    />
   );
 };
 

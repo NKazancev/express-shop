@@ -1,7 +1,11 @@
 import { CSSProperties, FC } from 'react';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
-import { MAX_UPLOADED_IMAGES } from '@config/consts';
+import {
+  ALLOWED_MIMETYPES,
+  MAX_FILE_SIZE,
+  MAX_UPLOADED_IMAGES,
+} from '@config/consts';
 
 import useFilePreview from '@shared/hooks/useFilePreview';
 
@@ -37,9 +41,17 @@ const InputFile: FC<TInputFile> = ({
       ? { position: 'static', paddingTop: '14px' }
       : { position: 'absolute', top: '68px', left: '0px' };
 
-  const validateQuantity = (images: FileList) => {
-    if (images.length > MAX_UPLOADED_IMAGES) {
+  const validateFiles = (files: FileList) => {
+    if (files.length > MAX_UPLOADED_IMAGES) {
       return `You can only upload a maximum of ${MAX_UPLOADED_IMAGES} images.`;
+    }
+    for (let file of files) {
+      if (!ALLOWED_MIMETYPES.includes(file.type)) {
+        return `Wrong image format`;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        return 'Image is too large';
+      }
     }
   };
 
@@ -56,7 +68,7 @@ const InputFile: FC<TInputFile> = ({
           id={name}
           multiple={multiple}
           className="visually-hidden"
-          {...register(name, { required, validate: validateQuantity })}
+          {...register(name, { required, validate: validateFiles })}
         />
         {error?.message && (
           <strong className={styles.error}>{error?.message}</strong>

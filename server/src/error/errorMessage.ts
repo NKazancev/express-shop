@@ -8,6 +8,7 @@ enum ErrorMessage {
   COUNTRY_NOT_FOUND = 'Country not found',
   CREDENTIALS = 'Incorrect email or password',
   FILE_TOO_LARGE = 'Uploaded file is too large',
+  FILE_COUNT_LIMIT = 'Exceeded files limit',
   FORBIDDEN = 'Forbidden',
   INTERNAL = 'Internal server error',
   PRODUCT_EXISTS = 'Such product already exists',
@@ -24,6 +25,7 @@ enum ErrorMessage {
   USERNAME_EXISTS = 'Such username already exists',
   UNDELIVERED_ORDERS = 'You have undelivered orders',
   UNAUTHORIZED = 'Unauthorized',
+  WRONG_IMAGE_FORMAT = 'Wrong image format',
 }
 
 export default ErrorMessage;

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { TUpdateGalleryData } from '@shared/models/product';
@@ -14,10 +14,14 @@ type TUpdateProductGalleryForm = {
 const UpdateProductGalleryForm: FC<TUpdateProductGalleryForm> = (props) => {
   const { updateGallery, apiError } = props;
 
-  const { register, watch, formState, handleSubmit } =
+  const { register, watch, reset, formState, handleSubmit } =
     useForm<TUpdateGalleryData>();
   const { isSubmitting, errors } = formState;
   const [image, images] = watch(['image', 'images']);
+
+  useEffect(() => {
+    if (apiError) reset();
+  }, [apiError]);
 
   return (
     <form onSubmit={handleSubmit(updateGallery)} className={styles.form}>

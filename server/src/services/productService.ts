@@ -21,25 +21,13 @@ class ProductService {
     });
     if (foundProduct) {
       if (catalogueImage) {
-        const otherProduct = await prisma.product.findFirst({
-          where: { image: { equals: catalogueImage } },
-        });
-        if (!otherProduct) {
-          const imagepath = join(__dirname, '..', 'static', catalogueImage);
-          if (existsSync(imagepath)) await unlink(imagepath);
-        }
+        const imagepath = join(__dirname, '..', 'static', catalogueImage);
+        if (existsSync(imagepath)) await unlink(imagepath);
       }
       if (galleryImages) {
         for (let image of galleryImages) {
-          const otherProduct = await prisma.product.findFirst({
-            where: {
-              gallery: { images: { has: image } },
-            },
-          });
-          if (!otherProduct) {
-            const imagepath = join(__dirname, '..', 'static', image);
-            if (existsSync(imagepath)) await unlink(imagepath);
-          }
+          const imagepath = join(__dirname, '..', 'static', image);
+          if (existsSync(imagepath)) await unlink(imagepath);
         }
       }
       throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
@@ -170,13 +158,8 @@ class ProductService {
     });
 
     if (product?.image && image) {
-      const otherProduct = await prisma.product.findFirst({
-        where: { image: { equals: product.image }, id: { not: productId } },
-      });
-      if (!otherProduct && image !== product.image) {
-        const imagepath = join(__dirname, '..', 'static', product.image);
-        if (existsSync(imagepath)) await unlink(imagepath);
-      }
+      const imagepath = join(__dirname, '..', 'static', product.image);
+      if (existsSync(imagepath)) await unlink(imagepath);
       await prisma.product.update({
         where: { id: productId },
         data: { image },
@@ -185,16 +168,8 @@ class ProductService {
 
     if (product?.gallery && images) {
       for (let image of product.gallery?.images) {
-        const otherProduct = await prisma.product.findFirst({
-          where: {
-            gallery: { images: { has: image } },
-            id: { not: productId },
-          },
-        });
-        if (!otherProduct && !images.includes(image)) {
-          const imagepath = join(__dirname, '..', 'static', image);
-          if (existsSync(imagepath)) await unlink(imagepath);
-        }
+        const imagepath = join(__dirname, '..', 'static', image);
+        if (existsSync(imagepath)) await unlink(imagepath);
       }
       await prisma.productGallery.update({
         where: { productId },
@@ -222,32 +197,17 @@ class ProductService {
         },
       },
     });
-
     if (undeliveredOrder) {
       throw new ApiError(409, ErrorMessage.PRODUCT_ORDER);
     } else {
-      if (product) {
-        const otherProduct = await prisma.product.findFirst({
-          where: { image: { equals: product.image }, id: { not: productId } },
-        });
-        if (!otherProduct) {
-          const imagepath = join(__dirname, '..', 'static', product.image);
-          if (existsSync(imagepath)) await unlink(imagepath);
-        }
+      if (product?.image) {
+        const imagepath = join(__dirname, '..', 'static', product.image);
+        if (existsSync(imagepath)) await unlink(imagepath);
       }
-
       if (product?.gallery) {
         for (let image of product.gallery.images) {
-          const otherProduct = await prisma.product.findFirst({
-            where: {
-              gallery: { images: { has: image } },
-              id: { not: productId },
-            },
-          });
-          if (!otherProduct) {
-            const imagepath = join(__dirname, '..', 'static', image);
-            if (existsSync(imagepath)) await unlink(imagepath);
-          }
+          const imagepath = join(__dirname, '..', 'static', image);
+          if (existsSync(imagepath)) await unlink(imagepath);
         }
       }
       await prisma.product.delete({ where: { id: productId } });
