@@ -11,15 +11,15 @@
   justify-content: flex-start;
   align-items: center;
 
+  cursor: auto;
   overflow: hidden;
   position: relative;
   z-index: 10;
 }
 
-.typesButton::after {
-  content: url(@shared/assets/arrow.svg);
+.icon {
   position: absolute;
-  top: 9px;
+  top: 17px;
   right: 13px;
 }
 

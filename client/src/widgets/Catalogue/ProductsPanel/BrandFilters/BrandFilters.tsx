@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import { useLazyGetBrandsQuery } from '@shared/api/brandApi';
 import { IBrandCheckbox, IProductBrand } from '@shared/models/typesbrands';
-import { useAppDispatch } from '@shared/hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '@shared/hooks/reduxHooks';
 import { setBrandFilters } from '@shared/slices/filtersSlice';
 
 import Dropdown from '@shared/ui/Dropdown/Dropdown';
 import CheckboxesList from './CheckboxesList/CheckboxesList';
 
+import arrowIcon from '@shared/assets/arrow.svg';
+import xbutton from '@shared/assets/x-button.svg';
 import styles from './BrandFilters.module.css';
 
 const BrandFilters = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const { pathname } = useLocation();
+  const { brandFilters } = useAppSelector((state) => state.filters);
 
   const [trigger] = useLazyGetBrandsQuery<IProductBrand[]>();
 
@@ -49,7 +53,21 @@ const BrandFilters = () => {
     dispatch(setBrandFilters(brands));
     localStorage.setItem('brands', brands);
     localStorage.setItem('checkboxes', JSON.stringify(checkboxes));
-    setDropdownVisible(false);
+    closeDropdown();
+    navigate(`${pathname.replace(/\d+/, '1')}`);
+
+    if (checkboxes.every((el) => !el.checked)) {
+      localStorage.removeItem('brands');
+      localStorage.removeItem('checkboxes');
+    }
+  };
+
+  const resetBrands = (e: MouseEvent) => {
+    e.stopPropagation();
+    dispatch(setBrandFilters(''));
+    setCheckboxes([]);
+    localStorage.removeItem('brands');
+    localStorage.removeItem('checkboxes');
     navigate(`${pathname.replace(/\d+/, '1')}`);
   };
 
@@ -60,7 +78,25 @@ const BrandFilters = () => {
         onClick={toggleDropdown}
         className={styles.brandsButton}
       >
-        Brands
+        <span>Brands</span>
+
+        {brandFilters ? (
+          <img
+            src={xbutton}
+            alt="resetButton"
+            onClick={resetBrands}
+            width={9}
+            className={styles.icon}
+            style={{ top: '15px', cursor: 'pointer' }}
+          />
+        ) : (
+          <img
+            src={arrowIcon}
+            alt="arrowIcon"
+            className={styles.icon}
+            style={{ top: '17px', cursor: 'auto' }}
+          />
+        )}
       </button>
 
       <Dropdown isVisible={dropdownVisible} onClose={closeDropdown}>
