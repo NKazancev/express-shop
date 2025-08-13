@@ -1,11 +1,8 @@
-import { join } from 'path';
-import { existsSync } from 'fs';
-import { unlink } from 'fs/promises';
-
 import { OrderStatus, Product } from '@prisma/client';
 import prisma from '../config/prismaClient';
 import ApiError from '../error/ApiError';
 import ErrorMessage from '../error/errorMessage';
+import FileService from './fileService';
 
 class ProductService {
   static async createProduct(
@@ -20,14 +17,10 @@ class ProductService {
       },
     });
     if (foundProduct) {
-      if (catalogueImage) {
-        const imagepath = join(__dirname, '..', 'static', catalogueImage);
-        if (existsSync(imagepath)) await unlink(imagepath);
-      }
+      if (catalogueImage) await FileService.removeFile(catalogueImage);
       if (galleryImages) {
         for (let image of galleryImages) {
-          const imagepath = join(__dirname, '..', 'static', image);
-          if (existsSync(imagepath)) await unlink(imagepath);
+          await FileService.removeFile(image);
         }
       }
       throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
@@ -72,6 +65,7 @@ class ProductService {
     } else {
       const [products, productsQuantity] = await prisma.$transaction([
         prisma.product.findMany({
+          orderBy: [{ typeId: 'asc' }, { id: 'asc' }],
           where: {
             typeId: productType || undefined,
             brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
@@ -121,11 +115,11 @@ class ProductService {
         where: { id: productId },
       });
       const foundProduct = await prisma.product.findFirst({
-        where: { name: data.name },
+        where: { name: { equals: data.name, mode: 'insensitive' } },
       });
       if (
-        sourceProduct?.name !== data?.name &&
-        data.name === foundProduct?.name
+        sourceProduct?.name.toLowerCase() !== data?.name.toLowerCase() &&
+        data.name.toLowerCase() === foundProduct?.name.toLowerCase()
       ) {
         throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
       }
@@ -158,8 +152,7 @@ class ProductService {
     });
 
     if (product?.image && image) {
-      const imagepath = join(__dirname, '..', 'static', product.image);
-      if (existsSync(imagepath)) await unlink(imagepath);
+      await FileService.removeFile(product.image);
       await prisma.product.update({
         where: { id: productId },
         data: { image },
@@ -168,8 +161,7 @@ class ProductService {
 
     if (product?.gallery && images) {
       for (let image of product.gallery?.images) {
-        const imagepath = join(__dirname, '..', 'static', image);
-        if (existsSync(imagepath)) await unlink(imagepath);
+        await FileService.removeFile(image);
       }
       await prisma.productGallery.update({
         where: { productId },
@@ -200,14 +192,10 @@ class ProductService {
     if (undeliveredOrder) {
       throw new ApiError(409, ErrorMessage.PRODUCT_ORDER);
     } else {
-      if (product?.image) {
-        const imagepath = join(__dirname, '..', 'static', product.image);
-        if (existsSync(imagepath)) await unlink(imagepath);
-      }
+      if (product?.image) await FileService.removeFile(product.image);
       if (product?.gallery) {
         for (let image of product.gallery.images) {
-          const imagepath = join(__dirname, '..', 'static', image);
-          if (existsSync(imagepath)) await unlink(imagepath);
+          await FileService.removeFile(image);
         }
       }
       await prisma.product.delete({ where: { id: productId } });
