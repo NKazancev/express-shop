@@ -4,10 +4,10 @@ import { ADMIN_PRODUCTS_PER_PAGE } from '@config/consts';
 import UserRole from '@config/userRoles';
 
 import useProducts from '@shared/hooks/useProducts';
+import Pagination from '@shared/ui/Pagination/Pagination';
 
 import AdminProductsList from '@widgets/Admin/AdminProducts/AdminProductsList/AdminProductsList';
 import SearchBar from '@widgets/Catalogue/ProductsPanel/SearchBar/SearchBar';
-import Pagination from '@widgets/Pagination/Pagination';
 
 import styles from './HandleProductsPage.module.css';
 

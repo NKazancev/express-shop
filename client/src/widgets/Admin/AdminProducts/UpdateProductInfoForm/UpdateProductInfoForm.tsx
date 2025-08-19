@@ -21,7 +21,7 @@ const UpdateProductForm: FC<TUpdateProductInfoForm> = (props) => {
     defaultValues: { ...productData, text: productData?.info.text },
     resetOptions: { keepDirtyValues: true, keepErrors: true },
   });
-  const { errors } = formState;
+  const { errors, isSubmitting } = formState;
 
   return (
     <form onSubmit={handleSubmit(onProductUpdate)} className={styles.form}>
@@ -59,7 +59,7 @@ const UpdateProductForm: FC<TUpdateProductInfoForm> = (props) => {
         />
       </div>
 
-      <button type="submit" className={styles.button}>
+      <button type="submit" disabled={isSubmitting} className={styles.button}>
         Update product
       </button>
     </form>

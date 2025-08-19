@@ -1,10 +1,11 @@
 import { useParams } from 'react-router';
 
 import { REVIEWS_PER_PAGE } from '@config/consts';
+
 import { useGetAllUserReviewsQuery } from '@shared/api/reviewApi';
+import Pagination from '@shared/ui/Pagination/Pagination';
 
 import UserReviewsList from '@widgets/User/UserReviews/UserReviewsList/UserReviewsList';
-import Pagination from '@widgets/Pagination/Pagination';
 
 import styles from './UserReviewPage.module.css';
 

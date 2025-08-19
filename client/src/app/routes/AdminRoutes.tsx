@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router';
 
-import CheckRole from '@processes/CheckRole';
 import UserRole from '@config/userRoles';
+import CheckRole from '@processes/CheckRole';
+import RedirectRoute from '@processes/RedirectRoute';
 
 import AdminLayout from '../layouts/AdminLayout';
 
@@ -29,6 +30,8 @@ const AdminRoutes = () => {
         <Route path="orders/page/:page" element={<HandleOrdersPage />} />
         <Route path="typesbrands" element={<HandleTypesBrandsPage />} />
         <Route path="countriescities" element={<HandleCountriesCitiesPage />} />
+
+        <Route path="*" element={<RedirectRoute redirect="admin" />} />
       </Route>
     </Routes>
   );

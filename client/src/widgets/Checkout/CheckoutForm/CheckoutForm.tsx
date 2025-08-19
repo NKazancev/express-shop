@@ -1,10 +1,8 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form';
 
 import { ICreateOrderData } from '@shared/models/order';
-import { useGetCountriesQuery } from '@shared/api/countryApi';
-import useCitiesOptions from '@shared/hooks/useCitiesOptions';
-
+import { ICity, ICountry } from '@shared/models/country';
 import Input from '@shared/ui/Input/Input';
 import Select from '@shared/ui/Select/Select';
 
@@ -12,20 +10,26 @@ import styles from './CheckoutForm.module.css';
 
 type TCheckoutForm = {
   control: Control<ICreateOrderData>;
-  defaultCountryId?: string;
-  setValue: UseFormSetValue<ICreateOrderData>;
+  countriesOptions?: ICountry[];
+  citiesOptions?: ICity[];
+  countryId?: string;
+  setCountryId: Dispatch<SetStateAction<string>>;
+  setCityValue: UseFormSetValue<ICreateOrderData>;
   errors: FieldErrors<ICreateOrderData>;
   apiError?: string;
 };
 
 const CheckoutForm: FC<TCheckoutForm> = (props) => {
-  const { control, defaultCountryId, errors, setValue, apiError } = props;
-
-  const { data: countriesOptions } = useGetCountriesQuery();
-  const [countryId, setCountryId] = useState<string | undefined>(
-    defaultCountryId
-  );
-  const citiesOptions = useCitiesOptions(countryId);
+  const {
+    control,
+    countriesOptions,
+    citiesOptions,
+    countryId,
+    setCountryId,
+    setCityValue,
+    errors,
+    apiError,
+  } = props;
 
   return (
     <form className={styles.form}>
@@ -46,7 +50,7 @@ const CheckoutForm: FC<TCheckoutForm> = (props) => {
           control={control}
           error={errors.country}
           onChange={(id: string) => {
-            setValue('city', '');
+            setCityValue('city', '');
             setCountryId(id);
           }}
         />

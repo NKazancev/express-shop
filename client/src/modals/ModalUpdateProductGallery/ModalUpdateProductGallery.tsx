@@ -9,12 +9,12 @@ import usePortal from '@shared/hooks/usePortal';
 import xbutton from '@shared/assets/x-button.svg';
 import styles from './ModalUpdateProductGallery.module.css';
 
-type TModalGallery = {
+type TModalUpdateProductGallery = {
   onClose: () => void;
   productId: string;
 };
 
-const ModalUpdateProductGallery: FC<TModalGallery> = (props) => {
+const ModalUpdateProductGallery: FC<TModalUpdateProductGallery> = (props) => {
   const { onClose, productId } = props;
 
   const [isSuccess, setIsSuccess] = useState<boolean>(false);

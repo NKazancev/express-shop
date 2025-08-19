@@ -3,12 +3,12 @@ import { UseFormHandleSubmit } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 
+import baseApi from '@config/baseApi';
 import { isErrorWithMessage, isFetchBaseQueryError } from '@config/error';
 
 import { ICreateOrderData } from '@shared/models/order';
 import { useCreateOrderMutation } from '@shared/api/orderApi';
 import { useAppDispatch } from '@shared/hooks/reduxHooks';
-import baseApi from '@config/baseApi';
 
 type TCreateOrder = {
   handleSubmit: UseFormHandleSubmit<ICreateOrderData>;

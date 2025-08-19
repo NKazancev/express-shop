@@ -1,9 +1,10 @@
 import { useParams } from 'react-router';
 
 import { ADMIN_ORDERS_PER_PAGE } from '@config/consts';
-import { useGetAllOrdersQuery } from '@shared/api/orderApi';
 
-import Pagination from '@widgets/Pagination/Pagination';
+import { useGetAllOrdersQuery } from '@shared/api/orderApi';
+import Pagination from '@shared/ui/Pagination/Pagination';
+
 import AdminOrdersList from '@widgets/Admin/AdminOrders/AdminOrdersList/AdminOrdersList';
 
 import styles from './HandleOrdersPage.module.css';

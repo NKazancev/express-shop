@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router';
 
-import CheckRole from '@processes/CheckRole';
 import UserRole from '@config/userRoles';
+import CheckRole from '@processes/CheckRole';
+import RedirectRoute from '@processes/RedirectRoute';
 
 import CartLayout from '../layouts/CartLayout';
 
@@ -21,6 +22,8 @@ const CartRoutes = () => {
       >
         <Route index element={<CartPage />} />
         <Route path="checkout" element={<CheckoutPage />} />
+
+        <Route path="*" element={<RedirectRoute redirect="cart" />} />
       </Route>
     </Routes>
   );

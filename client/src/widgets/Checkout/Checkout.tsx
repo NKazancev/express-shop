@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { ICartProduct } from '@shared/models/cart';
 import { TUserInfo } from '@shared/models/user';
 import { ICreateOrderData } from '@shared/models/order';
+import { useGetCountriesQuery } from '@shared/api/countryApi';
+import useCitiesOptions from '@shared/hooks/useCitiesOptions';
 
 import CheckoutForm from './CheckoutForm/CheckoutForm';
 import CheckoutTotal from './CheckoutTotal/CheckoutTotal';
@@ -16,6 +18,10 @@ type TCheckout = {
 };
 
 const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
+  const [countryId, setCountryId] = useState<string>(user.address?.countryId);
+  const { data: countriesOptions } = useGetCountriesQuery();
+  const citiesOptions = useCitiesOptions(countryId);
+
   const defaultFormValues = {
     email: user.email,
     country: user.address?.countryId,
@@ -23,6 +29,7 @@ const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
     postcode: user.address?.postcode,
     street: user.address?.street,
   };
+
   const { control, handleSubmit, reset, setValue, formState } =
     useForm<ICreateOrderData>({
       defaultValues: defaultFormValues,
@@ -42,22 +49,16 @@ const Checkout: FC<TCheckout> = ({ cartProducts, user }) => {
         <h3 className={styles.title}>Delivery information</h3>
         <p className={styles.notification}>All fields are mandatory</p>
 
-        {!user.address ? (
-          <CheckoutForm
-            control={control}
-            setValue={setValue}
-            errors={errors}
-            apiError={error}
-          />
-        ) : (
-          <CheckoutForm
-            control={control}
-            defaultCountryId={user?.address?.countryId}
-            setValue={setValue}
-            errors={errors}
-            apiError={error}
-          />
-        )}
+        <CheckoutForm
+          control={control}
+          countriesOptions={countriesOptions}
+          citiesOptions={citiesOptions}
+          countryId={countryId}
+          setCountryId={setCountryId}
+          setCityValue={setValue}
+          errors={errors}
+          apiError={error}
+        />
       </div>
 
       <div className={styles.total}>

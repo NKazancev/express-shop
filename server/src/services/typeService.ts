@@ -12,7 +12,9 @@ class TypeService {
   }
 
   static async getAllTypes() {
-    const types = await prisma.productType.findMany();
+    const types = await prisma.productType.findMany({
+      orderBy: { name: 'asc' },
+    });
     return types;
   }
 

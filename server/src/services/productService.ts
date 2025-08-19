@@ -118,8 +118,8 @@ class ProductService {
         where: { name: { equals: data.name, mode: 'insensitive' } },
       });
       if (
-        sourceProduct?.name.toLowerCase() !== data?.name.toLowerCase() &&
-        data.name.toLowerCase() === foundProduct?.name.toLowerCase()
+        sourceProduct?.name?.toLowerCase() !== data.name?.toLowerCase() &&
+        data.name?.toLowerCase() === foundProduct?.name.toLowerCase()
       ) {
         throw new ApiError(409, ErrorMessage.PRODUCT_EXISTS);
       }

@@ -1,10 +1,11 @@
 import { useParams } from 'react-router';
 
 import { USER_ORDERS_PER_PAGE } from '@config/consts';
+
 import { useGetAllUserOrdersQuery } from '@shared/api/orderApi';
+import Pagination from '@shared/ui/Pagination/Pagination';
 
 import UserOrdersList from '@widgets/User/UserOrders/UserOrdersList/UserOrdersList';
-import Pagination from '@widgets/Pagination/Pagination';
 
 import styles from './UserOrdersPage.module.css';
 

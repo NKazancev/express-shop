@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router';
 
-import CheckRole from '@processes/CheckRole';
 import UserRole from '@config/userRoles';
+import CheckRole from '@processes/CheckRole';
+import RedirectRoute from '@processes/RedirectRoute';
 
 import UserLayout from '../layouts/UserLayout';
 
@@ -25,6 +26,8 @@ const UserRoutes = () => {
         <Route path="orders/page/:page" element={<UserOrdersPage />} />
         <Route path="reviews" element={<UserReviewsPage />} />
         <Route path="reviews/page/:page" element={<UserReviewsPage />} />
+
+        <Route path="*" element={<RedirectRoute redirect="user" />} />
       </Route>
     </Routes>
   );

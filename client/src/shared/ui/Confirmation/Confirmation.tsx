@@ -34,7 +34,6 @@ const Confirmation: FC<TConfirmation> = (props) => {
   );
 
   const modal = usePortal(PORTAL_CONTAINER_ID, content);
-
   return modal;
 };
 

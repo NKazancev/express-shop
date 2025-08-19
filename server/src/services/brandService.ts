@@ -12,7 +12,9 @@ class BrandService {
   }
 
   static async getAllBrands() {
-    const brands = await prisma.productBrand.findMany();
+    const brands = await prisma.productBrand.findMany({
+      orderBy: { name: 'asc' },
+    });
     return brands;
   }
 

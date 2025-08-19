@@ -4,10 +4,10 @@ import { CATALOGUE_PRODUCTS_PER_PAGE } from '@config/consts';
 import UserRole from '@config/userRoles';
 
 import useProducts from '@shared/hooks/useProducts';
+import Pagination from '@shared/ui/Pagination/Pagination';
 
 import ProductsPanel from '@widgets/Catalogue/ProductsPanel/ProductsPanel';
 import ProductsList from '@widgets/Catalogue/ProductsList/ProductsList';
-import Pagination from '@widgets/Pagination/Pagination';
 
 import styles from './HomePage.module.css';
 

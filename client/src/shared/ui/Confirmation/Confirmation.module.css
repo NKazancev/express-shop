@@ -1,7 +1,7 @@
 .container {
   width: fit-content;
   margin: 20vh auto;
-  padding: 36px 42px 34px 42px;
+  padding: 36px 42px 32px 42px;
 
   background-color: var(--white);
   border-radius: 5px;
@@ -21,7 +21,7 @@
 .buttons {
   display: flex;
   justify-content: center;
-  column-gap: 15px;
+  column-gap: 20px;
 }
 
 .buttonAgree,
