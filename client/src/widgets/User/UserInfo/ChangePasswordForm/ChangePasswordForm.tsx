@@ -25,6 +25,11 @@ const ChangePasswordForm: FC<TChangePasswordForm> = (props) => {
       required: 'New password is required',
       minLength: { value: 5, message: 'Password is too short' },
       maxLength: { value: 40, message: 'Password is too long' },
+      validate: (value) => {
+        if (value.includes(' ')) {
+          return "Password shouldn't contain spaces";
+        }
+      },
     },
     confirmPassword: {
       required: 'Password confirmation is required',

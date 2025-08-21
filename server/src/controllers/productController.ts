@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 
 import ProductService from '../services/productService';
-import { CreateProductSchema } from '../schema/productSchema';
+import {
+  CreateProductSchema,
+  UpdateProductSchema,
+} from '../schema/productSchema';
 import ResMessage from '../config/resMessage';
 
 class ProductController {
@@ -51,6 +54,7 @@ class ProductController {
   }
 
   static async updateProductInfo(req: Request, res: Response) {
+    UpdateProductSchema.parse(req.body);
     const { text, stock } = req.body;
     await ProductService.updateProductInfo(
       req.params.id,

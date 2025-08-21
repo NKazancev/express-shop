@@ -22,10 +22,13 @@ const Textarea: FC<TTextarea> = ({
   name,
   label,
   control,
-  rules = { required: `${label} is required` },
   error,
   defaultValue = '',
   minHeight,
+  rules = {
+    required: `${label} is required`,
+    pattern: { value: /\S+$/, message: 'Wrong value' },
+  },
 }) => {
   return (
     <p className={styles.container}>
@@ -42,6 +45,7 @@ const Textarea: FC<TTextarea> = ({
               <textarea
                 {...field}
                 id={name}
+                value={field.value.replace(/ {2,}/, ' ')}
                 style={{
                   minHeight,
                   borderColor: error ? '#ff7474' : '#8b8b8b',

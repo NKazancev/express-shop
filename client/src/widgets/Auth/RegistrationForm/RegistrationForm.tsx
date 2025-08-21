@@ -32,6 +32,11 @@ const RegistrationForm: FC<TRegistrationForm> = (props) => {
       required: 'Password is required',
       minLength: { value: 5, message: 'Password is too short' },
       maxLength: { value: 40, message: 'Password is too long' },
+      validate: (value) => {
+        if (value.includes(' ')) {
+          return "Password shouldn't contain spaces";
+        }
+      },
     },
     confirmPassword: {
       required: 'Password confirmation is required',

@@ -25,11 +25,14 @@ const Input: FC<TInput> = ({
   name,
   label,
   control,
-  rules = { required: `${label} is required` },
   error,
   defaultValue = '',
   containerStyle,
   disabled = false,
+  rules = {
+    required: `${label} is required`,
+    pattern: { value: /\S+/, message: 'Wrong value' },
+  },
 }) => {
   return (
     <p style={containerStyle} className={styles.container}>
@@ -50,6 +53,7 @@ const Input: FC<TInput> = ({
                 min={0}
                 autoComplete="off"
                 disabled={disabled}
+                value={field.value.replace(/ {2,}/, ' ')}
                 className={styles.input}
                 style={{ borderColor: error ? '#ff7474' : '#8b8b8b' }}
               />

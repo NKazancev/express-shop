@@ -9,6 +9,14 @@ const CreateProductSchema = z.object({
   text: z.string(),
 });
 
+const UpdateProductSchema = z.object({
+  name: z.string().optional(),
+  price: z.number().optional(),
+  description: z.string().optional(),
+  text: z.string().optional(),
+  stock: z.number().optional(),
+});
+
 const ProductTypeSchema = z.object({
   name: z.string(),
 });
@@ -26,6 +34,7 @@ const ProductReviewSchema = z.object({
 
 export {
   CreateProductSchema,
+  UpdateProductSchema,
   ProductTypeSchema,
   ProductBrandSchema,
   ProductReviewSchema,

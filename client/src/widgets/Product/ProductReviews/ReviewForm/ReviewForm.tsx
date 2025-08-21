@@ -24,6 +24,7 @@ const ReviewForm: FC<TReviewForm> = ({ onReviewCreation, apiError }) => {
     title: {
       required: 'Title is required',
       minLength: { value: 5, message: 'Title is too short' },
+      pattern: { value: /\S+/, message: 'Wrong value' },
     },
     text: {
       required: 'Text is required',
@@ -31,6 +32,7 @@ const ReviewForm: FC<TReviewForm> = ({ onReviewCreation, apiError }) => {
         value: 100,
         message: 'Review text should be at least 100 symbols',
       },
+      pattern: { value: /\S+/, message: 'Wrong value' },
     },
   };
 
