@@ -20,6 +20,10 @@
   cursor: pointer;
 }
 
+.preview img {
+  max-height: 150px;
+}
+
 .previews {
   max-height: 450px;
   overflow: hidden;

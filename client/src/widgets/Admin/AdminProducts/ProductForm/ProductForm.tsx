@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { RegisterOptions, useForm } from 'react-hook-form';
 
-import { MAX_PRICE } from '@config/consts';
+import { MAX_PRICE, MIN_PRICE } from '@config/consts';
 
 import { TCreateProductData } from '@shared/models/product';
 import { IProductBrand, IProductType } from '@shared/models/typesbrands';
@@ -43,6 +43,9 @@ const ProductForm: FC<TProductForm> = (props) => {
       validate: (price) => {
         if (price > MAX_PRICE) {
           return 'Price is too high';
+        }
+        if (price < MIN_PRICE) {
+          return 'Price is too low';
         }
       },
     },

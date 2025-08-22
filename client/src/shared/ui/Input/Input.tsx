@@ -53,7 +53,7 @@ const Input: FC<TInput> = ({
                 min={0}
                 autoComplete="off"
                 disabled={disabled}
-                value={field.value.replace(/ {2,}/, ' ')}
+                value={String(field.value).replace(/ {2,}/, ' ')}
                 className={styles.input}
                 style={{ borderColor: error ? '#ff7474' : '#8b8b8b' }}
               />

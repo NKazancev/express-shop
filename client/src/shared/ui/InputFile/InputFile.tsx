@@ -76,7 +76,7 @@ const InputFile: FC<TInputFile> = ({
       </label>
 
       {!multiple && dataUrl.length === 1 && (
-        <div style={previewStyle}>
+        <div style={previewStyle} className={styles.preview}>
           <img src={dataUrl[0]} alt="preview-image" width={130} />
         </div>
       )}

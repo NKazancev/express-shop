@@ -11,7 +11,9 @@ const storage = multer.diskStorage({
   },
   filename: (_, file, cb) => {
     const filename = file.originalname.split('.');
-    const uploadedName = `${filename[0]}-${Date.now()}.${filename[1]}`;
+    const uploadedName = `${filename[0]}-${Date.now()}${Math.random()
+      .toString()
+      .slice(2, 6)}.${filename[1]}`;
     cb(null, uploadedName);
   },
 });

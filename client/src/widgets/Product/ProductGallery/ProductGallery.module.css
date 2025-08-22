@@ -19,3 +19,7 @@
 .mainImage {
   cursor: pointer;
 }
+
+.mainImage img {
+  max-height: 380px;
+}

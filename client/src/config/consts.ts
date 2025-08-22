@@ -15,7 +15,7 @@ const USER_ORDERS_PER_PAGE = 3;
 const REVIEWS_PER_PAGE = 3;
 
 const MAX_UPLOADED_IMAGES = 12;
-const ALLOWED_MIMETYPES = ['image/jpeg'];
+const ALLOWED_MIMETYPES = ['image/jpeg', 'image/png'];
 const MAX_FILE_SIZE = 1024 * 1024;
 
 export {

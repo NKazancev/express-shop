@@ -6,7 +6,7 @@ const authSession = Cookies.get('authSession') as UserRole | undefined;
 
 interface IUserState {
   token: string | null;
-  role: UserRole | undefined;
+  role: UserRole | undefined | null;
   isLogged: boolean;
 }
 
@@ -26,7 +26,7 @@ const userSlice = createSlice({
       state.isLogged = true;
     },
     logout: () => {
-      return { ...initialState, isLogged: false };
+      return { ...initialState, role: null, isLogged: false };
     },
   },
 });

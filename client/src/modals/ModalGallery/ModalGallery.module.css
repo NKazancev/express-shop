@@ -15,6 +15,10 @@
   padding: 20px;
 }
 
+.visibleImage img {
+  max-height: 600px;
+}
+
 .button {
   width: 80px;
   height: 100%;

@@ -34,12 +34,10 @@ const ChangePassword: FC<TChangePassword> = ({ setIsSuccess }) => {
   }, [isSuccess]);
 
   return (
-    <>
-      <ChangePasswordForm
-        onPasswordChange={handlePasswordChange}
-        apiError={error}
-      />
-    </>
+    <ChangePasswordForm
+      onPasswordChange={handlePasswordChange}
+      apiError={error}
+    />
   );
 };
 

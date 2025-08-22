@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { useForm } from 'react-hook-form';
+import { RegisterOptions, useForm } from 'react-hook-form';
+
+import { MAX_PRICE, MIN_PRICE } from '@config/consts';
 
 import { TProductData, TUpdateProductData } from '@shared/models/product';
-
 import Input from '@shared/ui/Input/Input';
 import Textarea from '@shared/ui/Textarea/Textarea';
 
@@ -22,6 +23,20 @@ const UpdateProductForm: FC<TUpdateProductInfoForm> = (props) => {
     resetOptions: { keepDirtyValues: true, keepErrors: true },
   });
   const { errors, isSubmitting } = formState;
+
+  const rules: { [key: string]: RegisterOptions } = {
+    price: {
+      required: 'Price is required',
+      validate: (price) => {
+        if (price > MAX_PRICE) {
+          return 'Price is too high';
+        }
+        if (price < MIN_PRICE) {
+          return 'Price is too low';
+        }
+      },
+    },
+  };
 
   return (
     <form onSubmit={handleSubmit(onProductUpdate)} className={styles.form}>
@@ -48,6 +63,7 @@ const UpdateProductForm: FC<TUpdateProductInfoForm> = (props) => {
           name="price"
           label="Price"
           control={control}
+          rules={rules.price}
           error={errors.price}
         />
         <Input

@@ -23,6 +23,10 @@
   align-items: flex-end;
 }
 
+.image img {
+  max-height: 130px;
+}
+
 .name {
   margin-bottom: 2px;
 
