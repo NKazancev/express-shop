@@ -45,46 +45,29 @@ class ProductService {
     skip: number,
     take: number
   ) {
-    if (searchQuery) {
-      const [products, productsQuantity] = await prisma.$transaction([
-        prisma.product.findMany({
-          where: {
-            name: { contains: searchQuery, mode: 'insensitive' },
-          },
-          omit: { brandId: true, typeId: true },
-          skip,
-          take,
-        }),
-        prisma.product.count({
-          where: {
-            name: { contains: searchQuery, mode: 'insensitive' },
-          },
-        }),
-      ]);
-      return { products, quantity: productsQuantity };
-    } else {
-      const [products, productsQuantity] = await prisma.$transaction([
-        prisma.product.findMany({
-          orderBy: [{ typeId: 'asc' }, { id: 'asc' }],
-          where: {
-            typeId: productType || undefined,
-            brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
-            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-          },
-          omit: { brandId: true, typeId: true },
-          skip,
-          take,
-        }),
-        prisma.product.count({
-          where: {
-            typeId: productType || undefined,
-            brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
-            AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
-          },
-        }),
-      ]);
-      return { products, quantity: productsQuantity };
-    }
+    const [products, productsQuantity] = await prisma.$transaction([
+      prisma.product.findMany({
+        orderBy: [{ typeId: 'asc' }, { id: 'asc' }],
+        where: {
+          name: { contains: searchQuery, mode: 'insensitive' },
+          typeId: productType || undefined,
+          brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+        },
+        omit: { brandId: true, typeId: true },
+        skip,
+        take,
+      }),
+      prisma.product.count({
+        where: {
+          name: { contains: searchQuery, mode: 'insensitive' },
+          typeId: productType || undefined,
+          brandId: brandFilters ? { in: brandFilters.split(',') } : undefined,
+          AND: [{ price: { gte: minPrice } }, { price: { lte: maxPrice } }],
+        },
+      }),
+    ]);
+    return { products, quantity: productsQuantity };
   }
 
   static async getProductById(id: string) {
