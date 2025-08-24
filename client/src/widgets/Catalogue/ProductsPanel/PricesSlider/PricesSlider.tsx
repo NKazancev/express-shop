@@ -12,7 +12,7 @@ import PricesInputs from './PricesInputs/PricesInputs';
 
 import arrowIcon from '@shared/assets/arrow.svg';
 import xbutton from '@shared/assets/x-button.svg';
-import styles from './PricesSLider.module.css';
+import styles from './PricesSlider.module.css';
 
 const PricesSlider = () => {
   const dispatch = useAppDispatch();
